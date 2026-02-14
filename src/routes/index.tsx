@@ -1,0 +1,131 @@
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from '../core/auth/AuthContext';
+import { UserRole } from '../shared/types/types';
+import Layout from '../core/layout/Layout';
+
+// Features
+import Dashboard from '../features/dashboard/Dashboard';
+import CellRegistration from '../features/cells/CellRegistration';
+import CellList from '../features/cells/CellList';
+import ReportForm from '../features/reports/ReportForm';
+import ReportsList from '../features/reports/ReportsList';
+import Ranking from '../features/reports/Ranking';
+import MyCell from '../features/cells/MyCell';
+import RiskMonitoring from '../features/consolidation/RiskMonitoring';
+import MembersList from '../features/members/MembersList';
+import ManageLeaders from '../features/cells/ManageLeaders';
+import ConsolidationDashboard from '../features/consolidation/ConsolidationDashboard';
+import CultReports from '../features/reports/CultReports';
+import ConsolidationKanban from '../features/consolidation/ConsolidationKanban';
+import VisitorForm from '../features/consolidation/VisitorForm';
+import VisitorsList from '../features/consolidation/VisitorsList';
+import GlobalMembers from '../features/members/GlobalMembers';
+import Generations from '../features/generations/Generations';
+import Pricing from '../features/settings/Pricing';
+import UserRegistration from '../features/settings/UserRegistration';
+import PaymentSuccess from '../features/settings/PaymentSuccess';
+import BulkImport from '../features/import/pages/BulkImport';
+
+// Auth Feature
+import Login from '../features/auth/Login';
+import Register from '../features/auth/Register';
+import ForgotPassword from '../features/auth/ForgotPassword';
+import ResetPassword from '../features/auth/ResetPassword';
+
+// Landing
+import Landing from '../features/landing/Landing';
+
+const ProtectedRoute: React.FC<{ children: React.ReactNode; roles?: UserRole[] }> = ({ children, roles }) => {
+    const { isAuthenticated, user, isLoading } = useAuth();
+
+    if (isLoading) {
+        return <div className="flex h-screen items-center justify-center bg-slate-50"><p className="text-slate-500">Carregando...</p></div>;
+    }
+
+    if (!isAuthenticated) {
+        return <Navigate to="/login" />;
+    }
+
+    if (roles && user) {
+        const hasRole = roles.some(role => user.roles.includes(role));
+        if (!hasRole) {
+            return <Navigate to="/dashboard" />;
+        }
+    }
+
+    return <Layout>{children}</Layout>;
+};
+
+const AppRoutes: React.FC = () => {
+    return (
+        <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+
+            {/* General Routes */}
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+
+            {/* Leader Routes */}
+            <Route path="/my-cell" element={<ProtectedRoute roles={[UserRole.LEADER]}><MyCell /></ProtectedRoute>} />
+            <Route path="/members" element={<ProtectedRoute roles={[UserRole.LEADER]}><MembersList /></ProtectedRoute>} />
+            <Route path="/report/:cellId" element={<ProtectedRoute roles={[UserRole.LEADER, UserRole.ADMIN]}><ReportForm /></ProtectedRoute>} />
+
+            {/* Admin Routes */}
+            <Route path="/cells" element={<ProtectedRoute roles={[UserRole.ADMIN]}><CellList /></ProtectedRoute>} />
+            <Route path="/register-cell" element={<ProtectedRoute roles={[UserRole.ADMIN]}><CellRegistration /></ProtectedRoute>} />
+            <Route path="/edit-cell/:cellId" element={<ProtectedRoute roles={[UserRole.ADMIN]}><CellRegistration /></ProtectedRoute>} />
+            <Route path="/reports" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.LEADER]}><ReportsList /></ProtectedRoute>} />
+            <Route path="/edit-report/:reportId" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.LEADER]}><ReportForm /></ProtectedRoute>} />
+            <Route path="/leaders" element={<ProtectedRoute roles={[UserRole.ADMIN]}><ManageLeaders /></ProtectedRoute>} />
+            <Route path="/generations" element={<ProtectedRoute roles={[UserRole.ADMIN]}><Generations /></ProtectedRoute>} />
+            <Route path="/risk-monitoring" element={<ProtectedRoute roles={[UserRole.ADMIN]}><RiskMonitoring /></ProtectedRoute>} />
+            <Route path="/all-members" element={<ProtectedRoute roles={[UserRole.ADMIN]}><GlobalMembers /></ProtectedRoute>} />
+            <Route path="/import" element={<ProtectedRoute roles={[UserRole.ADMIN]}><BulkImport /></ProtectedRoute>} />
+
+            {/* Consolidation Routes (Admin & Introdutores) */}
+            <Route path="/consolidation" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.INTRODUTOR]}><ConsolidationDashboard /></ProtectedRoute>} />
+            <Route path="/cult-reports" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.INTRODUTOR]}><CultReports /></ProtectedRoute>} />
+            <Route path="/kanban" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.INTRODUTOR]}><ConsolidationKanban /></ProtectedRoute>} />
+            <Route path="/add-visitor" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.INTRODUTOR]}><VisitorForm /></ProtectedRoute>} />
+            <Route path="/edit-visitor/:visitorId" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.INTRODUTOR]}><VisitorForm /></ProtectedRoute>} />
+            <Route path="/visitors" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.INTRODUTOR]}><VisitorsList /></ProtectedRoute>} />
+
+            {/* Payment Routes */}
+            <Route path="/pricing" element={<ProtectedRoute roles={[UserRole.ADMIN]}><Pricing /></ProtectedRoute>} />
+            <Route path="/payment-success" element={<ProtectedRoute><PaymentSuccess /></ProtectedRoute>} />
+
+            {/* Shared Routes */}
+            <Route path="/ranking" element={<ProtectedRoute><Ranking /></ProtectedRoute>} />
+
+            <Route path="*" element={<CatchAllRoute />} />
+        </Routes>
+    );
+};
+
+const CatchAllRoute: React.FC = () => {
+    // Check raw window hash because useLocation().pathname usually strips specific hash patterns in HashRouter
+    // We want to detect if Supabase added a token which HashRouter treats as a non-existent route
+    const hash = window.location.hash;
+
+    // If it looks like a Supabase auth callback (implicit flow)
+    if (hash.includes('access_token') || hash.includes('type=recovery') || hash.includes('error=')) {
+        // Render a loader while Supabase client (in AuthContext) processes the hash
+        return (
+            <div className="flex h-screen items-center justify-center bg-slate-50">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-slate-500 font-medium">Processando autenticação...</p>
+                </div>
+            </div>
+        );
+    }
+
+    // Otherwise, truly not found/invalid, redirect to home
+    return <Navigate to="/" />;
+};
+
+export default AppRoutes;
