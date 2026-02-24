@@ -44,15 +44,14 @@ const LeaderRegister: React.FC = () => {
       setLoadingOrg(false);
       return;
     }
+    // Tenta carregar o nome da organização para exibir na tela.
+    // Se falhar (ex: RLS bloqueia anon), ainda permite o formulário —
+    // o orgId do URL será validado de fato ao submeter.
     getOrganizationById(orgId)
       .then((org) => {
-        if (org) {
-          setOrganization(org);
-        } else {
-          setOrgNotFound(true);
-        }
+        if (org) setOrganization(org);
       })
-      .catch(() => setOrgNotFound(true))
+      .catch(() => { /* sem org name, mas o form continua acessível */ })
       .finally(() => setLoadingOrg(false));
   }, [orgId]);
 

@@ -4,6 +4,21 @@
 -- ============================================================
 
 -- ============================================================
+-- SEÇÃO 0: LEITURA PÚBLICA DE ORGANIZAÇÕES
+-- Necessário para a página de cadastro de líderes (/cadastro-lider/:orgId)
+-- que é pública (sem autenticação) e precisa buscar o nome da organização.
+-- ============================================================
+DO $$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_policies
+    WHERE tablename = 'organizations' AND policyname = 'anon_read_organizations'
+  ) THEN
+    CREATE POLICY "anon_read_organizations" ON organizations
+      FOR SELECT TO anon USING (true);
+  END IF;
+END $$;
+
+-- ============================================================
 -- SEÇÃO 1: VERIFICAÇÃO DE RLS
 -- Execute as queries abaixo para verificar o estado atual
 -- ============================================================
