@@ -321,24 +321,24 @@ const ReportForm: React.FC = () => {
 
                 {/* Basic Info */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
+                  <div className="min-w-0">
                     <label className="block text-sm font-medium text-slate-800 mb-1">Data da Célula</label>
-                    <div className="relative">
+                    <div className="relative min-w-0">
                       <Calendar className="absolute left-3 top-2.5 text-slate-500" size={18} />
                       <input
                         type="date"
                         {...register('date')}
-                        className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.date ? 'border-red-500' : 'border-slate-300'} text-slate-800 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                        className={`w-full min-w-0 pl-10 pr-2 py-2 rounded-lg bg-white border ${errors.date ? 'border-red-500' : 'border-slate-300'} text-slate-800 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
                       />
                       {errors.date && <span className="text-red-500 text-xs mt-1">{errors.date.message}</span>}
                     </div>
                   </div>
 
-                  <div>
+                  <div className="min-w-0">
                     <label className="block text-sm font-medium text-slate-800 mb-1">Tipo de Reunião</label>
                     <select
                       {...register('type')}
-                      className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full min-w-0 px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                     >
                       {Object.values(CellType).map(type => (
                         <option key={type} value={type}>{type}</option>
