@@ -127,7 +127,6 @@ const LeaderRegister: React.FC = () => {
         organization_id: orgId,
         name: data.cellName,
         leader_name: data.leaderName,
-        leader_id: userId,
         whatsapp: data.whatsapp,
         day_of_week: data.dayOfWeek,
         target_audience: data.targetAudience,
