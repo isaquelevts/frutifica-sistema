@@ -1,11 +1,11 @@
 import { supabase } from '../../core/supabase/supabaseClient';
 import { Culto } from '../../shared/types/types';
 
-export const getCultos = async (organizationId?: string): Promise<Culto[]> => {
-    let query = supabase.from('cultos').select('*');
-    if (organizationId) query = query.eq('organization_id', organizationId);
-
-    const { data, error } = await query;
+export const getCultos = async (organizationId: string): Promise<Culto[]> => {
+    const { data, error } = await supabase
+        .from('cultos')
+        .select('*')
+        .eq('organization_id', organizationId);
     if (error) return [];
 
     return data.map((c: any) => ({

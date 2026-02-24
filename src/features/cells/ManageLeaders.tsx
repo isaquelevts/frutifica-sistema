@@ -4,7 +4,7 @@ import { getCells } from './cellService';
 import { supabase } from '../../core/supabase/supabaseClient';
 import { User, UserRole, Cell } from '../../shared/types/types';
 import { useAuth } from '../../core/auth/AuthContext';
-import { UserPlus, Search, Edit2, Trash2, Mail, Lock, CakeSlice, ShieldCheck, User as UserIcon, Users, CheckCircle } from 'lucide-react';
+import { UserPlus, Search, Edit2, Trash2, Mail, Lock, CakeSlice, ShieldCheck, User as UserIcon, Users, CheckCircle, Link2, Copy, Check } from 'lucide-react';
 import { useUsers } from '../../shared/hooks/useUsers';
 import { useCells } from '../../shared/hooks/useCells';
 import { useQueryClient } from '@tanstack/react-query';
@@ -17,6 +17,7 @@ const ManageLeaders: React.FC = () => {
   const queryClient = useQueryClient();
   const [searchTerm, setSearchTerm] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
 
   const { data: users = [], isLoading: loadingUsers } = useUsers(currentUser?.organizationId);
   const { data: cells = [], isLoading: loadingCells } = useCells(currentUser?.organizationId);
@@ -49,6 +50,18 @@ const ManageLeaders: React.FC = () => {
       birthday: ''
     }
   });
+
+  const registerLink = currentUser?.organizationId
+    ? `${window.location.href.split('#')[0]}#/cadastro-lider/${currentUser.organizationId}`
+    : '';
+
+  const handleCopyLink = () => {
+    if (!registerLink) return;
+    navigator.clipboard.writeText(registerLink).then(() => {
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2500);
+    });
+  };
 
   const filteredUsers = users.filter(u =>
     u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -220,6 +233,31 @@ const ManageLeaders: React.FC = () => {
           Novo Usuário
         </button>
       </div>
+
+      {/* Card de link de auto-cadastro */}
+      {registerLink && (
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          <div className="flex items-center gap-2 text-blue-700 flex-shrink-0">
+            <Link2 size={20} />
+            <span className="font-semibold text-sm">Link de Cadastro para Líderes</span>
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs text-slate-500 truncate font-mono bg-white border border-slate-200 px-2 py-1 rounded">
+              {registerLink}
+            </p>
+          </div>
+          <button
+            onClick={handleCopyLink}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex-shrink-0 ${
+              linkCopied
+                ? 'bg-green-600 text-white'
+                : 'bg-blue-600 hover:bg-blue-700 text-white'
+            }`}
+          >
+            {linkCopied ? <><Check size={16} /> Copiado!</> : <><Copy size={16} /> Copiar Link</>}
+          </button>
+        </div>
+      )}
 
       <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
         <div className="relative">

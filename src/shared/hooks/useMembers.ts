@@ -4,7 +4,7 @@ import { getMembers } from '../../features/members/memberService';
 export const useMembers = (organizationId?: string) => {
     return useQuery({
         queryKey: ['members', organizationId],
-        queryFn: () => getMembers(organizationId),
+        queryFn: () => getMembers(organizationId!),
         enabled: !!organizationId,
     });
 };

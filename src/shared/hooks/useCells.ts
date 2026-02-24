@@ -4,7 +4,7 @@ import { getCells, getCellById } from '../../features/cells/cellService';
 export const useCells = (organizationId?: string) => {
     return useQuery({
         queryKey: ['cells', organizationId],
-        queryFn: () => getCells(organizationId),
+        queryFn: () => getCells(organizationId!),
         enabled: !!organizationId,
     });
 };

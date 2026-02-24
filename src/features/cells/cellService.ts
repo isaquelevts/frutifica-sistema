@@ -1,13 +1,11 @@
 import { supabase } from '../../core/supabase/supabaseClient';
 import { Cell } from '../../shared/types/types';
 
-export const getCells = async (organizationId?: string): Promise<Cell[]> => {
-    let query = supabase.from('cells').select('*');
-    if (organizationId) {
-        query = query.eq('organization_id', organizationId);
-    }
-    const { data, error } = await query;
-    if (error) throw error;
+export const getCells = async (organizationId: string): Promise<Cell[]> => {
+    const { data, error } = await supabase
+        .from('cells')
+        .select('*')
+        .eq('organization_id', organizationId);
 
     return (data || []).map((c: any) => ({
         ...c,

@@ -1,17 +1,13 @@
 import { supabase } from '../../core/supabase/supabaseClient';
 import { Report } from '../../shared/types/types';
 
-export const getReports = async (organizationId?: string): Promise<Report[]> => {
-    let query = supabase.from('reports').select(`
+export const getReports = async (organizationId: string): Promise<Report[]> => {
+    const { data, error } = await supabase.from('reports').select(`
         *,
         cells (
             name
         )
-    `);
-    if (organizationId) {
-        query = query.eq('organization_id', organizationId);
-    }
-    const { data, error } = await query;
+    `).eq('organization_id', organizationId);
     if (error) throw error;
     return (data || []).map((r: any) => ({
         ...r,

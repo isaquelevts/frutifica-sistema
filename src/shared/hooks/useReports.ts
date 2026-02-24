@@ -4,7 +4,7 @@ import { getReports, getReportById } from '../../features/reports/reportService'
 export const useReports = (organizationId?: string) => {
     return useQuery({
         queryKey: ['reports', organizationId],
-        queryFn: () => getReports(organizationId),
+        queryFn: () => getReports(organizationId!),
         enabled: !!organizationId,
     });
 };

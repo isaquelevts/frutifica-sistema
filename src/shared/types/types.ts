@@ -22,6 +22,7 @@ export enum CellType {
 }
 
 export enum UserRole {
+  SUPERADMIN = 'superadmin',
   ADMIN = 'admin',
   LEADER = 'leader',
   COLEADER = 'coleader',
@@ -62,7 +63,7 @@ export interface Organization {
   slug?: string;
   createdAt: string;
   plan: PlanType;
-  subscriptionStatus?: 'active' | 'past_due' | 'canceled' | 'trialing';
+  subscriptionStatus?: 'active' | 'past_due' | 'canceled' | 'trialing' | 'suspended';
   subscriptionId?: string; // Stripe Subscription ID
   maxCells?: number; // Limit based on plan
 }

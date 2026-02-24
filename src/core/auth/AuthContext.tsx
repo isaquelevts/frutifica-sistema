@@ -1,5 +1,5 @@
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, UserRole, Organization } from '../../shared/types/types';
 import { supabase } from '../supabase/supabaseClient';
 import { getUserByEmail, getUserById } from '../../features/settings/profileService';
@@ -8,12 +8,13 @@ import { getOrganizationById } from '../../features/settings/organizationService
 interface AuthContextType {
   user: User | null;
   organization: Organization | null;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string) => Promise<{ success: boolean; roles?: UserRole[] }>;
   logout: () => void;
   reloadOrganization: () => void;
   resetPassword: (email: string) => Promise<{ success: boolean; error?: string }>;
   isAuthenticated: boolean;
   isAdmin: boolean;
+  isSuperAdmin: boolean;
   isLoading: boolean;
 }
 
@@ -24,7 +25,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [organization, setOrganization] = useState<Organization | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const loadProfile = async (userId: string, email: string) => {
+  const loadProfile = async (userId: string, email: string): Promise<User | null> => {
     console.log('[AuthContext] Loading profile for:', userId);
     try {
       // Fetch using ID which is safer with RLS
@@ -46,11 +47,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           console.log('[AuthContext] Organization loaded:', org);
           if (org) setOrganization(org);
         }
+        return profile;
       } else {
         console.warn('[AuthContext] No profile found for user.');
+        return null;
       }
     } catch (e) {
       console.error("[AuthContext] Error loading profile", e);
+      return null;
     } finally {
       setIsLoading(false);
     }
@@ -86,21 +90,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => subscription.unsubscribe();
   }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (email: string, password: string): Promise<{ success: boolean; roles?: UserRole[] }> => {
     setIsLoading(true);
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       console.error('Login error:', error.message);
       setIsLoading(false);
-      return false;
+      return { success: false };
     }
 
     if (data.user) {
-      await loadProfile(data.user.id, data.user.email || '');
+      const profile = await loadProfile(data.user.id, data.user.email || '');
+      return { success: true, roles: profile?.roles };
     }
-    // isLoading stays true? No, loadProfile sets it to false finally.
-    // Wait, loadProfile sets isLoading(false).
-    return true;
+    return { success: true };
   };
 
   const logout = async () => {
@@ -138,7 +141,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       reloadOrganization,
       resetPassword,
       isAuthenticated: !!user,
-      isAdmin: user?.roles?.includes(UserRole.ADMIN) || false,
+      isSuperAdmin: user?.roles?.includes(UserRole.SUPERADMIN) || false,
+      isAdmin: user?.roles?.includes(UserRole.ADMIN) || user?.roles?.includes(UserRole.SUPERADMIN) || false,
       isLoading
     }}>
       {children}

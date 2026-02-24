@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../core/auth/AuthContext';
 import { UserRole } from '../shared/types/types';
@@ -30,12 +30,26 @@ import BulkImport from '../features/import/pages/BulkImport';
 // Auth Feature
 import Login from '../features/auth/Login';
 import Register from '../features/auth/Register';
+import LeaderRegister from '../features/auth/LeaderRegister';
 import ForgotPassword from '../features/auth/ForgotPassword';
 import ResetPassword from '../features/auth/ResetPassword';
 
 // Landing
 import Landing from '../features/landing/Landing';
 
+// Super Admin (lazy loaded)
+const SuperAdminDashboard = lazy(() => import('../features/super-admin/pages/SuperAdminDashboard'));
+const OrganizationsList = lazy(() => import('../features/super-admin/pages/OrganizationsList'));
+const OrganizationDetail = lazy(() => import('../features/super-admin/pages/OrganizationDetail'));
+const PlatformSettings = lazy(() => import('../features/super-admin/pages/PlatformSettings'));
+
+const LazyFallback = () => (
+  <div className="flex items-center justify-center h-64">
+    <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+  </div>
+);
+
+// Guard para rotas normais autenticadas
 const ProtectedRoute: React.FC<{ children: React.ReactNode; roles?: UserRole[] }> = ({ children, roles }) => {
     const { isAuthenticated, user, isLoading } = useAuth();
 
@@ -57,16 +71,70 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode; roles?: UserRole[] }
     return <Layout>{children}</Layout>;
 };
 
+// Guard exclusivo para SuperAdmin
+const SuperAdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const { isAuthenticated, isSuperAdmin, isLoading } = useAuth();
+
+    if (isLoading) {
+        return <div className="flex h-screen items-center justify-center bg-slate-50"><p className="text-slate-500">Carregando...</p></div>;
+    }
+
+    if (!isAuthenticated) {
+        return <Navigate to="/login" />;
+    }
+
+    if (!isSuperAdmin) {
+        return <Navigate to="/dashboard" replace />;
+    }
+
+    return <Layout>{children}</Layout>;
+};
+
 const AppRoutes: React.FC = () => {
     return (
         <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/cadastro-lider/:orgId" element={<LeaderRegister />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
 
-            {/* General Routes */}
+            {/* ========================================= */}
+            {/* SUPER ADMIN ROUTES — apenas superadmin   */}
+            {/* ========================================= */}
+            <Route path="/super" element={
+                <SuperAdminRoute>
+                    <Suspense fallback={<LazyFallback />}>
+                        <SuperAdminDashboard />
+                    </Suspense>
+                </SuperAdminRoute>
+            } />
+            <Route path="/super/organizations" element={
+                <SuperAdminRoute>
+                    <Suspense fallback={<LazyFallback />}>
+                        <OrganizationsList />
+                    </Suspense>
+                </SuperAdminRoute>
+            } />
+            <Route path="/super/organizations/:orgId" element={
+                <SuperAdminRoute>
+                    <Suspense fallback={<LazyFallback />}>
+                        <OrganizationDetail />
+                    </Suspense>
+                </SuperAdminRoute>
+            } />
+            <Route path="/super/settings" element={
+                <SuperAdminRoute>
+                    <Suspense fallback={<LazyFallback />}>
+                        <PlatformSettings />
+                    </Suspense>
+                </SuperAdminRoute>
+            } />
+
+            {/* ========================================= */}
+            {/* ROTAS GERAIS                             */}
+            {/* ========================================= */}
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
 
             {/* Leader Routes */}
@@ -107,13 +175,9 @@ const AppRoutes: React.FC = () => {
 };
 
 const CatchAllRoute: React.FC = () => {
-    // Check raw window hash because useLocation().pathname usually strips specific hash patterns in HashRouter
-    // We want to detect if Supabase added a token which HashRouter treats as a non-existent route
     const hash = window.location.hash;
 
-    // If it looks like a Supabase auth callback (implicit flow)
     if (hash.includes('access_token') || hash.includes('type=recovery') || hash.includes('error=')) {
-        // Render a loader while Supabase client (in AuthContext) processes the hash
         return (
             <div className="flex h-screen items-center justify-center bg-slate-50">
                 <div className="flex flex-col items-center gap-4">
@@ -124,7 +188,6 @@ const CatchAllRoute: React.FC = () => {
         );
     }
 
-    // Otherwise, truly not found/invalid, redirect to home
     return <Navigate to="/" />;
 };
 

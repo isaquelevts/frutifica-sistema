@@ -23,9 +23,20 @@ const Login: React.FC = () => {
     setError('');
 
     try {
-      const success = await login(data.email, data.password);
-      if (success) {
-        navigate('/dashboard');
+      const result = await login(data.email, data.password);
+      if (result.success) {
+        const roles = result.roles ?? [];
+        if (roles.includes('superadmin' as any)) {
+          navigate('/super');
+        } else if (roles.includes('admin' as any)) {
+          navigate('/dashboard');
+        } else if (roles.includes('leader' as any) || roles.includes('coleader' as any)) {
+          navigate('/my-cell');
+        } else if (roles.includes('introdutor' as any)) {
+          navigate('/consolidation');
+        } else {
+          navigate('/dashboard');
+        }
       } else {
         setError('Email ou senha incorretos.');
       }

@@ -1,14 +1,11 @@
 import { supabase } from '../../core/supabase/supabaseClient';
 import { Generation } from '../../shared/types/types';
 
-export const getGenerations = async (organizationId?: string): Promise<Generation[]> => {
-    let query = supabase.from('generations').select(`
+export const getGenerations = async (organizationId: string): Promise<Generation[]> => {
+    const { data, error } = await supabase.from('generations').select(`
         *,
         leader:profiles!generations_leader_id_fkey(name)
-    `);
-    if (organizationId) query = query.eq('organization_id', organizationId);
-
-    const { data, error } = await query;
+    `).eq('organization_id', organizationId);
     if (error) return [];
 
     return data.map((g: any) => ({
