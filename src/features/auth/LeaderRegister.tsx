@@ -398,13 +398,13 @@ const LeaderRegister: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
+                  <div className="min-w-0">
                     <label className="block text-sm font-medium text-slate-700 mb-1">Dia da Semana</label>
-                    <div className="relative">
+                    <div className="relative min-w-0 overflow-hidden">
                       <Calendar className="absolute left-3 top-2.5 text-slate-400 pointer-events-none" size={18} />
                       <select
                         {...step2Form.register('dayOfWeek')}
-                        className={`w-full pl-10 pr-3 py-2 rounded-lg bg-white border ${step2Form.formState.errors.dayOfWeek ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
+                        className={`w-full min-w-0 pl-10 pr-3 py-2 rounded-lg bg-white border ${step2Form.formState.errors.dayOfWeek ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
                       >
                         <option value="">Selecione...</option>
                         {DAYS_OF_WEEK.map((day) => (
@@ -417,14 +417,14 @@ const LeaderRegister: React.FC = () => {
                     )}
                   </div>
 
-                  <div>
+                  <div className="min-w-0">
                     <label className="block text-sm font-medium text-slate-700 mb-1">Horário</label>
-                    <div className="relative">
+                    <div className="relative min-w-0 overflow-hidden">
                       <Clock className="absolute left-3 top-2.5 text-slate-400 pointer-events-none" size={18} />
                       <input
                         type="time"
                         {...step2Form.register('time')}
-                        className={`w-full pl-10 pr-3 py-2 rounded-lg bg-white border ${step2Form.formState.errors.time ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
+                        className={`w-full min-w-0 pl-10 pr-3 py-2 rounded-lg bg-white border ${step2Form.formState.errors.time ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
                       />
                     </div>
                     {step2Form.formState.errors.time && (

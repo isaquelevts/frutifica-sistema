@@ -81,6 +81,7 @@ export const saveReport = async (report: Report): Promise<void> => {
         organization_id: report.organizationId,
         cell_id: report.cellId,
         happened: report.happened,
+        type: report.type ?? null,
         participants: report.participants,
         visitors: report.visitors,
         conversions: report.conversions,
