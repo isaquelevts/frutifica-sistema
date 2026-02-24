@@ -31,7 +31,7 @@ const Login: React.FC = () => {
         } else if (roles.includes('admin' as any)) {
           navigate('/dashboard');
         } else if (roles.includes('leader' as any) || roles.includes('coleader' as any)) {
-          navigate('/my-cell');
+          navigate('/dashboard');
         } else if (roles.includes('introdutor' as any)) {
           navigate('/consolidation');
         } else {

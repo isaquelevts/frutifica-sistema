@@ -185,7 +185,7 @@ const LeaderRegister: React.FC = () => {
             Se você recebeu um email de confirmação, verifique sua caixa de entrada antes de acessar.
           </p>
           <button
-            onClick={() => navigate('/my-cell')}
+            onClick={() => navigate('/dashboard')}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors shadow-sm mb-3"
           >
             Acessar o Sistema
