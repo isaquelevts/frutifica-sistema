@@ -397,9 +397,9 @@ const LeaderRegister: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="min-w-0">
+                  <div className="min-w-0 overflow-hidden">
                     <label className="block text-sm font-medium text-slate-700 mb-1">Dia da Semana</label>
-                    <div className="relative min-w-0 overflow-hidden">
+                    <div className="relative min-w-0">
                       <Calendar className="absolute left-3 top-2.5 text-slate-400 pointer-events-none" size={18} />
                       <select
                         {...step2Form.register('dayOfWeek')}
@@ -416,9 +416,9 @@ const LeaderRegister: React.FC = () => {
                     )}
                   </div>
 
-                  <div className="min-w-0">
+                  <div className="min-w-0 overflow-hidden">
                     <label className="block text-sm font-medium text-slate-700 mb-1">Horário</label>
-                    <div className="relative min-w-0 overflow-hidden">
+                    <div className="relative min-w-0">
                       <Clock className="absolute left-3 top-2.5 text-slate-400 pointer-events-none" size={18} />
                       <input
                         type="time"

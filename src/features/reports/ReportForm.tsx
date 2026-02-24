@@ -324,7 +324,7 @@ const ReportForm: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-hidden">
                   <div className="min-w-0 overflow-hidden">
                     <label className="block text-sm font-medium text-slate-800 mb-1">Data da Célula</label>
-                    <div className="relative min-w-0 overflow-hidden">
+                    <div className="relative min-w-0">
                       <Calendar className="absolute left-3 top-2.5 text-slate-500" size={18} />
                       <input
                         type="date"
