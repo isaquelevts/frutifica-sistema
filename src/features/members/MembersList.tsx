@@ -4,7 +4,7 @@ import { Member, MemberType } from '../../shared/types/types';
 import { saveMember, updateMember, deleteMember } from './memberService';
 import { Plus, Search, Edit2, Trash2, Phone, Star, ShieldCheck, MessageCircle, Cake } from 'lucide-react';
 import { maskPhone } from '../../core/utils/mask';
-import { useMembers } from '../../shared/hooks/useMembers';
+import { useMembersByCell } from '../../shared/hooks/useMembers';
 import { useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,7 +15,7 @@ const MembersList: React.FC = () => {
   const queryClient = useQueryClient();
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { data: members = [], isLoading } = useMembers(user?.organizationId);
+  const { data: members = [], isLoading } = useMembersByCell(user?.cellId);
 
   // Modal/Form State
   const [showForm, setShowForm] = useState(false);
