@@ -74,7 +74,8 @@ const MembersList: React.FC = () => {
   };
 
   const onSubmit = async (data: MemberFormData) => {
-    if (!user?.cellId || !user?.organizationId) return;
+    // Para criar novo membro, precisamos de cellId e organizationId
+    if (!editingMember && (!user?.cellId || !user?.organizationId)) return;
 
     // Lógica de promoção automática
     let finalType = data.type;
@@ -90,26 +91,30 @@ const MembersList: React.FC = () => {
       attendanceCount: Number(data.attendanceCount)
     };
 
-    if (editingMember) {
-      await updateMember({
-        ...editingMember,
-        ...memberData
-      });
-    } else {
-      await saveMember({
-        id: crypto.randomUUID(),
-        organizationId: user.organizationId,
-        cellId: user.cellId,
-        ...memberData,
-        firstVisitDate: new Date().toISOString().split('T')[0],
-        createdAt: new Date().toISOString(),
-        active: true
-      });
-    }
+    try {
+      if (editingMember) {
+        await updateMember({
+          ...editingMember,
+          ...memberData
+        });
+      } else {
+        await saveMember({
+          id: crypto.randomUUID(),
+          organizationId: user!.organizationId,
+          cellId: user!.cellId!,
+          ...memberData,
+          firstVisitDate: new Date().toISOString().split('T')[0],
+          createdAt: new Date().toISOString(),
+          active: true
+        });
+      }
 
-    setShowForm(false);
-    setEditingMember(null);
-    queryClient.invalidateQueries({ queryKey: ['members'] });
+      setShowForm(false);
+      setEditingMember(null);
+      queryClient.invalidateQueries({ queryKey: ['members'] });
+    } catch (err: any) {
+      alert(`Erro ao salvar membro: ${err?.message || 'Erro desconhecido'}`);
+    }
   };
 
   const formatPhoneNumber = (phone: string) => {
