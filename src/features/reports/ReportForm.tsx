@@ -321,25 +321,22 @@ const ReportForm: React.FC = () => {
               <div className="space-y-8 animate-in fade-in slide-in-from-top-4 duration-300">
 
                 {/* Basic Info */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-hidden">
-                  <div className="min-w-0 overflow-hidden">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
                     <label className="block text-sm font-medium text-slate-800 mb-1">Data da Célula</label>
-                    <div className="relative min-w-0">
-                      <Calendar className="absolute left-3 top-2.5 text-slate-500" size={18} />
-                      <input
-                        type="date"
-                        {...register('date')}
-                        className={`w-full min-w-0 pl-10 pr-2 py-2 rounded-lg bg-white border ${errors.date ? 'border-red-500' : 'border-slate-300'} text-slate-800 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
-                      />
-                      {errors.date && <span className="text-red-500 text-xs mt-1">{errors.date.message}</span>}
-                    </div>
+                    <input
+                      type="date"
+                      {...register('date')}
+                      className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.date ? 'border-red-500' : 'border-slate-300'} text-slate-800 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                    />
+                    {errors.date && <span className="text-red-500 text-xs mt-1">{errors.date.message}</span>}
                   </div>
 
-                  <div className="min-w-0 overflow-hidden">
+                  <div>
                     <label className="block text-sm font-medium text-slate-800 mb-1">Tipo de Reunião</label>
                     <select
                       {...register('type')}
-                      className="w-full min-w-0 px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                     >
                       {Object.values(CellType).map(type => (
                         <option key={type} value={type}>{type}</option>
@@ -612,12 +609,12 @@ const ReportForm: React.FC = () => {
                 </div>
 
                 <div className="space-y-4">
-                  <div className="min-w-0 overflow-hidden">
+                  <div>
                     <label className="block text-sm font-medium text-orange-800 mb-1">Data</label>
                     <input
                       type="date"
                       {...register('date')}
-                      className={`w-full min-w-0 px-4 py-2 rounded-lg bg-white border ${errors.date ? 'border-orange-300 border-red-500' : 'border-orange-300'} text-slate-800 focus:ring-2 focus:ring-orange-500 outline-none`}
+                      className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.date ? 'border-red-500' : 'border-orange-300'} text-slate-800 focus:ring-2 focus:ring-orange-500 outline-none`}
                     />
                     {errors.date && <span className="text-red-500 text-xs mt-1">{errors.date.message}</span>}
                   </div>
