@@ -30,6 +30,7 @@ const OrganizationsList: React.FC = () => {
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [deleteConfirmName, setDeleteConfirmName] = useState('');
   const [deleteConfirmInput, setDeleteConfirmInput] = useState('');
+  const [deleteError, setDeleteError] = useState('');
 
   const filtered = useMemo(() => {
     let result = [...orgs] as Array<Organization & { cellCount: number }>;
@@ -64,9 +65,14 @@ const OrganizationsList: React.FC = () => {
 
   const handleDeleteConfirm = async () => {
     if (deleteConfirmInput !== deleteConfirmName) return;
-    await deleteMutation.mutateAsync(deleteConfirmId!);
-    setDeleteConfirmId(null);
-    setDeleteConfirmInput('');
+    setDeleteError('');
+    try {
+      await deleteMutation.mutateAsync(deleteConfirmId!);
+      setDeleteConfirmId(null);
+      setDeleteConfirmInput('');
+    } catch (err: any) {
+      setDeleteError(err?.message || 'Erro ao excluir. Verifique se a função delete_organization_cascade está criada no Supabase.');
+    }
   };
 
   const openEditOrg = (org: Organization) => {
@@ -303,13 +309,18 @@ const OrganizationsList: React.FC = () => {
             <input
               type="text"
               value={deleteConfirmInput}
-              onChange={e => setDeleteConfirmInput(e.target.value)}
+              onChange={e => { setDeleteConfirmInput(e.target.value); setDeleteError(''); }}
               placeholder={deleteConfirmName}
               className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-500 mb-4"
             />
+            {deleteError && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-xs text-red-700">
+                {deleteError}
+              </div>
+            )}
             <div className="flex gap-3">
               <button
-                onClick={() => setDeleteConfirmId(null)}
+                onClick={() => { setDeleteConfirmId(null); setDeleteError(''); setDeleteConfirmInput(''); }}
                 className="flex-1 px-4 py-2 text-sm font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200"
               >
                 Cancelar

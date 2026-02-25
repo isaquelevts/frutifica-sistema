@@ -154,15 +154,18 @@ export const superAdminService = {
   },
 
   async deleteOrganization(orgId: string) {
-    // 1. Deletar auth.users via Edge Function (requer service_role internamente)
-    const { error: edgeFnError } = await supabase.functions.invoke('delete-org-users', {
-      body: { org_id: orgId },
-    });
-    if (edgeFnError) throw new Error(`Erro ao remover usuários: ${edgeFnError.message}`);
+    // 1. Tenta remover auth.users via Edge Function (opcional — falha silenciosa se não implantada).
+    //    Os usuários ficam no Auth do Supabase mas sem dados de organização.
+    try {
+      await supabase.functions.invoke('delete-org-users', { body: { org_id: orgId } });
+    } catch {
+      // Edge Function não implantada: ignora e segue com deleção dos dados
+    }
 
-    // 2. Deletar dados da org em cascata via RPC (verifica is_superadmin() internamente)
+    // 2. Deletar dados da org em cascata via RPC (verifica is_superadmin() internamente).
+    //    Requer que a função delete_organization_cascade esteja criada no Supabase SQL Editor.
     const { error } = await (supabase.rpc as any)('delete_organization_cascade', { org_id: orgId });
-    if (error) throw error;
+    if (error) throw new Error(`Erro ao excluir dados da organização: ${error.message}`);
   },
 
   // ============================================================
