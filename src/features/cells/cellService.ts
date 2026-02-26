@@ -69,3 +69,19 @@ export const updateCell = async (cell: Cell): Promise<void> => {
     }).eq('id', cell.id);
     if (error) throw error;
 };
+
+export const deleteCell = async (cellId: string, deleteRelated: boolean): Promise<void> => {
+    if (deleteRelated) {
+        const { error: membersError } = await supabase.from('members').delete().eq('cell_id', cellId);
+        if (membersError) throw new Error(`Erro ao excluir membros: ${membersError.message}`);
+
+        const { error: reportsError } = await supabase.from('reports').delete().eq('cell_id', cellId);
+        if (reportsError) throw new Error(`Erro ao excluir relatórios: ${reportsError.message}`);
+    }
+
+    // Desvincula líderes que apontavam para esta célula
+    await supabase.from('profiles').update({ cell_id: null }).eq('cell_id', cellId);
+
+    const { error } = await supabase.from('cells').delete().eq('id', cellId);
+    if (error) throw new Error(`Erro ao excluir célula: ${error.message}`);
+};
