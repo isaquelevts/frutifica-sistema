@@ -70,6 +70,15 @@ export const updateUser = async (user: User): Promise<void> => {
 };
 
 export const deleteUser = async (id: string): Promise<void> => {
-    const { error } = await supabase.from('profiles').delete().eq('id', id);
-    if (error) throw error;
+    // Chama a Edge Function que deleta do auth.users (e cascade no profile)
+    const { error: fnError } = await supabase.functions.invoke('delete-user', {
+        body: { user_id: id },
+    });
+
+    if (fnError) {
+        // Fallback: se a Edge Function não estiver deployada, apaga só o profile
+        console.warn('Edge Function delete-user indisponível, removendo apenas o profile:', fnError);
+        const { error } = await supabase.from('profiles').delete().eq('id', id);
+        if (error) throw error;
+    }
 };
