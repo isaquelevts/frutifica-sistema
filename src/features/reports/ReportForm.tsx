@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { CellType, Report, Member, MemberType } from '../../shared/types/types';
-import { saveReport, updateReport } from './reportService';
+import { saveReport, updateReport, getReportByCellAndDate } from './reportService';
 import { saveMember, incrementAttendance } from '../members/memberService';
-import { Save, AlertCircle, Calendar, UserPlus, CheckSquare, User, UserCheck, Heart, CheckCircle, ArrowRight, Plus, X, Phone } from 'lucide-react';
+import { Save, AlertCircle, Calendar, UserPlus, CheckSquare, User, UserCheck, Heart, CheckCircle, ArrowRight, Plus, X, Phone, FileEdit } from 'lucide-react';
+import { Report as ReportType } from '../../shared/types/types';
 import { maskPhone } from '../../core/utils/mask';
 import { useCell } from '../../shared/hooks/useCells';
 import { useReport } from '../../shared/hooks/useReports';
@@ -37,6 +38,9 @@ const ReportForm: React.FC = () => {
   // New Member Modal State (Separate functionality, kept as state for simplicity as it creates a member separately)
   const [showNewMemberModal, setShowNewMemberModal] = useState(false);
   const [newMemberData, setNewMemberData] = useState({ name: '', phone: '' });
+
+  // Duplicate Report Modal
+  const [duplicateReport, setDuplicateReport] = useState<ReportType | null>(null);
 
   // Temp Visitor State (for adding loop)
   const [tempVisitor, setTempVisitor] = useState({ name: '', phone: '' });
@@ -193,6 +197,15 @@ const ReportForm: React.FC = () => {
 
   const onSubmit = async (data: ReportFormData) => {
     if (!cell) return;
+
+    // Verificar relatório duplicado (apenas ao criar, não ao editar)
+    if (!isEditing) {
+      const existing = await getReportByCellAndDate(cell.id, data.date);
+      if (existing) {
+        setDuplicateReport(existing);
+        return;
+      }
+    }
 
     try {
       let membersCount = 0;
@@ -691,6 +704,69 @@ const ReportForm: React.FC = () => {
               >
                 Salvar e Marcar
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL DE RELATÓRIO DUPLICADO */}
+      {duplicateReport && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl animate-in zoom-in-95 duration-200 overflow-hidden">
+            {/* Header */}
+            <div className="bg-amber-500 p-6 text-center text-white">
+              <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <AlertCircle size={32} className="text-white" />
+              </div>
+              <h2 className="text-xl font-bold">Relatório já enviado!</h2>
+              <p className="text-amber-100 text-sm mt-1">Já existe um relatório para esta data.</p>
+            </div>
+
+            {/* Body */}
+            <div className="p-6">
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
+                <p className="text-sm text-amber-800 font-medium mb-1">Relatório existente:</p>
+                <p className="text-slate-700 font-semibold">{duplicateReport.cellName}</p>
+                <p className="text-slate-500 text-sm">
+                  {new Date(duplicateReport.date + 'T12:00:00').toLocaleDateString('pt-BR', {
+                    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+                  })}
+                </p>
+                <div className="flex gap-4 mt-3 pt-3 border-t border-amber-200">
+                  <div className="text-center">
+                    <p className="text-lg font-bold text-slate-800">{duplicateReport.participants}</p>
+                    <p className="text-xs text-slate-500">Pessoas</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-lg font-bold text-orange-600">{duplicateReport.visitors}</p>
+                    <p className="text-xs text-slate-500">Visitantes</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-lg font-bold text-red-600">{duplicateReport.conversions}</p>
+                    <p className="text-xs text-slate-500">Conversões</p>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-sm text-slate-500 text-center mb-6">
+                Deseja corrigir algo? Edite o relatório existente em vez de criar um novo.
+              </p>
+
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={() => navigate(`/edit-report/${duplicateReport.id}`)}
+                  className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors shadow-sm"
+                >
+                  <FileEdit size={18} />
+                  Editar relatório existente
+                </button>
+                <button
+                  onClick={() => setDuplicateReport(null)}
+                  className="w-full py-2.5 text-slate-500 hover:text-slate-700 font-medium hover:bg-slate-50 rounded-xl transition-colors"
+                >
+                  Voltar ao formulário
+                </button>
+              </div>
             </div>
           </div>
         </div>

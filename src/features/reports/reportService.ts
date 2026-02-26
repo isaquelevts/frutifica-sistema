@@ -21,6 +21,25 @@ export const getReports = async (organizationId: string): Promise<Report[]> => {
     }));
 };
 
+export const getReportByCellAndDate = async (cellId: string, date: string): Promise<Report | undefined> => {
+    const { data, error } = await supabase.from('reports').select(`
+        *,
+        cells ( name )
+    `).eq('cell_id', cellId).eq('date', date).maybeSingle();
+    if (error || !data) return undefined;
+    const r = data as any;
+    return {
+        ...r,
+        organizationId: r.organization_id,
+        cellId: r.cell_id,
+        cellName: r.cells?.name || 'Célula não encontrada',
+        attendanceList: r.attendance_list,
+        conversionsList: r.conversions_list,
+        newVisitorsList: r.new_visitors_list,
+        createdAt: r.created_at
+    };
+};
+
 export const getReportById = async (id: string): Promise<Report | undefined> => {
     const { data, error } = await supabase.from('reports').select(`
         *,
