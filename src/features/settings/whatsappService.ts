@@ -70,8 +70,9 @@ export const fetchWhatsappGroups = async (
     },
   });
 
-  if (error) throw new Error(error.message);
+  // Verifica o body da resposta antes do erro genérico do cliente
   if (data?.error) throw new Error(data.error);
+  if (error) throw new Error(error.message);
 
   return data?.groups ?? [];
 };
@@ -84,6 +85,6 @@ export const sendTestReminder = async (organizationId: string): Promise<void> =>
     },
   });
 
-  if (error) throw new Error(error.message);
   if (data?.error) throw new Error(data.error);
+  if (error) throw new Error(error.message);
 };
