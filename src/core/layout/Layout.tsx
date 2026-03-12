@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, FileText, PlusCircle, Menu, Church,
   Trophy, LogOut, UserCog, Home, AlertTriangle, UserCheck,
   HeartHandshake, Calendar, ClipboardList, List,
-  Network, Building2, Settings, Shield
+  Network, Building2, Settings, Shield, MessageCircle
 } from 'lucide-react';
 import { useAuth } from '../auth/AuthContext';
 import { UserRole } from '../../shared/types/types';
@@ -83,6 +83,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           { path: '/reports', label: 'Relatórios de Célula', icon: <FileText size={20} /> },
           { path: '/ranking', label: 'Reconhecimento', icon: <Trophy size={20} /> },
           { path: '/risk-monitoring', label: 'Células em Risco', icon: <AlertTriangle size={20} /> },
+          { path: '/whatsapp-settings', label: 'WhatsApp', icon: <MessageCircle size={20} /> },
         ]
       });
     }

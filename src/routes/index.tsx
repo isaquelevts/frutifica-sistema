@@ -26,6 +26,7 @@ import Pricing from '../features/settings/Pricing';
 import UserRegistration from '../features/settings/UserRegistration';
 import PaymentSuccess from '../features/settings/PaymentSuccess';
 import BulkImport from '../features/import/pages/BulkImport';
+import WhatsappSettings from '../features/settings/WhatsappSettings';
 
 // Auth Feature
 import Login from '../features/auth/Login';
@@ -153,6 +154,7 @@ const AppRoutes: React.FC = () => {
             <Route path="/risk-monitoring" element={<ProtectedRoute roles={[UserRole.ADMIN]}><RiskMonitoring /></ProtectedRoute>} />
             <Route path="/all-members" element={<ProtectedRoute roles={[UserRole.ADMIN]}><GlobalMembers /></ProtectedRoute>} />
             <Route path="/import" element={<ProtectedRoute roles={[UserRole.ADMIN]}><BulkImport /></ProtectedRoute>} />
+            <Route path="/whatsapp-settings" element={<ProtectedRoute roles={[UserRole.ADMIN]}><WhatsappSettings /></ProtectedRoute>} />
 
             {/* Consolidation Routes (Admin & Introdutores) */}
             <Route path="/consolidation" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.INTRODUTOR]}><ConsolidationDashboard /></ProtectedRoute>} />
