@@ -5,6 +5,14 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+// Sempre retorna 200 com { error } ou { groups } no body
+// para garantir que data seja acessível no cliente (SDK não lê body em não-2xx)
+const ok = (body: unknown) =>
+  new Response(JSON.stringify(body), {
+    status: 200,
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+  })
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders })
@@ -13,10 +21,7 @@ Deno.serve(async (req) => {
   try {
     const authHeader = req.headers.get('Authorization')
     if (!authHeader) {
-      return new Response(JSON.stringify({ error: 'Sem autorização' }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+      return ok({ error: 'Sem autorização' })
     }
 
     // Verificar identidade e role do caller
@@ -28,38 +33,42 @@ Deno.serve(async (req) => {
 
     const { data: { user: caller }, error: authError } = await supabaseClient.auth.getUser()
     if (authError || !caller) {
-      return new Response(JSON.stringify({ error: 'Não autenticado' }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+      console.error('[fetch-whatsapp-groups] Auth error:', authError?.message)
+      return ok({ error: 'Não autenticado' })
     }
 
     const { data: callerProfile } = await supabaseClient
       .from('profiles')
-      .select('roles')
+      .select('roles, organization_id')
       .eq('id', caller.id)
       .single()
 
     const isAdmin = callerProfile?.roles?.includes('admin') || callerProfile?.roles?.includes('superadmin')
     if (!isAdmin) {
-      return new Response(JSON.stringify({ error: 'Apenas administradores podem acessar esta função' }), {
-        status: 403,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+      return ok({ error: 'Apenas administradores podem acessar esta função' })
     }
 
-    const { evolution_api_url, api_key, instance_name } = await req.json()
-
-    if (!evolution_api_url || !api_key || !instance_name) {
-      return new Response(JSON.stringify({ error: 'evolution_api_url, api_key e instance_name são obrigatórios' }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+    const orgId = callerProfile?.organization_id
+    if (!orgId) {
+      return ok({ error: 'Organização não encontrada' })
     }
+
+    // Busca instance_name da org no banco
+    const { data: config } = await supabaseClient
+      .from('whatsapp_config')
+      .select('instance_name')
+      .eq('organization_id', orgId)
+      .maybeSingle()
+
+    if (!config?.instance_name) {
+      return ok({ error: 'WhatsApp não configurado. Conecte primeiro escaneando o QR code.' })
+    }
+
+    const evolutionUrl = Deno.env.get('EVOLUTION_API_URL')!.replace(/\/$/, '')
+    const evolutionKey = Deno.env.get('EVOLUTION_API_KEY')!
 
     // Buscar grupos na Evolution API
-    const baseUrl = evolution_api_url.replace(/\/$/, '')
-    const fetchUrl = `${baseUrl}/group/fetchAllGroups/${instance_name}?getParticipants=false`
+    const fetchUrl = `${evolutionUrl}/group/fetchAllGroups/${config.instance_name}?getParticipants=false`
     console.log('[fetch-whatsapp-groups] Chamando Evolution API:', fetchUrl)
 
     let response: Response
@@ -67,16 +76,13 @@ Deno.serve(async (req) => {
       response = await fetch(fetchUrl, {
         method: 'GET',
         headers: {
-          'apikey': api_key,
+          'apikey': evolutionKey,
           'Content-Type': 'application/json',
         },
       })
     } catch (fetchErr: any) {
-      console.error('[fetch-whatsapp-groups] Erro de rede ao chamar Evolution API:', fetchErr.message)
-      return new Response(JSON.stringify({ error: `Não foi possível conectar à Evolution API: ${fetchErr.message}` }), {
-        status: 502,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+      console.error('[fetch-whatsapp-groups] Erro de rede:', fetchErr.message)
+      return ok({ error: `Não foi possível conectar à Evolution API: ${fetchErr.message}` })
     }
 
     console.log('[fetch-whatsapp-groups] Status da resposta:', response.status)
@@ -84,27 +90,21 @@ Deno.serve(async (req) => {
     if (!response.ok) {
       const errorText = await response.text()
       console.error('[fetch-whatsapp-groups] Erro da Evolution API:', response.status, errorText)
-      return new Response(JSON.stringify({ error: `Evolution API retornou erro ${response.status}: ${errorText}` }), {
-        status: 502,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+      return ok({ error: `Evolution API retornou erro ${response.status}: ${errorText}` })
     }
 
     const groups = await response.json()
+    console.log('[fetch-whatsapp-groups] Total de grupos:', Array.isArray(groups) ? groups.length : 'não é array')
 
     // Normaliza para sempre retornar array de { id, subject }
     const normalized = Array.isArray(groups)
       ? groups.map((g: any) => ({ id: g.id, subject: g.subject || g.name || g.id }))
       : []
 
-    return new Response(JSON.stringify({ groups: normalized }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    })
+    return ok({ groups: normalized })
 
   } catch (error: any) {
-    return new Response(JSON.stringify({ error: error.message ?? 'Erro interno' }), {
-      status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    })
+    console.error('[fetch-whatsapp-groups] Erro interno:', error.message)
+    return ok({ error: error.message ?? 'Erro interno' })
   }
 })

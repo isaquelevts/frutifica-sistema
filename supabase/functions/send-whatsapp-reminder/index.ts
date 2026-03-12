@@ -5,6 +5,13 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-cron-secret',
 }
 
+// Sempre retorna 200 com { error } ou { success } no body
+const ok = (body: unknown) =>
+  new Response(JSON.stringify(body), {
+    status: 200,
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+  })
+
 // Mapeia nome do dia em português para o número do dia da semana (0=Dom, 1=Seg, ...)
 const DAY_MAP: Record<string, number> = {
   'domingo':    0,
@@ -63,10 +70,7 @@ Deno.serve(async (req) => {
     const isManualCall = !!authHeader
 
     if (!isCronCall && !isManualCall) {
-      return new Response(JSON.stringify({ error: 'Não autorizado' }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+      return ok({ error: 'Não autorizado' })
     }
 
     // Se for chamada manual (do frontend), verifica se é admin
@@ -78,10 +82,7 @@ Deno.serve(async (req) => {
       )
       const { data: { user: caller } } = await supabaseClient.auth.getUser()
       if (!caller) {
-        return new Response(JSON.stringify({ error: 'Não autenticado' }), {
-          status: 401,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        })
+        return ok({ error: 'Não autenticado' })
       }
       const { data: profile } = await supabaseClient
         .from('profiles')
@@ -91,10 +92,7 @@ Deno.serve(async (req) => {
 
       const isAdmin = profile?.roles?.includes('admin') || profile?.roles?.includes('superadmin')
       if (!isAdmin) {
-        return new Response(JSON.stringify({ error: 'Apenas administradores' }), {
-          status: 403,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        })
+        return ok({ error: 'Apenas administradores podem executar esta ação' })
       }
     }
 
@@ -109,12 +107,16 @@ Deno.serve(async (req) => {
 
     const { organization_id: filterOrgId, force = false } = body
 
+    const evolutionUrl = Deno.env.get('EVOLUTION_API_URL')!.replace(/\/$/, '')
+    const evolutionKey = Deno.env.get('EVOLUTION_API_KEY')!
+
     // Buscar configs ativas
     let configQuery = supabaseAdmin
       .from('whatsapp_config')
-      .select('*, organizations(name)')
+      .select('organization_id, instance_name, group_jid, organizations(name)')
       .eq('active', true)
       .not('group_jid', 'is', null)
+      .not('instance_name', 'is', null)
 
     if (filterOrgId) {
       configQuery = configQuery.eq('organization_id', filterOrgId)
@@ -123,9 +125,7 @@ Deno.serve(async (req) => {
     const { data: configs, error: configError } = await configQuery
     if (configError) throw new Error(`Erro ao buscar configs: ${configError.message}`)
     if (!configs || configs.length === 0) {
-      return new Response(JSON.stringify({ message: 'Nenhuma configuração ativa encontrada' }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+      return ok({ message: 'Nenhuma configuração ativa encontrada' })
     }
 
     // Calcular janela de 7 dias (ontem até 7 dias atrás) em horário de Brasília
@@ -217,13 +217,12 @@ Deno.serve(async (req) => {
       message += `Acesse agora: https://sistemafrutifica.com`
 
       // Enviar via Evolution API
-      const baseUrl = config.evolution_api_url.replace(/\/$/, '')
       const sendResponse = await fetch(
-        `${baseUrl}/message/sendText/${config.instance_name}`,
+        `${evolutionUrl}/message/sendText/${config.instance_name}`,
         {
           method: 'POST',
           headers: {
-            'apikey': config.api_key,
+            'apikey': evolutionKey,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
@@ -242,14 +241,10 @@ Deno.serve(async (req) => {
       results.push({ org: orgName, sent, pendingCount: pendingByDate.size })
     }
 
-    return new Response(JSON.stringify({ success: true, results }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    })
+    return ok({ success: true, results })
 
   } catch (error: any) {
-    return new Response(JSON.stringify({ error: error.message ?? 'Erro interno' }), {
-      status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    })
+    console.error('[send-whatsapp-reminder] Erro interno:', error.message)
+    return ok({ error: error.message ?? 'Erro interno' })
   }
 })
