@@ -59,19 +59,31 @@ Deno.serve(async (req) => {
 
     // Buscar grupos na Evolution API
     const baseUrl = evolution_api_url.replace(/\/$/, '')
-    const response = await fetch(
-      `${baseUrl}/group/fetchAllGroups/${instance_name}?getParticipants=false`,
-      {
+    const fetchUrl = `${baseUrl}/group/fetchAllGroups/${instance_name}?getParticipants=false`
+    console.log('[fetch-whatsapp-groups] Chamando Evolution API:', fetchUrl)
+
+    let response: Response
+    try {
+      response = await fetch(fetchUrl, {
         method: 'GET',
         headers: {
           'apikey': api_key,
           'Content-Type': 'application/json',
         },
-      }
-    )
+      })
+    } catch (fetchErr: any) {
+      console.error('[fetch-whatsapp-groups] Erro de rede ao chamar Evolution API:', fetchErr.message)
+      return new Response(JSON.stringify({ error: `Não foi possível conectar à Evolution API: ${fetchErr.message}` }), {
+        status: 502,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
+    }
+
+    console.log('[fetch-whatsapp-groups] Status da resposta:', response.status)
 
     if (!response.ok) {
       const errorText = await response.text()
+      console.error('[fetch-whatsapp-groups] Erro da Evolution API:', response.status, errorText)
       return new Response(JSON.stringify({ error: `Evolution API retornou erro ${response.status}: ${errorText}` }), {
         status: 502,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
