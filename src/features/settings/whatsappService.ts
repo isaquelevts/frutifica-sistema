@@ -57,6 +57,16 @@ export const upsertWhatsappConfig = async (config: WhatsappConfig): Promise<void
   if (error) throw new Error(error.message);
 };
 
+async function extractInvokeError(error: any): Promise<string> {
+  try {
+    const body = await error?.context?.json?.();
+    if (body?.error) return body.error;
+  } catch {
+    // não conseguiu parsear — usa mensagem genérica
+  }
+  return error?.message ?? 'Erro desconhecido';
+}
+
 export const fetchWhatsappGroups = async (
   evolutionApiUrl: string,
   apiKey: string,
@@ -70,9 +80,8 @@ export const fetchWhatsappGroups = async (
     },
   });
 
-  // Verifica o body da resposta antes do erro genérico do cliente
+  if (error) throw new Error(await extractInvokeError(error));
   if (data?.error) throw new Error(data.error);
-  if (error) throw new Error(error.message);
 
   return data?.groups ?? [];
 };
@@ -85,6 +94,6 @@ export const sendTestReminder = async (organizationId: string): Promise<void> =>
     },
   });
 
+  if (error) throw new Error(await extractInvokeError(error));
   if (data?.error) throw new Error(data.error);
-  if (error) throw new Error(error.message);
 };
