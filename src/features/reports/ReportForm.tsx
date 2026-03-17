@@ -308,7 +308,7 @@ const ReportForm: React.FC = () => {
             <p className="opacity-90 mt-1">Célula: {cell.name} • Líder: {cell.leaderName}</p>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-8">
+          <form onSubmit={handleSubmit(onSubmit)} className="p-4 sm:p-6 space-y-8 overflow-hidden">
 
             {/* Section 1: Did it happen? */}
             <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
@@ -335,12 +335,12 @@ const ReportForm: React.FC = () => {
 
                 {/* Basic Info */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
+                  <div className="min-w-0">
                     <label className="block text-sm font-medium text-slate-800 mb-1">Data da Célula</label>
                     <input
                       type="date"
                       {...register('date')}
-                      className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.date ? 'border-red-500' : 'border-slate-300'} text-slate-800 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                      className={`w-full max-w-full px-4 py-2 rounded-lg bg-white border ${errors.date ? 'border-red-500' : 'border-slate-300'} text-slate-800 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none box-border`}
                     />
                     {errors.date && <span className="text-red-500 text-xs mt-1">{errors.date.message}</span>}
                   </div>
