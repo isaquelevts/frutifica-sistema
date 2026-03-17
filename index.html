@@ -59,6 +59,19 @@
       font-family: 'Inter', sans-serif !important;
     }
 
+    /* Fix input[type="date"] no iOS Safari / Chrome Android:
+       font-size >= 16px evita zoom automático ao focar;
+       min-height 44px respeita o mínimo de toque do iOS;
+       appearance: none + width 100% + box-sizing garante que não estoure o container */
+    input[type="date"] {
+      font-size: 16px;
+      min-height: 44px;
+      width: 100%;
+      box-sizing: border-box;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
     /* Leaflet Z-Index Fix for Sidebar */
     .leaflet-pane {
       z-index: 0 !important;

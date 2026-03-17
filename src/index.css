@@ -3,3 +3,18 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* Fix para input[type="date"] no iOS Safari / Chrome Android:
+   - font-size >= 16px evita zoom automático ao focar
+   - min-height 44px respeita o mínimo de toque do iOS
+   - appearance: none + width: 100% garante que o campo não estoure o container
+   - box-sizing: border-box inclui padding na largura total
+*/
+input[type="date"] {
+  font-size: 16px;
+  min-height: 44px;
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+}
