@@ -122,7 +122,7 @@ export interface Member {
   organizationId: string; // Multi-tenant link
   cellId: string;
   name: string;
-  phone: string;
+  phone?: string;
   email?: string;
   birthday?: string;
   type: MemberType;

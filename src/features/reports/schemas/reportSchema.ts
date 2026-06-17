@@ -13,8 +13,7 @@ export const reportSchema = z.object({
     conversionsList: z.array(z.string()).optional().default([]),
     newVisitorsList: z.array(z.object({
         id: z.string().optional(),
-        name: z.string().min(1, "Nome é obrigatório"),
-        phone: z.string().min(1, "Telefone é obrigatório")
+        name: z.string().min(1, "Nome é obrigatório")
     })).optional().default([]),
 });
 

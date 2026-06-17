@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../core/auth/AuthContext';
 import { Member, MemberType } from '../../shared/types/types';
 import { saveMember, updateMember, deleteMember } from './memberService';
-import { Plus, Search, Edit2, Trash2, Phone, Star, ShieldCheck, MessageCircle, Cake } from 'lucide-react';
-import { maskPhone } from '../../core/utils/mask';
+import { Plus, Search, Edit2, Trash2, Star, ShieldCheck, Cake } from 'lucide-react';
 import { useMembersByCell } from '../../shared/hooks/useMembers';
 import { useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
@@ -43,7 +42,6 @@ const MembersList: React.FC = () => {
       if (editingMember) {
         reset({
           name: editingMember.name,
-          phone: editingMember.phone,
           birthday: editingMember.birthday || '',
           type: editingMember.type,
           attendanceCount: editingMember.attendanceCount
@@ -51,7 +49,6 @@ const MembersList: React.FC = () => {
       } else {
         reset({
           name: '',
-          phone: '',
           birthday: '',
           type: MemberType.MEMBER,
           attendanceCount: 0
@@ -85,7 +82,6 @@ const MembersList: React.FC = () => {
 
     const memberData = {
       name: data.name,
-      phone: data.phone,
       birthday: data.birthday,
       type: finalType,
       attendanceCount: Number(data.attendanceCount)
@@ -115,10 +111,6 @@ const MembersList: React.FC = () => {
     } catch (err: any) {
       alert(`Erro ao salvar membro: ${err?.message || 'Erro desconhecido'}`);
     }
-  };
-
-  const formatPhoneNumber = (phone: string) => {
-    return phone.replace(/\D/g, '');
   };
 
   const filteredMembers = members.filter(m =>
@@ -200,18 +192,6 @@ const MembersList: React.FC = () => {
               </div>
 
               <div className="flex gap-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
-                {/* WhatsApp Action */}
-                {member.phone && (
-                  <a
-                    href={`https://wa.me/55${formatPhoneNumber(member.phone)}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="p-1.5 text-green-600 hover:bg-green-50 rounded"
-                    title="Abrir WhatsApp"
-                  >
-                    <MessageCircle size={18} />
-                  </a>
-                )}
                 <button
                   onClick={() => handleEdit(member)}
                   className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded"
@@ -228,10 +208,6 @@ const MembersList: React.FC = () => {
             </div>
 
             <div className="mt-4 pt-3 border-t border-slate-50 flex flex-col gap-2">
-              <div className="flex items-center text-sm text-slate-500 gap-2">
-                <Phone size={14} />
-                {member.phone || <span className="italic text-slate-300">Sem telefone</span>}
-              </div>
               {member.birthday && (
                 <div className="flex items-center text-sm text-slate-500 gap-2">
                   <Cake size={14} />
@@ -266,18 +242,6 @@ const MembersList: React.FC = () => {
                   className={`w-full px-4 py-2 rounded-lg bg-slate-50 border ${errors.name ? 'border-red-500' : 'border-slate-300'} outline-none focus:border-blue-500 text-slate-800`}
                 />
                 {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">WhatsApp / Telefone</label>
-                <input
-                  type="tel"
-                  {...register('phone')}
-                  onChange={(e) => setValue('phone', maskPhone(e.target.value))}
-                  className={`w-full px-4 py-2 rounded-lg bg-slate-50 border ${errors.phone ? 'border-red-500' : 'border-slate-300'} outline-none focus:border-blue-500 text-slate-800`}
-                  placeholder="(99) 99999-9999"
-                />
-                {errors.phone && <span className="text-red-500 text-xs mt-1">{errors.phone.message}</span>}
               </div>
 
               <div>

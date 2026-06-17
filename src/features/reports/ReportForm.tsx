@@ -3,9 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { CellType, Report, Member, MemberType } from '../../shared/types/types';
 import { saveReport, updateReport, getReportByCellAndDate } from './reportService';
 import { saveMember, incrementAttendance } from '../members/memberService';
-import { Save, AlertCircle, Calendar, UserPlus, CheckSquare, User, UserCheck, Heart, CheckCircle, ArrowRight, Plus, X, Phone, FileEdit } from 'lucide-react';
+import { Save, AlertCircle, Calendar, UserPlus, CheckSquare, User, UserCheck, Heart, CheckCircle, ArrowRight, Plus, X, FileEdit } from 'lucide-react';
 import { Report as ReportType } from '../../shared/types/types';
-import { maskPhone } from '../../core/utils/mask';
 import { useCell } from '../../shared/hooks/useCells';
 import { useReport } from '../../shared/hooks/useReports';
 import { useMembersByCell } from '../../shared/hooks/useMembers';
@@ -37,13 +36,13 @@ const ReportForm: React.FC = () => {
 
   // New Member Modal State (Separate functionality, kept as state for simplicity as it creates a member separately)
   const [showNewMemberModal, setShowNewMemberModal] = useState(false);
-  const [newMemberData, setNewMemberData] = useState({ name: '', phone: '' });
+  const [newMemberData, setNewMemberData] = useState({ name: '' });
 
   // Duplicate Report Modal
   const [duplicateReport, setDuplicateReport] = useState<ReportType | null>(null);
 
   // Temp Visitor State (for adding loop)
-  const [tempVisitor, setTempVisitor] = useState({ name: '', phone: '' });
+  const [tempVisitor, setTempVisitor] = useState({ name: '' });
   const [isAddingVisitor, setIsAddingVisitor] = useState(false);
 
   // React Hook Form
@@ -91,8 +90,7 @@ const ReportForm: React.FC = () => {
         conversionsList: report.conversionsList || [],
         newVisitorsList: report.newVisitorsList ? report.newVisitorsList.map(v => ({
           id: v.id || crypto.randomUUID(),
-          name: v.name,
-          phone: v.phone
+          name: v.name
         })) : []
       });
     } else if (reportId && !loadingReport && !report) {
@@ -140,31 +138,19 @@ const ReportForm: React.FC = () => {
 
   const addVisitorToForm = () => {
     if (!tempVisitor.name) return;
-    if (!tempVisitor.phone) {
-      alert("O telefone é obrigatório para diferenciar cada pessoa.");
-      return;
-    }
-
-    // Check duplication in existing members
-    const exists = existingMembers.some(m => m.phone === tempVisitor.phone);
-    if (exists) {
-      alert("Já existe um membro cadastrado com este telefone.");
-      return;
-    }
 
     appendVisitor({
       id: crypto.randomUUID(),
-      name: tempVisitor.name,
-      phone: tempVisitor.phone
+      name: tempVisitor.name
     });
 
-    setTempVisitor({ name: '', phone: '' });
-    setIsAddingVisitor(false); // Close form
+    setTempVisitor({ name: '' });
+    setIsAddingVisitor(false);
   };
 
   const handleSaveNewMember = async () => {
-    if (!newMemberData.name || !newMemberData.phone) {
-      alert("Nome e Telefone são obrigatórios.");
+    if (!newMemberData.name) {
+      alert("Nome é obrigatório.");
       return;
     }
     if (!cell) return;
@@ -175,8 +161,7 @@ const ReportForm: React.FC = () => {
       organizationId: cell.organizationId,
       cellId: cell.id,
       name: newMemberData.name,
-      phone: newMemberData.phone,
-      type: MemberType.MEMBER, // Default to member
+      type: MemberType.MEMBER,
       attendanceCount: 0,
       firstVisitDate: new Date().toISOString().split('T')[0],
       createdAt: new Date().toISOString(),
@@ -191,7 +176,7 @@ const ReportForm: React.FC = () => {
     // Auto-select attendance
     setValue('attendanceList', [...attendanceList, newMemberId], { shouldDirty: true });
 
-    setNewMemberData({ name: '', phone: '' });
+    setNewMemberData({ name: '' });
     setShowNewMemberModal(false);
   };
 
@@ -242,7 +227,7 @@ const ReportForm: React.FC = () => {
         conversions: finalConversions,
 
         attendanceList: data.attendanceList,
-        newVisitorsList: data.newVisitorsList.map(v => ({ id: v.id || crypto.randomUUID(), name: v.name, phone: v.phone })),
+        newVisitorsList: data.newVisitorsList.map(v => ({ id: v.id || crypto.randomUUID(), name: v.name })),
         conversionsList: data.conversionsList,
 
         date: data.date,
@@ -264,7 +249,6 @@ const ReportForm: React.FC = () => {
               organizationId: cell.organizationId,
               cellId: cell.id,
               name: visitor.name,
-              phone: visitor.phone,
               type: MemberType.VISITOR,
               attendanceCount: 1,
               firstVisitDate: data.date,
@@ -438,9 +422,6 @@ const ReportForm: React.FC = () => {
                             </div>
                             <div>
                               <p className="font-bold text-slate-800">{v.name}</p>
-                              <div className="flex items-center gap-1 text-xs text-slate-600">
-                                <Phone size={10} /> {v.phone}
-                              </div>
                             </div>
                           </div>
                           <button
@@ -503,20 +484,6 @@ const ReportForm: React.FC = () => {
                               onChange={handleTempVisitorChange}
                               className="w-full pl-10 pr-4 py-2 rounded-lg bg-slate-50 border border-slate-300 text-slate-800 outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
                               autoFocus
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-slate-700 mb-1">WhatsApp (Obrigatório)</label>
-                          <div className="relative">
-                            <Phone className="absolute left-3 top-2.5 text-slate-400" size={18} />
-                            <input
-                              type="tel"
-                              name="phone"
-                              placeholder="(99) 99999-9999"
-                              value={tempVisitor.phone}
-                              onChange={(e) => setTempVisitor(prev => ({ ...prev, phone: maskPhone(e.target.value) }))}
-                              className="w-full pl-10 pr-4 py-2 rounded-lg bg-slate-50 border border-slate-300 text-slate-800 outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
                             />
                           </div>
                         </div>
@@ -678,16 +645,6 @@ const ReportForm: React.FC = () => {
                   value={newMemberData.name}
                   onChange={(e) => setNewMemberData(prev => ({ ...prev, name: e.target.value }))}
                   className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-300 outline-none focus:border-blue-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Telefone</label>
-                <input
-                  type="tel"
-                  value={newMemberData.phone}
-                  onChange={(e) => setNewMemberData(prev => ({ ...prev, phone: maskPhone(e.target.value) }))}
-                  className="w-full px-3 py-2 rounded-lg bg-slate-50 border border-slate-300 outline-none focus:border-blue-500"
-                  placeholder="(99) 99999-9999"
                 />
               </div>
             </div>
