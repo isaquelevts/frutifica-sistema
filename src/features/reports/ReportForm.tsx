@@ -457,7 +457,7 @@ const ReportForm: React.FC = () => {
                           <p className="text-green-100 text-sm opacity-90">Cadastre alguém que veio hoje.</p>
                         </div>
                       </div>
-                      <div className="bg-white text-green-700 px-4 py-2 rounded-lg font-bold text-sm shadow-sm group-hover:bg-green-50 transition-colors flex items-center gap-1">
+                      <div className="animate-btn-pulse bg-white text-green-700 px-4 py-2 rounded-lg font-bold text-sm shadow-sm flex items-center gap-1">
                         Adicionar <Plus size={16} />
                       </div>
                     </div>

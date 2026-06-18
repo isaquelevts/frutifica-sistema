@@ -72,6 +72,14 @@
       appearance: none;
     }
 
+    @keyframes btn-pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+      50% { transform: scale(1.07); box-shadow: 0 4px 14px rgba(16, 185, 129, 0.5); }
+    }
+    .animate-btn-pulse {
+      animation: btn-pulse 1.5s ease-in-out infinite;
+    }
+
     /* Leaflet Z-Index Fix for Sidebar */
     .leaflet-pane {
       z-index: 0 !important;

@@ -4,6 +4,15 @@ body {
   padding: 0;
 }
 
+@keyframes card-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  50% { transform: scale(1.06); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.45); }
+}
+
+.animate-card-pulse {
+  animation: card-pulse 1.5s ease-in-out infinite;
+}
+
 /* Fix para input[type="date"] no iOS Safari / Chrome Android:
    - font-size >= 16px evita zoom automático ao focar
    - min-height 44px respeita o mínimo de toque do iOS
