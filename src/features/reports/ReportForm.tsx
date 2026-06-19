@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Report } from '../../shared/types/types';
 import { saveReport, updateReport, getReportByCellAndDate } from './reportService';
-import { Save, AlertCircle, CheckCircle, ArrowRight, FileEdit, Users, UserPlus } from 'lucide-react';
+import { Save, AlertCircle, CheckCircle, ArrowRight, FileEdit, Users, UserPlus, PartyPopper } from 'lucide-react';
 import { CellType } from '../../shared/types/types';
 import { Report as ReportType } from '../../shared/types/types';
 import { useCell } from '../../shared/hooks/useCells';
@@ -41,6 +41,7 @@ const ReportForm: React.FC = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [submittedStats, setSubmittedStats] = useState({ total: 0, visitors: 0 });
   const [duplicateReport, setDuplicateReport] = useState<ReportType | null>(null);
+  const [weekReport, setWeekReport] = useState<ReportType | null | undefined>(undefined); // undefined=checking, null=not found
 
   const { data: report, isLoading: loadingReport } = useReport(reportId);
   const workingCellId = cellId || report?.cellId;
@@ -70,6 +71,15 @@ const ReportForm: React.FC = () => {
   useEffect(() => {
     if (workingCellId && !loadingCell && !cell) navigate('/reports');
   }, [workingCellId, cell, loadingCell, navigate]);
+
+  // Verifica ao carregar se já existe relatório dessa semana
+  useEffect(() => {
+    if (!isEditing && cell && cellDate) {
+      getReportByCellAndDate(cell.id, cellDate).then(existing => {
+        setWeekReport(existing || null);
+      });
+    }
+  }, [cell, cellDate, isEditing]);
 
   const onSubmit = async (data: ReportFormData) => {
     if (!cell) return;
@@ -120,6 +130,47 @@ const ReportForm: React.FC = () => {
     </div>
   );
   if (!cell) return null;
+
+  // Verificando se já existe relatório da semana
+  if (!isEditing && weekReport === undefined) return (
+    <div className="flex h-[60vh] items-center justify-center">
+      <div className="w-10 h-10 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
+
+  // Já enviou o relatório dessa semana
+  if (!isEditing && weekReport) return (
+    <div className="max-w-lg mx-auto">
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="bg-green-600 p-8 text-center text-white">
+          <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <PartyPopper size={40} className="text-white" />
+          </div>
+          <h2 className="text-2xl font-bold">Parabéns!</h2>
+          <p className="text-green-100 mt-2 text-lg">Você já preencheu o sistema essa semana!</p>
+          <p className="text-green-200 text-sm mt-1 capitalize">{formatDate(weekReport.date)}</p>
+        </div>
+        <div className="p-8 text-center space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+              <p className="text-3xl font-bold text-slate-800">{weekReport.participants}</p>
+              <p className="text-xs uppercase font-bold text-slate-400 mt-1">Total de Pessoas</p>
+            </div>
+            <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+              <p className="text-3xl font-bold text-orange-500">{weekReport.visitors}</p>
+              <p className="text-xs uppercase font-bold text-slate-400 mt-1">Visitantes</p>
+            </div>
+          </div>
+          <button
+            onClick={() => navigate(`/edit-report/${weekReport.id}`)}
+            className="w-full flex items-center justify-center gap-2 border border-slate-300 text-slate-600 hover:bg-slate-50 font-medium py-3 px-6 rounded-xl transition-colors mt-2"
+          >
+            <FileEdit size={18} /> Editar relatório
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <>
