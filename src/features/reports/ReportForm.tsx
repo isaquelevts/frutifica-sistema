@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { CellType, Report } from '../../shared/types/types';
+import { Report } from '../../shared/types/types';
 import { saveReport, updateReport, getReportByCellAndDate } from './reportService';
 import { Save, AlertCircle, CheckCircle, ArrowRight, FileEdit, Users, UserPlus } from 'lucide-react';
+import { CellType } from '../../shared/types/types';
 import { Report as ReportType } from '../../shared/types/types';
 import { useCell } from '../../shared/hooks/useCells';
 import { useReport } from '../../shared/hooks/useReports';
@@ -53,17 +54,15 @@ const ReportForm: React.FC = () => {
 
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<ReportFormData>({
     resolver: zodResolver(reportSchema),
-    defaultValues: { type: CellType.NORMAL, members: 0, visitors: 0, notes: '' }
+    defaultValues: { members: 0, visitors: 0 }
   });
 
   useEffect(() => {
     if (reportId && report) {
       setIsEditing(true);
       reset({
-        type: report.type || CellType.NORMAL,
         members: Math.max(0, (report.participants || 0) - (report.visitors || 0)),
         visitors: report.visitors || 0,
-        notes: report.notes || ''
       });
     }
   }, [reportId, report, reset]);
@@ -89,7 +88,7 @@ const ReportForm: React.FC = () => {
         cellId: cell.id,
         cellName: cell.name,
         happened: true,
-        type: data.type,
+        type: CellType.NORMAL,
         participants: totalParticipants,
         visitors: Number(data.visitors),
         conversions: 0,
@@ -97,7 +96,6 @@ const ReportForm: React.FC = () => {
         newVisitorsList: [],
         conversionsList: [],
         date: cellDate,
-        notes: data.notes,
         createdAt: isEditing ? (report?.createdAt || new Date().toISOString()) : new Date().toISOString()
       };
 
@@ -135,18 +133,6 @@ const ReportForm: React.FC = () => {
 
           <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Tipo de Reunião</label>
-              <select
-                {...register('type')}
-                className="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 text-slate-800 font-medium focus:ring-2 focus:ring-blue-500 outline-none"
-              >
-                {Object.values(CellType).map(type => (
-                  <option key={type} value={type}>{type}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
               <label className="block text-sm font-medium text-slate-700 mb-2 flex items-center gap-1.5">
                 <Users size={16} /> Membros presentes
               </label>
@@ -154,8 +140,8 @@ const ReportForm: React.FC = () => {
                 type="number"
                 min="0"
                 {...register('members')}
+                onFocus={(e) => e.target.select()}
                 className={`w-full px-4 py-3 rounded-lg bg-white border ${errors.members ? 'border-red-500' : 'border-slate-300'} text-slate-800 text-2xl font-bold text-center focus:ring-2 focus:ring-blue-500 outline-none`}
-                placeholder="0"
               />
               {errors.members && <span className="text-red-500 text-xs mt-1 block">{errors.members.message}</span>}
             </div>
@@ -168,20 +154,10 @@ const ReportForm: React.FC = () => {
                 type="number"
                 min="0"
                 {...register('visitors')}
+                onFocus={(e) => e.target.select()}
                 className={`w-full px-4 py-3 rounded-lg bg-white border ${errors.visitors ? 'border-red-500' : 'border-slate-300'} text-slate-800 text-2xl font-bold text-center focus:ring-2 focus:ring-blue-500 outline-none`}
-                placeholder="0"
               />
               {errors.visitors && <span className="text-red-500 text-xs mt-1 block">{errors.visitors.message}</span>}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Observações (Opcional)</label>
-              <textarea
-                rows={3}
-                {...register('notes')}
-                className="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none resize-none"
-                placeholder="Testemunhos, pedidos de oração..."
-              />
             </div>
 
             <div className="flex justify-end gap-3 pt-2">
