@@ -111,13 +111,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   } else {
     // ─── MENU LÍDER ─────────────────────────────────────────────────────────
+    const reportPath = user?.cellId ? `/report/${user.cellId}` : '/reports';
     menuStructure.push({
       items: [
-        { path: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
-        { path: '/my-cell', label: 'Minha Célula', icon: <Home size={20} /> },
-        { path: '/members', label: 'Membros', icon: <UserCheck size={20} /> },
-        { path: '/reports', label: 'Meus Relatórios', icon: <FileText size={20} /> },
+        { path: reportPath, label: 'Relatório', icon: <FileText size={20} /> },
         { path: '/ranking', label: 'Reconhecimento', icon: <Trophy size={20} /> },
+        { path: '/reports', label: 'Meus Relatórios', icon: <ClipboardList size={20} /> },
       ]
     });
   }
@@ -126,6 +125,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     if (path === '/super') return location.pathname === '/super';
     if (path.startsWith('/super/')) return location.pathname.startsWith(path);
     if (path === '/dashboard') return location.pathname === '/dashboard';
+    if (path.startsWith('/report/')) return location.pathname.startsWith('/report/') || location.pathname.startsWith('/edit-report/');
+    if (path === '/reports') return location.pathname === '/reports';
     return location.pathname.startsWith(path);
   };
 

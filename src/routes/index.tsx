@@ -50,6 +50,15 @@ const LazyFallback = () => (
   </div>
 );
 
+// Redireciona líderes direto para o formulário de relatório
+const LeaderRedirect: React.FC = () => {
+    const { user, isAdmin, isSuperAdmin } = useAuth();
+    if (!isAdmin && !isSuperAdmin && user?.roles?.includes(UserRole.LEADER) && user?.cellId) {
+        return <Navigate to={`/report/${user.cellId}`} replace />;
+    }
+    return <Dashboard />;
+};
+
 // Guard para rotas normais autenticadas
 const ProtectedRoute: React.FC<{ children: React.ReactNode; roles?: UserRole[] }> = ({ children, roles }) => {
     const { isAuthenticated, user, isLoading } = useAuth();
@@ -136,7 +145,7 @@ const AppRoutes: React.FC = () => {
             {/* ========================================= */}
             {/* ROTAS GERAIS                             */}
             {/* ========================================= */}
-            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/dashboard" element={<ProtectedRoute><LeaderRedirect /></ProtectedRoute>} />
 
             {/* Leader Routes */}
             <Route path="/my-cell" element={<ProtectedRoute roles={[UserRole.LEADER]}><MyCell /></ProtectedRoute>} />
