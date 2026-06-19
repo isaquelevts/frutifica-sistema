@@ -176,7 +176,7 @@ const ReportForm: React.FC = () => {
     <>
       <div className="max-w-lg mx-auto">
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-          <div className="bg-blue-600 p-6 text-white">
+          <div className="bg-blue-400 p-6 text-white">
             <h2 className="text-xl font-bold">{isEditing ? 'Editar Relatório' : 'Relatório Semanal'}</h2>
             <p className="opacity-90 mt-1 text-sm">{cell.name}</p>
             <p className="opacity-75 mt-0.5 text-sm capitalize">{formatDate(cellDate)}</p>
