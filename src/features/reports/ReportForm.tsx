@@ -222,7 +222,7 @@ const ReportForm: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-8 rounded-lg shadow-sm transition-colors disabled:opacity-70"
+                className="animate-btn-pulse flex items-center gap-2 bg-blue-600 text-white font-medium py-2.5 px-8 rounded-lg shadow-sm disabled:opacity-70"
               >
                 <Save size={18} />
                 {isSubmitting ? 'Enviando...' : isEditing ? 'Atualizar' : 'Enviar Relatório'}
