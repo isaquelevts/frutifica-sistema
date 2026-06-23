@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../core/auth/AuthContext';
-import { saveOrganization } from '../settings/organizationService';
-import { saveUser } from '../settings/profileService';
-import { supabase } from '../../core/supabase/supabaseClient';
-import { UserRole, Organization } from '../../shared/types/types';
+import { apiFetch, setToken } from '../../core/api/client';
 import { Church, User as UserIcon, Lock, Mail, ArrowLeft } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -25,43 +22,13 @@ const Register: React.FC = () => {
 
   const onSubmit = async (data: RegisterFormData) => {
     setError('');
-
     try {
-      // 1. Create User in Supabase Auth
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: data.email,
-        password: data.password,
+      const { token } = await apiFetch<{ token: string }>('/api/auth/register', {
+        method: 'POST',
+        body: JSON.stringify({ orgName: data.orgName, name: data.adminName, email: data.email, password: data.password }),
       });
-
-      if (authError) throw authError;
-      if (!authData.user) throw new Error('Erro ao criar usuário');
-
-      // 2. Create Organization (Tenant)
-      const newOrgId = crypto.randomUUID();
-      const newOrg: Organization = {
-        id: newOrgId,
-        name: data.orgName,
-        createdAt: new Date().toISOString(),
-        plan: 'pro',
-        maxCells: 99999
-      };
-      await saveOrganization(newOrg);
-
-      // 3. Create Admin Profile linked to Tenant
-      const newUser = {
-        id: authData.user.id, // Link to Auth ID
-        organizationId: newOrgId,
-        name: data.adminName,
-        email: data.email,
-        roles: [UserRole.ADMIN, UserRole.INTRODUTOR],
-        cellId: undefined
-      };
-
-      await saveUser(newUser as any);
-
-      // 4. Navigate (AuthContext listener will pick up the session)
+      setToken(token);
       navigate('/dashboard');
-
     } catch (err: any) {
       setError(err.message || 'Erro ao criar conta da igreja.');
     }

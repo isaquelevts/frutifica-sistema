@@ -8,9 +8,9 @@ import {
   type LeaderStep1FormData,
   type LeaderStep2FormData,
 } from './schemas/leaderRegisterSchema';
-import { supabase } from '../../core/supabase/supabaseClient';
+import { apiFetch } from '../../core/api/client';
 import { getOrganizationById } from '../settings/organizationService';
-import { Organization, UserRole, TargetAudience } from '../../shared/types/types';
+import { Organization, TargetAudience } from '../../shared/types/types';
 import {
   Church, User as UserIcon, Lock, Mail, Phone,
   MapPin, Clock, Calendar, Users, CheckCircle,
@@ -75,74 +75,34 @@ const LeaderRegister: React.FC = () => {
 
   const onStep2Submit = async (data: LeaderStep2FormData) => {
     if (!step1Data || !orgId) return;
-
     setIsSubmitting(true);
     setSubmitError('');
-
     try {
-      // 1. Criar o usuário no Supabase Auth
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: step1Data.email,
-        password: step1Data.password,
+      // 1. Criar usuário líder
+      const { user } = await apiFetch<{ user: any }>('/api/auth/register-leader', {
+        method: 'POST',
+        body: JSON.stringify({ orgId, name: step1Data.name, email: step1Data.email, password: step1Data.password }),
       });
 
-      if (authError) {
-        // Erros comuns do signUp com mensagem amigável
-        if (authError.message?.toLowerCase().includes('already registered')) {
-          throw new Error('Este email já está cadastrado. Faça login ou use outro email.');
-        }
-        throw new Error(`Erro ao criar conta: ${authError.message}`);
-      }
-
-      if (!authData.user) throw new Error('Erro ao criar usuário. Tente novamente.');
-
-      // Se o Supabase exige confirmação de email, session é null aqui.
-      // Neste caso, não conseguimos inserir profile/célula via RLS pois auth.uid() é null.
-      // Solução: desative "Confirm email" em Authentication → Settings no Supabase.
-      if (!authData.session) {
-        throw new Error(
-          'Seu Supabase está com confirmação de email ativa. Desative a opção "Confirm email" em Authentication → Settings no painel do Supabase e tente novamente.'
-        );
-      }
-
-      const userId = authData.user.id;
-
-      // 2. Criar o perfil PRIMEIRO (sem cellId ainda)
-      // O RLS da tabela 'cells' depende de get_my_org_id() que lê a tabela profiles.
-      // O perfil precisa existir antes de inserir a célula.
-      const { error: profileError } = await supabase.from('profiles').insert({
-        id: userId,
-        organization_id: orgId,
-        name: step1Data.name,
-        email: step1Data.email,
-        roles: [UserRole.LEADER],
-        cell_id: null,
+      // 2. Criar a célula
+      const cell = await apiFetch<any>('/api/cells', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: data.cellName,
+          leaderName: data.leaderName,
+          dayOfWeek: data.dayOfWeek,
+          time: data.time,
+          address: data.address,
+          active: true,
+          organizationId: orgId,
+        }),
       });
-      if (profileError) throw new Error(`Erro ao criar perfil: ${profileError.message}`);
 
-      // 3. Criar a célula (perfil já existe, get_my_org_id() funciona)
-      const cellId = crypto.randomUUID();
-      const { error: cellError } = await supabase.from('cells').insert({
-        id: cellId,
-        organization_id: orgId,
-        name: data.cellName,
-        leader_name: data.leaderName,
-        whatsapp: data.whatsapp,
-        day_of_week: data.dayOfWeek,
-        target_audience: data.targetAudience,
-        time: data.time,
-        address: data.address,
-        active: true,
-        co_leaders: [],
+      // 3. Vincular célula ao líder
+      await apiFetch(`/api/users/${user.id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ name: user.name, email: user.email, roles: user.roles, cellId: cell.id }),
       });
-      if (cellError) throw new Error(`Erro ao criar célula: ${cellError.message}`);
-
-      // 4. Atualizar o perfil com o cellId
-      const { error: updateError } = await supabase
-        .from('profiles')
-        .update({ cell_id: cellId })
-        .eq('id', userId);
-      if (updateError) throw new Error(`Erro ao vincular célula: ${updateError.message}`);
 
       setStep('success');
     } catch (err: any) {

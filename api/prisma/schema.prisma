@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id                 String   @id @default(uuid()) @db.Uuid
+  name               String
+  plan               String   @default("free")
+  maxCells           Int?     @map("max_cells")
+  subscriptionStatus String?  @map("subscription_status")
+  createdAt          DateTime @default(now()) @map("created_at")
+
+  profiles    Profile[]
+  cells       Cell[]
+  reports     Report[]
+  generations Generation[]
+  members     Member[]
+
+  @@map("organizations")
+}
+
+model Profile {
+  id             String    @id @db.Uuid
+  email          String    @unique
+  name           String?
+  passwordHash   String    @map("password_hash")
+  roles          String[]
+  cellId         String?   @map("cell_id") @db.Uuid
+  organizationId String?   @map("organization_id") @db.Uuid
+  birthday       String?
+  resetToken     String?   @map("reset_token")
+  resetTokenExp  DateTime? @map("reset_token_exp")
+  createdAt      DateTime  @default(now()) @map("created_at")
+
+  organization Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  cell         Cell?         @relation(fields: [cellId], references: [id], onDelete: SetNull)
+
+  @@map("profiles")
+}
+
+model Cell {
+  id             String    @id @default(uuid()) @db.Uuid
+  name           String
+  leaderName     String?   @map("leader_name")
+  leaderId       String?   @map("leader_id") @db.Uuid
+  dayOfWeek      String?   @map("day_of_week")
+  time           String?
+  address        String?
+  active         Boolean   @default(true)
+  generationId   String?   @map("generation_id") @db.Uuid
+  organizationId String?   @map("organization_id") @db.Uuid
+  createdAt      DateTime  @default(now()) @map("created_at")
+
+  organization Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  generation   Generation?   @relation(fields: [generationId], references: [id], onDelete: SetNull)
+  reports      Report[]
+  profiles     Profile[]
+  members      Member[]
+
+  @@map("cells")
+}
+
+model Report {
+  id             String   @id @default(uuid()) @db.Uuid
+  cellId         String?  @map("cell_id") @db.Uuid
+  organizationId String?  @map("organization_id") @db.Uuid
+  participants   Int?
+  visitors       Int?
+  date           String?
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  cell         Cell?         @relation(fields: [cellId], references: [id], onDelete: SetNull)
+  organization Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+
+  @@map("reports")
+}
+
+model Generation {
+  id             String    @id @default(uuid()) @db.Uuid
+  name           String
+  description    String?
+  color          String?   @default("#3B82F6")
+  active         Boolean   @default(true)
+  leaderId       String?   @map("leader_id") @db.Uuid
+  organizationId String    @map("organization_id") @db.Uuid
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  cells        Cell[]
+
+  @@map("generations")
+}
+
+model Member {
+  id             String    @id @default(uuid()) @db.Uuid
+  name           String
+  cellId         String?   @map("cell_id") @db.Uuid
+  organizationId String?   @map("organization_id") @db.Uuid
+  active         Boolean   @default(true)
+  createdAt      DateTime  @default(now()) @map("created_at")
+
+  cell         Cell?         @relation(fields: [cellId], references: [id], onDelete: SetNull)
+  organization Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+
+  @@map("members")
+}
