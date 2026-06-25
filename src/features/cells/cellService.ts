@@ -15,8 +15,8 @@ export const getCellById = async (id: string): Promise<Cell | undefined> => {
     }
 };
 
-export const saveCell = async (cell: Cell): Promise<void> => {
-    await apiFetch('/api/cells', {
+export const saveCell = async (cell: Cell): Promise<Cell> => {
+    const created = await apiFetch<any>('/api/cells', {
         method: 'POST',
         body: JSON.stringify({
             name: cell.name,
@@ -30,6 +30,7 @@ export const saveCell = async (cell: Cell): Promise<void> => {
             organizationId: cell.organizationId,
         }),
     });
+    return mapCell(created);
 };
 
 export const updateCell = async (cell: Cell): Promise<void> => {

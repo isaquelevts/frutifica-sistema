@@ -9,6 +9,7 @@ import userRoutes from './routes/users';
 import generationRoutes from './routes/generations';
 import memberRoutes from './routes/members';
 import organizationRoutes from './routes/organizations';
+import superadminRoutes from './routes/superadmin';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -25,6 +26,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/generations', generationRoutes);
 app.use('/api/members', memberRoutes);
 app.use('/api/organizations', organizationRoutes);
+app.use('/api/superadmin', superadminRoutes);
 
 app.listen(PORT, () => {
   console.log(`API rodando na porta ${PORT}`);

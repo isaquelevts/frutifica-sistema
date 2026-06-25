@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useReports } from '../../shared/hooks/useReports';
 import { useCells } from '../../shared/hooks/useCells';
-import { deleteReport, decrementAttendance } from './reportService';
+import { deleteReport } from './reportService';
 import { Report } from '../../shared/types/types';
 import { FileText, Calendar, Users, XCircle, CheckCircle, Edit2, Search, Filter, X, Heart, Trash2 } from 'lucide-react';
 import { useAuth } from '../../core/auth/AuthContext';
@@ -60,9 +60,6 @@ const ReportsList: React.FC = () => {
     }
 
     try {
-      if (report.happened && report.attendanceList && report.attendanceList.length > 0) {
-        await decrementAttendance(report.attendanceList);
-      }
       await deleteReport(report.id);
       queryClient.invalidateQueries({ queryKey: ['reports'] });
       alert('Relatório removido com sucesso.');

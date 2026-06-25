@@ -1,12 +1,15 @@
+/**
+ * @deprecated Supabase foi removido. O backend agora é a API própria (core/api/client.ts).
+ * Este stub existe apenas para que módulos legados ainda não migrados (consolidação,
+ * importação, whatsapp) compilem. Qualquer uso em runtime lança erro.
+ */
+const handler: ProxyHandler<any> = {
+    get() {
+        throw new Error('Supabase foi removido deste projeto. Use a API (core/api/client.ts).');
+    },
+    apply() {
+        throw new Error('Supabase foi removido deste projeto. Use a API (core/api/client.ts).');
+    },
+};
 
-import { createClient } from '@supabase/supabase-js';
-import { Database } from './database.types';
-
-const supabaseUrl = (import.meta as any).env.VITE_SUPABASE_URL;
-const supabaseAnonKey = (import.meta as any).env.VITE_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-    console.warn('Supabase URL or Key not found in environment variables.');
-}
-
-export const supabase = createClient<Database>(supabaseUrl || '', supabaseAnonKey || '');
+export const supabase: any = new Proxy(function () {}, handler);

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getUsers, saveUser, updateUser, deleteUser } from '../settings/profileService';
 import { getCells } from './cellService';
-import { supabase } from '../../core/supabase/supabaseClient';
 import { User, UserRole, Cell } from '../../shared/types/types';
 import { useAuth } from '../../core/auth/AuthContext';
 import { UserPlus, Search, Edit2, Trash2, Mail, Lock, CakeSlice, ShieldCheck, User as UserIcon, Users, CheckCircle, Link2, Copy, Check } from 'lucide-react';
@@ -138,31 +137,20 @@ const ManageLeaders: React.FC = () => {
         };
         await updateUser(userData);
       } else {
-        // Creating new user - create in Supabase Auth first
+        // Creating new user via API (cria profile com senha hasheada)
         if (!data.password) {
           throw new Error('Senha é obrigatória para novos usuários.');
         }
 
-        const { data: authData, error: authError } = await supabase.auth.signUp({
-          email: data.email,
-          password: data.password,
-        });
-
-        if (authError) throw new Error(`Erro ao criar conta: ${authError.message}`);
-        if (!authData.user) throw new Error('Erro ao criar usuário');
-
-        // Create profile
-        const userData = {
-          id: authData.user.id,
+        await saveUser({
           organizationId: currentUser.organizationId,
           name: data.name,
           email: data.email,
+          password: data.password,
           roles: roles,
           cellId: data.cellId || undefined,
-          birthday: data.birthday || undefined
-        };
-
-        await saveUser(userData as any);
+          birthday: data.birthday || undefined,
+        } as any);
       }
 
       queryClient.invalidateQueries({ queryKey: ['users'] });

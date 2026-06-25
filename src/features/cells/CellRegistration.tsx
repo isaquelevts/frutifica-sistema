@@ -4,7 +4,6 @@ import { TargetAudience, Cell, CoLeader, UserRole, Generation } from '../../shar
 import { saveCell, getCellById, updateCell } from './cellService';
 import { saveUser } from '../settings/profileService';
 import { getGenerations } from '../generations/generationService';
-import { supabase } from '../../core/supabase/supabaseClient';
 import { Save, ArrowLeft, Users, Plus, Trash2, Mail, Phone, FileUp, Download, CheckCircle, AlertCircle, FileText, Upload, Lock, User as UserIcon } from 'lucide-react';
 import { useAuth } from '../../core/auth/AuthContext';
 import { maskPhone } from '../../core/utils/mask';
@@ -125,7 +124,7 @@ const CellRegistration: React.FC = () => {
                 queryClient.invalidateQueries({ queryKey: ['cells'] });
                 navigate('/cells');
             } else {
-                // Creating new cell - create leader account first, then cell
+                // Creating new cell - create cell first, then leader account linked to it
 
                 // Validate required leader fields for creation
                 if (!data.leaderEmail || !data.leaderPassword) {
@@ -133,39 +132,24 @@ const CellRegistration: React.FC = () => {
                     return;
                 }
 
-                const newCellId = crypto.randomUUID();
-
-                // 1. Create Leader in Supabase Auth
-                const { data: authData, error: authError } = await supabase.auth.signUp({
-                    email: data.leaderEmail,
-                    password: data.leaderPassword,
-                });
-
-                if (authError) throw new Error(`Erro ao criar conta do líder: ${authError.message}`);
-                if (!authData.user) throw new Error('Erro ao criar usuário do líder');
-
-                // 2. Create Leader Profile
-                const leaderUser = {
-                    id: authData.user.id,
-                    organizationId: user.organizationId,
-                    name: data.leaderName,
-                    email: data.leaderEmail,
-                    roles: [UserRole.LEADER],
-                    cellId: newCellId,
-                    birthday: data.leaderBirthday || undefined
-                };
-
-                await saveUser(leaderUser as any);
-
-                // 3. Create Cell
-                const cellData = {
+                // 1. Create Cell (API gera o id)
+                const createdCell = await saveCell({
                     ...data,
                     organizationId: user.organizationId,
                     active: true,
-                    id: newCellId
-                };
+                } as any);
 
-                await saveCell(cellData as any);
+                // 2. Create Leader Profile vinculado à célula
+                await saveUser({
+                    organizationId: user.organizationId,
+                    name: data.leaderName,
+                    email: data.leaderEmail,
+                    password: data.leaderPassword,
+                    roles: [UserRole.LEADER],
+                    cellId: createdCell.id,
+                    birthday: data.leaderBirthday || undefined,
+                } as any);
+
                 queryClient.invalidateQueries({ queryKey: ['cells'] });
 
                 // Show success modal instead of navigating
