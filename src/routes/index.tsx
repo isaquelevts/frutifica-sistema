@@ -12,14 +12,8 @@ import ReportForm from '../features/reports/ReportForm';
 import ReportsList from '../features/reports/ReportsList';
 import Ranking from '../features/reports/Ranking';
 import MyCell from '../features/cells/MyCell';
-import RiskMonitoring from '../features/consolidation/RiskMonitoring';
 import MembersList from '../features/members/MembersList';
 import ManageLeaders from '../features/cells/ManageLeaders';
-import ConsolidationDashboard from '../features/consolidation/ConsolidationDashboard';
-import CultReports from '../features/reports/CultReports';
-import ConsolidationKanban from '../features/consolidation/ConsolidationKanban';
-import VisitorForm from '../features/consolidation/VisitorForm';
-import VisitorsList from '../features/consolidation/VisitorsList';
 import GlobalMembers from '../features/members/GlobalMembers';
 import Generations from '../features/generations/Generations';
 import Pricing from '../features/settings/Pricing';
@@ -160,18 +154,9 @@ const AppRoutes: React.FC = () => {
             <Route path="/edit-report/:reportId" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.LEADER]}><ReportForm /></ProtectedRoute>} />
             <Route path="/leaders" element={<ProtectedRoute roles={[UserRole.ADMIN]}><ManageLeaders /></ProtectedRoute>} />
             <Route path="/generations" element={<ProtectedRoute roles={[UserRole.ADMIN]}><Generations /></ProtectedRoute>} />
-            <Route path="/risk-monitoring" element={<ProtectedRoute roles={[UserRole.ADMIN]}><RiskMonitoring /></ProtectedRoute>} />
             <Route path="/all-members" element={<ProtectedRoute roles={[UserRole.ADMIN]}><GlobalMembers /></ProtectedRoute>} />
             <Route path="/import" element={<ProtectedRoute roles={[UserRole.ADMIN]}><BulkImport /></ProtectedRoute>} />
             <Route path="/whatsapp-settings" element={<ProtectedRoute roles={[UserRole.ADMIN]}><WhatsappSettings /></ProtectedRoute>} />
-
-            {/* Consolidation Routes (Admin & Introdutores) */}
-            <Route path="/consolidation" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.INTRODUTOR]}><ConsolidationDashboard /></ProtectedRoute>} />
-            <Route path="/cult-reports" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.INTRODUTOR]}><CultReports /></ProtectedRoute>} />
-            <Route path="/kanban" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.INTRODUTOR]}><ConsolidationKanban /></ProtectedRoute>} />
-            <Route path="/add-visitor" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.INTRODUTOR]}><VisitorForm /></ProtectedRoute>} />
-            <Route path="/edit-visitor/:visitorId" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.INTRODUTOR]}><VisitorForm /></ProtectedRoute>} />
-            <Route path="/visitors" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.INTRODUTOR]}><VisitorsList /></ProtectedRoute>} />
 
             {/* Payment Routes */}
             <Route path="/pricing" element={<ProtectedRoute roles={[UserRole.ADMIN]}><Pricing /></ProtectedRoute>} />

@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell as RechartsCell, Legend } from 'recharts';
-import { Sparkles, Users, TrendingUp, CalendarCheck, Target, Filter, X, FileText, ArrowRight, Heart, UserCheck, UserPlus, Cake, ShieldCheck, MapPin, PieChart as PieIcon, Lock } from 'lucide-react';
+import { Users, TrendingUp, Filter, X, FileText, ArrowRight, UserCheck, Cake, ShieldCheck, MapPin, PieChart as PieIcon } from 'lucide-react';
 import { useCells } from '../../shared/hooks/useCells';
 import { useReports } from '../../shared/hooks/useReports';
 import { useMembers } from '../../shared/hooks/useMembers';
 import { useUsers } from '../../shared/hooks/useUsers';
 
-
-import { Cell, Report, Member, MemberType, User, TargetAudience } from '../../shared/types/types';
+import { Cell, Report, Member, User, TargetAudience } from '../../shared/types/types';
 import { useAuth } from '../../core/auth/AuthContext';
 import L from 'leaflet';
 
@@ -178,41 +177,9 @@ const Dashboard: React.FC = () => {
     ? filteredCells.filter(c => c.active !== false).length
     : filteredCells.length;
 
-  const activeMemberIds = new Set<string>();
-  const activeVisitorIds = new Set<string>();
-
-  filteredReports.forEach(report => {
-    if (report.happened && report.attendanceList) {
-      report.attendanceList.forEach(id => {
-        const member = allMembers.find(m => m.id === id);
-        if (member) {
-          if (member.type === MemberType.MEMBER) {
-            activeMemberIds.add(id);
-          } else if (member.type === MemberType.VISITOR) {
-            activeVisitorIds.add(id);
-          }
-        }
-      });
-    }
-  });
-
-  const totalActiveMembers = activeMemberIds.size;
-  const totalActiveVisitors = activeVisitorIds.size;
-  const totalConversions = filteredReports.reduce((acc, curr) => acc + (curr.conversions || 0), 0);
-
-  const totalNewMembers = allMembers.filter(m => {
-    if (m.type !== MemberType.MEMBER) return false;
-    if (!m.promotionDate) return false;
-
-    const visibleCellIds = new Set(filteredCells.map(c => c.id));
-    if (!visibleCellIds.has(m.cellId)) return false;
-
-    const promotionDate = new Date(m.promotionDate);
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-    return promotionDate >= thirtyDaysAgo;
-  }).length;
+  const totalParticipants = filteredReports.filter(r => r.happened).reduce((acc, r) => acc + (r.participants || 0), 0);
+  const totalVisitors = filteredReports.filter(r => r.happened).reduce((acc, r) => acc + (r.visitors || 0), 0);
+  const totalReports = filteredReports.filter(r => r.happened).length;
 
   // --- Birthdays Calculation ---
   const currentMonth = new Date().getMonth();
@@ -463,7 +430,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* Stats Cards */}
-      <div className={`grid grid-cols-1 ${isAdmin ? 'md:grid-cols-2 lg:grid-cols-5' : 'md:grid-cols-4'} gap-4`}>
+      <div className={`grid grid-cols-1 ${isAdmin ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-4`}>
 
         {isAdmin && (
           <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
@@ -477,7 +444,7 @@ const Dashboard: React.FC = () => {
                 </h3>
               </div>
               <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
-                {isAdmin ? <Users size={20} /> : <Target size={20} />}
+                <Users size={20} />
               </div>
             </div>
           </div>
@@ -486,32 +453,8 @@ const Dashboard: React.FC = () => {
         <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-sm font-medium text-slate-500">Conversões</p>
-              <h3 className="text-2xl font-bold text-slate-800 mt-1">{totalConversions}</h3>
-            </div>
-            <div className="p-2 bg-red-50 text-red-600 rounded-lg">
-              <Heart size={20} />
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <div className="flex justify-between items-start">
-            <div>
-              <p className="text-sm font-medium text-slate-500">Novos Membros</p>
-              <h3 className="text-2xl font-bold text-slate-800 mt-1">{totalNewMembers}</h3>
-            </div>
-            <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
-              <UserPlus size={20} />
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <div className="flex justify-between items-start">
-            <div>
-              <p className="text-sm font-medium text-slate-500">Membros Ativos</p>
-              <h3 className="text-2xl font-bold text-slate-800 mt-1">{totalActiveMembers}</h3>
+              <p className="text-sm font-medium text-slate-500">Participantes</p>
+              <h3 className="text-2xl font-bold text-slate-800 mt-1">{totalParticipants}</h3>
             </div>
             <div className="p-2 bg-purple-50 text-purple-600 rounded-lg">
               <UserCheck size={20} />
@@ -523,10 +466,22 @@ const Dashboard: React.FC = () => {
           <div className="flex justify-between items-start">
             <div>
               <p className="text-sm font-medium text-slate-500">Visitantes</p>
-              <h3 className="text-2xl font-bold text-slate-800 mt-1">{totalActiveVisitors}</h3>
+              <h3 className="text-2xl font-bold text-slate-800 mt-1">{totalVisitors}</h3>
             </div>
             <div className="p-2 bg-orange-50 text-orange-600 rounded-lg">
               <TrendingUp size={20} />
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+          <div className="flex justify-between items-start">
+            <div>
+              <p className="text-sm font-medium text-slate-500">Relatórios</p>
+              <h3 className="text-2xl font-bold text-slate-800 mt-1">{totalReports}</h3>
+            </div>
+            <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
+              <FileText size={20} />
             </div>
           </div>
         </div>

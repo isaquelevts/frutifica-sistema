@@ -1,10 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { useCells } from '../../shared/hooks/useCells';
 import { useReports } from '../../shared/hooks/useReports';
-import { useMembers } from '../../shared/hooks/useMembers';
-import { Cell } from '../../shared/types/types';
 import { useAuth } from '../../core/auth/AuthContext';
-import { Trophy, Users, TrendingUp, Heart, ShieldCheck } from 'lucide-react';
+import { Trophy, Users, TrendingUp } from 'lucide-react';
 
 interface RankedCell {
   cellId: string;
@@ -12,8 +10,6 @@ interface RankedCell {
   leaderName: string;
   totalParticipants: number;
   totalVisitors: number;
-  totalConverts: number;
-  totalPromoted: number;
   avgAttendance: number;
   reportsCount: number;
   score: number;
@@ -27,9 +23,8 @@ const Ranking: React.FC = () => {
 
   const { data: cells = [], isLoading: loadingCells } = useCells(user?.organizationId);
   const { data: reports = [], isLoading: loadingReports } = useReports(user?.organizationId);
-  const { data: allMembers = [], isLoading: loadingMembers } = useMembers(user?.organizationId);
 
-  const isLoading = loadingCells || loadingReports || loadingMembers;
+  const isLoading = loadingCells || loadingReports;
 
   const rankedCells = useMemo(() => {
     if (isLoading) return [];
@@ -61,22 +56,9 @@ const Ranking: React.FC = () => {
 
       const totalParticipants = cellReports.reduce((sum, r) => sum + (r.participants || 0), 0);
       const totalVisitors = cellReports.reduce((sum, r) => sum + (r.visitors || 0), 0);
-      const totalConverts = cellReports.reduce((sum, r) => sum + (r.conversions || 0), 0);
-
-      const totalPromoted = allMembers.filter(m =>
-        m.cellId === cell.id &&
-        m.promotionDate &&
-        isInRange(m.promotionDate)
-      ).length;
-
       const reportsCount = cellReports.length;
       const avgAttendance = reportsCount > 0 ? Math.round(totalParticipants / reportsCount) : 0;
-
-      const score =
-        (totalParticipants * 1) +
-        (totalVisitors * 2) +
-        (totalConverts * 5) +
-        (totalPromoted * 10);
+      const score = (totalParticipants * 1) + (totalVisitors * 2);
 
       return {
         cellId: cell.id,
@@ -84,8 +66,6 @@ const Ranking: React.FC = () => {
         leaderName: cell.leaderName,
         totalParticipants,
         totalVisitors,
-        totalConverts,
-        totalPromoted,
         avgAttendance,
         reportsCount,
         score
@@ -93,7 +73,7 @@ const Ranking: React.FC = () => {
     });
 
     return stats.sort((a, b) => b.score - a.score);
-  }, [cells, reports, allMembers, timeRange, isLoading]);
+  }, [cells, reports, timeRange, isLoading]);
 
   const getMedalColor = (index: number) => {
     switch (index) {
@@ -174,27 +154,19 @@ const Ranking: React.FC = () => {
                 </div>
 
                 <div className="text-center min-w-[60px]">
+                  <div className="flex items-center justify-center gap-1 text-slate-600 font-semibold">
+                    <Users size={16} />
+                    {item.totalParticipants}
+                  </div>
+                  <p className="text-[10px] text-slate-400 uppercase tracking-wide">Membros</p>
+                </div>
+
+                <div className="text-center min-w-[60px]">
                   <div className="flex items-center justify-center gap-1 text-orange-600 font-semibold">
                     <TrendingUp size={16} />
                     {item.totalVisitors}
                   </div>
                   <p className="text-[10px] text-slate-400 uppercase tracking-wide">Visitantes</p>
-                </div>
-
-                <div className="text-center min-w-[60px]">
-                  <div className="flex items-center justify-center gap-1 text-red-600 font-semibold">
-                    <Heart size={16} />
-                    {item.totalConverts}
-                  </div>
-                  <p className="text-[10px] text-slate-400 uppercase tracking-wide">Conversões</p>
-                </div>
-
-                <div className="text-center min-w-[60px]">
-                  <div className="flex items-center justify-center gap-1 text-blue-600 font-semibold">
-                    <ShieldCheck size={16} />
-                    {item.totalPromoted}
-                  </div>
-                  <p className="text-[10px] text-slate-400 uppercase tracking-wide">Novos Membros</p>
                 </div>
 
                 <div className="text-center pl-4 border-l border-slate-100 hidden sm:block">

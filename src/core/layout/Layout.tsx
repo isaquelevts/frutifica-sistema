@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Users, FileText, PlusCircle, Menu, Church,
-  Trophy, LogOut, UserCog, Home, AlertTriangle, UserCheck,
-  HeartHandshake, Calendar, ClipboardList, List,
+  Trophy, LogOut, UserCog, AlertTriangle, UserCheck,
+  ClipboardList, List,
   Network, Building2, Settings, Shield, MessageCircle
 } from 'lucide-react';
 import { useAuth } from '../auth/AuthContext';
@@ -46,8 +46,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     return 'Membro';
   };
 
-  const hasRole = (role: UserRole) => user?.roles?.includes(role) || false;
-  const isConsolidationTeam = isAdmin || hasRole(UserRole.INTRODUTOR);
   const isSuspended = organization?.subscriptionStatus === 'suspended';
 
   let menuStructure: MenuGroup[] = [];
@@ -65,49 +63,32 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     });
   }
 
-  // ─── MENU NORMAL (admin / consolidação) ─────────────────────────────────
-  if (isAdmin || isConsolidationTeam) {
+  // ─── MENU NORMAL (admin) ────────────────────────────────────────────────
+  if (isAdmin) {
     menuStructure.push({ items: [
       { path: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} /> }
     ]});
 
-    if (isAdmin) {
-      menuStructure.push({
-        title: 'CÉLULAS',
-        items: [
-          { path: '/cells', label: 'Gerenciar Células', icon: <Users size={20} /> },
-          { path: '/leaders', label: 'Gerenciar Líderes', icon: <UserCog size={20} /> },
-          { path: '/import', label: 'Importação em Massa', icon: <FileText size={20} /> },
-          { path: '/generations', label: 'Gerações / Redes', icon: <Network size={20} /> },
-          { path: '/all-members', label: 'Membros Gerais', icon: <List size={20} /> },
-          { path: '/reports', label: 'Relatórios de Célula', icon: <FileText size={20} /> },
-          { path: '/ranking', label: 'Reconhecimento', icon: <Trophy size={20} /> },
-          { path: '/risk-monitoring', label: 'Células em Risco', icon: <AlertTriangle size={20} /> },
-          { path: '/whatsapp-settings', label: 'WhatsApp', icon: <MessageCircle size={20} /> },
-        ]
-      });
-    }
+    menuStructure.push({
+      title: 'CÉLULAS',
+      items: [
+        { path: '/cells', label: 'Gerenciar Células', icon: <Users size={20} /> },
+        { path: '/leaders', label: 'Gerenciar Líderes', icon: <UserCog size={20} /> },
+        { path: '/import', label: 'Importação em Massa', icon: <FileText size={20} /> },
+        { path: '/generations', label: 'Gerações / Redes', icon: <Network size={20} /> },
+        { path: '/all-members', label: 'Membros Gerais', icon: <List size={20} /> },
+        { path: '/reports', label: 'Relatórios de Célula', icon: <FileText size={20} /> },
+        { path: '/ranking', label: 'Reconhecimento', icon: <Trophy size={20} /> },
+        { path: '/whatsapp-settings', label: 'WhatsApp', icon: <MessageCircle size={20} /> },
+      ]
+    });
 
-    if (isConsolidationTeam) {
-      menuStructure.push({
-        title: 'CONSOLIDAÇÃO',
-        items: [
-          { path: '/consolidation', label: 'Dashboard', icon: <HeartHandshake size={20} /> },
-          { path: '/cult-reports', label: 'Relatórios de Culto', icon: <Calendar size={20} /> },
-          { path: '/kanban', label: 'CRM / Kanban', icon: <ClipboardList size={20} /> },
-          { path: '/visitors', label: 'Visitantes', icon: <UserCheck size={20} /> },
-        ]
-      });
-    }
-
-    if (isAdmin) {
-      menuStructure.push({
-        title: 'CONFIGURAÇÕES',
-        items: [
-          { path: '/register-cell', label: 'Nova Célula', icon: <PlusCircle size={20} /> },
-        ]
-      });
-    }
+    menuStructure.push({
+      title: 'CONFIGURAÇÕES',
+      items: [
+        { path: '/register-cell', label: 'Nova Célula', icon: <PlusCircle size={20} /> },
+      ]
+    });
 
   } else {
     // ─── MENU LÍDER ─────────────────────────────────────────────────────────

@@ -280,10 +280,6 @@ const ReportsList: React.FC = () => {
                     <span className="block font-bold text-orange-600 text-lg">{report.visitors}</span>
                     <span className="text-[10px] text-slate-500 uppercase">Visitantes</span>
                   </div>
-                  <div className="bg-slate-50 p-2 rounded-lg text-center border border-slate-100">
-                    <span className="block font-bold text-red-600 text-lg">{report.conversions || 0}</span>
-                    <span className="text-[10px] text-slate-500 uppercase">Conversões</span>
-                  </div>
                 </div>
               )}
 
