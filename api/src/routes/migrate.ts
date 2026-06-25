@@ -70,14 +70,15 @@ router.post('/', async (req: Request, res: Response) => {
       result.cells = cells.length;
     }
 
-    // 4. Perfis (com password_hash do Supabase auth.users)
+    // 4. Perfis
     if (profiles?.length) {
+      const DEFAULT_HASH = process.env.DEFAULT_PASSWORD_HASH ?? '$2b$10$N/ZFgjQg0AO2XTtBULgdKOibJL.mXMR3q9kYcyQ4w2C4WDkPt0T4K'; // 123456
       await prisma.profile.createMany({
         data: profiles.map((p: any) => ({
           id: p.id,
-          email: p.email,
-          passwordHash: p.password_hash,
-          name: p.name ?? null,
+          email: p.email?.toLowerCase(),
+          passwordHash: p.password_hash ?? DEFAULT_HASH,
+          name: p.name?.trim() ?? null,
           roles: Array.isArray(p.roles) ? p.roles : ['leader'],
           cellId: p.cell_id ?? null,
           organizationId: p.organization_id ?? null,
@@ -110,10 +111,15 @@ router.post('/', async (req: Request, res: Response) => {
       await prisma.member.createMany({
         data: members.map((m: any) => ({
           id: m.id,
-          name: m.name,
+          name: m.name?.trim(),
           cellId: m.cell_id ?? null,
           organizationId: m.organization_id ?? null,
+          phone: m.phone ?? null,
+          email: m.email ?? null,
+          type: m.type ?? null,
           active: m.active ?? true,
+          firstVisitDate: m.first_visit_date ?? null,
+          birthday: m.birthday ?? null,
           createdAt: new Date(m.created_at),
         })),
         skipDuplicates: true,

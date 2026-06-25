@@ -103,7 +103,12 @@ model Member {
   name           String
   cellId         String?   @map("cell_id") @db.Uuid
   organizationId String?   @map("organization_id") @db.Uuid
+  phone          String?
+  email          String?
+  type           String?
   active         Boolean   @default(true)
+  firstVisitDate String?   @map("first_visit_date")
+  birthday       String?
   createdAt      DateTime  @default(now()) @map("created_at")
 
   cell         Cell?         @relation(fields: [cellId], references: [id], onDelete: SetNull)
