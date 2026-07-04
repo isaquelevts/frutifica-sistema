@@ -25,6 +25,20 @@ model Organization {
   @@map("organizations")
 }
 
+model WhatsappConfig {
+  id             String   @id @default(uuid()) @db.Uuid
+  organizationId String   @unique @map("organization_id") @db.Uuid
+  instanceName   String?  @map("instance_name")
+  groupJid       String?  @map("group_jid")
+  groupName      String?  @map("group_name")
+  active         Boolean  @default(false)
+  connected      Boolean  @default(false)
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("whatsapp_config")
+}
+
 model Profile {
   id             String    @id @db.Uuid
   email          String    @unique

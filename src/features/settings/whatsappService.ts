@@ -1,4 +1,4 @@
-import { supabase } from '../../core/supabase/supabaseClient';
+import { apiFetch } from '../../core/api/client';
 
 export interface WhatsappConfig {
   id?: string;
@@ -28,78 +28,41 @@ export interface WhatsappStatus {
   error?: string;
 }
 
-export const getWhatsappConfig = async (organizationId: string): Promise<WhatsappConfig | null> => {
-  const { data, error } = await supabase
-    .from('whatsapp_config')
-    .select('*')
-    .eq('organization_id', organizationId)
-    .maybeSingle();
-
-  if (error || !data) return null;
-
-  return {
-    id: data.id,
-    organizationId: data.organization_id,
-    instanceName: data.instance_name,
-    groupJid: data.group_jid,
-    groupName: data.group_name,
-    active: data.active,
-    connected: data.connected ?? false,
-  };
+export const getWhatsappConfig = async (_organizationId: string): Promise<WhatsappConfig | null> => {
+  return apiFetch<WhatsappConfig | null>('/api/whatsapp/config');
 };
 
 export const upsertWhatsappConfig = async (config: WhatsappConfig): Promise<void> => {
-  const { error } = await supabase
-    .from('whatsapp_config')
-    .upsert(
-      {
-        organization_id: config.organizationId,
-        group_jid: config.groupJid || null,
-        group_name: config.groupName || null,
-        active: config.active,
-        updated_at: new Date().toISOString(),
-      },
-      { onConflict: 'organization_id' }
-    );
-
-  if (error) throw new Error(error.message);
+  await apiFetch('/api/whatsapp/config', {
+    method: 'PUT',
+    body: JSON.stringify({
+      groupJid: config.groupJid || null,
+      groupName: config.groupName || null,
+      active: config.active,
+    }),
+  });
 };
 
 export const setupWhatsappInstance = async (): Promise<SetupWhatsappResult> => {
-  const { data, error } = await supabase.functions.invoke('setup-whatsapp-instance', {});
-
-  if (error) throw new Error(error.message);
+  const data = await apiFetch<SetupWhatsappResult>('/api/whatsapp/setup', { method: 'POST' });
   if (data?.error) throw new Error(data.error);
-
-  return data as SetupWhatsappResult;
+  return data;
 };
 
 export const getWhatsappStatus = async (): Promise<WhatsappStatus> => {
-  const { data, error } = await supabase.functions.invoke('get-whatsapp-status', {});
-
-  if (error) throw new Error(error.message);
-
-  return (data ?? { connected: false, state: 'unknown' }) as WhatsappStatus;
+  return apiFetch<WhatsappStatus>('/api/whatsapp/status');
 };
 
 export const fetchWhatsappGroups = async (): Promise<WhatsappGroup[]> => {
-  const { data, error } = await supabase.functions.invoke('fetch-whatsapp-groups', {});
-
-  // A função sempre retorna 200 — erros ficam em data.error
-  if (error) throw new Error(error.message);
+  const data = await apiFetch<{ groups?: WhatsappGroup[]; error?: string }>('/api/whatsapp/groups');
   if (data?.error) throw new Error(data.error);
-
   return data?.groups ?? [];
 };
 
-export const sendTestReminder = async (organizationId: string): Promise<void> => {
-  const { data, error } = await supabase.functions.invoke('send-whatsapp-reminder', {
-    body: {
-      organization_id: organizationId,
-      force: true,
-    },
+export const sendTestReminder = async (_organizationId: string): Promise<void> => {
+  const data = await apiFetch<{ error?: string }>('/api/whatsapp/send-reminder', {
+    method: 'POST',
+    body: JSON.stringify({ force: true }),
   });
-
-  if (error) throw new Error(error.message);
   if (data?.error) throw new Error(data.error);
 };

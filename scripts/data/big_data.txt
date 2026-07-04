@@ -1,0 +1,1365 @@
+[
+  {
+    "json_agg": [
+      {
+        "id": "c639efe3-8bfe-4a3b-83a6-a4a743bfd692",
+        "name": "Igreja Sede",
+        "plan": "enterprise",
+        "max_cells": 99999,
+        "subscription_status": "active",
+        "created_at": "2026-01-12T15:08:46.786313+00:00"
+      },
+      {
+        "id": "3d4eaaef-35b3-4381-be2c-ffc0fb5ed111",
+        "name": "Igreja Sede",
+        "plan": "enterprise",
+        "max_cells": 99999,
+        "subscription_status": "active",
+        "created_at": "2026-01-12T15:11:17.895313+00:00"
+      },
+      {
+        "id": "39b1b4b7-5ff7-4c4e-8eeb-692e32e1c472",
+        "name": "Igreja do Isaque",
+        "plan": "pro",
+        "max_cells": 99999,
+        "subscription_status": "active",
+        "created_at": "2026-02-03T20:05:18.189301+00:00"
+      },
+      {
+        "id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "name": "Igreja IBNC",
+        "plan": "enterprise",
+        "max_cells": 99999,
+        "subscription_status": "active",
+        "created_at": "2026-01-12T15:30:13.970451+00:00"
+      }
+    ]
+  }
+]
+
+
+
+-----
+
+
+Failed to run sql query: ERROR:  42703: column "leader_id" does not exist
+LINE 3:   SELECT id, name, leader_name, leader_id, day_of_week, time, address, active, generation_id, organization_id, created_at FROM cells
+
+-------
+
+
+[
+  {
+    "json_agg": [
+      {
+        "id": "2563d512-bca7-4a08-ba22-1269c4c9de8f",
+        "cell_id": "b0b27b84-675a-4e72-8abf-e893bf7f0895",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 1,
+        "visitors": 0,
+        "date": "2026-01-17",
+        "created_at": "2026-01-17T23:58:53.884726+00:00"
+      },
+      {
+        "id": "b90d328d-3c7a-4528-b00a-672662b6f039",
+        "cell_id": "b0b27b84-675a-4e72-8abf-e893bf7f0895",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 2,
+        "visitors": 0,
+        "date": "2026-01-17",
+        "created_at": "2026-01-17T23:59:48.142876+00:00"
+      },
+      {
+        "id": "070ce124-8c62-4b0c-a06e-624d2f14c0a8",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 7,
+        "visitors": 0,
+        "date": "2026-02-26",
+        "created_at": "2026-02-26T00:08:34.773461+00:00"
+      },
+      {
+        "id": "28839a66-e022-4a70-934a-fdd3c982e1f7",
+        "cell_id": "b0b27b84-675a-4e72-8abf-e893bf7f0895",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 3,
+        "visitors": 1,
+        "date": "2026-02-11",
+        "created_at": "2026-02-11T04:33:41.367511+00:00"
+      },
+      {
+        "id": "fcd709e3-3b99-4e9b-81a5-d98df4548c06",
+        "cell_id": "b0b27b84-675a-4e72-8abf-e893bf7f0895",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 3,
+        "visitors": 1,
+        "date": "2026-02-11",
+        "created_at": "2026-02-11T04:39:55.347066+00:00"
+      },
+      {
+        "id": "54fa3f0b-db16-4db1-a927-69b83a2f3b1d",
+        "cell_id": "b0b27b84-675a-4e72-8abf-e893bf7f0895",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 2,
+        "visitors": 0,
+        "date": "2026-02-19",
+        "created_at": "2026-02-11T04:49:23.217301+00:00"
+      },
+      {
+        "id": "06020a04-0aac-420b-976a-f1a72b8e3ad3",
+        "cell_id": "b0b27b84-675a-4e72-8abf-e893bf7f0895",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 2,
+        "visitors": 0,
+        "date": "2026-02-19",
+        "created_at": "2026-02-19T02:58:34.23471+00:00"
+      },
+      {
+        "id": "168a0b18-dfdc-490b-8fcc-41b0c056f3d2",
+        "cell_id": "b0b27b84-675a-4e72-8abf-e893bf7f0895",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 2,
+        "visitors": 0,
+        "date": "2026-02-24",
+        "created_at": "2026-02-24T23:25:22.544773+00:00"
+      },
+      {
+        "id": "2d7adec5-525f-4251-91a7-1f01b2f9d476",
+        "cell_id": "b0b27b84-675a-4e72-8abf-e893bf7f0895",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 1,
+        "visitors": 0,
+        "date": "2026-02-10",
+        "created_at": "2026-02-24T23:26:11.580378+00:00"
+      },
+      {
+        "id": "f31a2e32-0a2f-403f-bf06-dcd162b6b373",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 5,
+        "visitors": 0,
+        "date": "2026-02-18",
+        "created_at": "2026-02-25T01:20:55.2123+00:00"
+      },
+      {
+        "id": "e4ac341d-78fb-4c18-9024-aafb55908ab1",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 7,
+        "visitors": 0,
+        "date": "2026-02-25",
+        "created_at": "2026-02-25T23:53:47.433224+00:00"
+      },
+      {
+        "id": "e0702f7b-2239-4ac7-94c5-ea9d9f9b3cd9",
+        "cell_id": "df22ea27-dfb5-4b96-9183-d83a305c6317",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 7,
+        "visitors": 1,
+        "date": "2026-03-21",
+        "created_at": "2026-03-23T14:11:16.097901+00:00"
+      },
+      {
+        "id": "1ed1d175-ef60-470e-a894-5c58bdaddf78",
+        "cell_id": "df22ea27-dfb5-4b96-9183-d83a305c6317",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 7,
+        "visitors": 0,
+        "date": "2026-06-07",
+        "created_at": "2026-06-07T14:30:19.181411+00:00"
+      },
+      {
+        "id": "239081e4-03cb-48bd-9347-c858cf87d05d",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 10,
+        "visitors": 0,
+        "date": "2026-06-24",
+        "created_at": "2026-06-24T22:39:23.794596+00:00"
+      },
+      {
+        "id": "a0642fa6-a3bd-4a09-8312-d3f998b8e3a4",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 10,
+        "visitors": 1,
+        "date": "2026-02-26",
+        "created_at": "2026-02-26T00:27:53.731065+00:00"
+      },
+      {
+        "id": "1188da7c-ddce-47bb-ac89-122b59ec8733",
+        "cell_id": "c256ff11-56cb-4f98-b9d2-eb5868898f41",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 6,
+        "visitors": 0,
+        "date": "2026-02-26",
+        "created_at": "2026-02-26T00:40:35.738236+00:00"
+      },
+      {
+        "id": "283f1dfe-4e17-448c-b444-61e79e2ab36d",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-02-26",
+        "created_at": "2026-02-26T01:18:03.941718+00:00"
+      },
+      {
+        "id": "e2b0dbdc-5ce2-44ed-a523-fc1b61e68679",
+        "cell_id": "6522666b-44af-4e1c-a935-04e908e5c7e5",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 12,
+        "visitors": 1,
+        "date": "2026-02-25",
+        "created_at": "2026-02-28T02:12:16.36263+00:00"
+      },
+      {
+        "id": "4a868eca-a6ef-40a8-a840-189ee49bb0b8",
+        "cell_id": "df22ea27-dfb5-4b96-9183-d83a305c6317",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 1,
+        "date": "2026-03-01",
+        "created_at": "2026-03-01T02:41:17.776775+00:00"
+      },
+      {
+        "id": "e51b569d-c2f8-4218-854f-e751730f6ba3",
+        "cell_id": "5a108542-3765-4171-b309-320479d4ea67",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 4,
+        "visitors": 0,
+        "date": "2026-02-25",
+        "created_at": "2026-03-02T02:15:07.0646+00:00"
+      },
+      {
+        "id": "36e67e86-af65-409a-b6e5-6bcb163b4b3b",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 2,
+        "date": "2026-03-05",
+        "created_at": "2026-03-05T00:16:01.419112+00:00"
+      },
+      {
+        "id": "b043ba82-5937-432a-ac48-d26ea2d597a2",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 6,
+        "visitors": 0,
+        "date": "2026-03-05",
+        "created_at": "2026-03-05T01:04:26.842207+00:00"
+      },
+      {
+        "id": "0d43dc96-ed25-4df9-890a-45c64a9d4996",
+        "cell_id": "5a108542-3765-4171-b309-320479d4ea67",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 4,
+        "visitors": 0,
+        "date": "2026-03-04",
+        "created_at": "2026-03-05T12:32:46.645372+00:00"
+      },
+      {
+        "id": "dccdc1cf-eade-4231-b5e4-19a065b4f118",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 1,
+        "date": "2026-03-05",
+        "created_at": "2026-03-05T03:20:48.416179+00:00"
+      },
+      {
+        "id": "4e2fa8e6-3e0e-46ed-822c-1973f5c6051d",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 10,
+        "visitors": 1,
+        "date": "2026-03-11",
+        "created_at": "2026-03-11T23:58:47.680526+00:00"
+      },
+      {
+        "id": "192803d1-0639-45e0-a14c-295a73b72fd1",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-03-11",
+        "created_at": "2026-03-12T01:47:47.660728+00:00"
+      },
+      {
+        "id": "e814a022-caac-4866-8a6d-faeeb096081c",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 0,
+        "date": "2026-03-22",
+        "created_at": "2026-03-22T01:04:34.923371+00:00"
+      },
+      {
+        "id": "9d48ea26-7883-43d8-982b-405b61facc0e",
+        "cell_id": "99be58bd-4936-4d90-84c0-d1b3be15a62f",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 3,
+        "date": "2026-03-22",
+        "created_at": "2026-03-22T21:59:10.249787+00:00"
+      },
+      {
+        "id": "96a976d4-a330-46a2-a3f4-ce72fc78bede",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 11,
+        "visitors": 2,
+        "date": "2026-03-12",
+        "created_at": "2026-03-12T01:53:22.444738+00:00"
+      },
+      {
+        "id": "29050ceb-d282-42e8-bcaa-336531a9167e",
+        "cell_id": "7a43f661-2e69-4804-a6ba-d526d995b3be",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 0,
+        "visitors": 0,
+        "date": "2026-03-11",
+        "created_at": "2026-03-12T09:48:39.706062+00:00"
+      },
+      {
+        "id": "1c3a7a99-5979-4eff-ac8c-6ba796188735",
+        "cell_id": "df22ea27-dfb5-4b96-9183-d83a305c6317",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 6,
+        "visitors": 1,
+        "date": "2026-03-07",
+        "created_at": "2026-03-12T13:40:31.944257+00:00"
+      },
+      {
+        "id": "8b1a8ad5-7faf-4d6f-a521-1e9ec0d40c35",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 15,
+        "visitors": 4,
+        "date": "2026-03-11",
+        "created_at": "2026-03-13T01:05:40.890579+00:00"
+      },
+      {
+        "id": "227a21dd-8759-4f30-92fb-6e4bd06a4bfe",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 12,
+        "visitors": 2,
+        "date": "2026-03-05",
+        "created_at": "2026-03-05T01:20:38.61238+00:00"
+      },
+      {
+        "id": "3e27c008-ba65-4a7c-a1fc-ed05e369bed3",
+        "cell_id": "6522666b-44af-4e1c-a935-04e908e5c7e5",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 0,
+        "visitors": 0,
+        "date": "2026-03-11",
+        "created_at": "2026-03-13T14:40:20.132644+00:00"
+      },
+      {
+        "id": "b5dd949d-35ff-433f-89b0-d272efff227c",
+        "cell_id": "6522666b-44af-4e1c-a935-04e908e5c7e5",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 12,
+        "visitors": 0,
+        "date": "2026-03-04",
+        "created_at": "2026-03-13T14:42:06.670719+00:00"
+      },
+      {
+        "id": "cfdf79f4-2576-4947-846f-aa6433a4f7d0",
+        "cell_id": "2ddf432a-0ec1-45d3-8446-c68787df55e4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 12,
+        "visitors": 0,
+        "date": "2026-03-05",
+        "created_at": "2026-03-14T16:24:00.084773+00:00"
+      },
+      {
+        "id": "8865a08e-5545-4d50-92f7-4152315ccd17",
+        "cell_id": "2ddf432a-0ec1-45d3-8446-c68787df55e4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-03-12",
+        "created_at": "2026-03-14T16:25:24.747274+00:00"
+      },
+      {
+        "id": "b02d71fa-6c77-4f2e-a262-dc50524e7224",
+        "cell_id": "df22ea27-dfb5-4b96-9183-d83a305c6317",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 6,
+        "visitors": 1,
+        "date": "2026-03-14",
+        "created_at": "2026-03-16T14:17:59.940387+00:00"
+      },
+      {
+        "id": "6fcf34a7-8929-4c4a-a09a-8071db4732a6",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 10,
+        "visitors": 0,
+        "date": "2026-03-19",
+        "created_at": "2026-03-19T01:15:48.745937+00:00"
+      },
+      {
+        "id": "aac899a0-aaa7-4eb0-bbfd-b8ae0c719f6b",
+        "cell_id": "6522666b-44af-4e1c-a935-04e908e5c7e5",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-03-18",
+        "created_at": "2026-03-19T14:24:12.049372+00:00"
+      },
+      {
+        "id": "48aa9fef-e7f3-4bd4-8b82-e3c80b0a37f6",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 5,
+        "visitors": 1,
+        "date": "2026-03-18",
+        "created_at": "2026-03-19T14:37:16.600564+00:00"
+      },
+      {
+        "id": "ef17f267-6810-4426-86c1-75955bc678f0",
+        "cell_id": "99be58bd-4936-4d90-84c0-d1b3be15a62f",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 4,
+        "date": "2026-03-21",
+        "created_at": "2026-03-21T02:14:41.949599+00:00"
+      },
+      {
+        "id": "e9ba1174-4adc-414b-8e05-9b6ec751eb45",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 10,
+        "visitors": 2,
+        "date": "2026-03-25",
+        "created_at": "2026-03-26T00:00:16.404537+00:00"
+      },
+      {
+        "id": "1191d80a-42e5-4051-b8d2-6dc67621ad94",
+        "cell_id": "6522666b-44af-4e1c-a935-04e908e5c7e5",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 0,
+        "date": "2026-03-25",
+        "created_at": "2026-03-26T14:06:48.227685+00:00"
+      },
+      {
+        "id": "1ea6734c-b6a4-4f56-9c37-e7ef21028006",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-04-15",
+        "created_at": "2026-04-15T23:24:52.186718+00:00"
+      },
+      {
+        "id": "28f3df80-c5c3-4ee5-9766-28e2f75b644a",
+        "cell_id": "4eb46439-7944-4aa9-a665-91b2de872ca4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 12,
+        "visitors": 3,
+        "date": "2026-06-24",
+        "created_at": "2026-06-25T00:45:18.441796+00:00"
+      },
+      {
+        "id": "9d09091f-5cb7-448c-bfc4-dfdddc7200ae",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 11,
+        "visitors": 2,
+        "date": "2026-03-25",
+        "created_at": "2026-03-26T00:22:42.857526+00:00"
+      },
+      {
+        "id": "313f9baf-9494-4498-b962-ed4b683682a9",
+        "cell_id": "2ddf432a-0ec1-45d3-8446-c68787df55e4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 6,
+        "visitors": 0,
+        "date": "2026-03-27",
+        "created_at": "2026-03-27T14:08:02.613641+00:00"
+      },
+      {
+        "id": "484adea5-f127-4779-b507-ee5f0b6b42ee",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 10,
+        "visitors": 1,
+        "date": "2026-03-25",
+        "created_at": "2026-03-27T17:42:59.665793+00:00"
+      },
+      {
+        "id": "b2033176-3e70-4c15-ba14-110e1f30e51a",
+        "cell_id": "df22ea27-dfb5-4b96-9183-d83a305c6317",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 6,
+        "visitors": 1,
+        "date": "2026-03-28",
+        "created_at": "2026-03-29T14:04:34.060657+00:00"
+      },
+      {
+        "id": "2c4c6447-56ff-4918-83dc-8fdb0210ee6e",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 1,
+        "date": "2026-04-02",
+        "created_at": "2026-04-02T00:03:41.737331+00:00"
+      },
+      {
+        "id": "c7ed3027-1877-493f-a29f-39ba47f698a3",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 6,
+        "visitors": 1,
+        "date": "2026-04-02",
+        "created_at": "2026-04-02T00:16:36.411104+00:00"
+      },
+      {
+        "id": "ea022956-0f4d-40ab-9d05-bda2d76ff3cb",
+        "cell_id": "2ddf432a-0ec1-45d3-8446-c68787df55e4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 5,
+        "visitors": 0,
+        "date": "2026-04-02",
+        "created_at": "2026-04-03T18:52:37.008703+00:00"
+      },
+      {
+        "id": "5f709e88-2905-4ddf-8eb8-9df3463e4dc6",
+        "cell_id": "6522666b-44af-4e1c-a935-04e908e5c7e5",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 11,
+        "visitors": 0,
+        "date": "2026-04-01",
+        "created_at": "2026-04-04T13:10:01.002547+00:00"
+      },
+      {
+        "id": "7329de1a-b541-4d02-83ad-a2f39df3e359",
+        "cell_id": "df22ea27-dfb5-4b96-9183-d83a305c6317",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 4,
+        "visitors": 0,
+        "date": "2026-04-04",
+        "created_at": "2026-04-05T14:03:14.039728+00:00"
+      },
+      {
+        "id": "1ac00843-e9b5-42b6-9443-31bcf349c825",
+        "cell_id": "99be58bd-4936-4d90-84c0-d1b3be15a62f",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 6,
+        "visitors": 3,
+        "date": "2026-04-07",
+        "created_at": "2026-04-07T14:25:11.956315+00:00"
+      },
+      {
+        "id": "3679449c-984e-47fd-8096-dd326af4c090",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 13,
+        "visitors": 4,
+        "date": "2026-04-01",
+        "created_at": "2026-04-07T14:48:05.107617+00:00"
+      },
+      {
+        "id": "6046aed2-8d2f-4886-96f3-40cd4d9d69ea",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-04-08",
+        "created_at": "2026-04-08T23:54:21.793413+00:00"
+      },
+      {
+        "id": "2ebe2dea-6a2a-4066-803f-460d3af7a86d",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 6,
+        "visitors": 0,
+        "date": "2026-04-09",
+        "created_at": "2026-04-09T00:06:16.553721+00:00"
+      },
+      {
+        "id": "8106c0e6-8d78-4c71-bd5b-55e9132f6723",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-04-09",
+        "created_at": "2026-04-09T00:44:10.111267+00:00"
+      },
+      {
+        "id": "a1edb9c4-a9dc-4d82-a19a-c78db2fcd5a8",
+        "cell_id": "6522666b-44af-4e1c-a935-04e908e5c7e5",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 14,
+        "visitors": 0,
+        "date": "2026-04-08",
+        "created_at": "2026-04-09T01:47:10.733267+00:00"
+      },
+      {
+        "id": "98e09811-1283-4ded-b087-4095c51e0c19",
+        "cell_id": "df22ea27-dfb5-4b96-9183-d83a305c6317",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 4,
+        "visitors": 0,
+        "date": "2026-04-11",
+        "created_at": "2026-04-12T14:04:17.281535+00:00"
+      },
+      {
+        "id": "02f17afd-2d37-42ed-b5e3-58f877348c1c",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 10,
+        "visitors": 4,
+        "date": "2026-04-16",
+        "created_at": "2026-04-16T01:21:17.637274+00:00"
+      },
+      {
+        "id": "09298fa8-7c35-46f4-848d-c222ded2b6f1",
+        "cell_id": "6522666b-44af-4e1c-a935-04e908e5c7e5",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 13,
+        "visitors": 3,
+        "date": "2026-04-15",
+        "created_at": "2026-04-16T11:09:41.31188+00:00"
+      },
+      {
+        "id": "4785a695-ef2e-4e40-8880-28b05876473b",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 11,
+        "visitors": 3,
+        "date": "2026-04-23",
+        "created_at": "2026-04-23T02:03:53.88685+00:00"
+      },
+      {
+        "id": "5e51cf04-7ca3-4b77-9fc1-0c2598f61f12",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 1,
+        "date": "2026-04-22",
+        "created_at": "2026-04-23T13:37:59.688382+00:00"
+      },
+      {
+        "id": "e00b4a0e-dbc5-4e11-9a09-3b86b22fc28a",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 1,
+        "date": "2026-04-22",
+        "created_at": "2026-04-23T13:37:59.750933+00:00"
+      },
+      {
+        "id": "52a6c492-5642-4bed-bc8c-38a848314654",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 1,
+        "date": "2026-04-22",
+        "created_at": "2026-04-23T13:38:03.506395+00:00"
+      },
+      {
+        "id": "62190b9c-536e-44b3-babc-710f99c594ea",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 1,
+        "date": "2026-04-22",
+        "created_at": "2026-04-23T13:38:06.131306+00:00"
+      },
+      {
+        "id": "8166dac3-4502-46ff-bb08-1f085966e11c",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 1,
+        "date": "2026-04-22",
+        "created_at": "2026-04-23T13:38:08.550319+00:00"
+      },
+      {
+        "id": "7c458622-130a-4938-afb8-0412deb3f832",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 11,
+        "visitors": 0,
+        "date": "2026-04-22",
+        "created_at": "2026-04-23T17:51:06.850559+00:00"
+      },
+      {
+        "id": "1186bce1-23fb-4599-bc62-90026a882091",
+        "cell_id": "c256ff11-56cb-4f98-b9d2-eb5868898f41",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 4,
+        "visitors": 0,
+        "date": "2026-04-22",
+        "created_at": "2026-04-24T01:20:37.46003+00:00"
+      },
+      {
+        "id": "b8e0f81a-5e31-4392-a1d1-3ac01c5d0c69",
+        "cell_id": "6522666b-44af-4e1c-a935-04e908e5c7e5",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 11,
+        "visitors": 0,
+        "date": "2026-04-22",
+        "created_at": "2026-04-24T01:34:07.192844+00:00"
+      },
+      {
+        "id": "2e964ef4-dfb1-4674-9390-c4feb8701866",
+        "cell_id": "2ddf432a-0ec1-45d3-8446-c68787df55e4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-04-23",
+        "created_at": "2026-04-25T23:08:22.491012+00:00"
+      },
+      {
+        "id": "9702a126-6f8e-4cac-8b68-f1fa7f86f950",
+        "cell_id": "4eb46439-7944-4aa9-a665-91b2de872ca4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-04-09",
+        "created_at": "2026-04-09T02:10:32.96382+00:00"
+      },
+      {
+        "id": "2d90c500-edb3-4890-88c5-9ac5ac52da5d",
+        "cell_id": "4eb46439-7944-4aa9-a665-91b2de872ca4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-06-04",
+        "created_at": "2026-06-04T15:46:14.978504+00:00"
+      },
+      {
+        "id": "d17071e6-e9ba-44e8-8a86-ead28d640634",
+        "cell_id": "4eb46439-7944-4aa9-a665-91b2de872ca4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 7,
+        "visitors": 0,
+        "date": "2026-04-22",
+        "created_at": "2026-04-26T15:27:20.998474+00:00"
+      },
+      {
+        "id": "0bc3008d-86b4-480c-857c-620bb9e80f1e",
+        "cell_id": "4eb46439-7944-4aa9-a665-91b2de872ca4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 0,
+        "date": "2026-04-15",
+        "created_at": "2026-04-26T15:26:22.53626+00:00"
+      },
+      {
+        "id": "6dd02b3a-70e3-49be-b72d-4ed826f789b9",
+        "cell_id": "99be58bd-4936-4d90-84c0-d1b3be15a62f",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 7,
+        "visitors": 2,
+        "date": "2026-04-26",
+        "created_at": "2026-04-26T16:36:30.506932+00:00"
+      },
+      {
+        "id": "5b9b67c3-4762-40c5-b64f-1b969cec92f7",
+        "cell_id": "038f23e2-dc55-4a53-86c0-3b20872968c6",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 4,
+        "visitors": 0,
+        "date": "2026-04-25",
+        "created_at": "2026-04-28T14:10:18.703617+00:00"
+      },
+      {
+        "id": "05ff725e-68e5-484f-a740-6807b16dfbaf",
+        "cell_id": "df22ea27-dfb5-4b96-9183-d83a305c6317",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 4,
+        "visitors": 1,
+        "date": "2026-04-25",
+        "created_at": "2026-04-29T14:05:52.489996+00:00"
+      },
+      {
+        "id": "ac522602-fe29-4b51-9e51-6909cfdea60b",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 6,
+        "visitors": 0,
+        "date": "2026-04-30",
+        "created_at": "2026-04-30T00:07:16.397395+00:00"
+      },
+      {
+        "id": "831946f1-150c-4d4a-98e3-53e256f4c064",
+        "cell_id": "4eb46439-7944-4aa9-a665-91b2de872ca4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-04-29",
+        "created_at": "2026-04-30T00:24:53.142299+00:00"
+      },
+      {
+        "id": "1837f720-987e-40ee-9c3e-dd2a824f9504",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 0,
+        "date": "2026-04-30",
+        "created_at": "2026-04-30T01:00:44.261932+00:00"
+      },
+      {
+        "id": "53c2d262-cc7c-46c6-ab31-d5b16647247e",
+        "cell_id": "c256ff11-56cb-4f98-b9d2-eb5868898f41",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-04-29",
+        "created_at": "2026-04-30T01:37:35.219348+00:00"
+      },
+      {
+        "id": "9161e096-ae75-4d54-b1e6-193d103aedbb",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 13,
+        "visitors": 0,
+        "date": "2026-04-30",
+        "created_at": "2026-04-30T02:07:02.806714+00:00"
+      },
+      {
+        "id": "0049dc28-2cc6-4b08-99c8-f4a143c4c982",
+        "cell_id": "72551064-26ee-423e-8c6f-a1fba1f4afd1",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 0,
+        "visitors": 0,
+        "date": "2026-04-30",
+        "created_at": "2026-05-01T15:06:44.765035+00:00"
+      },
+      {
+        "id": "2db32b91-45f3-4430-b471-833c250f8d0d",
+        "cell_id": "df22ea27-dfb5-4b96-9183-d83a305c6317",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 6,
+        "visitors": 1,
+        "date": "2026-05-02",
+        "created_at": "2026-05-03T14:03:42.22491+00:00"
+      },
+      {
+        "id": "aed25f27-b890-4f0f-8ba8-fe6792b9bf35",
+        "cell_id": "038f23e2-dc55-4a53-86c0-3b20872968c6",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 4,
+        "visitors": 0,
+        "date": "2026-05-03",
+        "created_at": "2026-05-03T14:04:30.225417+00:00"
+      },
+      {
+        "id": "c68b7065-bda2-4bda-ad93-521f0b18778d",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 13,
+        "visitors": 3,
+        "date": "2026-04-08",
+        "created_at": "2026-05-04T21:10:18.750232+00:00"
+      },
+      {
+        "id": "0aed60c5-1310-4920-aac3-77fdcd350d9c",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 13,
+        "visitors": 3,
+        "date": "2026-04-15",
+        "created_at": "2026-05-04T21:13:20.180915+00:00"
+      },
+      {
+        "id": "557baa7f-6453-4ffc-913a-b208f18f6034",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 13,
+        "visitors": 3,
+        "date": "2026-04-22",
+        "created_at": "2026-05-04T21:55:05.095066+00:00"
+      },
+      {
+        "id": "dffc5268-2333-483a-b598-1ff97b3d2f3e",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 13,
+        "visitors": 3,
+        "date": "2026-04-29",
+        "created_at": "2026-05-04T21:55:34.503071+00:00"
+      },
+      {
+        "id": "3d55d240-4953-4d8a-9729-5072809c28eb",
+        "cell_id": "99be58bd-4936-4d90-84c0-d1b3be15a62f",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 4,
+        "date": "2026-05-04",
+        "created_at": "2026-05-04T22:00:48.381165+00:00"
+      },
+      {
+        "id": "ca38195a-d7e7-49c4-8ec5-c02ed1932222",
+        "cell_id": "6522666b-44af-4e1c-a935-04e908e5c7e5",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 11,
+        "visitors": 0,
+        "date": "2026-04-29",
+        "created_at": "2026-05-04T22:56:47.08674+00:00"
+      },
+      {
+        "id": "530981b7-18a5-47d8-b67d-b25582d3375a",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 0,
+        "date": "2026-05-07",
+        "created_at": "2026-05-07T00:35:38.441621+00:00"
+      },
+      {
+        "id": "bb77269f-7f0f-449e-8c75-b03f3974df45",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 13,
+        "visitors": 2,
+        "date": "2026-05-07",
+        "created_at": "2026-05-07T01:43:24.31835+00:00"
+      },
+      {
+        "id": "e2d4fa65-ef1c-4daa-9df7-13b8b244af60",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 13,
+        "visitors": 2,
+        "date": "2026-05-07",
+        "created_at": "2026-05-07T01:43:24.312994+00:00"
+      },
+      {
+        "id": "b6f5a106-4cfa-4fe6-a978-fab9accface3",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 13,
+        "visitors": 2,
+        "date": "2026-05-07",
+        "created_at": "2026-05-07T01:43:27.721274+00:00"
+      },
+      {
+        "id": "e8ffc41a-92b8-4d80-88f0-bf57f2f8e0ed",
+        "cell_id": "4eb46439-7944-4aa9-a665-91b2de872ca4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 7,
+        "visitors": 0,
+        "date": "2026-05-06",
+        "created_at": "2026-05-07T02:49:04.637661+00:00"
+      },
+      {
+        "id": "58316c14-1ef2-4ef7-ba70-be6400b53bab",
+        "cell_id": "6522666b-44af-4e1c-a935-04e908e5c7e5",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 11,
+        "visitors": 0,
+        "date": "2026-05-06",
+        "created_at": "2026-05-07T09:38:29.063426+00:00"
+      },
+      {
+        "id": "0e1599d8-9b9d-4a60-b176-f69945b3e32c",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 13,
+        "visitors": 4,
+        "date": "2026-05-06",
+        "created_at": "2026-05-07T17:06:36.65608+00:00"
+      },
+      {
+        "id": "689273f2-1d4d-405e-9430-7ca4f011ce50",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 7,
+        "visitors": 2,
+        "date": "2026-05-07",
+        "created_at": "2026-05-08T20:49:26.96838+00:00"
+      },
+      {
+        "id": "d01d399c-17a1-499d-81d1-ed2526b1169a",
+        "cell_id": "df22ea27-dfb5-4b96-9183-d83a305c6317",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 3,
+        "visitors": 0,
+        "date": "2026-05-09",
+        "created_at": "2026-05-11T14:17:02.834514+00:00"
+      },
+      {
+        "id": "4522313b-fa2b-42df-9707-4264dac560ff",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 10,
+        "visitors": 1,
+        "date": "2026-05-14",
+        "created_at": "2026-05-14T00:31:41.237368+00:00"
+      },
+      {
+        "id": "e784ea64-cc20-43ef-904e-e219b35e89f6",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 0,
+        "date": "2026-05-13",
+        "created_at": "2026-05-14T00:41:38.069803+00:00"
+      },
+      {
+        "id": "57b3ea75-397d-4cec-8472-825cc7031a66",
+        "cell_id": "4eb46439-7944-4aa9-a665-91b2de872ca4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 7,
+        "visitors": 0,
+        "date": "2026-05-14",
+        "created_at": "2026-05-14T03:19:04.375965+00:00"
+      },
+      {
+        "id": "456f2e9c-b85b-43c8-ab93-1dad6ce3c876",
+        "cell_id": "038f23e2-dc55-4a53-86c0-3b20872968c6",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 3,
+        "visitors": 0,
+        "date": "2026-05-08",
+        "created_at": "2026-05-15T15:37:18.077552+00:00"
+      },
+      {
+        "id": "e3015c44-2f9b-462f-b8a3-fd0eca01f2e9",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 12,
+        "visitors": 4,
+        "date": "2026-05-13",
+        "created_at": "2026-05-16T14:29:38.215271+00:00"
+      },
+      {
+        "id": "447c6a74-98f1-4302-9a58-1e9fda5a73e5",
+        "cell_id": "6522666b-44af-4e1c-a935-04e908e5c7e5",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 13,
+        "visitors": 2,
+        "date": "2026-05-16",
+        "created_at": "2026-05-19T12:07:03.004488+00:00"
+      },
+      {
+        "id": "7274496c-5b20-4e94-9b23-28e273b5f041",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 1,
+        "date": "2026-05-20",
+        "created_at": "2026-05-20T23:50:13.022646+00:00"
+      },
+      {
+        "id": "b83b49bf-6222-47bd-8233-bc3d78551270",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 19,
+        "visitors": 8,
+        "date": "2026-05-20",
+        "created_at": "2026-05-21T00:20:32.443849+00:00"
+      },
+      {
+        "id": "8cf7d034-b230-431a-801e-c53defe61458",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-05-20",
+        "created_at": "2026-05-21T00:23:35.150582+00:00"
+      },
+      {
+        "id": "7466b5fc-3b57-4a7d-908a-e8169ddda0b4",
+        "cell_id": "6522666b-44af-4e1c-a935-04e908e5c7e5",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 11,
+        "visitors": 0,
+        "date": "2026-05-20",
+        "created_at": "2026-05-21T17:22:14.684094+00:00"
+      },
+      {
+        "id": "ed1c8c7c-25d8-4890-9583-daf28b0bc25e",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 12,
+        "visitors": 5,
+        "date": "2026-04-02",
+        "created_at": "2026-04-02T00:35:01.571094+00:00"
+      },
+      {
+        "id": "fd4e60b1-5066-4b7b-b30c-a3c790bd18dd",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 16,
+        "visitors": 7,
+        "date": "2026-03-19",
+        "created_at": "2026-03-19T00:41:51.840571+00:00"
+      },
+      {
+        "id": "8a9cb363-9b44-45fb-b62d-3e5f16a82236",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 13,
+        "visitors": 4,
+        "date": "2026-06-03",
+        "created_at": "2026-06-04T23:11:01.365278+00:00"
+      },
+      {
+        "id": "55444a95-72c5-49d3-9a09-5e8604a23349",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 15,
+        "visitors": 7,
+        "date": "2026-03-25",
+        "created_at": "2026-03-31T14:40:29.10416+00:00"
+      },
+      {
+        "id": "49a2ef09-5bb7-4509-b364-d9bb8322399a",
+        "cell_id": "df22ea27-dfb5-4b96-9183-d83a305c6317",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 6,
+        "visitors": 1,
+        "date": "2026-05-23",
+        "created_at": "2026-05-24T14:12:21.337715+00:00"
+      },
+      {
+        "id": "06da6330-8799-415d-9d34-d4cda8ba9fb7",
+        "cell_id": "99be58bd-4936-4d90-84c0-d1b3be15a62f",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 6,
+        "visitors": 3,
+        "date": "2026-05-24",
+        "created_at": "2026-05-24T14:19:02.299949+00:00"
+      },
+      {
+        "id": "d5b0e702-01a2-40ad-bb19-7337d8001326",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 1,
+        "date": "2026-05-28",
+        "created_at": "2026-05-28T00:11:31.714443+00:00"
+      },
+      {
+        "id": "8a8d8249-ea98-440c-802c-c7ba517d1b8b",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 6,
+        "visitors": 0,
+        "date": "2026-05-28",
+        "created_at": "2026-05-28T00:18:02.867232+00:00"
+      },
+      {
+        "id": "20081696-1753-4828-8596-3c3db428b040",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 13,
+        "visitors": 3,
+        "date": "2026-05-27",
+        "created_at": "2026-05-28T00:26:14.985614+00:00"
+      },
+      {
+        "id": "f17df5dc-7a59-421a-b06f-83acbd29beb6",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 0,
+        "date": "2026-05-27",
+        "created_at": "2026-05-28T00:39:00.266903+00:00"
+      },
+      {
+        "id": "2114643e-293e-48cf-a2fe-5335523a2cf0",
+        "cell_id": "4eb46439-7944-4aa9-a665-91b2de872ca4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 7,
+        "visitors": 0,
+        "date": "2026-05-20",
+        "created_at": "2026-05-28T02:27:29.232894+00:00"
+      },
+      {
+        "id": "080ccd56-e7a7-4b06-bfad-d5de85676195",
+        "cell_id": "4eb46439-7944-4aa9-a665-91b2de872ca4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 7,
+        "visitors": 0,
+        "date": "2026-05-27",
+        "created_at": "2026-05-28T02:28:00.085906+00:00"
+      },
+      {
+        "id": "dcf3c89d-d12e-4ce2-87f0-f42f139c7512",
+        "cell_id": "6522666b-44af-4e1c-a935-04e908e5c7e5",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 10,
+        "visitors": 0,
+        "date": "2026-05-27",
+        "created_at": "2026-05-28T16:04:30.275388+00:00"
+      },
+      {
+        "id": "9fbbfb94-567f-4099-ba13-c7aa0820bdf4",
+        "cell_id": "99be58bd-4936-4d90-84c0-d1b3be15a62f",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 4,
+        "date": "2026-06-01",
+        "created_at": "2026-06-01T21:57:14.356288+00:00"
+      },
+      {
+        "id": "375fff0d-0536-4b8c-b839-1d4169655d32",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-06-03",
+        "created_at": "2026-06-04T00:25:33.694425+00:00"
+      },
+      {
+        "id": "4aa577a3-8073-4c19-b5f1-cbcfdb4b2341",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 16,
+        "visitors": 5,
+        "date": "2026-06-04",
+        "created_at": "2026-06-04T01:24:34.910665+00:00"
+      },
+      {
+        "id": "0a153653-128f-4911-af71-f00bcaad02e8",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 0,
+        "visitors": 0,
+        "date": "2026-06-04",
+        "created_at": "2026-06-04T02:43:06.371756+00:00"
+      },
+      {
+        "id": "ab0533d0-0909-4ddd-8f76-76d95331d2f3",
+        "cell_id": "df22ea27-dfb5-4b96-9183-d83a305c6317",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 4,
+        "visitors": 0,
+        "date": "2026-05-30",
+        "created_at": "2026-06-05T14:03:26.961618+00:00"
+      },
+      {
+        "id": "d3fc7019-f1f1-4be9-8482-1740223891d9",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 9,
+        "visitors": 1,
+        "date": "2026-06-10",
+        "created_at": "2026-06-11T00:07:25.495064+00:00"
+      },
+      {
+        "id": "7560b297-2bcd-46d4-9d6d-5cc2c92bcf73",
+        "cell_id": "32d5e86c-4d94-4aeb-825a-560874d33381",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 4,
+        "visitors": 0,
+        "date": "2026-06-06",
+        "created_at": "2026-06-11T00:11:16.338904+00:00"
+      },
+      {
+        "id": "412dd1e7-37f1-4d46-afd9-ee8b60ccac1c",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 12,
+        "visitors": 4,
+        "date": "2026-06-11",
+        "created_at": "2026-06-11T00:53:06.454033+00:00"
+      },
+      {
+        "id": "d2acd278-6683-4fdf-bd76-c8a8f9120c4f",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 11,
+        "visitors": 2,
+        "date": "2026-06-11",
+        "created_at": "2026-06-11T01:17:30.040847+00:00"
+      },
+      {
+        "id": "3f48e4f3-c79a-47f8-825f-8674d1f5863e",
+        "cell_id": "4eb46439-7944-4aa9-a665-91b2de872ca4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-06-10",
+        "created_at": "2026-06-11T01:47:55.605523+00:00"
+      },
+      {
+        "id": "086f1274-cc5f-460b-8072-d349da192065",
+        "cell_id": "c4eb123f-4f25-42c6-8e3f-d10935d3b5ad",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 10,
+        "visitors": 2,
+        "date": "2026-06-10",
+        "created_at": "2026-06-11T14:09:27.251192+00:00"
+      },
+      {
+        "id": "9517fa85-d824-4b70-99e6-962c35c023f7",
+        "cell_id": "31e59cff-1f1b-4248-84cd-6c095782c344",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 15,
+        "visitors": 5,
+        "date": "2026-06-18",
+        "created_at": "2026-06-18T00:27:44.290059+00:00"
+      },
+      {
+        "id": "ca4a1a4d-2a41-486a-9b5c-c037f15a2425",
+        "cell_id": "3457b8f5-fced-437e-a6d5-fbf5b7c3700e",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 12,
+        "visitors": 3,
+        "date": "2026-06-18",
+        "created_at": "2026-06-18T02:01:52.265975+00:00"
+      },
+      {
+        "id": "881d3c94-f318-48c8-9655-0e0871800b92",
+        "cell_id": "deace6b7-eb51-4c39-97c5-07d5162fadcf",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 13,
+        "visitors": 2,
+        "date": "2026-06-17",
+        "created_at": "2026-06-18T13:57:53.187838+00:00"
+      },
+      {
+        "id": "b1390adf-8ac1-43a6-bd17-370966c48903",
+        "cell_id": "4eb46439-7944-4aa9-a665-91b2de872ca4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-06-13",
+        "created_at": "2026-06-19T01:24:13.360489+00:00"
+      },
+      {
+        "id": "8073ef5d-00d6-44a4-bfea-6363234b84ab",
+        "cell_id": "4eb46439-7944-4aa9-a665-91b2de872ca4",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 8,
+        "visitors": 0,
+        "date": "2026-06-17",
+        "created_at": "2026-06-19T13:48:11.626843+00:00"
+      },
+      {
+        "id": "402cac7b-62fa-46c5-9dcd-0f17f3f2ca84",
+        "cell_id": "22881786-9d7a-4d88-921b-69fa47d8af78",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 5,
+        "visitors": 0,
+        "date": "2026-06-17",
+        "created_at": "2026-06-19T14:32:49.679736+00:00"
+      },
+      {
+        "id": "22e3a82e-7049-471a-93bd-e12725b845d0",
+        "cell_id": "32d5e86c-4d94-4aeb-825a-560874d33381",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants": 5,
+        "visitors": 2,
+        "date": "2026-06-13",
+        "created_at": "2026-06-19T00:34:12.408886+00:00"
+      },
+      {
+        "id": "a6b5a92b-ce58-4b33-b969-e7eb138c9971",
+        "cell_id": "6522666b-44af-4e1c-a935-04e908e5c7e5",
+        "organization_id": "dc0db588-eec5-41d0-bd92-0d447d666919",
+        "participants":
+
+[Message truncated - exceeded 50,000 character limit]

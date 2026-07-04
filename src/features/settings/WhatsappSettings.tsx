@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   MessageCircle, Search, Save, Send, CheckCircle, AlertCircle,
-  Loader2, ChevronDown, ChevronUp, Copy, RefreshCw, Smartphone,
+  Loader2, RefreshCw, Smartphone,
 } from 'lucide-react';
 import { useAuth } from '../../core/auth/AuthContext';
 import {
@@ -14,76 +14,18 @@ import {
   WhatsappGroup,
 } from './whatsappService';
 
-const CRON_SQL = `-- 1. Ative as extensões no Dashboard > Database > Extensions:
---    pg_cron  e  pg_net
-
--- 2. Rode este SQL no SQL Editor (substitua os valores):
-SELECT cron.schedule(
-  'send-whatsapp-reminders',
-  '0 15 * * *',
-  $$
-    SELECT net.http_post(
-      url := 'https://SEU-PROJECT-REF.supabase.co/functions/v1/send-whatsapp-reminder',
-      headers := '{"Content-Type":"application/json","Authorization":"Bearer SUA-ANON-KEY"}'::jsonb,
-      body := '{}'::jsonb
-    )
-  $$
-);
--- Substitua SEU-PROJECT-REF e SUA-ANON-KEY
--- (encontre em Dashboard > Settings > API)`;
-
-const CronInstructions: React.FC = () => {
-  const [open, setOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(CRON_SQL);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  return (
-    <div className="mt-6 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-900 overflow-hidden">
-      <button
-        type="button"
-        onClick={() => setOpen(v => !v)}
-        className="w-full flex items-center justify-between p-4 text-left hover:bg-amber-100 transition-colors"
-      >
-        <span className="font-semibold">⚙️ Configurar agendamento automático diário</span>
-        {open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-      </button>
-
-      {open && (
-        <div className="px-4 pb-4 space-y-3 border-t border-amber-200">
-          <p className="pt-3 text-amber-800">
-            Para enviar automaticamente todo dia ao meio-dia, siga os passos:
-          </p>
-          <ol className="list-decimal list-inside space-y-1 text-amber-800">
-            <li>No Supabase Dashboard, vá em <strong>Database → Extensions</strong></li>
-            <li>Ative <strong>pg_cron</strong> e <strong>pg_net</strong></li>
-            <li>Vá em <strong>SQL Editor</strong> e rode o código abaixo:</li>
-          </ol>
-          <div className="relative">
-            <pre className="bg-amber-900/10 rounded-lg p-3 text-xs overflow-x-auto whitespace-pre-wrap font-mono text-amber-900">
-              {CRON_SQL}
-            </pre>
-            <button
-              type="button"
-              onClick={handleCopy}
-              className="absolute top-2 right-2 flex items-center gap-1 px-2 py-1 bg-amber-200 hover:bg-amber-300 rounded text-xs font-medium transition-colors"
-            >
-              <Copy size={12} />
-              {copied ? 'Copiado!' : 'Copiar'}
-            </button>
-          </div>
-          <p className="text-xs text-amber-700">
-            Encontre o <strong>Project Ref</strong> e a <strong>anon key</strong> em Dashboard → Settings → API.
-          </p>
-        </div>
-      )}
+const CronInfo: React.FC = () => (
+  <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl text-sm text-blue-900 p-4">
+    <div className="flex items-start gap-3">
+      <CheckCircle size={18} className="shrink-0 mt-0.5 text-blue-600" />
+      <p>
+        <strong>Envio automático ativado.</strong> Todo dia às 15h (horário de Brasília), o
+        sistema envia automaticamente o lembrete das células pendentes para o grupo
+        selecionado. Não é necessária nenhuma configuração adicional.
+      </p>
     </div>
-  );
-};
+  </div>
+);
 
 type Step = 'loading' | 'not_connected' | 'connecting' | 'qr_shown' | 'connected';
 
@@ -482,7 +424,7 @@ const WhatsappSettings: React.FC = () => {
       )}
 
       {/* Info box sobre o cron (só quando conectado) */}
-      {step === 'connected' && <CronInstructions />}
+      {step === 'connected' && <CronInfo />}
     </div>
   );
 };
