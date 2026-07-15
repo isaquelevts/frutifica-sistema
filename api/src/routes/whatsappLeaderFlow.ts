@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { randomUUID } from 'crypto';
 import prisma from '../lib/prisma';
+import { requireAdmin, AuthRequest } from '../middleware/auth';
 import { EVOLUTION_URL, EVOLUTION_KEY, getDayNumber, toDateString, nowBRT } from './whatsapp';
 
 const router = Router();
@@ -289,6 +290,39 @@ export async function runLeaderReminderTick() {
 
   return { success: true, sent: sentCount };
 }
+
+// ─────────────────────────────────────────────────────────────
+// POST /api/whatsapp/leader/test-send/:cellId
+// Dispara a pergunta inicial imediatamente, ignorando o horário/dia da
+// semana — só para testar o fluxo manualmente pelo admin.
+// ─────────────────────────────────────────────────────────────
+router.post('/test-send/:cellId', requireAdmin, async (req: AuthRequest, res: Response) => {
+  try {
+    const orgId = req.user!.orgId!;
+    const cell = await prisma.cell.findFirst({ where: { id: req.params.cellId, organizationId: orgId } });
+    if (!cell) return res.status(404).json({ message: 'Célula não encontrada' });
+    if (!cell.leaderPhone) return res.status(400).json({ message: 'Essa célula não tem WhatsApp do líder cadastrado' });
+
+    const config = await prisma.whatsappConfig.findUnique({ where: { organizationId: orgId } });
+    if (!config?.instanceName) return res.status(400).json({ message: 'WhatsApp não configurado para esta organização' });
+
+    await prisma.whatsappLeaderSession.deleteMany({ where: { cellId: cell.id } });
+    await sendPrompt(config.instanceName, cell.leaderPhone, confirmationText(cell.leaderName, cell.name), CONFIRM_BUTTONS);
+    await prisma.whatsappLeaderSession.create({
+      data: {
+        organizationId: orgId,
+        cellId: cell.id,
+        phone: cell.leaderPhone,
+        step: 'awaiting_confirmation',
+        weekDate: toDateString(nowBRT()),
+      },
+    });
+
+    res.json({ ok: true, sentTo: cell.leaderPhone });
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 // ─────────────────────────────────────────────────────────────
 // Webhook — processa respostas do líder e avança a conversa
