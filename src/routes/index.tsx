@@ -14,8 +14,8 @@ import Ranking from '../features/reports/Ranking';
 import MyCell from '../features/cells/MyCell';
 import MembersList from '../features/members/MembersList';
 import ManageLeaders from '../features/cells/ManageLeaders';
-import GlobalMembers from '../features/members/GlobalMembers';
 import Generations from '../features/generations/Generations';
+import RiskMonitoring from '../features/consolidation/RiskMonitoring';
 import Pricing from '../features/settings/Pricing';
 import UserRegistration from '../features/settings/UserRegistration';
 import PaymentSuccess from '../features/settings/PaymentSuccess';
@@ -154,7 +154,6 @@ const AppRoutes: React.FC = () => {
             <Route path="/edit-report/:reportId" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.LEADER]}><ReportForm /></ProtectedRoute>} />
             <Route path="/leaders" element={<ProtectedRoute roles={[UserRole.ADMIN]}><ManageLeaders /></ProtectedRoute>} />
             <Route path="/generations" element={<ProtectedRoute roles={[UserRole.ADMIN]}><Generations /></ProtectedRoute>} />
-            <Route path="/all-members" element={<ProtectedRoute roles={[UserRole.ADMIN]}><GlobalMembers /></ProtectedRoute>} />
             <Route path="/import" element={<ProtectedRoute roles={[UserRole.ADMIN]}><BulkImport /></ProtectedRoute>} />
             <Route path="/whatsapp-settings" element={<ProtectedRoute roles={[UserRole.ADMIN]}><WhatsappSettings /></ProtectedRoute>} />
 
@@ -164,6 +163,7 @@ const AppRoutes: React.FC = () => {
 
             {/* Shared Routes */}
             <Route path="/ranking" element={<ProtectedRoute><Ranking /></ProtectedRoute>} />
+            <Route path="/risk-monitoring" element={<ProtectedRoute roles={[UserRole.ADMIN]}><RiskMonitoring /></ProtectedRoute>} />
 
             <Route path="*" element={<CatchAllRoute />} />
         </Routes>
