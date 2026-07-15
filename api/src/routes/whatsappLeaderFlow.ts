@@ -312,8 +312,14 @@ router.post('/webhook', async (req: Request, res: Response) => {
   res.status(200).json({ ok: true }); // responde já — Evolution não deve esperar processamento
 
   try {
+    console.log(`[whatsapp-leader] Webhook recebido: ${JSON.stringify(req.body).slice(0, 1000)}`);
+
     const inbound = parseInboundMessage(req.body);
-    if (!inbound) return;
+    if (!inbound) {
+      console.log('[whatsapp-leader] Payload ignorado (não é mensagem de entrada válida)');
+      return;
+    }
+    console.log(`[whatsapp-leader] Mensagem de ${inbound.phone}: texto="${inbound.text}" buttonId="${inbound.buttonId}"`);
 
     const cell = await prisma.cell.findFirst({ where: { leaderPhone: inbound.phone } });
     if (cell) {
@@ -324,11 +330,17 @@ router.post('/webhook', async (req: Request, res: Response) => {
       where: { phone: inbound.phone },
       orderBy: { updatedAt: 'desc' },
     });
-    if (!session) return;
+    if (!session) {
+      console.log(`[whatsapp-leader] Nenhuma sessão ativa encontrada pro telefone ${inbound.phone}`);
+      return;
+    }
 
     const instanceConfig = await prisma.whatsappConfig.findUnique({ where: { organizationId: session.organizationId } });
     const instanceName = instanceConfig?.instanceName;
-    if (!instanceName) return;
+    if (!instanceName) {
+      console.log(`[whatsapp-leader] Organização ${session.organizationId} sem instanceName configurado`);
+      return;
+    }
 
     await handleStep(session, inbound, instanceName);
   } catch (e: any) {
