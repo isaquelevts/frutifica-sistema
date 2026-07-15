@@ -4,7 +4,7 @@ import { TargetAudience, Cell, CoLeader, UserRole, Generation } from '../../shar
 import { saveCell, getCellById, updateCell } from './cellService';
 import { saveUser } from '../settings/profileService';
 import { getGenerations } from '../generations/generationService';
-import { Save, ArrowLeft, Users, Plus, Trash2, Mail, Phone, FileUp, Download, CheckCircle, AlertCircle, FileText, Upload, Lock, User as UserIcon } from 'lucide-react';
+import { Save, ArrowLeft, Users, Plus, Trash2, Mail, Phone, FileUp, Download, CheckCircle, AlertCircle, FileText, Upload, Lock, User as UserIcon, MessageCircle, Loader2 } from 'lucide-react';
 import { useAuth } from '../../core/auth/AuthContext';
 import { maskPhone } from '../../core/utils/mask';
 import { useGenerations } from '../../shared/hooks/useGenerations';
@@ -13,11 +13,26 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cellSchema, type CellFormData } from './schemas/cellSchema';
+import { apiFetch } from '../../core/api/client';
 
 const CellRegistration: React.FC = () => {
     const navigate = useNavigate();
-    const { user, organization } = useAuth();
+    const { user, organization, isAdmin } = useAuth();
     const { cellId } = useParams<{ cellId?: string }>();
+    const [testSendState, setTestSendState] = useState<{ status: 'idle' | 'loading' | 'success' | 'error'; message?: string }>({ status: 'idle' });
+
+    const handleTestSend = async () => {
+        if (!cellId) return;
+        setTestSendState({ status: 'loading' });
+        try {
+            const result = await apiFetch<{ ok: boolean; sentTo: string }>(`/api/whatsapp/leader/test-send/${cellId}`, {
+                method: 'POST',
+            });
+            setTestSendState({ status: 'success', message: `Mensagem enviada para ${result.sentTo}` });
+        } catch (err: any) {
+            setTestSendState({ status: 'error', message: err.message || 'Erro ao enviar mensagem de teste' });
+        }
+    };
     const queryClient = useQueryClient();
     const [isEditing, setIsEditing] = useState(false);
 
@@ -392,6 +407,32 @@ const CellRegistration: React.FC = () => {
                                             className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                                             placeholder="(11) 99999-9999"
                                         />
+                                        {isEditing && isAdmin && (
+                                            <div className="mt-2">
+                                                <button
+                                                    type="button"
+                                                    onClick={handleTestSend}
+                                                    disabled={testSendState.status === 'loading'}
+                                                    className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-lg border border-green-300 text-green-700 hover:bg-green-50 transition-colors disabled:opacity-50"
+                                                >
+                                                    {testSendState.status === 'loading' ? (
+                                                        <Loader2 size={14} className="animate-spin" />
+                                                    ) : (
+                                                        <MessageCircle size={14} />
+                                                    )}
+                                                    Testar mensagem no WhatsApp
+                                                </button>
+                                                <p className="text-xs text-slate-400 mt-1">
+                                                    Envia agora, pro número já salvo, a pergunta que o líder recebe toda semana. Salve a célula antes de testar se acabou de alterar o número.
+                                                </p>
+                                                {testSendState.status === 'success' && (
+                                                    <p className="text-xs text-green-600 mt-1">✅ {testSendState.message}</p>
+                                                )}
+                                                {testSendState.status === 'error' && (
+                                                    <p className="text-xs text-red-600 mt-1">❌ {testSendState.message}</p>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
 

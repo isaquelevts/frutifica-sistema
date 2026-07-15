@@ -4,13 +4,13 @@ import { requireAdmin, AuthRequest } from '../middleware/auth';
 
 const router = Router();
 
-const EVOLUTION_URL = () => (process.env.EVOLUTION_API_URL || '').replace(/\/$/, '');
-const EVOLUTION_KEY = () => process.env.EVOLUTION_API_KEY || '';
+export const EVOLUTION_URL = () => (process.env.EVOLUTION_API_URL || '').replace(/\/$/, '');
+export const EVOLUTION_KEY = () => process.env.EVOLUTION_API_KEY || '';
 
 // ─────────────────────────────────────────────────────────────
 // Helpers de data / dia da semana
 // ─────────────────────────────────────────────────────────────
-const DAY_MAP: Record<string, number> = {
+export const DAY_MAP: Record<string, number> = {
   'domingo': 0,
   'segunda': 1, 'segunda-feira': 1,
   'terca': 2, 'terça': 2, 'terca-feira': 2, 'terça-feira': 2,
@@ -20,7 +20,7 @@ const DAY_MAP: Record<string, number> = {
   'sabado': 6, 'sábado': 6,
 };
 
-function getDayNumber(dayOfWeek: string): number | null {
+export function getDayNumber(dayOfWeek: string): number | null {
   const normalized = dayOfWeek.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
   for (const [key, val] of Object.entries(DAY_MAP)) {
     const normalizedKey = key.normalize('NFD').replace(/[̀-ͯ]/g, '');
@@ -35,8 +35,12 @@ function formatDatePtBR(date: Date): string {
   });
 }
 
-function toDateString(date: Date): string {
+export function toDateString(date: Date): string {
   return date.toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' });
+}
+
+export function nowBRT(): Date {
+  return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -62,10 +66,9 @@ export async function runReminder(opts: { organizationId?: string; force?: boole
   const evolutionKey = EVOLUTION_KEY();
 
   // Janela de 7 dias (ontem até 7 dias atrás) em horário de Brasília
-  const nowBRT = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
   const windowDates: { date: Date; dayNum: number; dateStr: string }[] = [];
   for (let i = 1; i <= 7; i++) {
-    const d = new Date(nowBRT);
+    const d = new Date(nowBRT());
     d.setDate(d.getDate() - i);
     windowDates.push({ date: d, dayNum: d.getDay(), dateStr: toDateString(d) });
   }
@@ -205,6 +208,23 @@ router.post('/setup', requireAdmin, async (req: AuthRequest, res: Response) => {
       headers: { 'apikey': evolutionKey, 'Content-Type': 'application/json' },
       body: JSON.stringify({ instanceName, integration: 'WHATSAPP-BAILEYS' }),
     }).catch(() => {});
+
+    // Registra o webhook para receber respostas do líder (fluxo individual por DM).
+    // Best-effort: não bloqueia o setup se a Evolution não aceitar essa chamada.
+    const publicApiUrl = (process.env.PUBLIC_API_URL || '').replace(/\/$/, '');
+    if (publicApiUrl) {
+      await fetch(`${evolutionUrl}/webhook/set/${instanceName}`, {
+        method: 'POST',
+        headers: { 'apikey': evolutionKey, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          webhook: {
+            enabled: true,
+            url: `${publicApiUrl}/api/whatsapp/leader/webhook`,
+            events: ['MESSAGES_UPSERT'],
+          },
+        }),
+      }).catch(() => {});
+    }
 
     const stateResp = await fetch(`${evolutionUrl}/instance/connectionState/${instanceName}`, {
       headers: { 'apikey': evolutionKey },

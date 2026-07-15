@@ -4,12 +4,22 @@ import { requireAuth, AuthRequest } from '../middleware/auth';
 
 const router = Router();
 
+// Normaliza número de telefone para o formato que a Evolution API espera
+// (dígitos apenas, com DDI 55 quando ausente).
+function normalizePhone(phone?: string | null): string | null {
+  if (!phone) return null;
+  const digits = phone.replace(/\D/g, '');
+  if (!digits) return null;
+  return digits.startsWith('55') ? digits : `55${digits}`;
+}
+
 function mapCell(c: any) {
   return {
     id: c.id,
     name: c.name,
     leaderName: c.leaderName,
     leaderId: c.leaderId,
+    leaderPhone: c.leaderPhone,
     dayOfWeek: c.dayOfWeek,
     time: c.time,
     address: c.address,
@@ -45,12 +55,13 @@ router.get('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
 // POST /api/cells
 router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
-    const { name, leaderName, leaderId, dayOfWeek, time, address, active, generationId, organizationId } = req.body;
+    const { name, leaderName, leaderId, leaderPhone, dayOfWeek, time, address, active, generationId, organizationId } = req.body;
     const cell = await prisma.cell.create({
       data: {
         name,
         leaderName,
         leaderId,
+        leaderPhone: normalizePhone(leaderPhone),
         dayOfWeek,
         time,
         address,
@@ -68,10 +79,20 @@ router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
 // PUT /api/cells/:id
 router.put('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
   try {
-    const { name, leaderName, leaderId, dayOfWeek, time, address, active, generationId } = req.body;
+    const { name, leaderName, leaderId, leaderPhone, dayOfWeek, time, address, active, generationId } = req.body;
     const cell = await prisma.cell.update({
       where: { id: req.params.id },
-      data: { name, leaderName, leaderId, dayOfWeek, time, address, active, generationId: generationId || null },
+      data: {
+        name,
+        leaderName,
+        leaderId,
+        leaderPhone: leaderPhone !== undefined ? normalizePhone(leaderPhone) : undefined,
+        dayOfWeek,
+        time,
+        address,
+        active,
+        generationId: generationId || null,
+      },
     });
     res.json(mapCell(cell));
   } catch (err: any) {

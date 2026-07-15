@@ -59,23 +59,28 @@ model Profile {
 }
 
 model Cell {
-  id             String    @id @default(uuid()) @db.Uuid
-  name           String
-  leaderName     String?   @map("leader_name")
-  leaderId       String?   @map("leader_id") @db.Uuid
-  dayOfWeek      String?   @map("day_of_week")
-  time           String?
-  address        String?
-  active         Boolean   @default(true)
-  generationId   String?   @map("generation_id") @db.Uuid
-  organizationId String?   @map("organization_id") @db.Uuid
-  createdAt      DateTime  @default(now()) @map("created_at")
+  id                          String    @id @default(uuid()) @db.Uuid
+  name                        String
+  leaderName                  String?   @map("leader_name")
+  leaderId                    String?   @map("leader_id") @db.Uuid
+  leaderPhone                 String?   @map("leader_phone")
+  dayOfWeek                   String?   @map("day_of_week")
+  time                        String?
+  address                     String?
+  active                      Boolean   @default(true)
+  generationId                String?   @map("generation_id") @db.Uuid
+  organizationId              String?   @map("organization_id") @db.Uuid
+  whatsappNotificationsPaused Boolean   @default(false) @map("whatsapp_notifications_paused")
+  lastWhatsappInboundAt       DateTime? @map("last_whatsapp_inbound_at")
+  lastWhatsappOptOutPromptAt  DateTime? @map("last_whatsapp_opt_out_prompt_at")
+  createdAt                   DateTime  @default(now()) @map("created_at")
 
-  organization Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
-  generation   Generation?   @relation(fields: [generationId], references: [id], onDelete: SetNull)
+  organization Organization?         @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  generation   Generation?           @relation(fields: [generationId], references: [id], onDelete: SetNull)
   reports      Report[]
   profiles     Profile[]
   members      Member[]
+  whatsappLeaderSession WhatsappLeaderSession?
 
   @@map("cells")
 }
@@ -87,12 +92,34 @@ model Report {
   participants   Int?
   visitors       Int?
   date           String?
+  happened       Boolean  @default(true)
+  noReportReason String?  @map("no_report_reason")
+  photoUrl       String?  @map("photo_url")
   createdAt      DateTime @default(now()) @map("created_at")
 
   cell         Cell?         @relation(fields: [cellId], references: [id], onDelete: SetNull)
   organization Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
 
   @@map("reports")
+}
+
+model WhatsappLeaderSession {
+  id             String    @id @default(uuid()) @db.Uuid
+  organizationId String    @map("organization_id") @db.Uuid
+  cellId         String    @unique @map("cell_id") @db.Uuid
+  phone          String
+  step           String
+  weekDate       String    @map("week_date")
+  draftParticipants Int?   @map("draft_participants")
+  draftVisitors     Int?   @map("draft_visitors")
+  remindedAt     DateTime? @map("reminded_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  cell Cell @relation(fields: [cellId], references: [id], onDelete: Cascade)
+
+  @@index([phone])
+  @@map("whatsapp_leader_sessions")
 }
 
 model Generation {
