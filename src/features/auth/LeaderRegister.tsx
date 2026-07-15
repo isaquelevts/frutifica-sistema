@@ -90,6 +90,7 @@ const LeaderRegister: React.FC = () => {
         body: JSON.stringify({
           name: data.cellName,
           leaderName: data.leaderName,
+          leaderPhone: data.whatsapp,
           dayOfWeek: data.dayOfWeek,
           time: data.time,
           address: data.address,

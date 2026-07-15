@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Fotos recebidas via WhatsApp (armazenamento local, temporário)
+api/uploads/reports/*
+!api/uploads/reports/.gitkeep
+
 # Environment variables
 .env
 .env.local
