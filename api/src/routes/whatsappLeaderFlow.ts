@@ -20,6 +20,23 @@ function toJid(phone: string): string {
   return phone.includes('@') ? phone : `${phone}@s.whatsapp.net`;
 }
 
+// Números de celular brasileiros podem estar registrados no WhatsApp com ou
+// sem o nono dígito (contas mais antigas), então o remoteJid de uma mensagem
+// recebida pode não bater com o formato que normalizamos ao salvar o
+// telefone do líder. Gera as duas variações para casar em qualquer busca.
+function brPhoneVariants(digits: string): string[] {
+  if (!digits.startsWith('55') || digits.length < 12) return [digits];
+  const ddd = digits.slice(2, 4);
+  const rest = digits.slice(4);
+  if (rest.length === 9 && rest[0] === '9') {
+    return [digits, `55${ddd}${rest.slice(1)}`];
+  }
+  if (rest.length === 8) {
+    return [digits, `55${ddd}9${rest}`];
+  }
+  return [digits];
+}
+
 async function sendText(instanceName: string, phone: string, text: string): Promise<boolean> {
   try {
     const resp = await fetch(`${EVOLUTION_URL()}/message/sendText/${instanceName}`, {
@@ -320,14 +337,15 @@ router.post('/webhook', async (req: Request, res: Response) => {
       return;
     }
     console.log(`[whatsapp-leader] Mensagem de ${inbound.phone}: texto="${inbound.text}" buttonId="${inbound.buttonId}"`);
+    const phoneVariants = brPhoneVariants(inbound.phone);
 
-    const cell = await prisma.cell.findFirst({ where: { leaderPhone: inbound.phone } });
+    const cell = await prisma.cell.findFirst({ where: { leaderPhone: { in: phoneVariants } } });
     if (cell) {
       await prisma.cell.update({ where: { id: cell.id }, data: { lastWhatsappInboundAt: new Date() } });
     }
 
     const session = await prisma.whatsappLeaderSession.findFirst({
-      where: { phone: inbound.phone },
+      where: { phone: { in: phoneVariants } },
       orderBy: { updatedAt: 'desc' },
     });
     if (!session) {
