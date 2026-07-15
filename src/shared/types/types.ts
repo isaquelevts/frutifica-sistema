@@ -152,6 +152,7 @@ export interface Report {
 
   date: string;
   notes?: string;
+  photoUrl?: string;
   createdAt: string;
 }
 
