@@ -4,9 +4,12 @@ import { useReports } from '../../shared/hooks/useReports';
 import { useCells } from '../../shared/hooks/useCells';
 import { deleteReport } from './reportService';
 import { Report } from '../../shared/types/types';
-import { FileText, Calendar, Users, XCircle, CheckCircle, Edit2, Search, Filter, X, Heart, Trash2 } from 'lucide-react';
+import { FileText, Calendar, Users, XCircle, CheckCircle, Edit2, Search, Filter, X, Heart, Trash2, ImageIcon } from 'lucide-react';
 import { useAuth } from '../../core/auth/AuthContext';
 import { useQueryClient } from '@tanstack/react-query';
+import { API_URL } from '../../core/api/client';
+
+const photoUrl = (path?: string) => (path ? `${API_URL}${path}` : null);
 
 const ReportsList: React.FC = () => {
   const { user, isAdmin } = useAuth();
@@ -161,13 +164,14 @@ const ReportsList: React.FC = () => {
                 <th className="px-6 py-4 text-sm font-semibold text-slate-600">Status</th>
                 <th className="px-6 py-4 text-sm font-semibold text-slate-600">Participantes</th>
                 <th className="px-6 py-4 text-sm font-semibold text-slate-600">Visitantes</th>
+                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Foto</th>
                 <th className="px-6 py-4 text-sm font-semibold text-slate-600 text-right">Ações</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {filteredReports.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-8 text-center text-slate-500">
+                  <td colSpan={7} className="px-6 py-8 text-center text-slate-500">
                     Nenhum relatório encontrado com os filtros selecionados.
                   </td>
                 </tr>
@@ -213,6 +217,23 @@ const ReportsList: React.FC = () => {
                     </td>
                     <td className="px-6 py-4 text-sm text-slate-600">
                       {report.happened ? report.visitors : '-'}
+                    </td>
+
+                    {/* Foto */}
+                    <td className="px-6 py-4 text-sm">
+                      {photoUrl(report.photoUrl) ? (
+                        <a href={photoUrl(report.photoUrl)!} target="_blank" rel="noopener noreferrer">
+                          <img
+                            src={photoUrl(report.photoUrl)!}
+                            alt={`Foto da célula ${report.cellName}`}
+                            className="w-12 h-12 object-cover rounded-lg border border-slate-200 hover:opacity-80 transition-opacity"
+                          />
+                        </a>
+                      ) : (
+                        <span className="text-slate-300">
+                          <ImageIcon size={20} />
+                        </span>
+                      )}
                     </td>
 
                     {/* Actions */}
@@ -287,6 +308,16 @@ const ReportsList: React.FC = () => {
                 <div className="bg-red-50 p-3 rounded-lg text-xs text-red-700 mb-4 italic border border-red-100">
                   "{report.notes}"
                 </div>
+              )}
+
+              {photoUrl(report.photoUrl) && (
+                <a href={photoUrl(report.photoUrl)!} target="_blank" rel="noopener noreferrer" className="block mb-4">
+                  <img
+                    src={photoUrl(report.photoUrl)!}
+                    alt={`Foto da célula ${report.cellName}`}
+                    className="w-full h-40 object-cover rounded-lg border border-slate-200"
+                  />
+                </a>
               )}
 
               <div className="pt-3 border-t border-slate-100 flex justify-end gap-4">
