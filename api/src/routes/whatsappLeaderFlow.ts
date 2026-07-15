@@ -1,14 +1,17 @@
 import { Router, Request, Response } from 'express';
-import fs from 'fs';
-import path from 'path';
-import { randomUUID } from 'crypto';
+import { v2 as cloudinary } from 'cloudinary';
 import prisma from '../lib/prisma';
 import { requireAdmin, AuthRequest } from '../middleware/auth';
 import { EVOLUTION_URL, EVOLUTION_KEY, getDayNumber, toDateString, nowBRT } from './whatsapp';
 
 const router = Router();
 
-const UPLOADS_DIR = path.join(__dirname, '../../uploads/reports');
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 const OPT_OUT_DAYS = 30;
 const REMINDER_HOURS = 24;
 const ABANDON_SESSION_HOURS = 48;
@@ -139,10 +142,10 @@ async function downloadInboundPhoto(instanceName: string, rawKey: any): Promise<
     const base64: string | undefined = data?.base64;
     if (!base64) return null;
 
-    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
-    const fileName = `${randomUUID()}.jpg`;
-    fs.writeFileSync(path.join(UPLOADS_DIR, fileName), Buffer.from(base64, 'base64'));
-    return `/uploads/reports/${fileName}`;
+    const upload = await cloudinary.uploader.upload(`data:image/jpeg;base64,${base64}`, {
+      folder: 'frutifica/reports',
+    });
+    return upload.secure_url;
   } catch (e: any) {
     console.error(`[whatsapp-leader] Erro ao baixar foto: ${e.message}`);
     return null;
