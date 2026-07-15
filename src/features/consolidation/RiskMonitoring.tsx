@@ -4,7 +4,9 @@ import { useCells } from '../../shared/hooks/useCells';
 import { useReports } from '../../shared/hooks/useReports';
 import { Cell, Report } from '../../shared/types/types';
 import { useAuth } from '../../core/auth/AuthContext';
-import { AlertTriangle, TrendingDown, CheckCircle, Clock, Users, UserPlus } from 'lucide-react';
+import { AlertTriangle, AlertCircle, Eye, TrendingDown, CheckCircle, Clock, Users, UserPlus } from 'lucide-react';
+
+type RiskLevel = 'critical' | 'high_risk' | 'attention' | 'healthy';
 
 interface CellRiskData {
   cell: Cell;
@@ -12,9 +14,28 @@ interface CellRiskData {
   daysSinceLastReport: number;
   avgAttendance: number;
   visitorsLastMonth: number;
-  status: 'critical' | 'high_risk' | 'healthy';
-  reason: string;
+  riskScore: number;
+  level: RiskLevel;
+  reasons: string[];
 }
+
+// Ancora meio-dia pra evitar que "YYYY-MM-DD" seja interpretado como UTC
+// meia-noite e caia um dia antes em fusos negativos (ex: Brasil).
+function parseReportDate(dateStr: string): Date {
+  return new Date(dateStr + 'T12:00:00');
+}
+
+function average(nums: number[]): number {
+  if (nums.length === 0) return 0;
+  return nums.reduce((acc, n) => acc + n, 0) / nums.length;
+}
+
+const LEVEL_CONFIG: Record<RiskLevel, { label: string; badgeClass: string }> = {
+  critical: { label: 'Crítico', badgeClass: 'bg-red-100 text-red-700' },
+  high_risk: { label: 'Alto Risco', badgeClass: 'bg-orange-100 text-orange-700' },
+  attention: { label: 'Atenção', badgeClass: 'bg-amber-100 text-amber-700' },
+  healthy: { label: 'Saudável', badgeClass: 'bg-green-100 text-green-700' },
+};
 
 const RiskMonitoring: React.FC = () => {
   const { user } = useAuth();
@@ -30,48 +51,81 @@ const RiskMonitoring: React.FC = () => {
     const activeCells = cells.filter(c => c.active !== false);
 
     const analyzedData: CellRiskData[] = activeCells.map(cell => {
-      // 1. Get reports for this cell
       const cellReports = reports
-        .filter(r => r.cellId === cell.id && r.happened)
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        .filter(r => r.cellId === cell.id && r.happened && r.date)
+        .sort((a, b) => b.date.localeCompare(a.date));
 
-      // 2. Calculate Last Report Logic
       const lastReport = cellReports[0];
       let daysSinceLastReport = 999;
-      let lastReportDate = null;
+      let lastReportDate: string | null = null;
 
       if (lastReport) {
         lastReportDate = lastReport.date;
-        const diffTime = Math.abs(new Date().getTime() - new Date(lastReport.date).getTime());
-        daysSinceLastReport = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const diffTime = Math.abs(new Date().getTime() - parseReportDate(lastReport.date).getTime());
+        daysSinceLastReport = Math.floor(diffTime / (1000 * 60 * 60 * 24));
       }
 
-      // 3. Calculate Averages (Last 4 reports)
       const recentReports = cellReports.slice(0, 4);
-      const totalParticipants = recentReports.reduce((acc, curr) => acc + (curr.participants || 0), 0);
-      const avgAttendance = recentReports.length > 0 ? Math.round(totalParticipants / recentReports.length) : 0;
+      const avgAttendance = Math.round(average(recentReports.map(r => r.participants || 0)));
 
-      // 4. Visitors in last 30 days
       const thirtyDaysAgo = new Date();
       thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
       const visitorsLastMonth = cellReports
-        .filter(r => new Date(r.date) >= thirtyDaysAgo)
-        .reduce((acc, curr) => acc + (curr.visitors || 0), 0);
+        .filter(r => parseReportDate(r.date) >= thirtyDaysAgo)
+        .reduce((acc, r) => acc + (r.visitors || 0), 0);
 
-      // 5. Determine Status
-      let status: 'critical' | 'high_risk' | 'healthy' = 'healthy';
-      let reason = 'Dentro dos parâmetros';
+      // ── Score de risco ponderado (0-100) ──────────────────────────
+      const reasons: string[] = [];
+      let score = 0;
 
-      if (daysSinceLastReport > 30) {
-        status = 'critical';
-        reason = lastReport ? `Sem relatório há ${daysSinceLastReport} dias` : 'Nunca enviou relatório';
+      // 1. Atraso de relatório
+      if (!lastReport) {
+        score += 50;
+        reasons.push('Nunca enviou relatório');
+      } else if (daysSinceLastReport > 30) {
+        score += 50;
+        reasons.push(`Sem relatório há ${daysSinceLastReport} dias`);
       } else if (daysSinceLastReport > 14) {
-        status = 'high_risk';
-        reason = `Atraso de ${daysSinceLastReport} dias no relatório`;
-      } else if (recentReports.length > 0 && avgAttendance < 3) {
-        status = 'high_risk';
-        reason = 'Média de frequência muito baixa';
+        score += 35;
+        reasons.push(`Atraso de ${daysSinceLastReport} dias no relatório`);
+      } else if (daysSinceLastReport > 7) {
+        score += 15;
+        reasons.push(`${daysSinceLastReport} dias desde o último relatório`);
       }
+
+      // 2. Frequência baixa (só penaliza quem já tem relatório)
+      if (recentReports.length > 0) {
+        if (avgAttendance < 3) {
+          score += 30;
+          reasons.push('Frequência muito baixa (média abaixo de 3)');
+        } else if (avgAttendance <= 4) {
+          score += 20;
+          reasons.push('Frequência baixa');
+        } else if (avgAttendance <= 7) {
+          score += 10;
+        }
+      }
+
+      // 3. Sem crescimento (últimos 2 relatórios vs. os 2 anteriores)
+      if (cellReports.length >= 4) {
+        const recent2 = average(cellReports.slice(0, 2).map(r => r.participants || 0));
+        const previous2 = average(cellReports.slice(2, 4).map(r => r.participants || 0));
+        const growth = recent2 - previous2;
+        if (growth < -3) {
+          score += 20;
+          reasons.push('Queda de frequência nas últimas semanas');
+        } else if (growth < 0) {
+          score += 10;
+          reasons.push('Leve queda de frequência');
+        }
+      }
+
+      let level: RiskLevel = 'healthy';
+      if (score >= 50) level = 'critical';
+      else if (score >= 25) level = 'high_risk';
+      else if (score >= 10) level = 'attention';
+
+      if (reasons.length === 0) reasons.push('Dentro dos parâmetros');
 
       return {
         cell,
@@ -79,33 +133,25 @@ const RiskMonitoring: React.FC = () => {
         daysSinceLastReport,
         avgAttendance,
         visitorsLastMonth,
-        status,
-        reason
+        riskScore: score,
+        level,
+        reasons,
       };
     });
 
-    // Sort: Critical first, then High Risk, then Healthy
-    analyzedData.sort((a, b) => {
-      const score = (status: string) => {
-        if (status === 'critical') return 3;
-        if (status === 'high_risk') return 2;
-        return 1;
-      };
-      return score(b.status) - score(a.status);
-    });
-
-    return analyzedData;
+    return analyzedData.sort((a, b) => b.riskScore - a.riskScore);
   }, [cells, reports, isLoading]);
 
-  const criticalCount = riskData.filter(d => d.status === 'critical').length;
-  const highRiskCount = riskData.filter(d => d.status === 'high_risk').length;
-  const healthyCount = riskData.filter(d => d.status === 'healthy').length;
+  const criticalCount = riskData.filter(d => d.level === 'critical').length;
+  const highRiskCount = riskData.filter(d => d.level === 'high_risk').length;
+  const attentionCount = riskData.filter(d => d.level === 'attention').length;
+  const healthyCount = riskData.filter(d => d.level === 'healthy').length;
 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-slate-800">Monitoramento de Risco</h1>
-        <p className="text-slate-500">Identificação automática de células que precisam de atenção pastoral.</p>
+        <h1 className="text-2xl font-bold text-slate-800">Células em Risco</h1>
+        <p className="text-slate-500">Ranking automático de células que precisam de atenção pastoral, com base em atraso de relatório, frequência e crescimento.</p>
       </div>
 
       {isLoading ? (
@@ -118,7 +164,7 @@ const RiskMonitoring: React.FC = () => {
       ) : (
         <>
           {/* Summary Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-white p-6 rounded-xl border border-red-100 shadow-sm flex items-center gap-4">
               <div className="p-3 bg-red-100 text-red-600 rounded-full">
                 <AlertTriangle size={24} />
@@ -141,6 +187,17 @@ const RiskMonitoring: React.FC = () => {
               </div>
             </div>
 
+            <div className="bg-white p-6 rounded-xl border border-amber-100 shadow-sm flex items-center gap-4">
+              <div className="p-3 bg-amber-100 text-amber-600 rounded-full">
+                <Eye size={24} />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-slate-500">Atenção</p>
+                <h3 className="text-2xl font-bold text-slate-800">{attentionCount}</h3>
+                <p className="text-xs text-amber-500 font-medium">Vale um contato</p>
+              </div>
+            </div>
+
             <div className="bg-white p-6 rounded-xl border border-green-100 shadow-sm flex items-center gap-4">
               <div className="p-3 bg-green-100 text-green-600 rounded-full">
                 <CheckCircle size={24} />
@@ -158,39 +215,43 @@ const RiskMonitoring: React.FC = () => {
       {/* List */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
         <div className="p-6 border-b border-slate-100">
-          <h2 className="text-lg font-bold text-slate-800">Células em Alerta</h2>
+          <h2 className="text-lg font-bold text-slate-800">Ranking de Risco</h2>
         </div>
 
         <div className="divide-y divide-slate-100">
-          {riskData.filter(d => d.status !== 'healthy').length === 0 ? (
+          {riskData.filter(d => d.level !== 'healthy').length === 0 ? (
             <div className="p-8 text-center text-slate-500">
               <CheckCircle size={48} className="mx-auto text-green-200 mb-4" />
               <p className="font-medium text-slate-600">Nenhuma célula em risco encontrada!</p>
               <p className="text-sm">Todas as células ativas estão reportando regularmente.</p>
             </div>
           ) : (
-            riskData.filter(d => d.status !== 'healthy').map((data) => (
+            riskData.filter(d => d.level !== 'healthy').map((data) => (
               <div key={data.cell.id} className="p-6 hover:bg-slate-50 transition-colors">
                 <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-6">
 
                   {/* Left Column: Info */}
                   <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-1">
+                    <div className="flex items-center gap-3 mb-1 flex-wrap">
                       <h3 className="text-lg font-bold text-slate-800">{data.cell.name}</h3>
-                      {data.status === 'critical' && (
-                        <span className="bg-red-100 text-red-700 text-xs font-bold px-2 py-0.5 rounded uppercase">Crítico</span>
-                      )}
-                      {data.status === 'high_risk' && (
-                        <span className="bg-orange-100 text-orange-700 text-xs font-bold px-2 py-0.5 rounded uppercase">Atenção</span>
-                      )}
+                      <span className={`text-xs font-bold px-2 py-0.5 rounded uppercase ${LEVEL_CONFIG[data.level].badgeClass}`}>
+                        {LEVEL_CONFIG[data.level].label}
+                      </span>
+                      <span className="text-xs font-mono text-slate-400" title="Score de risco (0-100)">
+                        {data.riskScore} pts
+                      </span>
                     </div>
                     <p className="text-sm text-slate-500 mb-3">
                       Líder: <span className="font-medium text-slate-700">{data.cell.leaderName}</span>
                     </p>
 
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-50 text-red-700 border border-red-100">
-                      <AlertTriangle size={14} />
-                      {data.reason}
+                    <div className="flex flex-wrap gap-2">
+                      {data.reasons.map((reason, i) => (
+                        <div key={i} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-50 text-red-700 border border-red-100">
+                          <AlertCircle size={14} />
+                          {reason}
+                        </div>
+                      ))}
                     </div>
                   </div>
 
@@ -244,7 +305,7 @@ const RiskMonitoring: React.FC = () => {
       <div className="mt-8">
         <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Células Saudáveis</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {riskData.filter(d => d.status === 'healthy').map(data => (
+          {riskData.filter(d => d.level === 'healthy').map(data => (
             <div key={data.cell.id} className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm opacity-80 hover:opacity-100 transition-opacity">
               <div className="flex justify-between items-start">
                 <div>

@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { getUsers, saveUser, updateUser, deleteUser } from '../settings/profileService';
-import { getCells } from './cellService';
+import { getCells, updateCell } from './cellService';
 import { User, UserRole, Cell } from '../../shared/types/types';
 import { useAuth } from '../../core/auth/AuthContext';
-import { UserPlus, Search, Edit2, Trash2, Mail, Lock, CakeSlice, ShieldCheck, User as UserIcon, Users, CheckCircle, Link2, Copy, Check } from 'lucide-react';
+import { UserPlus, Search, Edit2, Trash2, Mail, Lock, CakeSlice, ShieldCheck, User as UserIcon, Users, CheckCircle, Link2, Copy, Check, Phone } from 'lucide-react';
 import { useUsers } from '../../shared/hooks/useUsers';
 import { useCells } from '../../shared/hooks/useCells';
 import { useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userRegistrationSchema, type UserRegistrationFormData } from '../settings/schemas/userRegistrationSchema'; // Reusing schema
+import { maskPhone } from '../../core/utils/mask';
 
 const ManageLeaders: React.FC = () => {
   const { user: currentUser } = useAuth();
@@ -49,6 +50,21 @@ const ManageLeaders: React.FC = () => {
       birthday: ''
     }
   });
+
+  // O WhatsApp do líder vive em Cell.leaderPhone (usado pelo fluxo de
+  // lembretes por WhatsApp), não no User — por isso é um campo local,
+  // sincronizado com a célula selecionada, em vez de fazer parte do form.
+  const watchedCellId = watch('cellId');
+  const [leaderPhone, setLeaderPhone] = useState('');
+
+  useEffect(() => {
+    if (!watchedCellId) {
+      setLeaderPhone('');
+      return;
+    }
+    const selectedCell = cells.find(c => c.id === watchedCellId);
+    setLeaderPhone(selectedCell?.whatsapp || '');
+  }, [watchedCellId, cells]);
 
   const registerLink = currentUser?.organizationId
     ? `${window.location.href.split('#')[0]}#/cadastro-lider/${currentUser.organizationId}`
@@ -151,6 +167,15 @@ const ManageLeaders: React.FC = () => {
           cellId: data.cellId || undefined,
           birthday: data.birthday || undefined,
         } as any);
+      }
+
+      // Salva o WhatsApp na célula vinculada, se houver uma selecionada
+      if (data.cellId) {
+        const selectedCell = cells.find(c => c.id === data.cellId);
+        if (selectedCell && selectedCell.whatsapp !== leaderPhone) {
+          await updateCell({ ...selectedCell, whatsapp: leaderPhone });
+          queryClient.invalidateQueries({ queryKey: ['cells'] });
+        }
       }
 
       queryClient.invalidateQueries({ queryKey: ['users'] });
@@ -417,6 +442,26 @@ const ManageLeaders: React.FC = () => {
                   <p className="text-xs text-slate-500 mt-1">
                     {/* Simplified for UI - hook form handles value */}
                     Co-líderes podem ser vinculados a células existentes sem criar uma nova.
+                  </p>
+                </div>
+
+                <div className="col-span-2">
+                  <label className="block text-sm font-medium text-slate-700 mb-1">WhatsApp do Líder</label>
+                  <div className="relative">
+                    <Phone className="absolute left-3 top-2.5 text-slate-500" size={18} />
+                    <input
+                      type="tel"
+                      value={leaderPhone}
+                      onChange={(e) => setLeaderPhone(maskPhone(e.target.value))}
+                      disabled={!watchedCellId}
+                      placeholder="(11) 99999-9999"
+                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-900 font-medium outline-none focus:border-blue-500 disabled:bg-slate-100 disabled:cursor-not-allowed"
+                    />
+                  </div>
+                  <p className="text-xs text-slate-500 mt-1">
+                    {watchedCellId
+                      ? 'Usado nos lembretes semanais por WhatsApp.'
+                      : 'Vincule a uma célula para adicionar o WhatsApp.'}
                   </p>
                 </div>
               </div>

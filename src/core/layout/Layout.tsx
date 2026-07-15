@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Users, FileText, PlusCircle, Menu, Church,
   Trophy, LogOut, UserCog, AlertTriangle, UserCheck,
-  ClipboardList, List,
+  ClipboardList,
   Network, Building2, Settings, Shield, MessageCircle
 } from 'lucide-react';
 import { useAuth } from '../auth/AuthContext';
@@ -76,9 +76,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         { path: '/leaders', label: 'Gerenciar Líderes', icon: <UserCog size={20} /> },
         { path: '/import', label: 'Importação em Massa', icon: <FileText size={20} /> },
         { path: '/generations', label: 'Gerações / Redes', icon: <Network size={20} /> },
-        { path: '/all-members', label: 'Membros Gerais', icon: <List size={20} /> },
         { path: '/reports', label: 'Relatórios de Célula', icon: <FileText size={20} /> },
         { path: '/ranking', label: 'Reconhecimento', icon: <Trophy size={20} /> },
+        { path: '/risk-monitoring', label: 'Células em Risco', icon: <AlertTriangle size={20} /> },
         { path: '/whatsapp-settings', label: 'WhatsApp', icon: <MessageCircle size={20} /> },
       ]
     });
