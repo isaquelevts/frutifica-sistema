@@ -9,7 +9,12 @@ import { useAuth } from '../../core/auth/AuthContext';
 import { useQueryClient } from '@tanstack/react-query';
 import { API_URL } from '../../core/api/client';
 
-const photoUrl = (path?: string) => (path ? `${API_URL}${path}` : null);
+// photoUrl pode ser uma URL absoluta (Cloudinary) ou, para fotos antigas
+// salvas antes da migração, um caminho relativo servido pela própria API.
+const photoUrl = (path?: string) => {
+  if (!path) return null;
+  return path.startsWith('http') ? path : `${API_URL}${path}`;
+};
 
 const ReportsList: React.FC = () => {
   const { user, isAdmin } = useAuth();
