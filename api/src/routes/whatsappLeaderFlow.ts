@@ -81,7 +81,7 @@ function parseInboundMessage(payload: any): InboundMessage | null {
   if (!data || data.key?.fromMe) return null;
 
   const remoteJid: string | undefined = data.key?.remoteJid;
-  if (!remoteJid) return null;
+  if (!remoteJid || remoteJid.endsWith('@g.us')) return null; // ignora mensagens de grupo — o fluxo é só individual
   const phone = remoteJid.replace(/@.*/, '');
 
   const message = data.message || {};
