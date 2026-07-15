@@ -14,7 +14,7 @@ const REMINDER_HOURS = 24;
 const ABANDON_SESSION_HOURS = 48;
 
 // ─────────────────────────────────────────────────────────────
-// Envio de mensagens (com fallback texto quando botões falham)
+// Envio de mensagens
 // ─────────────────────────────────────────────────────────────
 function toJid(phone: string): string {
   return phone.includes('@') ? phone : `${phone}@s.whatsapp.net`;
@@ -36,29 +36,10 @@ async function sendText(instanceName: string, phone: string, text: string): Prom
 
 type PromptButton = { id: string; label: string };
 
-// Tenta mandar botões nativos (Evolution/Baileys); nem todo cliente WhatsApp
-// renderiza esse tipo de mensagem de forma confiável, então sempre cai para
-// texto com opções numeradas se a chamada de botões falhar.
+// A instância em uso não entrega mensagens de botão nativo de forma
+// confiável (aceita a chamada mas não chega no WhatsApp), então as opções
+// são sempre mandadas como texto numerado.
 async function sendPrompt(instanceName: string, phone: string, text: string, buttons: PromptButton[]): Promise<void> {
-  try {
-    const resp = await fetch(`${EVOLUTION_URL()}/message/sendButtons/${instanceName}`, {
-      method: 'POST',
-      headers: { apikey: EVOLUTION_KEY(), 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        number: toJid(phone),
-        buttonMessage: {
-          title: '',
-          description: text,
-          footer: '',
-          buttons: buttons.map((b) => ({ buttonId: b.id, buttonText: { displayText: b.label }, type: 1 })),
-        },
-      }),
-    });
-    if (resp.ok) return;
-  } catch (e: any) {
-    console.error(`[whatsapp-leader] Erro ao enviar botões para ${phone}: ${e.message}`);
-  }
-
   const options = buttons.map((b, i) => `${i + 1}. ${b.label}`).join('\n');
   await sendText(instanceName, phone, `${text}\n\n${options}\n\n_Responda com o número ou o texto da opção._`);
 }
