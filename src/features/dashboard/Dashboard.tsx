@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line, PieChart, Pie, Cell as RechartsCell, Legend } from 'recharts';
-import { Users, TrendingUp, TrendingDown, Filter, X, FileText, ArrowRight, UserCheck, MapPin, PieChart as PieIcon, SlidersHorizontal, CheckCircle2, CircleDashed } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line } from 'recharts';
+import { Users, TrendingUp, TrendingDown, Filter, X, FileText, ArrowRight, UserCheck, MapPin, SlidersHorizontal, CheckCircle2, CircleDashed } from 'lucide-react';
 import { useCells } from '../../shared/hooks/useCells';
 import { useReports } from '../../shared/hooks/useReports';
 
@@ -19,8 +19,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
 type TimeFilter = 'week' | 'month' | 'year' | 'custom';
-
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d', '#ff7675'];
 
 // Ancora meio-dia pra evitar que "YYYY-MM-DD" seja interpretado como UTC
 // meia-noite e apareça um dia antes em fusos negativos (ex: Brasil).
@@ -285,19 +283,6 @@ const Dashboard: React.FC = () => {
   }, [allReports, filteredCells, filteredReports, timeFilter]);
 
   const activeFilterCount = [selectedCellId !== 'all', audienceFilter !== 'all', timeFilter !== 'week'].filter(Boolean).length;
-
-  // Pie Chart Data (Audience Distribution)
-  const audienceStats = React.useMemo(() => {
-    const stats: Record<string, number> = {};
-    filteredCells.forEach(cell => {
-      // Only count active cells for distribution
-      if (cell.active !== false) {
-        const key = cell.targetAudience;
-        stats[key] = (stats[key] || 0) + 1;
-      }
-    });
-    return Object.entries(stats).map(([name, value]) => ({ name, value }));
-  }, [filteredCells]);
 
   // --- Status de Preenchimento: células ativas do escopo atual x relatórios recebidos no período ---
   const fillStatus = useMemo(() => {
@@ -646,46 +631,6 @@ const Dashboard: React.FC = () => {
             )}
           </CardContent>
         </Card>
-
-        {/* Audience Pie Chart - FIXED */}
-        {audienceStats.length > 0 && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <PieIcon size={20} className="text-green-600" /> Distribuição por Público
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="h-96"> {/* Increased height for Legend */}
-                <ChartContainer config={{}} className="h-full w-full">
-                  <PieChart>
-                    <Pie
-                      data={audienceStats}
-                      cx="50%"
-                      cy="40%" /* Moved up to make room for legend */
-                      labelLine={false}
-                      outerRadius={80} /* Smaller radius */
-                      fill="#8884d8"
-                      dataKey="value"
-                    >
-                      {audienceStats.map((entry, index) => (
-                        <RechartsCell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <ChartTooltip content={<ChartTooltipContent />} />
-                    <Legend
-                      verticalAlign="bottom"
-                      height={80}
-                      iconType="circle"
-                      wrapperStyle={{ paddingTop: '20px' }}
-                      formatter={(_value, entry: any) => entry?.payload?.name ?? ''}
-                    />
-                  </PieChart>
-                </ChartContainer>
-              </div>
-            </CardContent>
-          </Card>
-        )}
 
         {/* --- MAP SECTION (Moved to Bottom) --- */}
         {filteredCells.some(c => c.lat && c.lng) && (
