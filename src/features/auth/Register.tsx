@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../core/auth/AuthContext';
-import { apiFetch, setToken } from '../../core/api/client';
+import { apiFetch } from '../../core/api/client';
 import { Church, User as UserIcon, Lock, Mail, ArrowLeft } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,7 +9,7 @@ import { registerSchema, type RegisterFormData } from './schemas/registerSchema'
 
 const Register: React.FC = () => {
   const [error, setError] = useState('');
-  const { login } = useAuth();
+  const { authenticateWithToken } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -23,11 +23,11 @@ const Register: React.FC = () => {
   const onSubmit = async (data: RegisterFormData) => {
     setError('');
     try {
-      const { token } = await apiFetch<{ token: string }>('/api/auth/register', {
+      const { token, user } = await apiFetch<{ token: string; user: any }>('/api/auth/register', {
         method: 'POST',
         body: JSON.stringify({ orgName: data.orgName, name: data.adminName, email: data.email, password: data.password }),
       });
-      setToken(token);
+      await authenticateWithToken(token, user);
       navigate('/dashboard');
     } catch (err: any) {
       setError(err.message || 'Erro ao criar conta da igreja.');

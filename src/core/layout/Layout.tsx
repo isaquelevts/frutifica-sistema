@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, FileText, PlusCircle, Menu, Church,
   Trophy, LogOut, UserCog, AlertTriangle, UserCheck,
   ClipboardList,
-  Network, Building2, Settings, Shield, MessageCircle
+  Network, Building2, Settings, Shield, MessageCircle, Ticket
 } from 'lucide-react';
 import { useAuth } from '../auth/AuthContext';
 import { UserRole } from '../../shared/types/types';
@@ -74,6 +74,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       items: [
         { path: '/cells', label: 'Gerenciar Células', icon: <Users size={20} /> },
         { path: '/leaders', label: 'Gerenciar Líderes', icon: <UserCog size={20} /> },
+        { path: '/invites', label: 'Convites de Líderes', icon: <Ticket size={20} /> },
         { path: '/import', label: 'Importação em Massa', icon: <FileText size={20} /> },
         { path: '/generations', label: 'Gerações / Redes', icon: <Network size={20} /> },
         { path: '/reports', label: 'Relatórios de Célula', icon: <FileText size={20} /> },

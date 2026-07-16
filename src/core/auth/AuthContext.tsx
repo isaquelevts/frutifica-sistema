@@ -6,6 +6,8 @@ interface AuthContextType {
   user: User | null;
   organization: Organization | null;
   login: (email: string, password: string) => Promise<{ success: boolean; roles?: UserRole[] }>;
+  /** Autentica a partir de um token já emitido (cadastro de igreja, aceite de convite). */
+  authenticateWithToken: (token: string, user: any) => Promise<void>;
   logout: () => void;
   reloadOrganization: () => void;
   resetPassword: (email: string) => Promise<{ success: boolean; error?: string }>;
@@ -83,6 +85,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  /**
+   * Hidrata a sessão com um token que a API acabou de emitir.
+   *
+   * O useEffect acima só roda na montagem do provider, então chamar apenas
+   * setToken() + navigate() deixava o contexto com user=null e o ProtectedRoute
+   * chutava o usuário recém-cadastrado de volta para o /login.
+   */
+  const authenticateWithToken = async (token: string, apiUser: any) => {
+    setToken(token);
+    const mapped = mapApiUser(apiUser);
+    setUser(mapped);
+    if (mapped.organizationId) await loadOrg(mapped.organizationId);
+  };
+
   const logout = () => {
     setToken(null);
     setUser(null);
@@ -110,6 +126,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       user,
       organization,
       login,
+      authenticateWithToken,
       logout,
       reloadOrganization,
       resetPassword,

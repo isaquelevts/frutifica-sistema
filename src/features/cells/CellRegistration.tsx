@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { TargetAudience, Cell, CoLeader, UserRole, Generation } from '../../shared/types/types';
-import { saveCell, getCellById, updateCell } from './cellService';
-import { saveUser } from '../settings/profileService';
+import { saveCell, getCellById, updateCell, saveCellWithLeader } from './cellService';
 import { getGenerations } from '../generations/generationService';
 import { Save, ArrowLeft, Users, Plus, Trash2, Mail, Phone, FileUp, Download, CheckCircle, AlertCircle, FileText, Upload, Lock, User as UserIcon, MessageCircle, Loader2 } from 'lucide-react';
 import { useAuth } from '../../core/auth/AuthContext';
@@ -49,6 +48,9 @@ const CellRegistration: React.FC = () => {
     // Success Modal State
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [createdCellName, setCreatedCellName] = useState('');
+
+    // Erro de submissão (ex: email já em uso, limite de células do plano)
+    const [submitError, setSubmitError] = useState('');
 
     // React Hook Form
     const {
@@ -125,6 +127,7 @@ const CellRegistration: React.FC = () => {
 
     const onSubmit = async (data: CellFormData) => {
         if (!user?.organizationId) return;
+        setSubmitError('');
 
         try {
             if (isEditing && cellId) {
@@ -139,41 +142,35 @@ const CellRegistration: React.FC = () => {
                 queryClient.invalidateQueries({ queryKey: ['cells'] });
                 navigate('/cells');
             } else {
-                // Creating new cell - create cell first, then leader account linked to it
-
-                // Validate required leader fields for creation
                 if (!data.leaderEmail || !data.leaderPassword) {
-                    alert("Email e Senha são obrigatórios para cadastrar um novo líder.");
+                    setSubmitError('Email e senha são obrigatórios para cadastrar um novo líder.');
                     return;
                 }
 
-                // 1. Create Cell (API gera o id)
-                const createdCell = await saveCell({
-                    ...data,
-                    organizationId: user.organizationId,
-                    active: true,
-                } as any);
-
-                // 2. Create Leader Profile vinculado à célula
-                await saveUser({
-                    organizationId: user.organizationId,
-                    name: data.leaderName,
-                    email: data.leaderEmail,
-                    password: data.leaderPassword,
-                    roles: [UserRole.LEADER],
-                    cellId: createdCell.id,
-                    birthday: data.leaderBirthday || undefined,
-                } as any);
+                // Célula + líder numa transação só. Se qualquer parte falhar,
+                // nada é criado — antes a célula ficava órfã quando o líder falhava.
+                await saveCellWithLeader({
+                    name: data.name,
+                    leaderName: data.leaderName,
+                    leaderPhone: data.whatsapp,
+                    targetAudience: data.targetAudience,
+                    dayOfWeek: data.dayOfWeek,
+                    time: data.time,
+                    address: data.address,
+                    generationId: data.generationId || null,
+                    leaderEmail: data.leaderEmail,
+                    leaderPassword: data.leaderPassword,
+                    leaderBirthday: data.leaderBirthday || undefined,
+                });
 
                 queryClient.invalidateQueries({ queryKey: ['cells'] });
 
-                // Show success modal instead of navigating
                 setCreatedCellName(data.name);
                 setShowSuccessModal(true);
             }
         } catch (error: any) {
             console.error('Error saving cell and leader', error);
-            alert(error.message || 'Erro ao salvar célula e líder. Verifique os dados e tente novamente.');
+            setSubmitError(error.message || 'Erro ao salvar célula e líder. Verifique os dados e tente novamente.');
         }
     };
 
@@ -330,6 +327,13 @@ const CellRegistration: React.FC = () => {
                     </div>
 
                     <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-8">
+                        {submitError && (
+                            <div className="p-3 bg-red-50 text-red-700 rounded-lg text-sm border border-red-100 flex items-start gap-2">
+                                <AlertCircle size={16} className="mt-0.5 shrink-0" />
+                                <span>{submitError}</span>
+                            </div>
+                        )}
+
                         {/* Section: Basic Info */}
                         <div>
                             <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Informações da Célula</h3>

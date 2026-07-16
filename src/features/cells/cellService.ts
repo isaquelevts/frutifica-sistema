@@ -23,6 +23,7 @@ export const saveCell = async (cell: Cell): Promise<Cell> => {
             leaderName: cell.leaderName,
             leaderId: cell.leaderId,
             leaderPhone: cell.whatsapp,
+            targetAudience: cell.targetAudience,
             dayOfWeek: cell.dayOfWeek,
             time: cell.time,
             address: cell.address,
@@ -34,6 +35,46 @@ export const saveCell = async (cell: Cell): Promise<Cell> => {
     return mapCell(created);
 };
 
+export interface SaveCellWithLeaderInput {
+    name: string;
+    leaderName: string;
+    /** Telefone do líder — a API normaliza e usa nos lembretes do WhatsApp. */
+    leaderPhone?: string;
+    targetAudience?: string;
+    dayOfWeek: string;
+    time: string;
+    address: string;
+    generationId?: string | null;
+    leaderEmail: string;
+    leaderPassword?: string;
+    leaderBirthday?: string;
+}
+
+export interface SaveCellWithLeaderResult {
+    cell: Cell;
+    leader: { id: string; email: string; name: string };
+    temporaryPassword?: string;
+}
+
+/**
+ * Cria célula + conta do líder numa transação única no servidor.
+ * Antes eram duas chamadas em sequência: se a segunda falhasse (email já em uso,
+ * por exemplo), a célula da primeira ficava órfã no banco.
+ */
+export const saveCellWithLeader = async (
+    input: SaveCellWithLeaderInput
+): Promise<SaveCellWithLeaderResult> => {
+    const result = await apiFetch<any>('/api/cells/with-leader', {
+        method: 'POST',
+        body: JSON.stringify(input),
+    });
+    return {
+        cell: mapCell(result.cell),
+        leader: result.leader,
+        temporaryPassword: result.temporaryPassword,
+    };
+};
+
 export const updateCell = async (cell: Cell): Promise<void> => {
     await apiFetch(`/api/cells/${cell.id}`, {
         method: 'PUT',
@@ -42,6 +83,7 @@ export const updateCell = async (cell: Cell): Promise<void> => {
             leaderName: cell.leaderName,
             leaderId: cell.leaderId,
             leaderPhone: cell.whatsapp,
+            targetAudience: cell.targetAudience,
             dayOfWeek: cell.dayOfWeek,
             time: cell.time,
             address: cell.address,

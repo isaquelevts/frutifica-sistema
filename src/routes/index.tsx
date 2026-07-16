@@ -21,11 +21,13 @@ import UserRegistration from '../features/settings/UserRegistration';
 import PaymentSuccess from '../features/settings/PaymentSuccess';
 import BulkImport from '../features/import/pages/BulkImport';
 import WhatsappSettings from '../features/settings/WhatsappSettings';
+import InviteManager from '../features/invites/InviteManager';
 
 // Auth Feature
 import Login from '../features/auth/Login';
 import Register from '../features/auth/Register';
 import LeaderRegister from '../features/auth/LeaderRegister';
+import InviteAccept from '../features/invites/InviteAccept';
 import ForgotPassword from '../features/auth/ForgotPassword';
 import ResetPassword from '../features/auth/ResetPassword';
 
@@ -100,6 +102,9 @@ const AppRoutes: React.FC = () => {
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/convite/:token" element={<InviteAccept />} />
+            {/* @deprecated — substituído por /convite/:token (convite revogável e com validade).
+                Mantido só para links antigos que já circulam. */}
             <Route path="/cadastro-lider/:orgId" element={<LeaderRegister />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
@@ -153,6 +158,7 @@ const AppRoutes: React.FC = () => {
             <Route path="/reports" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.LEADER]}><ReportsList /></ProtectedRoute>} />
             <Route path="/edit-report/:reportId" element={<ProtectedRoute roles={[UserRole.ADMIN, UserRole.LEADER]}><ReportForm /></ProtectedRoute>} />
             <Route path="/leaders" element={<ProtectedRoute roles={[UserRole.ADMIN]}><ManageLeaders /></ProtectedRoute>} />
+            <Route path="/invites" element={<ProtectedRoute roles={[UserRole.ADMIN]}><InviteManager /></ProtectedRoute>} />
             <Route path="/generations" element={<ProtectedRoute roles={[UserRole.ADMIN]}><Generations /></ProtectedRoute>} />
             <Route path="/import" element={<ProtectedRoute roles={[UserRole.ADMIN]}><BulkImport /></ProtectedRoute>} />
             <Route path="/whatsapp-settings" element={<ProtectedRoute roles={[UserRole.ADMIN]}><WhatsappSettings /></ProtectedRoute>} />
