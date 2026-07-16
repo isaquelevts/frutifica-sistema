@@ -1,13 +1,15 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line } from 'recharts';
-import { Users, TrendingUp, TrendingDown, Filter, X, FileText, ArrowRight, UserCheck, MapPin, SlidersHorizontal, CheckCircle2, CircleDashed } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line, Pie, PieChart, Sector } from 'recharts';
+import type { PieSectorDataItem } from 'recharts/types/polar/Pie';
+import { Users, TrendingUp, TrendingDown, Filter, X, FileText, ArrowRight, UserCheck, MapPin, SlidersHorizontal, CheckCircle2, CircleDashed, AlertTriangle, Clock } from 'lucide-react';
 import { useCells } from '../../shared/hooks/useCells';
 import { useReports } from '../../shared/hooks/useReports';
 
 import { Cell, Report, TargetAudience } from '../../shared/types/types';
 import { useAuth } from '../../core/auth/AuthContext';
 import { isReportRealized } from '../../shared/utils/reportStatus';
+import { hasCellDayPassedThisWeek } from '../../shared/utils/cellSchedule';
 import L from 'leaflet';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -34,6 +36,12 @@ const frequencyChartConfig = {
 
 const growthChartConfig = {
   media: { label: 'Média de Participantes', color: 'var(--color-chart-3)' },
+} satisfies ChartConfig;
+
+const realizedChartConfig = {
+  value: { label: 'Relatórios' },
+  realizada: { label: 'Realizada', color: '#22c55e' },
+  naoRealizada: { label: 'Não Realizada', color: '#ef4444' },
 } satisfies ChartConfig;
 
 const Dashboard: React.FC = () => {
@@ -294,24 +302,44 @@ const Dashboard: React.FC = () => {
       if (!current || r.date > current) lastReportByCell.set(r.cellId, r.date);
     });
 
+    // Ordem de urgência pra facilitar a cobrança: atrasada > aguardando dia > preenchida
+    function statusRank(filled: boolean, overdue: boolean): number {
+      if (filled) return 2;
+      return overdue ? 0 : 1;
+    }
+
     return filteredCells
       .filter(c => c.active !== false)
       .map(cell => {
         const lastDate = lastReportByCell.get(cell.id);
+        const filled = !!lastDate;
+        const overdue = !filled && hasCellDayPassedThisWeek(cell.dayOfWeek);
         return {
           cell,
-          filled: !!lastDate,
+          filled,
+          overdue,
           lastDate,
         };
       })
       .sort((a, b) => {
-        if (a.filled === b.filled) return a.cell.name.localeCompare(b.cell.name);
-        return a.filled ? 1 : -1; // pendentes primeiro
+        const rankDiff = statusRank(a.filled, a.overdue) - statusRank(b.filled, b.overdue);
+        return rankDiff !== 0 ? rankDiff : a.cell.name.localeCompare(b.cell.name);
       });
   }, [filteredCells, filteredReports]);
 
   const filledCount = fillStatus.filter(s => s.filled).length;
-  const pendingCount = fillStatus.length - filledCount;
+  const overdueCount = fillStatus.filter(s => !s.filled && s.overdue).length;
+  const awaitingCount = fillStatus.filter(s => !s.filled && !s.overdue).length;
+
+  // --- Células Realizadas x Não Realizadas (a partir dos relatórios recebidos no período) ---
+  const realizedData = useMemo(() => {
+    const realizedCount = filteredReports.filter(isReportRealized).length;
+    const notRealizedCount = filteredReports.length - realizedCount;
+    return [
+      { status: 'realizada', value: realizedCount, fill: 'var(--color-realizada)' },
+      { status: 'naoRealizada', value: notRealizedCount, fill: 'var(--color-naoRealizada)' },
+    ].filter(entry => entry.value > 0);
+  }, [filteredReports]);
 
   if (isLoading) {
     return (
@@ -586,9 +614,10 @@ const Dashboard: React.FC = () => {
             <CardTitle className="flex items-center gap-2">
               <FileText size={20} className="text-blue-600" /> Status de Preenchimento
             </CardTitle>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <Badge variant="success">{filledCount} preenchidas</Badge>
-              <Badge variant="warning">{pendingCount} pendentes</Badge>
+              <Badge variant="destructive">{overdueCount} atrasadas</Badge>
+              <Badge variant="warning">{awaitingCount} aguardando</Badge>
             </div>
           </CardHeader>
           <CardContent>
@@ -603,7 +632,7 @@ const Dashboard: React.FC = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {fillStatus.map(({ cell, filled, lastDate }) => (
+                  {fillStatus.map(({ cell, filled, overdue, lastDate }) => (
                     <TableRow key={cell.id}>
                       <TableCell className="font-medium">{cell.name}</TableCell>
                       <TableCell>{cell.leaderName}</TableCell>
@@ -612,9 +641,13 @@ const Dashboard: React.FC = () => {
                           <Badge variant="success" className="gap-1">
                             <CheckCircle2 size={12} /> Preenchido
                           </Badge>
+                        ) : overdue ? (
+                          <Badge variant="destructive" className="gap-1">
+                            <AlertTriangle size={12} /> Atrasada
+                          </Badge>
                         ) : (
                           <Badge variant="warning" className="gap-1">
-                            <CircleDashed size={12} /> Pendente
+                            <Clock size={12} /> Aguardando dia
                           </Badge>
                         )}
                       </TableCell>
@@ -631,6 +664,47 @@ const Dashboard: React.FC = () => {
               </div>
             )}
           </CardContent>
+        </Card>
+
+        {/* Células Realizadas x Não Realizadas */}
+        <Card>
+          <CardHeader className="items-center pb-0">
+            <CardTitle>Células Realizadas x Não Realizadas</CardTitle>
+          </CardHeader>
+          <CardContent className="flex-1 pb-0">
+            {realizedData.length > 0 ? (
+              <ChartContainer config={realizedChartConfig} className="mx-auto aspect-square max-h-[280px]">
+                <PieChart>
+                  <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+                  <Pie
+                    data={realizedData}
+                    dataKey="value"
+                    nameKey="status"
+                    innerRadius={60}
+                    strokeWidth={5}
+                    activeShape={({ outerRadius = 0, ...props }: PieSectorDataItem) => (
+                      <g>
+                        <Sector {...props} outerRadius={outerRadius + 10} />
+                        <Sector {...props} outerRadius={outerRadius + 25} innerRadius={outerRadius + 12} />
+                      </g>
+                    )}
+                  />
+                </PieChart>
+              </ChartContainer>
+            ) : (
+              <div className="h-64 flex items-center justify-center text-slate-400">
+                Sem dados neste período.
+              </div>
+            )}
+          </CardContent>
+          <div className="flex items-center justify-center gap-4 pb-6 text-sm">
+            <span className="flex items-center gap-1.5 text-slate-600">
+              <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: '#22c55e' }} /> Realizada
+            </span>
+            <span className="flex items-center gap-1.5 text-slate-600">
+              <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: '#ef4444' }} /> Não Realizada
+            </span>
+          </div>
         </Card>
 
         {/* --- MAP SECTION (Moved to Bottom) --- */}
