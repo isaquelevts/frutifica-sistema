@@ -5,6 +5,7 @@ import { useReports } from '../../shared/hooks/useReports';
 import { Cell, Report } from '../../shared/types/types';
 import { useAuth } from '../../core/auth/AuthContext';
 import { AlertTriangle, AlertCircle, Eye, TrendingDown, CheckCircle, Clock, Users, UserPlus } from 'lucide-react';
+import { isReportRealized } from '../../shared/utils/reportStatus';
 
 type RiskLevel = 'critical' | 'high_risk' | 'attention' | 'healthy';
 
@@ -52,7 +53,7 @@ const RiskMonitoring: React.FC = () => {
 
     const analyzedData: CellRiskData[] = activeCells.map(cell => {
       const cellReports = reports
-        .filter(r => r.cellId === cell.id && r.happened && r.date)
+        .filter(r => r.cellId === cell.id && isReportRealized(r) && r.date)
         .sort((a, b) => b.date.localeCompare(a.date));
 
       const lastReport = cellReports[0];

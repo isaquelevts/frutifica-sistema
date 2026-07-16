@@ -7,6 +7,7 @@ import { useReports } from '../../shared/hooks/useReports';
 
 import { Cell, Report, TargetAudience } from '../../shared/types/types';
 import { useAuth } from '../../core/auth/AuthContext';
+import { isReportRealized } from '../../shared/utils/reportStatus';
 import L from 'leaflet';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -27,8 +28,8 @@ function parseReportDate(dateStr: string): Date {
 }
 
 const frequencyChartConfig = {
-  membros: { label: 'Membros', color: 'var(--color-chart-1)' },
-  visitantes: { label: 'Visitantes', color: 'var(--color-chart-2)' },
+  membros: { label: 'Membros', color: '#2563eb' },
+  visitantes: { label: 'Visitantes', color: '#93c5fd' },
 } satisfies ChartConfig;
 
 const growthChartConfig = {
@@ -196,15 +197,15 @@ const Dashboard: React.FC = () => {
     ? filteredCells.filter(c => c.active !== false).length
     : filteredCells.length;
 
-  const totalParticipants = filteredReports.filter(r => r.happened).reduce((acc, r) => acc + (r.participants || 0), 0);
-  const totalVisitors = filteredReports.filter(r => r.happened).reduce((acc, r) => acc + (r.visitors || 0), 0);
-  const totalReports = filteredReports.filter(r => r.happened).length;
+  const totalParticipants = filteredReports.filter(isReportRealized).reduce((acc, r) => acc + (r.participants || 0), 0);
+  const totalVisitors = filteredReports.filter(isReportRealized).reduce((acc, r) => acc + (r.visitors || 0), 0);
+  const totalReports = filteredReports.filter(isReportRealized).length;
 
   // --- Frequência no Período (agregada por data, sem mutar arrays) ---
   const frequencyData = useMemo(() => {
     const byDate = new Map<string, { participants: number; visitors: number }>();
     filteredReports.forEach(r => {
-      if (!r.happened || !r.date) return;
+      if (!isReportRealized(r) || !r.date) return;
       const bucket = byDate.get(r.date) || { participants: 0, visitors: 0 };
       bucket.participants += r.participants || 0;
       bucket.visitors += r.visitors || 0;
@@ -229,7 +230,7 @@ const Dashboard: React.FC = () => {
   }
 
   const growthData = useMemo(() => {
-    const happened = filteredReports.filter(r => r.happened && r.date);
+    const happened = filteredReports.filter(r => isReportRealized(r) && r.date);
     const useDailyBuckets = timeFilter === 'week';
     const byBucket = new Map<string, { sum: number; count: number }>();
     happened.forEach(r => {
@@ -267,11 +268,11 @@ const Dashboard: React.FC = () => {
     }
 
     const prevReports = allReports.filter(r => {
-      if (!r.happened || !r.date || !visibleCellIds.has(r.cellId)) return false;
+      if (!isReportRealized(r) || !r.date || !visibleCellIds.has(r.cellId)) return false;
       const d = parseReportDate(r.date);
       return d >= prevStart && d <= prevEnd;
     });
-    const currentReports = filteredReports.filter(r => r.happened);
+    const currentReports = filteredReports.filter(isReportRealized);
 
     if (prevReports.length === 0 || currentReports.length === 0) return null;
 
