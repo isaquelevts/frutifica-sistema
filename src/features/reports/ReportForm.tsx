@@ -97,7 +97,7 @@ const ReportForm: React.FC = () => {
         organizationId: cell.organizationId,
         cellId: cell.id,
         cellName: cell.name,
-        happened: true,
+        happened: totalParticipants > 0,
         type: CellType.NORMAL,
         participants: totalParticipants,
         visitors: Number(data.visitors),

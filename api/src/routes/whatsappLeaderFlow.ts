@@ -510,14 +510,16 @@ async function finalizeReport(
   instanceName: string,
   phone: string,
 ) {
+  const participants = session.draftParticipants ?? 0;
+  const visitors = session.draftVisitors ?? 0;
   await prisma.report.create({
     data: {
       cellId: session.cellId,
       organizationId: session.organizationId,
       date: session.weekDate,
-      happened: true,
-      participants: session.draftParticipants ?? 0,
-      visitors: session.draftVisitors ?? 0,
+      happened: participants + visitors > 0,
+      participants,
+      visitors,
       photoUrl,
     },
   });
