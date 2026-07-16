@@ -618,6 +618,93 @@ const Dashboard: React.FC = () => {
           </CardContent>
         </Card>
 
+        {/* Células Realizadas x Não Realizadas + Lista de Não Realizadas */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader className="items-center pb-0">
+              <CardTitle>Células Realizadas x Não Realizadas</CardTitle>
+            </CardHeader>
+            <CardContent className="flex-1 pb-0">
+              {realizedData.length > 0 ? (
+                <ChartContainer config={realizedChartConfig} className="mx-auto aspect-square max-h-[280px]">
+                  <PieChart>
+                    <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+                    <Pie
+                      data={realizedData}
+                      dataKey="value"
+                      nameKey="status"
+                      innerRadius={60}
+                      strokeWidth={5}
+                      activeShape={({ outerRadius = 0, ...props }: PieSectorDataItem) => (
+                        <g>
+                          <Sector {...props} outerRadius={outerRadius + 10} />
+                          <Sector {...props} outerRadius={outerRadius + 25} innerRadius={outerRadius + 12} />
+                        </g>
+                      )}
+                    />
+                  </PieChart>
+                </ChartContainer>
+              ) : (
+                <div className="h-64 flex items-center justify-center text-slate-400">
+                  Sem dados neste período.
+                </div>
+              )}
+            </CardContent>
+            <div className="flex items-center justify-center gap-4 pb-6 text-sm">
+              <span className="flex items-center gap-1.5 text-slate-600">
+                <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: '#22c55e' }} /> Realizada
+              </span>
+              <span className="flex items-center gap-1.5 text-slate-600">
+                <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: '#ef4444' }} /> Não Realizada
+              </span>
+            </div>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0">
+              <CardTitle className="flex items-center gap-2">
+                <XCircle size={20} className="text-red-600" /> Células Não Realizadas
+              </CardTitle>
+              <Badge variant="destructive">{notRealizedReports.length}</Badge>
+            </CardHeader>
+            <CardContent>
+              {notRealizedReports.length > 0 ? (
+                <ul className="divide-y divide-slate-100">
+                  {notRealizedReports.map(item => (
+                    <li key={item.id} className="py-3 flex items-start justify-between gap-3">
+                      <div>
+                        <p className="font-medium text-slate-800">{item.cellName}</p>
+                        {item.leaderName && <p className="text-xs text-slate-500">{item.leaderName}</p>}
+                        {item.reason && <p className="text-xs text-slate-500 italic mt-0.5">"{item.reason}"</p>}
+                      </div>
+                      <span className="text-xs text-slate-500 whitespace-nowrap">
+                        {parseReportDate(item.date).toLocaleDateString('pt-BR')}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="h-64 flex items-center justify-center text-slate-400 text-center px-4">
+                  Nenhuma célula não realizada nesse período. 🎉
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* --- MAP SECTION (Moved to Bottom) --- */}
+        {filteredCells.some(c => c.lat && c.lng) && (
+          <Card>
+            <CardContent className="p-4">
+              <div className="flex items-center gap-2 mb-4 px-2">
+                <MapPin className="text-blue-600" size={20} />
+                <h3 className="text-lg font-semibold text-slate-800">Mapa das Células</h3>
+              </div>
+              <div ref={mapRef} className="w-full h-80 rounded-lg z-0 relative" />
+            </CardContent>
+          </Card>
+        )}
+
         {/* Growth Chart */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0">
@@ -724,92 +811,6 @@ const Dashboard: React.FC = () => {
           </CardContent>
         </Card>
 
-        {/* Células Realizadas x Não Realizadas + Lista de Não Realizadas */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader className="items-center pb-0">
-              <CardTitle>Células Realizadas x Não Realizadas</CardTitle>
-            </CardHeader>
-            <CardContent className="flex-1 pb-0">
-              {realizedData.length > 0 ? (
-                <ChartContainer config={realizedChartConfig} className="mx-auto aspect-square max-h-[280px]">
-                  <PieChart>
-                    <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-                    <Pie
-                      data={realizedData}
-                      dataKey="value"
-                      nameKey="status"
-                      innerRadius={60}
-                      strokeWidth={5}
-                      activeShape={({ outerRadius = 0, ...props }: PieSectorDataItem) => (
-                        <g>
-                          <Sector {...props} outerRadius={outerRadius + 10} />
-                          <Sector {...props} outerRadius={outerRadius + 25} innerRadius={outerRadius + 12} />
-                        </g>
-                      )}
-                    />
-                  </PieChart>
-                </ChartContainer>
-              ) : (
-                <div className="h-64 flex items-center justify-center text-slate-400">
-                  Sem dados neste período.
-                </div>
-              )}
-            </CardContent>
-            <div className="flex items-center justify-center gap-4 pb-6 text-sm">
-              <span className="flex items-center gap-1.5 text-slate-600">
-                <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: '#22c55e' }} /> Realizada
-              </span>
-              <span className="flex items-center gap-1.5 text-slate-600">
-                <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: '#ef4444' }} /> Não Realizada
-              </span>
-            </div>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0">
-              <CardTitle className="flex items-center gap-2">
-                <XCircle size={20} className="text-red-600" /> Células Não Realizadas
-              </CardTitle>
-              <Badge variant="destructive">{notRealizedReports.length}</Badge>
-            </CardHeader>
-            <CardContent>
-              {notRealizedReports.length > 0 ? (
-                <ul className="divide-y divide-slate-100">
-                  {notRealizedReports.map(item => (
-                    <li key={item.id} className="py-3 flex items-start justify-between gap-3">
-                      <div>
-                        <p className="font-medium text-slate-800">{item.cellName}</p>
-                        {item.leaderName && <p className="text-xs text-slate-500">{item.leaderName}</p>}
-                        {item.reason && <p className="text-xs text-slate-500 italic mt-0.5">"{item.reason}"</p>}
-                      </div>
-                      <span className="text-xs text-slate-500 whitespace-nowrap">
-                        {parseReportDate(item.date).toLocaleDateString('pt-BR')}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <div className="h-64 flex items-center justify-center text-slate-400 text-center px-4">
-                  Nenhuma célula não realizada nesse período. 🎉
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* --- MAP SECTION (Moved to Bottom) --- */}
-        {filteredCells.some(c => c.lat && c.lng) && (
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2 mb-4 px-2">
-                <MapPin className="text-blue-600" size={20} />
-                <h3 className="text-lg font-semibold text-slate-800">Mapa das Células</h3>
-              </div>
-              <div ref={mapRef} className="w-full h-80 rounded-lg z-0 relative" />
-            </CardContent>
-          </Card>
-        )}
       </div>
     </div>
   );
