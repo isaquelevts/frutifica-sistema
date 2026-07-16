@@ -8,6 +8,7 @@ import { FileText, Calendar, Users, XCircle, CheckCircle, Edit2, Search, Filter,
 import { useAuth } from '../../core/auth/AuthContext';
 import { useQueryClient } from '@tanstack/react-query';
 import { API_URL } from '../../core/api/client';
+import { isReportRealized } from '../../shared/utils/reportStatus';
 
 // photoUrl pode ser uma URL absoluta (Cloudinary) ou, para fotos antigas
 // salvas antes da migração, um caminho relativo servido pela própria API.
@@ -200,7 +201,7 @@ const ReportsList: React.FC = () => {
 
                     {/* Status */}
                     <td className="px-6 py-4 text-sm">
-                      {report.happened ? (
+                      {isReportRealized(report) ? (
                         <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                           <CheckCircle size={12} /> Realizada
                         </span>
@@ -213,7 +214,7 @@ const ReportsList: React.FC = () => {
 
                     {/* Stats */}
                     <td className="px-6 py-4 text-sm text-slate-600">
-                      {report.happened ? (
+                      {isReportRealized(report) ? (
                         <div className="flex items-center gap-1">
                           <Users size={16} className="text-slate-400" />
                           {report.participants}
@@ -221,7 +222,7 @@ const ReportsList: React.FC = () => {
                       ) : '-'}
                     </td>
                     <td className="px-6 py-4 text-sm text-slate-600">
-                      {report.happened ? report.visitors : '-'}
+                      {isReportRealized(report) ? report.visitors : '-'}
                     </td>
 
                     {/* Foto */}
@@ -283,7 +284,7 @@ const ReportsList: React.FC = () => {
                   <Calendar size={14} />
                   {new Date(report.date).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                 </div>
-                {report.happened ? (
+                {isReportRealized(report) ? (
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold bg-green-50 text-green-700 uppercase">
                     Realizada
                   </span>
@@ -296,7 +297,7 @@ const ReportsList: React.FC = () => {
 
               <h3 className="font-bold text-lg text-slate-800 mb-4">{report.cellName}</h3>
 
-              {report.happened && (
+              {isReportRealized(report) && (
                 <div className="grid grid-cols-3 gap-2 mb-4">
                   <div className="bg-slate-50 p-2 rounded-lg text-center border border-slate-100">
                     <span className="block font-bold text-slate-700 text-lg">{report.participants}</span>
@@ -309,7 +310,7 @@ const ReportsList: React.FC = () => {
                 </div>
               )}
 
-              {!report.happened && report.notes && (
+              {!isReportRealized(report) && report.notes && (
                 <div className="bg-red-50 p-3 rounded-lg text-xs text-red-700 mb-4 italic border border-red-100">
                   "{report.notes}"
                 </div>

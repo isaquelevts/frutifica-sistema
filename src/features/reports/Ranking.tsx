@@ -3,6 +3,7 @@ import { useCells } from '../../shared/hooks/useCells';
 import { useReports } from '../../shared/hooks/useReports';
 import { useAuth } from '../../core/auth/AuthContext';
 import { Trophy, Users, TrendingUp } from 'lucide-react';
+import { isReportRealized } from '../../shared/utils/reportStatus';
 
 interface RankedCell {
   cellId: string;
@@ -49,7 +50,7 @@ const Ranking: React.FC = () => {
       return true;
     };
 
-    const filteredReports = reports.filter(r => r.happened && isInRange(r.date));
+    const filteredReports = reports.filter(r => isReportRealized(r) && isInRange(r.date));
 
     const stats = cells.filter(c => c.active !== false).map(cell => {
       const cellReports = filteredReports.filter(r => r.cellId === cell.id);
