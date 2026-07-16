@@ -1,13 +1,22 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell as RechartsCell, Legend } from 'recharts';
-import { Users, TrendingUp, TrendingDown, Filter, X, FileText, ArrowRight, UserCheck, MapPin, PieChart as PieIcon, SlidersHorizontal } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line, PieChart, Pie, Cell as RechartsCell, Legend } from 'recharts';
+import { Users, TrendingUp, TrendingDown, Filter, X, FileText, ArrowRight, UserCheck, MapPin, PieChart as PieIcon, SlidersHorizontal, CheckCircle2, CircleDashed } from 'lucide-react';
 import { useCells } from '../../shared/hooks/useCells';
 import { useReports } from '../../shared/hooks/useReports';
 
 import { Cell, Report, TargetAudience } from '../../shared/types/types';
 import { useAuth } from '../../core/auth/AuthContext';
 import L from 'leaflet';
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
 type TimeFilter = 'week' | 'month' | 'year' | 'custom';
 
@@ -18,6 +27,15 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'
 function parseReportDate(dateStr: string): Date {
   return new Date(dateStr + 'T12:00:00');
 }
+
+const frequencyChartConfig = {
+  membros: { label: 'Membros', color: 'var(--color-chart-1)' },
+  visitantes: { label: 'Visitantes', color: 'var(--color-chart-2)' },
+} satisfies ChartConfig;
+
+const growthChartConfig = {
+  media: { label: 'Média de Participantes', color: 'var(--color-chart-3)' },
+} satisfies ChartConfig;
 
 const Dashboard: React.FC = () => {
   const { user, isAdmin } = useAuth();
@@ -281,6 +299,34 @@ const Dashboard: React.FC = () => {
     return Object.entries(stats).map(([name, value]) => ({ name, value }));
   }, [filteredCells]);
 
+  // --- Status de Preenchimento: células ativas do escopo atual x relatórios recebidos no período ---
+  const fillStatus = useMemo(() => {
+    const lastReportByCell = new Map<string, string>();
+    filteredReports.forEach(r => {
+      if (!r.date) return;
+      const current = lastReportByCell.get(r.cellId);
+      if (!current || r.date > current) lastReportByCell.set(r.cellId, r.date);
+    });
+
+    return filteredCells
+      .filter(c => c.active !== false)
+      .map(cell => {
+        const lastDate = lastReportByCell.get(cell.id);
+        return {
+          cell,
+          filled: !!lastDate,
+          lastDate,
+        };
+      })
+      .sort((a, b) => {
+        if (a.filled === b.filled) return a.cell.name.localeCompare(b.cell.name);
+        return a.filled ? 1 : -1; // pendentes primeiro
+      });
+  }, [filteredCells, filteredReports]);
+
+  const filledCount = fillStatus.filter(s => s.filled).length;
+  const pendingCount = fillStatus.length - filledCount;
+
   if (isLoading) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
@@ -326,152 +372,120 @@ const Dashboard: React.FC = () => {
             Mostrando dados de {filteredReports.length} relatórios.
           </p>
         </div>
-
-
       </div>
 
       {/* FILTER BAR */}
-      <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-slate-700 font-semibold">
-            <Filter size={20} />
-            <h2>Filtros</h2>
-            {activeFilterCount > 0 && (
-              <span className="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded-full">
-                {activeFilterCount} ativo{activeFilterCount > 1 ? 's' : ''}
-              </span>
-            )}
-          </div>
-          {activeFilterCount > 0 && (
-            <button
-              onClick={clearFilters}
-              className="flex items-center gap-1 text-slate-500 hover:text-red-500 text-sm font-medium transition-colors"
-            >
-              <X size={16} /> Limpar filtros
-            </button>
-          )}
-        </div>
-
-        {/* Período */}
-        <div>
-          <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-            <SlidersHorizontal size={12} /> Período
-          </label>
-
-          {/* Mobile Select Filter */}
-          <div className="block md:hidden w-full">
-            <select
-              value={timeFilter}
-              onChange={(e) => setTimeFilter(e.target.value as TimeFilter)}
-              className="w-full bg-slate-50 border border-slate-300 text-slate-800 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 font-medium"
-            >
-              <option value="week">Esta Semana</option>
-              <option value="month">Este Mês</option>
-              <option value="year">Este Ano</option>
-              <option value="custom">Personalizado</option>
-            </select>
-          </div>
-
-          {/* Desktop Button Filters */}
-          <div className="hidden md:inline-flex bg-slate-100 p-1 rounded-lg">
-            <button
-              onClick={() => setTimeFilter('week')}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeFilter === 'week' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
-            >
-              Esta Semana
-            </button>
-            <button
-              onClick={() => setTimeFilter('month')}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeFilter === 'month' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
-            >
-              Este Mês
-            </button>
-            <button
-              onClick={() => setTimeFilter('year')}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeFilter === 'year' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
-            >
-              Este Ano
-            </button>
-            <button
-              onClick={() => setTimeFilter('custom')}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeFilter === 'custom' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
-            >
-              Personalizado
-            </button>
-          </div>
-
-          {timeFilter === 'custom' && (
-            <div className="flex flex-col sm:flex-row gap-2 mt-3">
-              <div className="w-full sm:w-40">
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Início</label>
-                <input
-                  type="date"
-                  value={customStartDate}
-                  onChange={(e) => setCustomStartDate(e.target.value)}
-                  className="w-full bg-white border border-slate-300 text-slate-800 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-              <div className="w-full sm:w-40">
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Fim</label>
-                <input
-                  type="date"
-                  value={customEndDate}
-                  onChange={(e) => setCustomEndDate(e.target.value)}
-                  className="w-full bg-white border border-slate-300 text-slate-800 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-              {(!customStartDate || !customEndDate) && (
-                <p className="text-xs text-amber-600 self-end pb-2">Escolha as duas datas para ver os relatórios do período.</p>
+      <Card>
+        <CardContent className="p-5 space-y-5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-slate-700 font-semibold">
+              <Filter size={20} />
+              <h2>Filtros</h2>
+              {activeFilterCount > 0 && (
+                <Badge className="text-xs font-bold">
+                  {activeFilterCount} ativo{activeFilterCount > 1 ? 's' : ''}
+                </Badge>
               )}
             </div>
-          )}
-        </div>
+            {activeFilterCount > 0 && (
+              <Button variant="ghost" size="sm" onClick={clearFilters} className="text-slate-500 hover:text-red-500">
+                <X size={16} /> Limpar filtros
+              </Button>
+            )}
+          </div>
 
-        {/* Escopo */}
-        {isAdmin && (
-          <div className="pt-1 border-t border-slate-100">
-            <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 mt-4">
-              <Users size={12} /> Escopo
+          {/* Período */}
+          <div>
+            <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+              <SlidersHorizontal size={12} /> Período
             </label>
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="w-full md:w-1/2">
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Célula</label>
-                <select
-                  value={selectedCellId}
-                  onChange={(e) => setSelectedCellId(e.target.value)}
-                  className="w-full bg-white border border-slate-300 text-slate-800 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="all">Todas as Células</option>
-                  {allCells.map(cell => (
-                    <option key={cell.id} value={cell.id}>{cell.name} - {cell.leaderName}</option>
-                  ))}
-                </select>
-              </div>
 
-              <div className="w-full md:w-1/2">
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Público Alvo</label>
-                <select
-                  value={audienceFilter}
-                  onChange={(e) => setAudienceFilter(e.target.value)}
-                  className="w-full bg-white border border-slate-300 text-slate-800 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="all">Todos os Públicos</option>
-                  {Object.values(TargetAudience).map(audience => (
-                    <option key={audience} value={audience}>{audience}</option>
-                  ))}
-                </select>
+            <ToggleGroup
+              type="single"
+              variant="outline"
+              value={timeFilter}
+              onValueChange={(value) => { if (value) setTimeFilter(value as TimeFilter); }}
+              className="flex-wrap justify-start"
+            >
+              <ToggleGroupItem value="week">Esta Semana</ToggleGroupItem>
+              <ToggleGroupItem value="month">Este Mês</ToggleGroupItem>
+              <ToggleGroupItem value="year">Este Ano</ToggleGroupItem>
+              <ToggleGroupItem value="custom">Personalizado</ToggleGroupItem>
+            </ToggleGroup>
+
+            {timeFilter === 'custom' && (
+              <div className="flex flex-col sm:flex-row gap-2 mt-3">
+                <div className="w-full sm:w-40">
+                  <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Início</label>
+                  <Input
+                    type="date"
+                    value={customStartDate}
+                    onChange={(e) => setCustomStartDate(e.target.value)}
+                  />
+                </div>
+                <div className="w-full sm:w-40">
+                  <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Fim</label>
+                  <Input
+                    type="date"
+                    value={customEndDate}
+                    onChange={(e) => setCustomEndDate(e.target.value)}
+                  />
+                </div>
+                {(!customStartDate || !customEndDate) && (
+                  <p className="text-xs text-amber-600 self-end pb-2">Escolha as duas datas para ver os relatórios do período.</p>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Escopo */}
+          {isAdmin && (
+            <div className="pt-1 border-t border-slate-100">
+              <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 mt-4">
+                <Users size={12} /> Escopo
+              </label>
+              <div className="flex flex-col md:flex-row gap-4">
+                <div className="w-full md:w-1/2">
+                  <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Célula</label>
+                  <Select value={selectedCellId} onValueChange={setSelectedCellId}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Todas as Células</SelectItem>
+                      {allCells.map(cell => (
+                        <SelectItem key={cell.id} value={cell.id}>{cell.name} - {cell.leaderName}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="w-full md:w-1/2">
+                  <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Público Alvo</label>
+                  <Select value={audienceFilter} onValueChange={setAudienceFilter}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Todos os Públicos</SelectItem>
+                      {Object.values(TargetAudience).map(audience => (
+                        <SelectItem key={audience} value={audience}>{audience}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Stats Cards */}
       <div className={`grid grid-cols-1 ${isAdmin ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-4`}>
 
         {isAdmin && (
-          <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-            <div className="flex justify-between items-start">
+          <Card>
+            <CardContent className="p-6 flex justify-between items-start">
               <div>
                 <p className="text-sm font-medium text-slate-500">
                   {selectedCellId === 'all' ? 'Células Ativas' : 'Célula Selecionada'}
@@ -483,12 +497,12 @@ const Dashboard: React.FC = () => {
               <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
                 <Users size={20} />
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         )}
 
-        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <div className="flex justify-between items-start">
+        <Card>
+          <CardContent className="p-6 flex justify-between items-start">
             <div>
               <p className="text-sm font-medium text-slate-500">Participantes</p>
               <h3 className="text-2xl font-bold text-slate-800 mt-1">{totalParticipants}</h3>
@@ -496,11 +510,11 @@ const Dashboard: React.FC = () => {
             <div className="p-2 bg-purple-50 text-purple-600 rounded-lg">
               <UserCheck size={20} />
             </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
-        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <div className="flex justify-between items-start">
+        <Card>
+          <CardContent className="p-6 flex justify-between items-start">
             <div>
               <p className="text-sm font-medium text-slate-500">Visitantes</p>
               <h3 className="text-2xl font-bold text-slate-800 mt-1">{totalVisitors}</h3>
@@ -508,11 +522,11 @@ const Dashboard: React.FC = () => {
             <div className="p-2 bg-orange-50 text-orange-600 rounded-lg">
               <TrendingUp size={20} />
             </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
-        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <div className="flex justify-between items-start">
+        <Card>
+          <CardContent className="p-6 flex justify-between items-start">
             <div>
               <p className="text-sm font-medium text-slate-500">Relatórios</p>
               <h3 className="text-2xl font-bold text-slate-800 mt-1">{totalReports}</h3>
@@ -520,108 +534,170 @@ const Dashboard: React.FC = () => {
             <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
               <FileText size={20} />
             </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </div>
 
       <div className="space-y-6">
         {/* Frequency Chart */}
-        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <h3 className="text-lg font-semibold text-slate-800 mb-6">Frequência no Período</h3>
-          <div className="h-64">
+        <Card>
+          <CardHeader>
+            <CardTitle>Frequência no Período</CardTitle>
+          </CardHeader>
+          <CardContent>
             {frequencyData.length > 0 ? (
-              <ResponsiveContainer width="100%" height="100%">
+              <ChartContainer config={frequencyChartConfig} className="h-64 w-full">
                 <BarChart data={frequencyData}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
                   <XAxis dataKey="name" stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
                   <YAxis stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
-                  <Tooltip
-                    cursor={{ fill: '#f1f5f9' }}
-                    contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                  />
-                  <Bar dataKey="membros" name="Membros" fill="#3b82f6" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="visitantes" name="Visitantes" fill="#f97316" radius={[4, 4, 0, 0]} />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Bar dataKey="membros" name="Membros" fill="var(--color-membros)" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="visitantes" name="Visitantes" fill="var(--color-visitantes)" radius={[4, 4, 0, 0]} />
                 </BarChart>
-              </ResponsiveContainer>
+              </ChartContainer>
             ) : (
-              <div className="h-full flex flex-col items-center justify-center text-slate-400">
+              <div className="h-64 flex flex-col items-center justify-center text-slate-400">
                 <p>Sem dados neste período.</p>
               </div>
             )}
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Growth Chart */}
-        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-slate-800">Tendência de Crescimento</h3>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0">
+            <CardTitle>Tendência de Crescimento</CardTitle>
             {growthTrendPct !== null && (
-              <span className={`inline-flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full ${growthTrendPct >= 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+              <Badge variant={growthTrendPct >= 0 ? 'success' : 'destructive'} className="gap-1">
                 {growthTrendPct >= 0 ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
                 {growthTrendPct >= 0 ? '+' : ''}{growthTrendPct}% vs. período anterior
-              </span>
+              </Badge>
             )}
-          </div>
-          <div className="h-64">
+          </CardHeader>
+          <CardContent>
             {growthData.length > 0 ? (
-              <ResponsiveContainer width="100%" height="100%">
+              <ChartContainer config={growthChartConfig} className="h-64 w-full">
                 <LineChart data={growthData}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
                   <XAxis dataKey="name" stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
                   <YAxis stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
-                  <Tooltip
-                    contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                  />
-                  <Line type="monotone" dataKey="media" name="Média de Participantes" stroke="#8b5cf6" strokeWidth={3} dot={{ strokeWidth: 2 }} />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Line type="monotone" dataKey="media" name="Média de Participantes" stroke="var(--color-media)" strokeWidth={3} dot={{ strokeWidth: 2 }} />
                 </LineChart>
-              </ResponsiveContainer>
+              </ChartContainer>
             ) : (
-              <div className="h-full flex items-center justify-center text-slate-400">
+              <div className="h-64 flex items-center justify-center text-slate-400">
                 Sem dados neste período
               </div>
             )}
-          </div>
-        </div>
+          </CardContent>
+        </Card>
+
+        {/* Status de Preenchimento */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0">
+            <CardTitle className="flex items-center gap-2">
+              <FileText size={20} className="text-blue-600" /> Status de Preenchimento
+            </CardTitle>
+            <div className="flex items-center gap-2">
+              <Badge variant="success">{filledCount} preenchidas</Badge>
+              <Badge variant="warning">{pendingCount} pendentes</Badge>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {fillStatus.length > 0 ? (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Célula</TableHead>
+                    <TableHead>Líder</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead className="text-right">Último Relatório</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {fillStatus.map(({ cell, filled, lastDate }) => (
+                    <TableRow key={cell.id}>
+                      <TableCell className="font-medium">{cell.name}</TableCell>
+                      <TableCell>{cell.leaderName}</TableCell>
+                      <TableCell>
+                        {filled ? (
+                          <Badge variant="success" className="gap-1">
+                            <CheckCircle2 size={12} /> Preenchido
+                          </Badge>
+                        ) : (
+                          <Badge variant="warning" className="gap-1">
+                            <CircleDashed size={12} /> Pendente
+                          </Badge>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-right text-slate-500">
+                        {lastDate ? parseReportDate(lastDate).toLocaleDateString('pt-BR') : '—'}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            ) : (
+              <div className="h-32 flex items-center justify-center text-slate-400">
+                Nenhuma célula neste filtro.
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
         {/* Audience Pie Chart - FIXED */}
         {audienceStats.length > 0 && (
-          <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-            <h3 className="text-lg font-semibold text-slate-800 mb-6 flex items-center gap-2">
-              <PieIcon size={20} className="text-green-600" /> Distribuição por Público
-            </h3>
-            <div className="h-96"> {/* Increased height for Legend */}
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={audienceStats}
-                    cx="50%"
-                    cy="40%" /* Moved up to make room for legend */
-                    labelLine={false}
-                    outerRadius={80} /* Smaller radius */
-                    fill="#8884d8"
-                    dataKey="value"
-                  >
-                    {audienceStats.map((entry, index) => (
-                      <RechartsCell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
-                  <Legend verticalAlign="bottom" height={80} iconType="circle" wrapperStyle={{ paddingTop: '20px' }} />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <PieIcon size={20} className="text-green-600" /> Distribuição por Público
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="h-96"> {/* Increased height for Legend */}
+                <ChartContainer config={{}} className="h-full w-full">
+                  <PieChart>
+                    <Pie
+                      data={audienceStats}
+                      cx="50%"
+                      cy="40%" /* Moved up to make room for legend */
+                      labelLine={false}
+                      outerRadius={80} /* Smaller radius */
+                      fill="#8884d8"
+                      dataKey="value"
+                    >
+                      {audienceStats.map((entry, index) => (
+                        <RechartsCell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Legend
+                      verticalAlign="bottom"
+                      height={80}
+                      iconType="circle"
+                      wrapperStyle={{ paddingTop: '20px' }}
+                      formatter={(_value, entry: any) => entry?.payload?.name ?? ''}
+                    />
+                  </PieChart>
+                </ChartContainer>
+              </div>
+            </CardContent>
+          </Card>
         )}
 
         {/* --- MAP SECTION (Moved to Bottom) --- */}
         {filteredCells.some(c => c.lat && c.lng) && (
-          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-            <div className="flex items-center gap-2 mb-4 px-2">
-              <MapPin className="text-blue-600" size={20} />
-              <h3 className="text-lg font-semibold text-slate-800">Mapa das Células</h3>
-            </div>
-            <div ref={mapRef} className="w-full h-80 rounded-lg z-0 relative" />
-          </div>
+          <Card>
+            <CardContent className="p-4">
+              <div className="flex items-center gap-2 mb-4 px-2">
+                <MapPin className="text-blue-600" size={20} />
+                <h3 className="text-lg font-semibold text-slate-800">Mapa das Células</h3>
+              </div>
+              <div ref={mapRef} className="w-full h-80 rounded-lg z-0 relative" />
+            </CardContent>
+          </Card>
         )}
       </div>
     </div>
