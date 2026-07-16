@@ -9,7 +9,7 @@ import { useReports } from '../../shared/hooks/useReports';
 import { Cell, Report, TargetAudience } from '../../shared/types/types';
 import { useAuth } from '../../core/auth/AuthContext';
 import { isReportRealized } from '../../shared/utils/reportStatus';
-import { hasCellDayPassedThisWeek } from '../../shared/utils/cellSchedule';
+import { getWeekRange, hasCellDayPassed } from '../../shared/utils/cellSchedule';
 import L from 'leaflet';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -63,6 +63,10 @@ const Dashboard: React.FC = () => {
   const [selectedCellId, setSelectedCellId] = useState<string>('all');
   const [audienceFilter, setAudienceFilter] = useState<string>('all');
   const [timeFilter, setTimeFilter] = useState<TimeFilter>('week');
+
+  // Semana observada no card de Status de Preenchimento: 0 = esta semana, -1 = semana passada.
+  // Independente do filtro de período do topo — ver o useMemo de fillStatus.
+  const [statusWeekOffset, setStatusWeekOffset] = useState<0 | -1>(0);
   const [customStartDate, setCustomStartDate] = useState('');
   const [customEndDate, setCustomEndDate] = useState('');
 
@@ -293,13 +297,27 @@ const Dashboard: React.FC = () => {
 
   const activeFilterCount = [selectedCellId !== 'all', audienceFilter !== 'all', timeFilter !== 'week'].filter(Boolean).length;
 
-  // --- Status de Preenchimento: células ativas do escopo atual x relatórios recebidos no período ---
+  // --- Status de Preenchimento: células ativas do escopo atual x relatórios da SEMANA escolhida ---
+  //
+  // Este card usa a semana calendário própria (statusWeekOffset), e não o filtro
+  // de período do topo. O filtro 'week' de lá é uma janela CORRIDA de 7 dias:
+  // numa quinta ela ainda alcança o sábado anterior, e uma célula de sábado
+  // aparecia como "Preenchido" por causa do relatório da semana passada, mesmo
+  // faltando dois dias para ela se reunir.
   const fillStatus = useMemo(() => {
+    const { start, end } = getWeekRange(statusWeekOffset);
+    const visibleCellIds = new Set(filteredCells.map(c => c.id));
+
+    const weekReports = allReports.filter(r => {
+      if (!r.date || !visibleCellIds.has(r.cellId)) return false;
+      const date = parseReportDate(r.date);
+      return date >= start && date <= end;
+    });
+
     const lastReportByCell = new Map<string, string>();
-    filteredReports.forEach(r => {
-      if (!r.date) return;
+    weekReports.forEach(r => {
       const current = lastReportByCell.get(r.cellId);
-      if (!current || r.date > current) lastReportByCell.set(r.cellId, r.date);
+      if (!current || r.date! > current) lastReportByCell.set(r.cellId, r.date!);
     });
 
     // Ordem de urgência pra facilitar a cobrança: atrasada > aguardando dia > preenchida
@@ -313,7 +331,7 @@ const Dashboard: React.FC = () => {
       .map(cell => {
         const lastDate = lastReportByCell.get(cell.id);
         const filled = !!lastDate;
-        const overdue = !filled && hasCellDayPassedThisWeek(cell.dayOfWeek);
+        const overdue = !filled && hasCellDayPassed(cell.dayOfWeek, statusWeekOffset);
         return {
           cell,
           filled,
@@ -325,7 +343,15 @@ const Dashboard: React.FC = () => {
         const rankDiff = statusRank(a.filled, a.overdue) - statusRank(b.filled, b.overdue);
         return rankDiff !== 0 ? rankDiff : a.cell.name.localeCompare(b.cell.name);
       });
-  }, [filteredCells, filteredReports]);
+  }, [filteredCells, allReports, statusWeekOffset]);
+
+  // Deixa explícito qual janela está na tela — "esta semana" sozinho é ambíguo
+  // quando o filtro de período do topo diz outra coisa.
+  const statusWeekLabel = useMemo(() => {
+    const { start, end } = getWeekRange(statusWeekOffset);
+    const fmt = (d: Date) => d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+    return `${fmt(start)} a ${fmt(end)}`;
+  }, [statusWeekOffset]);
 
   const filledCount = fillStatus.filter(s => s.filled).length;
   const overdueCount = fillStatus.filter(s => !s.filled && s.overdue).length;
@@ -624,14 +650,32 @@ const Dashboard: React.FC = () => {
 
         {/* Status de Preenchimento */}
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0">
-            <CardTitle className="flex items-center gap-2">
-              <FileText size={20} className="text-blue-600" /> Status de Preenchimento
-            </CardTitle>
-            <div className="flex items-center gap-2 flex-wrap">
-              <Badge variant="success">{filledCount} preenchidas</Badge>
-              <Badge variant="destructive">{overdueCount} atrasadas</Badge>
-              <Badge variant="warning">{awaitingCount} aguardando</Badge>
+          <CardHeader className="space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <CardTitle className="flex items-center gap-2">
+                <FileText size={20} className="text-blue-600" /> Status de Preenchimento
+              </CardTitle>
+              <div className="flex items-center gap-2 flex-wrap">
+                <Badge variant="success">{filledCount} preenchidas</Badge>
+                <Badge variant="destructive">{overdueCount} atrasadas</Badge>
+                <Badge variant="warning">{awaitingCount} aguardando</Badge>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+              <ToggleGroup
+                type="single"
+                value={String(statusWeekOffset)}
+                onValueChange={(value) => {
+                  if (value) setStatusWeekOffset(Number(value) as 0 | -1);
+                }}
+                variant="outline"
+                size="sm"
+              >
+                <ToggleGroupItem value="0">Esta semana</ToggleGroupItem>
+                <ToggleGroupItem value="-1">Semana passada</ToggleGroupItem>
+              </ToggleGroup>
+              <span className="text-xs text-slate-500">{statusWeekLabel}</span>
             </div>
           </CardHeader>
           <CardContent>
