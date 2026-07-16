@@ -27,8 +27,8 @@ function parseReportDate(dateStr: string): Date {
 }
 
 const frequencyChartConfig = {
-  membros: { label: 'Membros', color: 'var(--color-chart-1)' },
-  visitantes: { label: 'Visitantes', color: 'var(--color-chart-2)' },
+  membros: { label: 'Membros', color: '#2563eb' },
+  visitantes: { label: 'Visitantes', color: '#93c5fd' },
 } satisfies ChartConfig;
 
 const growthChartConfig = {
