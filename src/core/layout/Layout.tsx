@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
-  LayoutDashboard, Users, FileText, PlusCircle, Menu, Church,
+  LayoutDashboard, Users, FileText, PlusCircle, Church,
   Trophy, LogOut, UserCog, AlertTriangle, UserCheck,
   ClipboardList,
   Network, Building2, Settings, Shield, MessageCircle, Ticket
 } from 'lucide-react';
 import { useAuth } from '../auth/AuthContext';
 import { UserRole } from '../../shared/types/types';
+import {
+  Sidebar, SidebarProvider, SidebarInset, SidebarTrigger, SidebarRail,
+  SidebarHeader, SidebarContent, SidebarFooter,
+  SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuItem, SidebarMenuButton,
+} from '@/components/ui/sidebar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Separator } from '@/components/ui/separator';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -26,7 +33,6 @@ interface MenuGroup {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout, isAdmin, isSuperAdmin, organization } = useAuth();
@@ -113,125 +119,106 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen bg-muted/50 flex flex-col">
-      {/* Banner de conta suspensa */}
-      {isSuspended && (
-        <div className="bg-red-600 text-white px-4 py-2.5 text-sm font-medium text-center flex items-center justify-center gap-2 flex-shrink-0 z-10">
-          <AlertTriangle size={16} />
-          Sua conta está suspensa. Entre em contato com o suporte para reativar.
-        </div>
-      )}
-
-      <div className="flex flex-1 min-h-0">
-        {/* Mobile Sidebar Overlay */}
-        {isSidebarOpen && (
-          <div
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-            onClick={() => setIsSidebarOpen(false)}
-          />
-        )}
-
-        {/* Sidebar */}
-        <aside
-          className={`
-            fixed lg:static inset-y-0 left-0 z-50 w-64 bg-card border-r border-border transform transition-transform duration-200 ease-in-out flex flex-col
-            ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-          `}
-        >
-          <div className="h-16 flex items-center px-6 border-b border-border flex-shrink-0">
-            <Church className="text-primary mr-2 flex-shrink-0" size={24} />
-            <span className="text-xl font-bold text-foreground">Frutifica</span>
+    <SidebarProvider>
+      <Sidebar collapsible="icon">
+        <SidebarHeader>
+          <div className="flex items-center gap-2 px-2 py-1.5">
+            <Church className="text-primary shrink-0" size={24} />
+            <span className="text-xl font-bold text-foreground group-data-[collapsible=icon]:hidden">Frutifica</span>
             {isSuperAdmin && (
-              <span className="ml-auto text-[10px] font-bold uppercase bg-primary text-white px-1.5 py-0.5 rounded">SA</span>
+              <span className="ml-auto text-[10px] font-bold uppercase bg-primary text-primary-foreground px-1.5 py-0.5 rounded group-data-[collapsible=icon]:hidden">SA</span>
             )}
           </div>
+        </SidebarHeader>
 
-          <nav className="p-4 flex-1 overflow-y-auto">
-            {menuStructure.map((group, groupIndex) => (
-              <div key={groupIndex} className={`mb-4 ${group.isSuperSection ? 'pb-4 border-b border-border' : ''}`}>
-                {group.title && (
-                  <h3 className={`px-4 text-xs font-bold uppercase tracking-wider mb-2 ${
-                    group.isSuperSection ? 'text-primary' : 'text-muted-foreground'
-                  }`}>
-                    {group.title}
-                  </h3>
-                )}
-                <div className="space-y-1">
-                  {group.items.map((item) => (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      onClick={() => setIsSidebarOpen(false)}
-                      className={`
-                        flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors
-                        ${isActive(item.path)
-                          ? group.isSuperSection
-                            ? 'bg-primary text-white'
-                            : 'bg-primary/10 text-primary'
-                          : group.isSuperSection
-                            ? 'text-primary hover:bg-primary/10'
-                            : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'}
-                      `}
-                    >
-                      {item.icon}
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </nav>
-
-          <div className="p-4 border-t border-border flex-shrink-0">
-            <div className="flex items-center gap-3 px-4 py-3 mb-2">
-              <div className="w-8 h-8 rounded-full bg-primary/15 flex items-center justify-center text-primary font-bold text-xs uppercase flex-shrink-0">
-                {user?.name.substring(0, 2)}
-              </div>
-              <div className="overflow-hidden">
-                <p className="text-sm font-medium text-foreground truncate">{user?.name}</p>
-                <p className="text-xs text-muted-foreground capitalize">{getRoleLabel(user?.roles)}</p>
-              </div>
-            </div>
-            <button
-              onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-4 py-2 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition-colors"
-            >
-              <LogOut size={20} />
-              Sair
-            </button>
-          </div>
-        </aside>
-
-        {/* Main Content */}
-        <div className="flex-1 flex flex-col min-w-0">
-          <header className="h-16 bg-card border-b border-border flex items-center justify-between px-4 lg:px-8 flex-shrink-0">
-            <button
-              onClick={() => setIsSidebarOpen(true)}
-              className="lg:hidden p-2 text-muted-foreground hover:bg-muted rounded-md"
-            >
-              <Menu size={24} />
-            </button>
-
-            <div className="ml-auto flex items-center gap-3">
-              {isSuspended && (
-                <span className="hidden sm:flex items-center gap-1.5 text-xs font-medium text-red-600 bg-red-50 border border-red-200 px-2.5 py-1 rounded-full">
-                  <AlertTriangle size={12} /> Conta Suspensa
-                </span>
+        <SidebarContent>
+          {menuStructure.map((group, groupIndex) => (
+            <SidebarGroup key={groupIndex}>
+              {group.title && (
+                <SidebarGroupLabel className={group.isSuperSection ? 'text-primary' : undefined}>
+                  {group.title}
+                </SidebarGroupLabel>
               )}
-              <span className="text-sm font-medium text-muted-foreground hidden sm:block">
-                {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}
-              </span>
-            </div>
-          </header>
+              <SidebarMenu>
+                {group.items.map((item) => (
+                  <SidebarMenuItem key={item.path}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActive(item.path)}
+                      tooltip={item.label}
+                      className="data-[active=true]:bg-primary/10 data-[active=true]:text-primary data-[active=true]:font-semibold"
+                    >
+                      <Link to={item.path}>
+                        {item.icon}
+                        <span>{item.label}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroup>
+          ))}
+        </SidebarContent>
 
-          <main className="flex-1 p-4 lg:p-8 overflow-y-auto">
-            <div className="max-w-6xl mx-auto">
-              {children}
+        <SidebarFooter>
+          <div className="flex items-center gap-2 px-2 py-1.5 group-data-[collapsible=icon]:hidden">
+            <Avatar className="size-8">
+              <AvatarFallback className="bg-primary/15 text-primary text-xs font-bold uppercase">
+                {user?.name.substring(0, 2)}
+              </AvatarFallback>
+            </Avatar>
+            <div className="overflow-hidden">
+              <p className="text-sm font-medium text-foreground truncate">{user?.name}</p>
+              <p className="text-xs text-muted-foreground capitalize">{getRoleLabel(user?.roles)}</p>
             </div>
-          </main>
-        </div>
-      </div>
-    </div>
+          </div>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                onClick={handleLogout}
+                tooltip="Sair"
+                className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+              >
+                <LogOut />
+                <span>Sair</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarFooter>
+        <SidebarRail />
+      </Sidebar>
+
+      <SidebarInset>
+        {isSuspended && (
+          <div className="bg-destructive text-white px-4 py-2.5 text-sm font-medium text-center flex items-center justify-center gap-2 shrink-0">
+            <AlertTriangle size={16} />
+            Sua conta está suspensa. Entre em contato com o suporte para reativar.
+          </div>
+        )}
+
+        <header className="h-16 flex items-center gap-2 border-b border-border px-4 lg:px-8 shrink-0">
+          <SidebarTrigger className="-ml-1" />
+          <Separator orientation="vertical" className="mr-2 h-4" />
+
+          <div className="ml-auto flex items-center gap-3">
+            {isSuspended && (
+              <span className="hidden sm:flex items-center gap-1.5 text-xs font-medium text-destructive bg-destructive/10 border border-destructive/20 px-2.5 py-1 rounded-full">
+                <AlertTriangle size={12} /> Conta Suspensa
+              </span>
+            )}
+            <span className="text-sm font-medium text-muted-foreground hidden sm:block">
+              {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}
+            </span>
+          </div>
+        </header>
+
+        <main className="flex-1 p-4 lg:p-8 overflow-y-auto">
+          <div className="max-w-6xl mx-auto">
+            {children}
+          </div>
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
   );
 };
 
