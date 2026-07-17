@@ -166,7 +166,7 @@ const RiskMonitoring: React.FC = () => {
         <>
           {/* Summary Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white p-6 rounded-xl border border-red-100 shadow-sm flex items-center gap-4">
+            <div className="bg-card p-6 rounded-xl border border-red-100 shadow-sm flex items-center gap-4">
               <div className="p-3 bg-red-100 text-red-600 rounded-full">
                 <AlertTriangle size={24} />
               </div>
@@ -177,7 +177,7 @@ const RiskMonitoring: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-xl border border-orange-100 shadow-sm flex items-center gap-4">
+            <div className="bg-card p-6 rounded-xl border border-orange-100 shadow-sm flex items-center gap-4">
               <div className="p-3 bg-orange-100 text-orange-600 rounded-full">
                 <TrendingDown size={24} />
               </div>
@@ -188,7 +188,7 @@ const RiskMonitoring: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-xl border border-amber-100 shadow-sm flex items-center gap-4">
+            <div className="bg-card p-6 rounded-xl border border-amber-100 shadow-sm flex items-center gap-4">
               <div className="p-3 bg-amber-100 text-amber-600 rounded-full">
                 <Eye size={24} />
               </div>
@@ -199,7 +199,7 @@ const RiskMonitoring: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-xl border border-green-100 shadow-sm flex items-center gap-4">
+            <div className="bg-card p-6 rounded-xl border border-green-100 shadow-sm flex items-center gap-4">
               <div className="p-3 bg-green-100 text-green-600 rounded-full">
                 <CheckCircle size={24} />
               </div>
@@ -214,7 +214,7 @@ const RiskMonitoring: React.FC = () => {
       )}
 
       {/* List */}
-      <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+      <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
         <div className="p-6 border-b border-border">
           <h2 className="text-lg font-bold text-foreground">Ranking de Risco</h2>
         </div>
@@ -307,7 +307,7 @@ const RiskMonitoring: React.FC = () => {
         <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-4">Células Saudáveis</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {riskData.filter(d => d.level === 'healthy').map(data => (
-            <div key={data.cell.id} className="bg-white p-4 rounded-lg border border-border shadow-sm opacity-80 hover:opacity-100 transition-opacity">
+            <div key={data.cell.id} className="bg-card p-4 rounded-lg border border-border shadow-sm opacity-80 hover:opacity-100 transition-opacity">
               <div className="flex justify-between items-start">
                 <div>
                   <h4 className="font-bold text-foreground">{data.cell.name}</h4>

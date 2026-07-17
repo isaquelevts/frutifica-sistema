@@ -45,7 +45,7 @@ const PlatformSettings: React.FC = () => {
       </div>
 
       {/* Planos e Limites */}
-      <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+      <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
         <div className="px-6 py-4 border-b border-border">
           <h2 className="text-base font-bold text-foreground">Planos e Limites</h2>
           <p className="text-sm text-muted-foreground mt-0.5">Tabela de referência dos planos disponíveis.</p>
@@ -91,7 +91,7 @@ const PlatformSettings: React.FC = () => {
       </div>
 
       {/* Gerenciar Super Admins */}
-      <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+      <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
         <div className="px-6 py-4 border-b border-border flex items-center gap-3">
           <Shield size={18} className="text-primary" />
           <div>
@@ -177,7 +177,7 @@ const PlatformSettings: React.FC = () => {
       {/* Modal: Confirmar remoção */}
       {removeConfirmId && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-sm p-6 shadow-2xl">
+          <div className="bg-card rounded-2xl w-full max-w-sm p-6 shadow-2xl">
             <h3 className="text-lg font-bold text-foreground mb-2">Remover SuperAdmin?</h3>
             <p className="text-sm text-muted-foreground mb-6">
               Este usuário perderá o acesso ao painel super admin. Você pode readicioná-lo a qualquer momento.

@@ -98,7 +98,7 @@ const CellList: React.FC = () => {
       </div>
 
       {/* SEARCH AND FILTERS */}
-      <div className="bg-white p-4 rounded-xl border border-border shadow-sm flex flex-col md:flex-row gap-4">
+      <div className="bg-card p-4 rounded-xl border border-border shadow-sm flex flex-col md:flex-row gap-4">
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-2.5 text-muted-foreground" size={20} />
           <input
@@ -106,7 +106,7 @@ const CellList: React.FC = () => {
             placeholder="Buscar por nome da célula ou líder..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-ring"
+            className="w-full pl-10 pr-4 py-2 bg-card border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
         <div className="flex items-center gap-2">
@@ -114,7 +114,7 @@ const CellList: React.FC = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as any)}
-            className="bg-white border border-input text-foreground rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-ring"
+            className="bg-card border border-input text-foreground rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-ring"
           >
             <option value="all">Todas</option>
             <option value="active">Ativas</option>
@@ -124,13 +124,13 @@ const CellList: React.FC = () => {
       </div>
 
       {filteredCells.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-xl border border-border">
+        <div className="text-center py-12 bg-card rounded-xl border border-border">
           <p className="text-muted-foreground mb-4">Nenhuma célula encontrada.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCells.map(cell => (
-            <div key={cell.id} className={`bg-white rounded-xl shadow-sm border border-border p-6 hover:shadow-md transition-shadow ${cell.active === false ? 'opacity-75 bg-muted/50' : ''}`}>
+            <div key={cell.id} className={`bg-card rounded-xl shadow-sm border border-border p-6 hover:shadow-md transition-shadow ${cell.active === false ? 'opacity-75 bg-muted/50' : ''}`}>
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h3 className="text-lg font-bold text-foreground">{cell.name}</h3>
@@ -199,7 +199,7 @@ const CellList: React.FC = () => {
               <div className="pt-2 flex gap-2">
                 <Link
                   to={`/edit-cell/${cell.id}`}
-                  className="flex items-center justify-center gap-2 flex-1 text-center bg-white hover:bg-muted/50 text-foreground hover:text-primary font-medium py-2 rounded-lg transition-colors border border-border hover:border-primary/40 shadow-sm"
+                  className="flex items-center justify-center gap-2 flex-1 text-center bg-card hover:bg-muted/50 text-foreground hover:text-primary font-medium py-2 rounded-lg transition-colors border border-border hover:border-primary/40 shadow-sm"
                 >
                   <Edit size={16} />
                   Editar
@@ -224,7 +224,7 @@ const CellList: React.FC = () => {
       {/* MODAL DE EXCLUSÃO */}
       {deleteTarget && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl w-full max-w-md p-6 shadow-2xl">
+          <div className="bg-card rounded-xl w-full max-w-md p-6 shadow-2xl">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
                 <AlertTriangle className="text-red-600" size={20} />

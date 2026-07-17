@@ -109,7 +109,7 @@ const ReportsList: React.FC = () => {
       </div>
 
       {/* FILTER BAR */}
-      <div className="bg-white p-4 rounded-xl border border-border shadow-sm flex flex-col lg:flex-row gap-4">
+      <div className="bg-card p-4 rounded-xl border border-border shadow-sm flex flex-col lg:flex-row gap-4">
 
         {/* Search (Admin mostly) */}
         {isAdmin && (
@@ -160,7 +160,7 @@ const ReportsList: React.FC = () => {
       </div>
 
       {/* DESKTOP TABLE VIEW */}
-      <div className="hidden md:block bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+      <div className="hidden md:block bg-card rounded-xl shadow-sm border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
@@ -273,12 +273,12 @@ const ReportsList: React.FC = () => {
       {/* MOBILE CARD VIEW */}
       <div className="md:hidden space-y-4">
         {filteredReports.length === 0 ? (
-          <div className="bg-white p-8 text-center rounded-xl border border-border text-muted-foreground">
+          <div className="bg-card p-8 text-center rounded-xl border border-border text-muted-foreground">
             Nenhum relatório encontrado.
           </div>
         ) : (
           filteredReports.map((report) => (
-            <div key={report.id} className="bg-white p-4 rounded-xl border border-border shadow-sm relative">
+            <div key={report.id} className="bg-card p-4 rounded-xl border border-border shadow-sm relative">
               <div className="flex justify-between items-start mb-3">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Calendar size={14} />

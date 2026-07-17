@@ -250,7 +250,7 @@ const ConsolidationKanban: React.FC = () => {
                     setNewTag('');
                 }}
                 className={`
-            relative bg-white p-4 rounded-xl shadow-sm border border-border cursor-pointer 
+            relative bg-card p-4 rounded-xl shadow-sm border border-border cursor-pointer 
             hover:shadow-lg hover:-translate-y-1 transition-all duration-200 group
             border-l-4 ${borderClass}
         `}
@@ -339,12 +339,12 @@ const ConsolidationKanban: React.FC = () => {
                 {/* Column Header */}
                 <div className={`p-4 border-b border-border rounded-t-2xl ${colorBase} bg-opacity-10 flex justify-between items-center`}>
                     <div className="flex items-center gap-2">
-                        <div className={`p-1.5 rounded-lg bg-white shadow-sm ${colorBase.replace('bg-', 'text-')}`}>
+                        <div className={`p-1.5 rounded-lg bg-card shadow-sm ${colorBase.replace('bg-', 'text-')}`}>
                             {icon}
                         </div>
                         <h3 className="font-bold text-foreground text-sm uppercase tracking-wide">{title}</h3>
                     </div>
-                    <span className="bg-white px-2.5 py-0.5 rounded-full text-xs font-bold text-muted-foreground shadow-sm border border-border">
+                    <span className="bg-card px-2.5 py-0.5 rounded-full text-xs font-bold text-muted-foreground shadow-sm border border-border">
                         {items.length}
                     </span>
                 </div>
@@ -379,7 +379,7 @@ const ConsolidationKanban: React.FC = () => {
         <div className="h-[calc(100vh-8rem)] flex flex-col">
 
             {/* HEADER & FILTERS */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 bg-white p-4 rounded-xl border border-border shadow-sm">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 bg-card p-4 rounded-xl border border-border shadow-sm">
                 <div>
                     <h1 className="text-xl font-bold text-foreground flex items-center gap-2">
                         CRM de Consolidação
@@ -397,7 +397,7 @@ const ConsolidationKanban: React.FC = () => {
                             placeholder="Buscar visitante..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="pl-9 pr-4 py-2 text-sm border border-input rounded-lg w-full sm:w-64 focus:ring-2 focus:ring-ring outline-none bg-white text-foreground"
+                            className="pl-9 pr-4 py-2 text-sm border border-input rounded-lg w-full sm:w-64 focus:ring-2 focus:ring-ring outline-none bg-card text-foreground"
                         />
                     </div>
 
@@ -405,7 +405,7 @@ const ConsolidationKanban: React.FC = () => {
                         onClick={() => setOnlyMyVisitors(!onlyMyVisitors)}
                         className={`
                     flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border transition-colors
-                    ${onlyMyVisitors ? 'bg-primary/10 border-primary/20 text-primary' : 'bg-white border-input text-muted-foreground hover:bg-muted/50'}
+                    ${onlyMyVisitors ? 'bg-primary/10 border-primary/20 text-primary' : 'bg-card border-input text-muted-foreground hover:bg-muted/50'}
                 `}
                     >
                         <Filter size={16} />
@@ -424,10 +424,10 @@ const ConsolidationKanban: React.FC = () => {
             {/* --- DETAILS MODAL --- */}
             {selectedVisitor && (
                 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-end sm:justify-center p-0 sm:p-4 backdrop-blur-sm">
-                    <div className="bg-white w-full sm:w-[600px] h-full sm:h-auto sm:max-h-[90vh] sm:rounded-2xl overflow-y-auto shadow-2xl animate-in slide-in-from-right sm:zoom-in duration-200 flex flex-col">
+                    <div className="bg-card w-full sm:w-[600px] h-full sm:h-auto sm:max-h-[90vh] sm:rounded-2xl overflow-y-auto shadow-2xl animate-in slide-in-from-right sm:zoom-in duration-200 flex flex-col">
 
                         {/* Modal Header */}
-                        <div className="p-6 border-b border-border flex justify-between items-start sticky top-0 bg-white z-10">
+                        <div className="p-6 border-b border-border flex justify-between items-start sticky top-0 bg-card z-10">
                             <div>
                                 <div className="flex items-center gap-2">
                                     <h2 className="text-2xl font-bold text-foreground">{selectedVisitor.nome}</h2>
@@ -485,14 +485,14 @@ const ConsolidationKanban: React.FC = () => {
                                         value={actionText}
                                         onChange={(e) => setActionText(e.target.value)}
                                         placeholder="Ex: Ligar para convidar para o culto..."
-                                        className="w-full px-3 py-2 text-sm border border-orange-200 rounded-lg outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 bg-white text-foreground"
+                                        className="w-full px-3 py-2 text-sm border border-orange-200 rounded-lg outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 bg-card text-foreground"
                                     />
                                     <div className="flex gap-2">
                                         <input
                                             type="date"
                                             value={actionDate}
                                             onChange={(e) => setActionDate(e.target.value)}
-                                            className="flex-1 px-3 py-2 text-sm border border-orange-200 rounded-lg outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 bg-white text-foreground"
+                                            className="flex-1 px-3 py-2 text-sm border border-orange-200 rounded-lg outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 bg-card text-foreground"
                                         />
                                         <button
                                             onClick={saveAction}
@@ -512,7 +512,7 @@ const ConsolidationKanban: React.FC = () => {
                                                 </button>
                                                 <button
                                                     onClick={clearAction}
-                                                    className="flex items-center gap-1 px-3 py-2 text-xs font-bold text-red-600 bg-white border border-red-100 hover:bg-red-50 rounded-lg transition-colors"
+                                                    className="flex items-center gap-1 px-3 py-2 text-xs font-bold text-red-600 bg-card border border-red-100 hover:bg-red-50 rounded-lg transition-colors"
                                                     title="Excluir ação"
                                                 >
                                                     <Trash2 size={14} />
@@ -547,7 +547,7 @@ const ConsolidationKanban: React.FC = () => {
                                             onChange={(e) => setNewTag(e.target.value)}
                                             onKeyDown={(e) => e.key === 'Enter' && addTag()}
                                             placeholder="Nova tag..."
-                                            className="flex-1 px-3 py-1.5 border border-input rounded-lg text-sm outline-none focus:border-ring bg-white text-foreground"
+                                            className="flex-1 px-3 py-1.5 border border-input rounded-lg text-sm outline-none focus:border-ring bg-card text-foreground"
                                         />
                                         <button onClick={addTag} className="bg-muted text-muted-foreground px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-muted">
                                             <Plus size={14} />
@@ -586,7 +586,7 @@ const ConsolidationKanban: React.FC = () => {
                                 {!selectedVisitor.celulaDestinoId ? (
                                     <div className="space-y-2">
                                         {getRecommendedCells(selectedVisitor).map(({ cell, score, reasons }) => (
-                                            <div key={cell.id} className="group flex justify-between items-center p-3 rounded-xl border border-border hover:border-primary/40 hover:shadow-sm transition-all bg-white cursor-pointer" onClick={() => assignCell(cell.id)}>
+                                            <div key={cell.id} className="group flex justify-between items-center p-3 rounded-xl border border-border hover:border-primary/40 hover:shadow-sm transition-all bg-card cursor-pointer" onClick={() => assignCell(cell.id)}>
                                                 <div>
                                                     <div className="flex items-center gap-2">
                                                         <h4 className="font-bold text-foreground text-sm">{cell.name}</h4>

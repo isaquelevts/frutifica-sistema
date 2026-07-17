@@ -19,18 +19,18 @@ const ImportPreview: React.FC<ImportPreviewProps> = ({ data, summary, onConfirm,
 
             {/* Summary Cards */}
             <div className="grid grid-cols-3 gap-4">
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-border">
+                <div className="bg-card p-4 rounded-xl shadow-sm border border-border">
                     <p className="text-sm text-muted-foreground">Gerações</p>
                     <p className="text-2xl font-bold text-foreground">{summary.totalGenerations}</p>
                     <p className="text-xs text-green-600 mt-1">
                         {summary.newGenerations.length} novas, {summary.existingGenerations.length} existentes
                     </p>
                 </div>
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-border">
+                <div className="bg-card p-4 rounded-xl shadow-sm border border-border">
                     <p className="text-sm text-muted-foreground">Células</p>
                     <p className="text-2xl font-bold text-foreground">{summary.totalCells}</p>
                 </div>
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-border">
+                <div className="bg-card p-4 rounded-xl shadow-sm border border-border">
                     <p className="text-sm text-muted-foreground">Líderes</p>
                     <p className="text-2xl font-bold text-foreground">{summary.totalLeaders}</p>
                     <p className="text-xs text-muted-foreground mt-1">
@@ -54,7 +54,7 @@ const ImportPreview: React.FC<ImportPreviewProps> = ({ data, summary, onConfirm,
             )}
 
             {/* Table Preview */}
-            <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+            <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
                 <div className="p-4 border-b border-border bg-muted/50">
                     <h3 className="font-semibold text-foreground">Pré-visualização dos Dados</h3>
                 </div>

@@ -61,7 +61,7 @@ const ImportResultPage: React.FC<ImportResultProps> = ({ results, onRetry }) => 
             </div>
 
             {/* Tabela Detalhada */}
-            <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+            <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
                 <div className="p-4 border-b border-border bg-muted/50">
                     <h3 className="font-semibold text-foreground">Detalhamento da Importação</h3>
                 </div>

@@ -121,7 +121,7 @@ const InviteAccept: React.FC = () => {
     if (step === 'success') {
         return (
             <div className="min-h-screen bg-muted flex items-center justify-center p-4">
-                <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8 text-center">
+                <div className="bg-card rounded-2xl shadow-xl w-full max-w-md p-8 text-center">
                     <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                         <CheckCircle className="text-white" size={48} strokeWidth={2.5} />
                     </div>
@@ -163,7 +163,7 @@ const InviteAccept: React.FC = () => {
                     )}
                 </div>
 
-                <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div className="bg-card rounded-2xl shadow-xl overflow-hidden">
                     {/* Cabeçalho do passo */}
                     <div className="bg-primary p-6 text-center">
                         <h1 className="text-xl font-bold text-white">
@@ -176,7 +176,7 @@ const InviteAccept: React.FC = () => {
                         </p>
                         <div className="mt-4 h-1.5 bg-primary/50 rounded-full">
                             <div
-                                className="h-1.5 bg-white rounded-full transition-all duration-500"
+                                className="h-1.5 bg-card rounded-full transition-all duration-500"
                                 style={{ width: step === 1 ? '50%' : '100%' }}
                             />
                         </div>
@@ -199,7 +199,7 @@ const InviteAccept: React.FC = () => {
                                         <input
                                             type="text"
                                             {...accountForm.register('name')}
-                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${accountForm.formState.errors.name ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
+                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-card border ${accountForm.formState.errors.name ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             placeholder="Seu nome completo"
                                         />
                                     </div>
@@ -215,7 +215,7 @@ const InviteAccept: React.FC = () => {
                                         <input
                                             type="email"
                                             {...accountForm.register('email')}
-                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${accountForm.formState.errors.email ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
+                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-card border ${accountForm.formState.errors.email ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             placeholder="seu@email.com"
                                         />
                                     </div>
@@ -231,7 +231,7 @@ const InviteAccept: React.FC = () => {
                                         <input
                                             type={showPassword ? 'text' : 'password'}
                                             {...accountForm.register('password')}
-                                            className={`w-full pl-10 pr-10 py-2 rounded-lg bg-white border ${accountForm.formState.errors.password ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
+                                            className={`w-full pl-10 pr-10 py-2 rounded-lg bg-card border ${accountForm.formState.errors.password ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             placeholder="Mínimo 6 caracteres"
                                         />
                                         <button
@@ -255,7 +255,7 @@ const InviteAccept: React.FC = () => {
                                         <input
                                             type={showConfirmPassword ? 'text' : 'password'}
                                             {...accountForm.register('confirmPassword')}
-                                            className={`w-full pl-10 pr-10 py-2 rounded-lg bg-white border ${accountForm.formState.errors.confirmPassword ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
+                                            className={`w-full pl-10 pr-10 py-2 rounded-lg bg-card border ${accountForm.formState.errors.confirmPassword ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             placeholder="Repita a senha"
                                         />
                                         <button
@@ -291,7 +291,7 @@ const InviteAccept: React.FC = () => {
                                         <input
                                             type="text"
                                             {...cellForm.register('cellName')}
-                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${cellForm.formState.errors.cellName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
+                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-card border ${cellForm.formState.errors.cellName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             placeholder="Ex: Águias de Cristo"
                                         />
                                     </div>
@@ -307,7 +307,7 @@ const InviteAccept: React.FC = () => {
                                         <input
                                             type="text"
                                             {...cellForm.register('leaderName')}
-                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${cellForm.formState.errors.leaderName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
+                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-card border ${cellForm.formState.errors.leaderName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             placeholder="Como aparece na liderança"
                                         />
                                     </div>
@@ -324,7 +324,7 @@ const InviteAccept: React.FC = () => {
                                             type="tel"
                                             {...cellForm.register('whatsapp')}
                                             onChange={(e) => cellForm.setValue('whatsapp', maskPhone(e.target.value))}
-                                            className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
+                                            className="w-full pl-10 pr-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                             placeholder="(11) 99999-9999"
                                         />
                                     </div>
@@ -337,7 +337,7 @@ const InviteAccept: React.FC = () => {
                                             <Calendar className="absolute left-3 top-2.5 text-muted-foreground pointer-events-none" size={18} />
                                             <select
                                                 {...cellForm.register('dayOfWeek')}
-                                                className={`w-full pl-10 pr-2 py-2 rounded-lg bg-white border ${cellForm.formState.errors.dayOfWeek ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
+                                                className={`w-full pl-10 pr-2 py-2 rounded-lg bg-card border ${cellForm.formState.errors.dayOfWeek ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             >
                                                 <option value="">Selecione</option>
                                                 {DAYS_OF_WEEK.map((day) => (
@@ -357,7 +357,7 @@ const InviteAccept: React.FC = () => {
                                             <input
                                                 type="time"
                                                 {...cellForm.register('time')}
-                                                className={`w-full pl-10 pr-2 py-2 rounded-lg bg-white border ${cellForm.formState.errors.time ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none min-w-0`}
+                                                className={`w-full pl-10 pr-2 py-2 rounded-lg bg-card border ${cellForm.formState.errors.time ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none min-w-0`}
                                             />
                                         </div>
                                         {cellForm.formState.errors.time && (
@@ -372,7 +372,7 @@ const InviteAccept: React.FC = () => {
                                         <Users className="absolute left-3 top-2.5 text-muted-foreground pointer-events-none" size={18} />
                                         <select
                                             {...cellForm.register('targetAudience')}
-                                            className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
+                                            className="w-full pl-10 pr-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                         >
                                             {Object.values(TargetAudience).map((audience) => (
                                                 <option key={audience} value={audience}>{audience}</option>
@@ -388,7 +388,7 @@ const InviteAccept: React.FC = () => {
                                         <input
                                             type="text"
                                             {...cellForm.register('address')}
-                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${cellForm.formState.errors.address ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
+                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-card border ${cellForm.formState.errors.address ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             placeholder="Rua, Número, Bairro"
                                         />
                                     </div>

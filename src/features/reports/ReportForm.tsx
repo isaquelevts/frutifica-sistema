@@ -141,7 +141,7 @@ const ReportForm: React.FC = () => {
   // Já enviou o relatório dessa semana
   if (!isEditing && weekReport) return (
     <div className="max-w-lg mx-auto">
-      <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+      <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
         <div className="bg-green-600 p-8 text-center text-white">
           <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <PartyPopper size={40} className="text-white" />
@@ -175,7 +175,7 @@ const ReportForm: React.FC = () => {
   return (
     <>
       <div className="max-w-lg mx-auto">
-        <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+        <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
           <div className="bg-primary p-6 text-white">
             <h2 className="text-xl font-bold">{isEditing ? 'Editar Relatório' : 'Relatório Semanal'}</h2>
             <p className="opacity-90 mt-1 text-sm">{cell.name}</p>
@@ -192,7 +192,7 @@ const ReportForm: React.FC = () => {
                 min="0"
                 {...register('members')}
                 onFocus={(e) => e.target.select()}
-                className={`w-full px-4 py-3 rounded-lg bg-white border ${errors.members ? 'border-red-500' : 'border-input'} text-foreground text-2xl font-bold text-center focus:ring-2 focus:ring-ring outline-none`}
+                className={`w-full px-4 py-3 rounded-lg bg-card border ${errors.members ? 'border-red-500' : 'border-input'} text-foreground text-2xl font-bold text-center focus:ring-2 focus:ring-ring outline-none`}
               />
               {errors.members && <span className="text-red-500 text-xs mt-1 block">{errors.members.message}</span>}
             </div>
@@ -206,7 +206,7 @@ const ReportForm: React.FC = () => {
                 min="0"
                 {...register('visitors')}
                 onFocus={(e) => e.target.select()}
-                className={`w-full px-4 py-3 rounded-lg bg-white border ${errors.visitors ? 'border-red-500' : 'border-input'} text-foreground text-2xl font-bold text-center focus:ring-2 focus:ring-ring outline-none`}
+                className={`w-full px-4 py-3 rounded-lg bg-card border ${errors.visitors ? 'border-red-500' : 'border-input'} text-foreground text-2xl font-bold text-center focus:ring-2 focus:ring-ring outline-none`}
               />
               {errors.visitors && <span className="text-red-500 text-xs mt-1 block">{errors.visitors.message}</span>}
             </div>
@@ -235,7 +235,7 @@ const ReportForm: React.FC = () => {
       {/* Modal relatório duplicado */}
       {duplicateReport && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
+          <div className="bg-card rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
             <div className="bg-amber-500 p-6 text-center text-white">
               <AlertCircle size={36} className="mx-auto mb-3" />
               <h2 className="text-xl font-bold">Relatório já enviado!</h2>
@@ -262,9 +262,9 @@ const ReportForm: React.FC = () => {
       {/* Modal de sucesso */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
-          <div className="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300">
+          <div className="bg-card rounded-2xl w-full max-w-md overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300">
             <div className="bg-green-600 p-8 text-center text-white">
-              <div className="w-16 h-16 bg-white text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <div className="w-16 h-16 bg-card text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <CheckCircle size={32} strokeWidth={3} />
               </div>
               <h2 className="text-2xl font-bold">Relatório Enviado!</h2>

@@ -157,7 +157,7 @@ const Generations: React.FC = () => {
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 {generations.length === 0 ? (
-                    <div className="bg-white rounded-xl border border-border p-12 text-center">
+                    <div className="bg-card rounded-xl border border-border p-12 text-center">
                         <Network size={48} className="mx-auto text-muted-foreground mb-4" />
                         <h3 className="text-lg font-bold text-foreground mb-2">Nenhuma geração cadastrada</h3>
                         <p className="text-muted-foreground mb-6">
@@ -176,7 +176,7 @@ const Generations: React.FC = () => {
                         {generations.map((gen: any) => (
                             <div
                                 key={gen.id}
-                                className="bg-white rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow overflow-hidden group"
+                                className="bg-card rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow overflow-hidden group"
                             >
                                 <div
                                     className="h-2"
@@ -230,7 +230,7 @@ const Generations: React.FC = () => {
             {/* Modal CRUD */}
             {showModal && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-                    <div className="bg-white rounded-xl w-full max-w-lg p-6 shadow-2xl animate-in fade-in zoom-in duration-200">
+                    <div className="bg-card rounded-xl w-full max-w-lg p-6 shadow-2xl animate-in fade-in zoom-in duration-200">
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-xl font-bold text-foreground">
                                 {editingGeneration ? 'Editar Geração' : 'Nova Geração'}
@@ -251,7 +251,7 @@ const Generations: React.FC = () => {
                                 <input
                                     type="text"
                                     {...register('name')}
-                                    className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground outline-none focus:border-ring`}
+                                    className={`w-full px-4 py-2 rounded-lg bg-card border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground outline-none focus:border-ring`}
                                     placeholder="Ex: Primeiro Amor, Geração de Samuel..."
                                 />
                                 {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>}
@@ -263,7 +263,7 @@ const Generations: React.FC = () => {
                                 </label>
                                 <textarea
                                     {...register('description')}
-                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground outline-none focus:border-ring resize-none"
+                                    className="w-full px-4 py-2 rounded-lg bg-card border border-input text-foreground outline-none focus:border-ring resize-none"
                                     rows={3}
                                     placeholder="Descreva o propósito ou características desta geração..."
                                 />
@@ -275,7 +275,7 @@ const Generations: React.FC = () => {
                                 </label>
                                 <select
                                     {...register('leaderId')}
-                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground outline-none focus:border-ring"
+                                    className="w-full px-4 py-2 rounded-lg bg-card border border-input text-foreground outline-none focus:border-ring"
                                 >
                                     <option value="">Sem líder definido</option>
                                     {leaders.map((leader) => (
@@ -330,7 +330,7 @@ const Generations: React.FC = () => {
             {/* Delete Confirmation Modal */}
             {showDeleteModal && (
                 <div className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4">
-                    <div className="bg-white rounded-xl w-full max-w-sm p-6 shadow-2xl animate-in fade-in zoom-in duration-200">
+                    <div className="bg-card rounded-xl w-full max-w-sm p-6 shadow-2xl animate-in fade-in zoom-in duration-200">
                         <div className="flex flex-col items-center text-center">
                             <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
                                 <AlertTriangle className="text-red-600" size={24} />

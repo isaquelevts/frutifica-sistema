@@ -214,7 +214,7 @@ const VisitorForm: React.FC = () => {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
 
                 {/* SECTION 1: CELL ATTENDANCE */}
-                <div className="bg-white rounded-xl shadow-sm border border-border">
+                <div className="bg-card rounded-xl shadow-sm border border-border">
                     <div className="p-6 border-b border-border bg-muted/50 rounded-t-xl">
                         <div className="flex items-center justify-between cursor-pointer" onClick={toggleAttendsCell}>
                             <label className="text-lg font-semibold text-foreground cursor-pointer">Frequenta alguma célula?</label>
@@ -224,7 +224,7 @@ const VisitorForm: React.FC = () => {
                                     type="checkbox"
                                     checked={attendsCell}
                                     readOnly
-                                    className="toggle-checkbox absolute block w-7 h-7 rounded-full bg-white border-4 appearance-none"
+                                    className="toggle-checkbox absolute block w-7 h-7 rounded-full bg-card border-4 appearance-none"
                                     style={{
                                         right: attendsCell ? '0' : '50%',
                                         borderColor: attendsCell ? '#2563EB' : '#cbd5e1'
@@ -247,14 +247,14 @@ const VisitorForm: React.FC = () => {
                                             value={cellSearchTerm}
                                             onChange={(e) => setCellSearchTerm(e.target.value)}
                                             placeholder="Digite o nome da célula ou líder..."
-                                            className="w-full pl-10 pr-4 py-3 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
+                                            className="w-full pl-10 pr-4 py-3 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                             autoFocus
                                         />
                                     </div>
                                     {errors.selectedCellId && <span className="text-red-500 text-xs mt-1">{errors.selectedCellId.message}</span>}
 
                                     {filteredCells.length > 0 && (
-                                        <div className="absolute z-50 w-full mt-1 bg-white border border-border rounded-lg shadow-xl max-h-60 overflow-y-auto">
+                                        <div className="absolute z-50 w-full mt-1 bg-card border border-border rounded-lg shadow-xl max-h-60 overflow-y-auto">
                                             {filteredCells.map(cell => (
                                                 <div
                                                     key={cell.id}
@@ -292,10 +292,10 @@ const VisitorForm: React.FC = () => {
                                             value={personSearchTerm}
                                             onChange={(e) => setPersonSearchTerm(e.target.value)}
                                             placeholder="Pesquisar nome de quem já participa..."
-                                            className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
+                                            className="w-full px-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                         />
                                         {suggestedMembers.length > 0 && (
-                                            <div className="absolute z-50 w-full mt-1 bg-white border border-border rounded-lg shadow-xl">
+                                            <div className="absolute z-50 w-full mt-1 bg-card border border-border rounded-lg shadow-xl">
                                                 {suggestedMembers.map(m => (
                                                     <div
                                                         key={m.id}
@@ -317,7 +317,7 @@ const VisitorForm: React.FC = () => {
                 </div>
 
                 {/* SECTION 2: PERSONAL DATA */}
-                <div className="bg-white rounded-xl shadow-sm border border-border p-6">
+                <div className="bg-card rounded-xl shadow-sm border border-border p-6">
                     <h3 className="text-lg font-bold text-foreground mb-4 border-b pb-2">Dados do Visitante</h3>
 
                     <div className="space-y-4">
@@ -328,7 +328,7 @@ const VisitorForm: React.FC = () => {
                                 <input
                                     type="text"
                                     {...register('nome')}
-                                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.nome ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
+                                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-card border ${errors.nome ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                     placeholder="Nome do visitante"
                                 />
                                 {errors.nome && <span className="text-red-500 text-xs mt-1">{errors.nome.message}</span>}
@@ -344,7 +344,7 @@ const VisitorForm: React.FC = () => {
                                         type="tel"
                                         {...register('telefone')}
                                         onChange={(e) => setValue('telefone', maskPhone(e.target.value))}
-                                        className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.telefone ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
+                                        className={`w-full pl-10 pr-4 py-2 rounded-lg bg-card border ${errors.telefone ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                         placeholder="(99) 99999-9999"
                                     />
                                     {errors.telefone && <span className="text-red-500 text-xs mt-1">{errors.telefone.message}</span>}
@@ -358,7 +358,7 @@ const VisitorForm: React.FC = () => {
                                     <input
                                         type="date"
                                         {...register('birthday')}
-                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none min-w-0"
+                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring outline-none min-w-0"
                                     />
                                 </div>
                             </div>
@@ -371,7 +371,7 @@ const VisitorForm: React.FC = () => {
                                 <input
                                     type="text"
                                     {...register('endereco')}
-                                    className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
+                                    className="w-full pl-10 pr-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                     placeholder="Rua, Número, Bairro"
                                 />
                             </div>
@@ -380,7 +380,7 @@ const VisitorForm: React.FC = () => {
                 </div>
 
                 {/* SECTION 3: CLASSIFICATION */}
-                <div className="bg-white rounded-xl shadow-sm border border-border p-6">
+                <div className="bg-card rounded-xl shadow-sm border border-border p-6">
                     <h3 className="text-lg font-bold text-foreground mb-4">Classificação</h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

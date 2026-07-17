@@ -19,7 +19,7 @@ import { Church, Ticket } from 'lucide-react';
 const LeaderRegister: React.FC = () => {
   return (
     <div className="min-h-screen bg-muted flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8 text-center">
+      <div className="bg-card rounded-2xl shadow-xl w-full max-w-md p-8 text-center">
         <div className="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-6">
           <Ticket size={32} />
         </div>

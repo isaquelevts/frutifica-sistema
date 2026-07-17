@@ -104,7 +104,7 @@ const OrganizationsList: React.FC = () => {
       </div>
 
       {/* Filtros */}
-      <div className="bg-white rounded-xl border border-border p-4 shadow-sm">
+      <div className="bg-card rounded-xl border border-border p-4 shadow-sm">
         <div className="flex flex-wrap gap-3">
           <div className="flex-1 min-w-48 relative">
             <Search size={16} className="absolute left-3 top-2.5 text-muted-foreground" />
@@ -151,7 +151,7 @@ const OrganizationsList: React.FC = () => {
       </div>
 
       {/* Tabela */}
-      <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+      <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
         {isLoading ? (
           <div className="flex items-center justify-center h-40">
             <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
@@ -248,7 +248,7 @@ const OrganizationsList: React.FC = () => {
       {/* Modal: Editar Igreja */}
       {editPlanOrgId && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-sm p-6 shadow-2xl">
+          <div className="bg-card rounded-2xl w-full max-w-sm p-6 shadow-2xl">
             <h3 className="text-lg font-bold text-foreground mb-5">Editar Igreja</h3>
 
             <div className="space-y-4">
@@ -296,7 +296,7 @@ const OrganizationsList: React.FC = () => {
       {/* Modal: Confirmar exclusão */}
       {deleteConfirmId && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl">
+          <div className="bg-card rounded-2xl w-full max-w-md p-6 shadow-2xl">
             <h3 className="text-lg font-bold text-foreground mb-2">Excluir Igreja</h3>
             <p className="text-sm text-muted-foreground mb-4">
               Esta ação é <strong>irreversível</strong>. Todos os dados (células, membros, relatórios, usuários) serão permanentemente excluídos.

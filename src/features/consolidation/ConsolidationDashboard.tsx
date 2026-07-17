@@ -56,7 +56,7 @@ const ConsolidationDashboard: React.FC = () => {
             </div>
             <button
                onClick={() => navigate('/add-visitor')}
-               className="flex items-center gap-2 md:gap-3 bg-white text-primary px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-lg md:text-xl shadow-lg hover:bg-primary/10 transition-all w-full md:w-auto justify-center group"
+               className="flex items-center gap-2 md:gap-3 bg-card text-primary px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-lg md:text-xl shadow-lg hover:bg-primary/10 transition-all w-full md:w-auto justify-center group"
             >
                Adicionar Agora <ArrowRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
             </button>
@@ -71,7 +71,7 @@ const ConsolidationDashboard: React.FC = () => {
 
          {/* KPI Cards */}
          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-white p-5 rounded-xl border border-border shadow-sm">
+            <div className="bg-card p-5 rounded-xl border border-border shadow-sm">
                <div className="flex items-center gap-3 mb-2">
                   <div className="p-2 bg-orange-100 text-orange-600 rounded-lg"><UserPlus size={20} /></div>
                   <p className="text-sm font-medium text-muted-foreground">Total Visitantes</p>
@@ -79,7 +79,7 @@ const ConsolidationDashboard: React.FC = () => {
                <h3 className="text-2xl font-bold text-foreground">{totalVisitantes}</h3>
             </div>
 
-            <div className="bg-white p-5 rounded-xl border border-border shadow-sm">
+            <div className="bg-card p-5 rounded-xl border border-border shadow-sm">
                <div className="flex items-center gap-3 mb-2">
                   <div className="p-2 bg-red-100 text-red-600 rounded-lg"><Heart size={20} /></div>
                   <p className="text-sm font-medium text-muted-foreground">Total Decisões</p>
@@ -87,7 +87,7 @@ const ConsolidationDashboard: React.FC = () => {
                <h3 className="text-2xl font-bold text-foreground">{totalConverts}</h3>
             </div>
 
-            <div className="bg-white p-5 rounded-xl border border-border shadow-sm">
+            <div className="bg-card p-5 rounded-xl border border-border shadow-sm">
                <div className="flex items-center gap-3 mb-2">
                   <div className="p-2 bg-green-100 text-green-600 rounded-lg"><ArrowRight size={20} /></div>
                   <p className="text-sm font-medium text-muted-foreground">Taxa Integração</p>
@@ -98,7 +98,7 @@ const ConsolidationDashboard: React.FC = () => {
 
          {/* Funnel / Status */}
          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-border shadow-sm">
+            <div className="lg:col-span-2 bg-card p-6 rounded-xl border border-border shadow-sm">
                <h3 className="text-lg font-bold text-foreground mb-6">Funil de Consolidação</h3>
 
                <div className="space-y-4">
@@ -144,7 +144,7 @@ const ConsolidationDashboard: React.FC = () => {
             </div>
 
             {/* Recent Cults */}
-            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+            <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
                <h3 className="text-lg font-bold text-foreground mb-4">Últimos Cultos</h3>
                <div className="space-y-3">
                   {cultos.slice(-3).reverse().map(c => {

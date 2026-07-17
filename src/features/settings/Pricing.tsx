@@ -49,7 +49,7 @@ const Pricing: React.FC = () => {
 
         <div className="mt-16 grid gap-8 lg:grid-cols-3 lg:gap-x-8">
           {/* FREE PLAN */}
-          <div className="relative p-8 bg-white border border-border rounded-2xl shadow-sm flex flex-col">
+          <div className="relative p-8 bg-card border border-border rounded-2xl shadow-sm flex flex-col">
             <div className="flex-1">
               <h3 className="text-xl font-semibold text-foreground">{PLANS.FREE.name}</h3>
               <p className="mt-4 flex items-baseline text-foreground">
@@ -85,7 +85,7 @@ const Pricing: React.FC = () => {
           </div>
 
           {/* PRO PLAN */}
-          <div className="relative p-8 bg-white border-2 border-primary rounded-2xl shadow-xl flex flex-col transform scale-105 z-10">
+          <div className="relative p-8 bg-card border-2 border-primary rounded-2xl shadow-xl flex flex-col transform scale-105 z-10">
             <div className="absolute top-0 right-0 -mt-5 mr-5">
               <span className="bg-primary text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-sm">
                 Mais Popular
@@ -129,7 +129,7 @@ const Pricing: React.FC = () => {
           </div>
 
           {/* ENTERPRISE PLAN */}
-          <div className="relative p-8 bg-white border border-border rounded-2xl shadow-sm flex flex-col">
+          <div className="relative p-8 bg-card border border-border rounded-2xl shadow-sm flex flex-col">
             <div className="flex-1">
               <h3 className="text-xl font-semibold text-foreground">{PLANS.ENTERPRISE.name}</h3>
               <p className="mt-4 flex items-baseline text-foreground">

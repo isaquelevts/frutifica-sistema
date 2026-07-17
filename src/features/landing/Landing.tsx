@@ -4,7 +4,7 @@ import { Church, Sparkles, BarChart3, Users, CheckCircle, ArrowRight, ShieldChec
 
 const Landing: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white font-sans text-foreground">
+    <div className="min-h-screen bg-card font-sans text-foreground">
       {/* Header */}
       <header className="fixed w-full bg-white/80 backdrop-blur-md border-b border-border z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -48,7 +48,7 @@ const Landing: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/login"
-              className="w-full sm:w-auto px-8 py-4 bg-white hover:bg-muted/50 text-foreground border border-border rounded-xl font-bold text-lg transition-colors"
+              className="w-full sm:w-auto px-8 py-4 bg-card hover:bg-muted/50 text-foreground border border-border rounded-xl font-bold text-lg transition-colors"
             >
               Acessar Sistema
             </Link>
@@ -73,7 +73,7 @@ const Landing: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Feature 1 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow">
+            <div className="bg-card p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow">
               <div className="w-12 h-12 bg-primary/15 text-primary rounded-xl flex items-center justify-center mb-6">
                 <BarChart3 size={24} />
               </div>
@@ -84,7 +84,7 @@ const Landing: React.FC = () => {
             </div>
 
             {/* Feature 2 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow relative overflow-hidden">
+            <div className="bg-card p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow relative overflow-hidden">
               <div className="absolute top-0 right-0 bg-gradient-to-l from-indigo-50 to-transparent w-24 h-24 rounded-bl-full -mr-4 -mt-4"></div>
               <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-6 relative z-10">
                 <Sparkles size={24} />
@@ -96,7 +96,7 @@ const Landing: React.FC = () => {
             </div>
 
             {/* Feature 3 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow">
+            <div className="bg-card p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow">
               <div className="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-6">
                 <Users size={24} />
               </div>

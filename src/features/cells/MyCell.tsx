@@ -136,7 +136,7 @@ const MyCell: React.FC = () => {
 
   if (!user?.cellId) {
     return (
-      <div className="text-center py-12 bg-white rounded-xl border border-border shadow-sm">
+      <div className="text-center py-12 bg-card rounded-xl border border-border shadow-sm">
         <h2 className="text-xl font-bold text-foreground mb-2">Você não está vinculado a uma célula</h2>
         <p className="text-muted-foreground">Entre em contato com o administrador para vincular seu usuário à sua célula.</p>
       </div>
@@ -160,7 +160,7 @@ const MyCell: React.FC = () => {
             <>
               <button
                 onClick={() => setIsEditing(true)}
-                className="flex flex-1 md:flex-none items-center justify-center gap-2 bg-white border border-input text-foreground px-4 py-3 rounded-lg hover:bg-muted/50 transition-colors shadow-sm font-medium"
+                className="flex flex-1 md:flex-none items-center justify-center gap-2 bg-card border border-input text-foreground px-4 py-3 rounded-lg hover:bg-muted/50 transition-colors shadow-sm font-medium"
               >
                 <Edit size={18} />
                 Editar Dados
@@ -178,7 +178,7 @@ const MyCell: React.FC = () => {
               <button
                 onClick={handleCancel}
                 disabled={isSubmitting}
-                className="flex flex-1 md:flex-none items-center justify-center gap-2 bg-white border border-input text-foreground px-4 py-3 rounded-lg hover:bg-muted/50 transition-colors shadow-sm font-medium disabled:opacity-50"
+                className="flex flex-1 md:flex-none items-center justify-center gap-2 bg-card border border-input text-foreground px-4 py-3 rounded-lg hover:bg-muted/50 transition-colors shadow-sm font-medium disabled:opacity-50"
               >
                 <X size={18} />
                 Cancelar
@@ -196,7 +196,7 @@ const MyCell: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+      <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
         {/* Header - Always Visible */}
         <div className="bg-gradient-to-r from-primary to-indigo-700 p-8 text-white">
           <div className="flex items-start justify-between">
@@ -264,7 +264,7 @@ const MyCell: React.FC = () => {
                       <div className="w-1/2">
                         <select
                           {...register('dayOfWeek')}
-                          className="w-full bg-white border border-input rounded px-2 py-1 text-sm text-foreground"
+                          className="w-full bg-card border border-input rounded px-2 py-1 text-sm text-foreground"
                         >
                           <option value="Segunda-feira">Segunda</option>
                           <option value="Terça-feira">Terça</option>
@@ -279,7 +279,7 @@ const MyCell: React.FC = () => {
                         <input
                           type="time"
                           {...register('time')}
-                          className="w-full bg-white border border-input rounded px-2 py-1 text-sm text-foreground"
+                          className="w-full bg-card border border-input rounded px-2 py-1 text-sm text-foreground"
                         />
                         {errors.time && <span className="text-red-500 text-xs">{errors.time.message}</span>}
                       </div>
@@ -302,7 +302,7 @@ const MyCell: React.FC = () => {
                       type="text"
                       {...register('whatsapp')}
                       onChange={(e) => setValue('whatsapp', maskPhone(e.target.value))}
-                      className="mt-1 w-full bg-white border border-input rounded px-2 py-1 text-sm text-foreground"
+                      className="mt-1 w-full bg-card border border-input rounded px-2 py-1 text-sm text-foreground"
                       placeholder="(99) 99999-9999"
                     />
                   ) : (
@@ -321,7 +321,7 @@ const MyCell: React.FC = () => {
                   {isEditing ? (
                     <select
                       {...register('targetAudience')}
-                      className="mt-1 w-full bg-white border border-input rounded px-2 py-1 text-sm text-foreground"
+                      className="mt-1 w-full bg-card border border-input rounded px-2 py-1 text-sm text-foreground"
                     >
                       {Object.values(TargetAudience).map(audience => (
                         <option key={audience} value={audience}>{audience}</option>
@@ -347,7 +347,7 @@ const MyCell: React.FC = () => {
                     <input
                       type="text"
                       {...register('address')}
-                      className="mt-1 w-full bg-white border border-input rounded px-2 py-1 text-sm text-foreground"
+                      className="mt-1 w-full bg-card border border-input rounded px-2 py-1 text-sm text-foreground"
                     />
                     {errors.address && <span className="text-red-500 text-xs">{errors.address.message}</span>}
                   </>
@@ -401,7 +401,7 @@ const MyCell: React.FC = () => {
 
               {/* Add Co-Leader Form */}
               {isEditing && showCoLeaderForm && (
-                <div className="bg-white p-4 rounded-lg border border-primary/20 shadow-sm animate-in fade-in slide-in-from-top-2">
+                <div className="bg-card p-4 rounded-lg border border-primary/20 shadow-sm animate-in fade-in slide-in-from-top-2">
                   <h5 className="text-sm font-semibold text-primary mb-3">Novo Co-Líder</h5>
                   <div className="space-y-3">
                     <input

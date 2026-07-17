@@ -316,7 +316,7 @@ const CellRegistration: React.FC = () => {
             )}
 
             {activeTab === 'form' ? (
-                <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+                <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
                     <div className="p-6 border-b border-border bg-muted/50">
                         <h2 className="text-xl font-bold text-foreground">
                             {isEditing ? 'Editar Célula' : 'Cadastrar Nova Célula'}
@@ -343,7 +343,7 @@ const CellRegistration: React.FC = () => {
                                     <input
                                         type="text"
                                         {...register('name')}
-                                        className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all`}
+                                        className={`w-full px-4 py-2 rounded-lg bg-card border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all`}
                                         placeholder="Ex: Águias de Cristo"
                                     />
                                     {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>}
@@ -353,7 +353,7 @@ const CellRegistration: React.FC = () => {
                                     <label className="block text-sm font-medium text-foreground mb-1">Geração / Rede</label>
                                     <select
                                         {...register('generationId')}
-                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all"
+                                        className="w-full px-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all"
                                     >
                                         <option value="">Sem geração definida</option>
                                         {generations.map(gen => (
@@ -369,7 +369,7 @@ const CellRegistration: React.FC = () => {
                                     <label className="block text-sm font-medium text-foreground mb-1">Público Alvo</label>
                                     <select
                                         {...register('targetAudience')}
-                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all"
+                                        className="w-full px-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all"
                                     >
                                         {Object.values(TargetAudience).map(audience => (
                                             <option key={audience} value={audience}>{audience}</option>
@@ -394,7 +394,7 @@ const CellRegistration: React.FC = () => {
                                         <input
                                             type="text"
                                             {...register('leaderName')}
-                                            className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.leaderName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all`}
+                                            className={`w-full px-4 py-2 rounded-lg bg-card border ${errors.leaderName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all`}
                                             placeholder="Ex: Pr. João"
                                         />
                                         {errors.leaderName && <span className="text-red-500 text-xs mt-1">{errors.leaderName.message}</span>}
@@ -408,7 +408,7 @@ const CellRegistration: React.FC = () => {
                                                 const masked = maskPhone(e.target.value);
                                                 setValue('whatsapp', masked);
                                             }}
-                                            className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all"
+                                            className="w-full px-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all"
                                             placeholder="(11) 99999-9999"
                                         />
                                         {isEditing && isAdmin && (
@@ -458,7 +458,7 @@ const CellRegistration: React.FC = () => {
                                                     <input
                                                         type="email"
                                                         {...register('leaderEmail')}
-                                                        className={`w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-white border ${errors.leaderEmail ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
+                                                        className={`w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-card border ${errors.leaderEmail ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
                                                         placeholder="lider@email.com"
                                                     />
                                                 </div>
@@ -471,7 +471,7 @@ const CellRegistration: React.FC = () => {
                                                     <input
                                                         type="password"
                                                         {...register('leaderPassword')}
-                                                        className={`w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-white border ${errors.leaderPassword ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
+                                                        className={`w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-card border ${errors.leaderPassword ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
                                                         placeholder="Mínimo 6 caracteres"
                                                     />
                                                 </div>
@@ -484,7 +484,7 @@ const CellRegistration: React.FC = () => {
                                                     <input
                                                         type="date"
                                                         {...register('leaderBirthday')}
-                                                        className="w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none"
+                                                        className="w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none"
                                                     />
                                                 </div>
                                             </div>
@@ -500,7 +500,7 @@ const CellRegistration: React.FC = () => {
                                             <button
                                                 type="button"
                                                 onClick={() => setShowCoLeaderForm(true)}
-                                                className="text-xs flex items-center gap-1 bg-white border border-input text-muted-foreground px-3 py-1.5 rounded-lg hover:bg-muted"
+                                                className="text-xs flex items-center gap-1 bg-card border border-input text-muted-foreground px-3 py-1.5 rounded-lg hover:bg-muted"
                                             >
                                                 <Plus size={14} /> Adicionar Co-Líder
                                             </button>
@@ -510,7 +510,7 @@ const CellRegistration: React.FC = () => {
                                     {coLeadersFields.length > 0 ? (
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                                             {coLeadersFields.map((leader, index) => (
-                                                <div key={leader.id} className="bg-white p-3 rounded-lg border border-border shadow-sm flex justify-between items-start group">
+                                                <div key={leader.id} className="bg-card p-3 rounded-lg border border-border shadow-sm flex justify-between items-start group">
                                                     <div className="overflow-hidden">
                                                         <p className="font-bold text-foreground text-sm truncate">{leader.name}</p>
                                                         <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-1">
@@ -536,7 +536,7 @@ const CellRegistration: React.FC = () => {
 
                                     {/* Add Co-Leader Sub-Form */}
                                     {showCoLeaderForm && (
-                                        <div className="bg-white p-4 rounded-lg border border-primary/20 shadow-sm animate-in fade-in slide-in-from-top-2">
+                                        <div className="bg-card p-4 rounded-lg border border-primary/20 shadow-sm animate-in fade-in slide-in-from-top-2">
                                             <h5 className="text-sm font-semibold text-primary mb-3">Novo Co-Líder</h5>
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                                                 <div>
@@ -600,7 +600,7 @@ const CellRegistration: React.FC = () => {
                                     <label className="block text-sm font-medium text-foreground mb-1">Dia da Célula</label>
                                     <select
                                         {...register('dayOfWeek')}
-                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all"
+                                        className="w-full px-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all"
                                     >
                                         <option value="Segunda-feira">Segunda-feira</option>
                                         <option value="Terça-feira">Terça-feira</option>
@@ -617,7 +617,7 @@ const CellRegistration: React.FC = () => {
                                     <input
                                         type="time"
                                         {...register('time')}
-                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all min-w-0"
+                                        className="w-full px-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all min-w-0"
                                     />
                                 </div>
 
@@ -626,7 +626,7 @@ const CellRegistration: React.FC = () => {
                                     <input
                                         type="text"
                                         {...register('address')}
-                                        className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.address ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all`}
+                                        className={`w-full px-4 py-2 rounded-lg bg-card border ${errors.address ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all`}
                                         placeholder="Rua, Número, Bairro"
                                     />
                                     {errors.address && <span className="text-red-500 text-xs mt-1">{errors.address.message}</span>}
@@ -656,7 +656,7 @@ const CellRegistration: React.FC = () => {
                 </div>
             ) : (
                 // CSV IMPORT TAB (copied from previous logic)
-                <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden p-6 md:p-10">
+                <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden p-6 md:p-10">
                     <div className="text-center max-w-lg mx-auto">
                         <div className="w-16 h-16 bg-primary/15 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
                             <FileUp size={32} />
@@ -705,7 +705,7 @@ const CellRegistration: React.FC = () => {
                         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
                             <button
                                 onClick={downloadTemplate}
-                                className="flex items-center justify-center gap-2 px-6 py-3 bg-white border border-input text-foreground font-medium rounded-lg hover:bg-muted/50 transition-colors"
+                                className="flex items-center justify-center gap-2 px-6 py-3 bg-card border border-input text-foreground font-medium rounded-lg hover:bg-muted/50 transition-colors"
                             >
                                 <Download size={18} /> Baixar Modelo
                             </button>
@@ -724,7 +724,7 @@ const CellRegistration: React.FC = () => {
             {/* Success Modal */}
             {showSuccessModal && (
                 <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4 animate-in fade-in duration-300">
-                    <div className="bg-white rounded-2xl w-full max-w-md p-8 shadow-2xl animate-in zoom-in slide-in-from-bottom-4 duration-300">
+                    <div className="bg-card rounded-2xl w-full max-w-md p-8 shadow-2xl animate-in zoom-in slide-in-from-bottom-4 duration-300">
                         <div className="text-center">
                             {/* Success Icon */}
                             <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-in zoom-in duration-500 delay-150">

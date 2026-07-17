@@ -68,7 +68,7 @@ const OrganizationDetail: React.FC = () => {
         <Link to="/super/organizations" className="flex items-center text-muted-foreground hover:text-foreground text-sm mb-4 transition-colors">
           <ArrowLeft size={16} className="mr-1" /> Voltar para lista
         </Link>
-        <div className="bg-white rounded-xl border border-border p-6 shadow-sm">
+        <div className="bg-card rounded-xl border border-border p-6 shadow-sm">
           <div className="flex flex-wrap items-start gap-4">
             <div className="w-12 h-12 bg-primary/15 rounded-xl flex items-center justify-center flex-shrink-0">
               <Building2 size={24} className="text-primary" />
@@ -98,7 +98,7 @@ const OrganizationDetail: React.FC = () => {
           { label: 'Relatórios', value: reportCount, icon: <FileText size={18} />, color: 'text-orange-600 bg-orange-50' },
           { label: 'Líderes', value: profiles.filter(p => p.roles?.includes('leader')).length, icon: <Users size={18} />, color: 'text-teal-600 bg-teal-50' },
         ].map(card => (
-          <div key={card.label} className="bg-white rounded-xl border border-border p-4 shadow-sm flex items-center gap-3">
+          <div key={card.label} className="bg-card rounded-xl border border-border p-4 shadow-sm flex items-center gap-3">
             <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${card.color}`}>
               {card.icon}
             </div>
@@ -132,7 +132,7 @@ const OrganizationDetail: React.FC = () => {
       {/* Aba: Visão Geral */}
       {activeTab === 'overview' && (
         <div className="space-y-6">
-          <div className="bg-white rounded-xl border border-border p-6 shadow-sm">
+          <div className="bg-card rounded-xl border border-border p-6 shadow-sm">
             <h2 className="text-sm font-bold text-foreground mb-4">Relatórios por Semana (últimas 12 semanas)</h2>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={weeklyChartData}>
@@ -147,7 +147,7 @@ const OrganizationDetail: React.FC = () => {
 
           {/* Indicador de saúde */}
           {cellCount > 0 && (
-            <div className="bg-white rounded-xl border border-border p-6 shadow-sm">
+            <div className="bg-card rounded-xl border border-border p-6 shadow-sm">
               <h2 className="text-sm font-bold text-foreground mb-3">Indicador de Atividade</h2>
               <div className="flex items-center gap-3">
                 <div className="flex-1 bg-muted rounded-full h-3 overflow-hidden">
@@ -167,7 +167,7 @@ const OrganizationDetail: React.FC = () => {
 
       {/* Aba: Células */}
       {activeTab === 'cells' && (
-        <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+        <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
           {loadingCells ? (
             <div className="flex items-center justify-center h-32">
               <div className="w-6 h-6 border-4 border-primary border-t-transparent rounded-full animate-spin" />
@@ -210,7 +210,7 @@ const OrganizationDetail: React.FC = () => {
 
       {/* Aba: Usuários */}
       {activeTab === 'users' && (
-        <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+        <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="border-b border-border bg-muted/50">
@@ -251,7 +251,7 @@ const OrganizationDetail: React.FC = () => {
 
       {/* Aba: Gerações */}
       {activeTab === 'generations' && (
-        <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+        <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
           {loadingGenerations ? (
             <div className="flex items-center justify-center h-32">
               <div className="w-6 h-6 border-4 border-primary border-t-transparent rounded-full animate-spin" />

@@ -378,7 +378,7 @@ const GlobalMembers: React.FC = () => {
                 <p className="text-muted-foreground">Visualização unificada de todos os membros, líderes e visitantes.</p>
             </div>
 
-            <div className="bg-white p-4 rounded-xl border border-border shadow-sm space-y-4">
+            <div className="bg-card p-4 rounded-xl border border-border shadow-sm space-y-4">
                 <div className="flex flex-col md:flex-row gap-4">
                     <div className="flex-1 relative">
                         <Search className="absolute left-3 top-2.5 text-muted-foreground" size={20} />
@@ -395,7 +395,7 @@ const GlobalMembers: React.FC = () => {
                         <select
                             value={cellFilter}
                             onChange={(e) => setCellFilter(e.target.value)}
-                            className="bg-white border border-input text-foreground rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-ring max-w-[150px] sm:max-w-none"
+                            className="bg-card border border-input text-foreground rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-ring max-w-[150px] sm:max-w-none"
                         >
                             <option value="all">Todas as Células</option>
                             {cells.map(c => (
@@ -407,7 +407,7 @@ const GlobalMembers: React.FC = () => {
                         <select
                             value={typeFilter}
                             onChange={(e) => setTypeFilter(e.target.value)}
-                            className="bg-white border border-input text-foreground rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-ring"
+                            className="bg-card border border-input text-foreground rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-ring"
                         >
                             <option value="all">Todos os Tipos</option>
                             <option value="Líder">Líderes</option>
@@ -420,7 +420,7 @@ const GlobalMembers: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredPeople.map((person, idx) => (
-                    <div key={`${person.id}-${idx}`} className={`bg-white p-4 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow group relative ${person.type === 'Líder' ? 'border-l-4 border-l-purple-500' : ''}`}>
+                    <div key={`${person.id}-${idx}`} className={`bg-card p-4 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow group relative ${person.type === 'Líder' ? 'border-l-4 border-l-purple-500' : ''}`}>
                         <div className="flex items-start justify-between mb-3">
                             <div className="flex items-center gap-3">
                                 <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg ${getAvatarColor(person.type)}`}>
@@ -437,7 +437,7 @@ const GlobalMembers: React.FC = () => {
 
                             {/* Action Buttons */}
                             {(person.source !== 'leader' || isAdmin) && (
-                                <div className="flex gap-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity absolute top-4 right-4 bg-white pl-2">
+                                <div className="flex gap-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity absolute top-4 right-4 bg-card pl-2">
                                     {person.phone && (
                                         <a
                                             href={`https://wa.me/55${formatPhoneNumber(person.phone)}`}
@@ -490,7 +490,7 @@ const GlobalMembers: React.FC = () => {
                     </div>
                 ))}
                 {filteredPeople.length === 0 && (
-                    <div className="col-span-full p-8 text-center bg-white rounded-xl border border-border text-muted-foreground">
+                    <div className="col-span-full p-8 text-center bg-card rounded-xl border border-border text-muted-foreground">
                         Nenhuma pessoa encontrada com os filtros atuais.
                     </div>
                 )}
@@ -499,7 +499,7 @@ const GlobalMembers: React.FC = () => {
             {/* EDIT MODAL FOR LEADERS */}
             {showLeaderModal && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-                    <div className="bg-white rounded-xl w-full max-w-md p-6 shadow-2xl animate-in fade-in zoom-in duration-200 max-h-[90vh] overflow-y-auto">
+                    <div className="bg-card rounded-xl w-full max-w-md p-6 shadow-2xl animate-in fade-in zoom-in duration-200 max-h-[90vh] overflow-y-auto">
                         <div className="flex justify-between items-center mb-4">
                             <h2 className="text-xl font-bold text-foreground">Editar Líder</h2>
                             <button onClick={() => setShowLeaderModal(false)} className="text-muted-foreground hover:text-muted-foreground">
@@ -597,7 +597,7 @@ const GlobalMembers: React.FC = () => {
             {/* EDIT MODAL FOR MEMBERS */}
             {showMemberModal && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-                    <div className="bg-white rounded-xl w-full max-w-md p-6 shadow-2xl animate-in fade-in zoom-in duration-200 max-h-[90vh] overflow-y-auto">
+                    <div className="bg-card rounded-xl w-full max-w-md p-6 shadow-2xl animate-in fade-in zoom-in duration-200 max-h-[90vh] overflow-y-auto">
                         <div className="flex justify-between items-center mb-4">
                             <h2 className="text-xl font-bold text-foreground">Editar Membro</h2>
                             <button onClick={() => setShowMemberModal(false)} className="text-muted-foreground hover:text-muted-foreground">
@@ -688,7 +688,7 @@ const GlobalMembers: React.FC = () => {
             {/* DELETE CONFIRMATION MODAL */}
             {showDeleteModal && (
                 <div className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4">
-                    <div className="bg-white rounded-xl w-full max-w-sm p-6 shadow-2xl animate-in fade-in zoom-in duration-200">
+                    <div className="bg-card rounded-xl w-full max-w-sm p-6 shadow-2xl animate-in fade-in zoom-in duration-200">
                         <div className="flex flex-col items-center text-center">
                             <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
                                 <AlertTriangle className="text-red-600" size={24} />

@@ -151,7 +151,7 @@ const MembersList: React.FC = () => {
         </button>
       </div>
 
-      <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
+      <div className="bg-card p-4 rounded-xl border border-border shadow-sm">
         <div className="relative">
           <Search className="absolute left-3 top-2.5 text-muted-foreground" size={20} />
           <input
@@ -166,7 +166,7 @@ const MembersList: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredMembers.map(member => (
-          <div key={member.id} className="bg-white p-4 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow relative group">
+          <div key={member.id} className="bg-card p-4 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow relative group">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg ${member.type === MemberType.MEMBER ? 'bg-primary/15 text-primary' : 'bg-orange-100 text-orange-600'}`}>
@@ -228,7 +228,7 @@ const MembersList: React.FC = () => {
       {/* MODAL */}
       {showForm && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl w-full max-w-md p-6 shadow-2xl animate-in fade-in zoom-in duration-200">
+          <div className="bg-card rounded-xl w-full max-w-md p-6 shadow-2xl animate-in fade-in zoom-in duration-200">
             <h2 className="text-xl font-bold text-foreground mb-4">
               {editingMember ? 'Editar Membro' : 'Novo Membro'}
             </h2>

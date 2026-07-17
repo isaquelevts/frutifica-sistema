@@ -255,7 +255,7 @@ const ManageLeaders: React.FC = () => {
             <span className="font-semibold text-sm">Link de Cadastro para Líderes</span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs text-muted-foreground truncate font-mono bg-white border border-border px-2 py-1 rounded">
+            <p className="text-xs text-muted-foreground truncate font-mono bg-card border border-border px-2 py-1 rounded">
               {registerLink}
             </p>
           </div>
@@ -272,7 +272,7 @@ const ManageLeaders: React.FC = () => {
         </div>
       )}
 
-      <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
+      <div className="bg-card p-4 rounded-xl border border-border shadow-sm">
         <div className="relative">
           <Search className="absolute left-3 top-2.5 text-muted-foreground" size={20} />
           <input
@@ -280,12 +280,12 @@ const ManageLeaders: React.FC = () => {
             placeholder="Buscar por nome ou email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-ring"
+            className="w-full pl-10 pr-4 py-2 bg-card border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+      <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
@@ -348,7 +348,7 @@ const ManageLeaders: React.FC = () => {
       {/* Modal CRUD */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl w-full max-w-lg p-6 shadow-2xl animate-in fade-in zoom-in duration-200 max-h-[90vh] overflow-y-auto">
+          <div className="bg-card rounded-xl w-full max-w-lg p-6 shadow-2xl animate-in fade-in zoom-in duration-200 max-h-[90vh] overflow-y-auto">
             <h2 className="text-xl font-bold text-foreground mb-6">
               {editingUser ? 'Editar Usuário' : 'Cadastrar Usuário'}
             </h2>
@@ -362,7 +362,7 @@ const ManageLeaders: React.FC = () => {
                     <input
                       type="text"
                       {...register('name')}
-                      className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground font-medium outline-none focus:border-ring`}
+                      className={`w-full pl-10 pr-4 py-2 rounded-lg bg-card border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground font-medium outline-none focus:border-ring`}
                     />
                     {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>}
                   </div>
@@ -376,7 +376,7 @@ const ManageLeaders: React.FC = () => {
                       type="email"
                       {...register('email')}
                       disabled={!!editingUser}
-                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-ring disabled:bg-muted disabled:cursor-not-allowed"
+                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-card border border-input text-foreground font-medium outline-none focus:border-ring disabled:bg-muted disabled:cursor-not-allowed"
                     />
                     {errors.email && <span className="text-red-500 text-xs mt-1">{errors.email.message}</span>}
                   </div>
@@ -394,7 +394,7 @@ const ManageLeaders: React.FC = () => {
                       <input
                         type="password"
                         {...register('password')}
-                        className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.password ? 'border-red-500' : 'border-input'} text-foreground font-medium outline-none focus:border-ring`}
+                        className={`w-full pl-10 pr-4 py-2 rounded-lg bg-card border ${errors.password ? 'border-red-500' : 'border-input'} text-foreground font-medium outline-none focus:border-ring`}
                         placeholder="Mínimo 6 caracteres"
                         minLength={6}
                       />
@@ -410,7 +410,7 @@ const ManageLeaders: React.FC = () => {
                     <input
                       type="date"
                       {...register('birthday')}
-                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-ring"
+                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-card border border-input text-foreground font-medium outline-none focus:border-ring"
                     />
                   </div>
                 </div>
@@ -419,7 +419,7 @@ const ManageLeaders: React.FC = () => {
                   <label className="block text-sm font-medium text-foreground mb-1">Função</label>
                   <select
                     {...register('role')}
-                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-ring"
+                    className="w-full px-4 py-2 rounded-lg bg-card border border-input text-foreground font-medium outline-none focus:border-ring"
                   >
                     <option value={UserRole.LEADER}>Líder</option>
                     <option value={UserRole.COLEADER}>Co-Líder</option>
@@ -432,7 +432,7 @@ const ManageLeaders: React.FC = () => {
                   <label className="block text-sm font-medium text-foreground mb-1">Célula Vinculada</label>
                   <select
                     {...register('cellId')}
-                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-ring"
+                    className="w-full px-4 py-2 rounded-lg bg-card border border-input text-foreground font-medium outline-none focus:border-ring"
                   >
                     <option value="">Sem Célula (Apenas Acesso)</option>
                     {cells.map(c => (
@@ -455,7 +455,7 @@ const ManageLeaders: React.FC = () => {
                       onChange={(e) => setLeaderPhone(maskPhone(e.target.value))}
                       disabled={!watchedCellId}
                       placeholder="(11) 99999-9999"
-                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-ring disabled:bg-muted disabled:cursor-not-allowed"
+                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-card border border-input text-foreground font-medium outline-none focus:border-ring disabled:bg-muted disabled:cursor-not-allowed"
                     />
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
@@ -491,7 +491,7 @@ const ManageLeaders: React.FC = () => {
       {/* Success Modal */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4 animate-in fade-in duration-300">
-          <div className="bg-white rounded-2xl w-full max-w-md p-8 shadow-2xl animate-in zoom-in slide-in-from-bottom-4 duration-300">
+          <div className="bg-card rounded-2xl w-full max-w-md p-8 shadow-2xl animate-in zoom-in slide-in-from-bottom-4 duration-300">
             <div className="text-center">
               {/* Success Icon */}
               <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-in zoom-in duration-500 delay-150">

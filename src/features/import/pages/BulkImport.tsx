@@ -64,7 +64,7 @@ const BulkImport: React.FC = () => {
                 />
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm border border-border p-6 min-h-[400px]">
+            <div className="bg-card rounded-xl shadow-sm border border-border p-6 min-h-[400px]">
                 {step === 'upload' && (
                     <CsvUploader onFileSelected={handleFileUpload} />
                 )}
@@ -105,7 +105,7 @@ const StepIndicator = ({ current, id, label, icon, order }: any) => {
     const status = stepIndex < currentIndex ? 'completed' : stepIndex === currentIndex ? 'active' : 'pending';
 
     return (
-        <div className="flex flex-col items-center gap-2 bg-white px-2">
+        <div className="flex flex-col items-center gap-2 bg-card px-2">
             <div className={`
         w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300
         ${status === 'completed' ? 'bg-green-100 text-green-600' :

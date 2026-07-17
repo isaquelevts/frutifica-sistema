@@ -75,14 +75,14 @@ const VisitorsList: React.FC = () => {
         </div>
         <button
           onClick={handleNewVisitor}
-          className="flex items-center gap-2 md:gap-3 bg-white text-primary px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-lg md:text-xl shadow-lg hover:bg-primary/10 transition-all w-full md:w-auto justify-center group"
+          className="flex items-center gap-2 md:gap-3 bg-card text-primary px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-lg md:text-xl shadow-lg hover:bg-primary/10 transition-all w-full md:w-auto justify-center group"
         >
           Adicionar Agora <ArrowRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
         </button>
       </div>
 
       {/* SEARCH */}
-      <div className="bg-white p-4 rounded-xl border border-border shadow-sm mt-8">
+      <div className="bg-card p-4 rounded-xl border border-border shadow-sm mt-8">
         <div className="relative">
           <Search className="absolute left-3 top-2.5 text-muted-foreground" size={20} />
           <input
@@ -90,13 +90,13 @@ const VisitorsList: React.FC = () => {
             placeholder="Buscar por nome..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white border border-border text-foreground rounded-lg outline-none focus:ring-2 focus:ring-ring"
+            className="w-full pl-10 pr-4 py-2 bg-card border border-border text-foreground rounded-lg outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
       </div>
 
       {/* TABLE */}
-      <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+      <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead className="bg-muted/50 border-b border-border">

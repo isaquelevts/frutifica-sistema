@@ -116,7 +116,7 @@ const InviteManager: React.FC = () => {
 
             {/* Formulário */}
             {showForm && (
-                <div className="bg-white rounded-xl shadow-sm border border-primary/20 p-6 mb-6">
+                <div className="bg-card rounded-xl shadow-sm border border-primary/20 p-6 mb-6">
                     <h2 className="text-sm font-bold text-foreground mb-4">Novo Convite</h2>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -127,7 +127,7 @@ const InviteManager: React.FC = () => {
                                 <input
                                     type="text"
                                     {...register('label')}
-                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
+                                    className="w-full px-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                     placeholder="Ex: Líderes da Rede Judá"
                                 />
                                 <p className="text-xs text-muted-foreground mt-1">Só para você identificar o link na lista.</p>
@@ -139,7 +139,7 @@ const InviteManager: React.FC = () => {
                                 </label>
                                 <select
                                     {...register('generationId')}
-                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
+                                    className="w-full px-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                 >
                                     <option value="">Sem geração definida</option>
                                     {generations.map((gen) => (
@@ -159,7 +159,7 @@ const InviteManager: React.FC = () => {
                                     type="number"
                                     min={1}
                                     {...register('maxUses')}
-                                    className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.maxUses ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
+                                    className={`w-full px-4 py-2 rounded-lg bg-card border ${errors.maxUses ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                     placeholder="Deixe vazio para ilimitado"
                                 />
                                 {errors.maxUses && <span className="text-red-500 text-xs mt-1">{errors.maxUses.message}</span>}
@@ -171,7 +171,7 @@ const InviteManager: React.FC = () => {
                                     type="number"
                                     min={1}
                                     {...register('expiresInDays')}
-                                    className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.expiresInDays ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
+                                    className={`w-full px-4 py-2 rounded-lg bg-card border ${errors.expiresInDays ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                     placeholder="Deixe vazio para não expirar"
                                 />
                                 {errors.expiresInDays && <span className="text-red-500 text-xs mt-1">{errors.expiresInDays.message}</span>}
@@ -206,7 +206,7 @@ const InviteManager: React.FC = () => {
                     <Loader2 className="text-primary animate-spin" size={28} />
                 </div>
             ) : invites.length === 0 ? (
-                <div className="bg-white rounded-xl border border-border p-12 text-center">
+                <div className="bg-card rounded-xl border border-border p-12 text-center">
                     <div className="w-16 h-16 bg-primary/15 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
                         <Ticket size={32} />
                     </div>
@@ -277,7 +277,7 @@ const InviteCard: React.FC<InviteCardProps> = ({ invite, copied, disabled, onCop
     const expiresAt = formatDate(invite.expiresAt);
 
     return (
-        <div className={`bg-white rounded-xl border p-5 transition-opacity ${isActive ? 'border-border' : 'border-border opacity-60'}`}>
+        <div className={`bg-card rounded-xl border p-5 transition-opacity ${isActive ? 'border-border' : 'border-border opacity-60'}`}>
             <div className="flex flex-col lg:flex-row lg:items-center gap-4">
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap mb-2">
@@ -319,7 +319,7 @@ const InviteCard: React.FC<InviteCardProps> = ({ invite, copied, disabled, onCop
                             className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg border transition-colors ${
                                 copied
                                     ? 'bg-green-50 border-green-200 text-green-700'
-                                    : 'bg-white border-input text-foreground hover:bg-muted/50'
+                                    : 'bg-card border-input text-foreground hover:bg-muted/50'
                             }`}
                         >
                             {copied ? <><Check size={15} /> Copiado</> : <><Copy size={15} /> Copiar</>}

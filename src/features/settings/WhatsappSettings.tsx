@@ -236,7 +236,7 @@ const WhatsappSettings: React.FC = () => {
 
       {/* Step: not_connected */}
       {step === 'not_connected' && (
-        <div className="bg-white rounded-2xl border border-border shadow-sm p-8 text-center">
+        <div className="bg-card rounded-2xl border border-border shadow-sm p-8 text-center">
           <div className="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Smartphone className="text-green-600" size={32} />
           </div>
@@ -257,7 +257,7 @@ const WhatsappSettings: React.FC = () => {
 
       {/* Step: connecting (loading QR) */}
       {step === 'connecting' && (
-        <div className="bg-white rounded-2xl border border-border shadow-sm p-8 text-center">
+        <div className="bg-card rounded-2xl border border-border shadow-sm p-8 text-center">
           <Loader2 className="animate-spin text-green-600 mx-auto mb-4" size={40} />
           <p className="text-muted-foreground font-medium">Gerando QR code...</p>
         </div>
@@ -265,7 +265,7 @@ const WhatsappSettings: React.FC = () => {
 
       {/* Step: qr_shown */}
       {step === 'qr_shown' && (
-        <div className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
           <div className="p-6 text-center border-b border-border">
             <h2 className="font-semibold text-foreground mb-1">Escaneie o QR code</h2>
             <p className="text-muted-foreground text-sm">
@@ -311,7 +311,7 @@ const WhatsappSettings: React.FC = () => {
 
       {/* Step: connected */}
       {step === 'connected' && (
-        <div className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden">
+        <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
           {/* Status badge */}
           <div className="p-4 bg-green-50 border-b border-green-100 flex items-center gap-2">
             <CheckCircle size={18} className="text-green-600" />
@@ -374,7 +374,7 @@ const WhatsappSettings: React.FC = () => {
                   ${active ? 'bg-green-500' : 'bg-input'}`}
               >
                 <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform
+                  className={`inline-block h-4 w-4 transform rounded-full bg-card shadow transition-transform
                     ${active ? 'translate-x-6' : 'translate-x-1'}`}
                 />
               </button>

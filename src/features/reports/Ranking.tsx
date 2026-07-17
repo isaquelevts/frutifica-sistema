@@ -107,19 +107,19 @@ const Ranking: React.FC = () => {
         <div className="flex bg-muted p-1 rounded-lg self-start md:self-auto">
           <button
             onClick={() => setTimeRange('week')}
-            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeRange === 'week' ? 'bg-white text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeRange === 'week' ? 'bg-card text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
           >
             Semanal
           </button>
           <button
             onClick={() => setTimeRange('month')}
-            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeRange === 'month' ? 'bg-white text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeRange === 'month' ? 'bg-card text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
           >
             Mensal
           </button>
           <button
             onClick={() => setTimeRange('year')}
-            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeRange === 'year' ? 'bg-white text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeRange === 'year' ? 'bg-card text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
           >
             Anual
           </button>
@@ -128,12 +128,12 @@ const Ranking: React.FC = () => {
 
       <div className="grid grid-cols-1 gap-4">
         {rankedCells.length === 0 ? (
-          <div className="text-center py-12 text-muted-foreground bg-white rounded-xl border border-border">
+          <div className="text-center py-12 text-muted-foreground bg-card rounded-xl border border-border">
             Nenhum dado encontrado para o período selecionado.
           </div>
         ) : (
           rankedCells.map((item, index) => (
-            <div key={item.cellId} className="bg-white p-4 rounded-xl border border-border shadow-sm flex flex-col lg:flex-row items-center gap-4 transition-transform hover:scale-[1.01]">
+            <div key={item.cellId} className="bg-card p-4 rounded-xl border border-border shadow-sm flex flex-col lg:flex-row items-center gap-4 transition-transform hover:scale-[1.01]">
               <div className="flex items-center gap-4 w-full lg:w-auto">
                 <div className={`flex-shrink-0 w-12 h-12 flex items-center justify-center font-bold text-xl rounded-full bg-muted/50 ${getMedalColor(index)}`}>
                   {index < 3 ? <Trophy size={24} fill="currentColor" /> : `#${index + 1}`}

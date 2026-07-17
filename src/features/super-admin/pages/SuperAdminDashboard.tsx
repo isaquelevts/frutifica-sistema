@@ -77,7 +77,7 @@ const SuperAdminDashboard: React.FC = () => {
       {/* Cards de métricas */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {metricCards.map(card => (
-          <div key={card.label} className="bg-white rounded-xl border border-border p-5 shadow-sm flex items-center gap-4">
+          <div key={card.label} className="bg-card rounded-xl border border-border p-5 shadow-sm flex items-center gap-4">
             <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${card.color}`}>
               {card.icon}
             </div>
@@ -92,7 +92,7 @@ const SuperAdminDashboard: React.FC = () => {
       {/* Gráficos */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Igrejas cadastradas por mês */}
-        <div className="bg-white rounded-xl border border-border p-6 shadow-sm">
+        <div className="bg-card rounded-xl border border-border p-6 shadow-sm">
           <h2 className="text-sm font-bold text-foreground mb-4">Igrejas Cadastradas por Mês</h2>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={monthlyData}>
@@ -106,7 +106,7 @@ const SuperAdminDashboard: React.FC = () => {
         </div>
 
         {/* Top 10 igrejas por células */}
-        <div className="bg-white rounded-xl border border-border p-6 shadow-sm">
+        <div className="bg-card rounded-xl border border-border p-6 shadow-sm">
           <h2 className="text-sm font-bold text-foreground mb-4">Top 10 Igrejas por Células</h2>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={topOrgs} layout="vertical">
@@ -122,7 +122,7 @@ const SuperAdminDashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Distribuição por plano */}
-        <div className="bg-white rounded-xl border border-border p-6 shadow-sm">
+        <div className="bg-card rounded-xl border border-border p-6 shadow-sm">
           <h2 className="text-sm font-bold text-foreground mb-4">Distribuição por Plano</h2>
           {planData.length > 0 ? (
             <>
@@ -151,7 +151,7 @@ const SuperAdminDashboard: React.FC = () => {
         </div>
 
         {/* Últimas 5 igrejas */}
-        <div className="lg:col-span-2 bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+        <div className="lg:col-span-2 bg-card rounded-xl border border-border shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-border flex items-center justify-between">
             <h2 className="text-sm font-bold text-foreground">Últimas Igrejas Cadastradas</h2>
             <Link to="/super/organizations" className="text-xs text-primary hover:underline">Ver todas</Link>

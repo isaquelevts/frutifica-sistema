@@ -41,7 +41,7 @@ const Register: React.FC = () => {
           <ArrowLeft size={18} className="mr-2" /> Voltar para o início
         </Link>
 
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-card rounded-2xl shadow-xl overflow-hidden">
           <div className="bg-primary p-8 text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/20 text-white mb-4">
               <Church size={32} />
@@ -66,7 +66,7 @@ const Register: React.FC = () => {
                   <input
                     type="text"
                     {...register('orgName')}
-                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.orgName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
+                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-card border ${errors.orgName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
                     placeholder="Ex: Igreja Batista Central"
                   />
                 </div>
@@ -80,7 +80,7 @@ const Register: React.FC = () => {
                   <input
                     type="text"
                     {...register('adminName')}
-                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.adminName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
+                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-card border ${errors.adminName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
                     placeholder="Seu nome"
                   />
                 </div>
@@ -94,7 +94,7 @@ const Register: React.FC = () => {
                   <input
                     type="email"
                     {...register('email')}
-                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.email ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
+                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-card border ${errors.email ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
                     placeholder="admin@igreja.com"
                   />
                 </div>
@@ -108,7 +108,7 @@ const Register: React.FC = () => {
                   <input
                     type="password"
                     {...register('password')}
-                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.password ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
+                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-card border ${errors.password ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
                     placeholder="Criar senha"
                   />
                 </div>

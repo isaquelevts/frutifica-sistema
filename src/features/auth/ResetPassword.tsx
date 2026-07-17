@@ -48,7 +48,7 @@ const ResetPassword: React.FC = () => {
     return (
         <div className="min-h-screen bg-muted flex items-center justify-center p-4">
             <div className="w-full max-w-md">
-                <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div className="bg-card rounded-2xl shadow-xl overflow-hidden">
                     <div className="bg-primary p-8 text-center">
                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/20 text-white mb-4">
                             <Church size={32} />
@@ -102,7 +102,7 @@ const ResetPassword: React.FC = () => {
                                                 required
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
-                                                className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
+                                                className="w-full pl-10 pr-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                                 placeholder="••••••••"
                                             />
                                         </div>
@@ -116,7 +116,7 @@ const ResetPassword: React.FC = () => {
                                                 required
                                                 value={confirmPassword}
                                                 onChange={(e) => setConfirmPassword(e.target.value)}
-                                                className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
+                                                className="w-full pl-10 pr-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                                 placeholder="••••••••"
                                             />
                                         </div>

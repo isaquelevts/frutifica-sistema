@@ -67,7 +67,7 @@ const UserRegistration: React.FC = () => {
         <ArrowLeft size={18} className="mr-1" /> Voltar
       </button>
 
-      <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+      <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
         <div className="p-6 border-b border-border flex items-center gap-3">
           <div className="p-2 bg-primary/10 text-primary rounded-lg">
             <UserPlus size={24} />
@@ -85,7 +85,7 @@ const UserRegistration: React.FC = () => {
               <input
                 type="text"
                 {...register('name')}
-                className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
+                className={`w-full px-4 py-2 rounded-lg bg-card border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
               />
               {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>}
             </div>
@@ -95,7 +95,7 @@ const UserRegistration: React.FC = () => {
               <input
                 type="email"
                 {...register('email')}
-                className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.email ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
+                className={`w-full px-4 py-2 rounded-lg bg-card border ${errors.email ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
               />
               {errors.email && <span className="text-red-500 text-xs mt-1">{errors.email.message}</span>}
             </div>
@@ -105,7 +105,7 @@ const UserRegistration: React.FC = () => {
               <input
                 type="text"
                 {...register('password')}
-                className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.password ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
+                className={`w-full px-4 py-2 rounded-lg bg-card border ${errors.password ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
                 placeholder="Ex: mudar123"
               />
               {errors.password && <span className="text-red-500 text-xs mt-1">{errors.password.message}</span>}
@@ -115,7 +115,7 @@ const UserRegistration: React.FC = () => {
               <label className="block text-sm font-medium text-foreground mb-1">Vincular à Célula</label>
               <select
                 {...register('cellId')}
-                className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none"
+                className="w-full px-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none"
               >
                 <option value="">Nenhuma (Apenas cadastro)</option>
                 {cells.map(cell => (
@@ -128,7 +128,7 @@ const UserRegistration: React.FC = () => {
               <label className="block text-sm font-medium text-foreground mb-1">Tipo de Acesso</label>
               <select
                 {...register('role')}
-                className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none"
+                className="w-full px-4 py-2 rounded-lg bg-card border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none"
               >
                 <option value={UserRole.LEADER}>Líder</option>
                 <option value={UserRole.ADMIN}>Administrador</option>

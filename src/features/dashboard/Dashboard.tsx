@@ -409,7 +409,7 @@ const Dashboard: React.FC = () => {
           </div>
           <Link
             to={`/report/${user.cellId}`}
-            className="animate-btn-pulse flex items-center gap-2 md:gap-3 bg-white text-primary px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-lg md:text-xl shadow-lg w-full md:w-auto justify-center group"
+            className="animate-btn-pulse flex items-center gap-2 md:gap-3 bg-card text-primary px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-lg md:text-xl shadow-lg w-full md:w-auto justify-center group"
           >
             Adicionar Agora <ArrowRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
           </Link>
