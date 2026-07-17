@@ -31,3 +31,7 @@ api/uploads/reports/*
 *.njsproj
 *.sln
 *.sw?
+
+# Ferramental do agente (skills instaladas localmente)
+.claude/
+.agents/
