@@ -42,7 +42,7 @@ const CultReports: React.FC = () => {
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-slate-500 font-medium animate-pulse">Carregando relatórios de culto...</p>
+          <p className="text-muted-foreground font-medium animate-pulse">Carregando relatórios de culto...</p>
         </div>
       </div>
     );
@@ -52,8 +52,8 @@ const CultReports: React.FC = () => {
     <div className="space-y-6">
       {/* HEADER */}
       <div>
-        <h1 className="text-2xl font-bold text-slate-800">Relatórios de Culto</h1>
-        <p className="text-slate-500">Histórico de cultos e visitantes.</p>
+        <h1 className="text-2xl font-bold text-foreground">Relatórios de Culto</h1>
+        <p className="text-muted-foreground">Histórico de cultos e visitantes.</p>
       </div>
 
       {/* ACTION CARD */}
@@ -75,33 +75,33 @@ const CultReports: React.FC = () => {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mt-8">
+      <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden mt-8">
         <table className="w-full text-left">
-          <thead className="bg-slate-50 border-b border-slate-200">
+          <thead className="bg-muted/50 border-b border-border">
             <tr>
-              <th className="px-6 py-4 text-sm font-semibold text-slate-600">Data</th>
-              <th className="px-6 py-4 text-sm font-semibold text-slate-600 hidden sm:table-cell">Tipo</th>
-              <th className="px-6 py-4 text-sm font-semibold text-slate-600">Resumo</th>
-              <th className="px-6 py-4 text-sm font-semibold text-slate-600 hidden md:table-cell">Obs</th>
-              <th className="px-6 py-4 text-sm font-semibold text-slate-600 text-right">Ações</th>
+              <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Data</th>
+              <th className="px-6 py-4 text-sm font-semibold text-muted-foreground hidden sm:table-cell">Tipo</th>
+              <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Resumo</th>
+              <th className="px-6 py-4 text-sm font-semibold text-muted-foreground hidden md:table-cell">Obs</th>
+              <th className="px-6 py-4 text-sm font-semibold text-muted-foreground text-right">Ações</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-border">
             {cultos.map(c => {
               const stats = getCultoStats(c.id);
               return (
-                <tr key={c.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={c.id} className="hover:bg-muted/50 transition-colors">
                   <td className="px-6 py-4 text-sm">
                     <div className="flex items-center gap-2">
-                      <Calendar size={16} className="text-slate-400" />
-                      <span className="font-medium text-slate-800">{new Date(c.data).toLocaleDateString('pt-BR')}</span>
-                      <span className="text-xs text-slate-500 ml-1 hidden sm:inline">{c.hora}</span>
+                      <Calendar size={16} className="text-muted-foreground" />
+                      <span className="font-medium text-foreground">{new Date(c.data).toLocaleDateString('pt-BR')}</span>
+                      <span className="text-xs text-muted-foreground ml-1 hidden sm:inline">{c.hora}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-sm capitalize text-slate-700 hidden sm:table-cell">{c.tipo}</td>
-                  <td className="px-6 py-4 text-sm text-slate-800">
+                  <td className="px-6 py-4 text-sm capitalize text-foreground hidden sm:table-cell">{c.tipo}</td>
+                  <td className="px-6 py-4 text-sm text-foreground">
                     <div className="flex gap-3">
-                      <span className="flex items-center gap-1 text-slate-600 bg-slate-100 px-2 py-0.5 rounded text-xs font-medium" title="Total">
+                      <span className="flex items-center gap-1 text-muted-foreground bg-muted px-2 py-0.5 rounded text-xs font-medium" title="Total">
                         <User size={12} /> {stats.total}
                       </span>
                       {stats.conversoes > 0 && (
@@ -111,7 +111,7 @@ const CultReports: React.FC = () => {
                       )}
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-sm text-slate-500 truncate max-w-xs hidden md:table-cell">{c.observacoes || '-'}</td>
+                  <td className="px-6 py-4 text-sm text-muted-foreground truncate max-w-xs hidden md:table-cell">{c.observacoes || '-'}</td>
                   <td className="px-6 py-4 text-sm text-right">
                     <button
                       onClick={() => setSelectedCulto(c)}
@@ -124,7 +124,7 @@ const CultReports: React.FC = () => {
               );
             })}
             {cultos.length === 0 && (
-              <tr><td colSpan={5} className="p-8 text-center text-slate-500">Nenhum culto registrado.</td></tr>
+              <tr><td colSpan={5} className="p-8 text-center text-muted-foreground">Nenhum culto registrado.</td></tr>
             )}
           </tbody>
         </table>
@@ -136,19 +136,19 @@ const CultReports: React.FC = () => {
           <div className="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
 
             {/* Header */}
-            <div className="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+            <div className="bg-muted/50 px-6 py-4 border-b border-border flex justify-between items-center">
               <div>
-                <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
                   <Calendar className="text-blue-600" size={20} />
                   Relatório do Culto
                 </h2>
-                <p className="text-sm text-slate-500 mt-1 capitalize">
+                <p className="text-sm text-muted-foreground mt-1 capitalize">
                   {new Date(selectedCulto.data).toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })} • {selectedCulto.tipo}
                 </p>
               </div>
               <button
                 onClick={() => setSelectedCulto(null)}
-                className="p-2 hover:bg-slate-200 rounded-full transition-colors text-slate-500"
+                className="p-2 hover:bg-muted rounded-full transition-colors text-muted-foreground"
               >
                 <X size={24} />
               </button>
@@ -188,12 +188,12 @@ const CultReports: React.FC = () => {
               </div>
 
               {/* People List */}
-              <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Pessoas Cadastradas</h3>
-              <div className="border border-slate-200 rounded-xl overflow-hidden">
+              <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-3">Pessoas Cadastradas</h3>
+              <div className="border border-border rounded-xl overflow-hidden">
                 <table className="w-full text-left">
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-border">
                     {getCultoPeople(selectedCulto.id).map(person => (
-                      <tr key={person.id} className="hover:bg-slate-50">
+                      <tr key={person.id} className="hover:bg-muted/50">
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-3">
                             <div className={`p-2 rounded-full ${person.tipoOrigem === 'convertido' ? 'bg-red-100 text-red-600' :
@@ -205,20 +205,20 @@ const CultReports: React.FC = () => {
                                   <UserPlus size={16} />}
                             </div>
                             <div>
-                              <p className="font-bold text-slate-800 text-sm">{person.nome}</p>
-                              <p className="text-xs text-slate-500 capitalize">{person.tipoOrigem === 'convertido' ? 'Novo Convertido' : person.tipoOrigem}</p>
+                              <p className="font-bold text-foreground text-sm">{person.nome}</p>
+                              <p className="text-xs text-muted-foreground capitalize">{person.tipoOrigem === 'convertido' ? 'Novo Convertido' : person.tipoOrigem}</p>
                             </div>
                           </div>
                         </td>
                         <td className="px-4 py-3 text-right">
-                          <div className="inline-flex items-center gap-1 text-slate-500 text-xs bg-slate-100 px-2 py-1 rounded">
+                          <div className="inline-flex items-center gap-1 text-muted-foreground text-xs bg-muted px-2 py-1 rounded">
                             <Phone size={12} /> {person.telefone}
                           </div>
                         </td>
                       </tr>
                     ))}
                     {getCultoPeople(selectedCulto.id).length === 0 && (
-                      <tr><td className="p-4 text-center text-slate-400 italic">Nenhuma pessoa registrada neste relatório.</td></tr>
+                      <tr><td className="p-4 text-center text-muted-foreground italic">Nenhuma pessoa registrada neste relatório.</td></tr>
                     )}
                   </tbody>
                 </table>

@@ -24,12 +24,12 @@ const ImportProgress: React.FC<ImportProgressProps> = ({ logs, progress }) => {
         <div className="max-w-2xl mx-auto text-center space-y-8 py-8">
 
             <div>
-                <h2 className="text-2xl font-bold text-slate-800 mb-2">Processando Importação</h2>
-                <p className="text-slate-500">Por favor, não feche esta janela.</p>
+                <h2 className="text-2xl font-bold text-foreground mb-2">Processando Importação</h2>
+                <p className="text-muted-foreground">Por favor, não feche esta janela.</p>
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full bg-slate-100 rounded-full h-4 overflow-hidden relative">
+            <div className="w-full bg-muted rounded-full h-4 overflow-hidden relative">
                 <div
                     className="bg-blue-600 h-full transition-all duration-500 ease-out"
                     style={{ width: `${progress}%` }}
@@ -38,23 +38,24 @@ const ImportProgress: React.FC<ImportProgressProps> = ({ logs, progress }) => {
             <p className="text-sm font-medium text-blue-600">{progress}% Concluído</p>
 
             {/* Logs */}
+            {/* `dark` inverte os tokens dentro do console, mantendo-o escuro nos dois temas. */}
             <div
                 ref={scrollRef}
-                className="bg-slate-900 rounded-xl p-4 h-64 overflow-y-auto text-left font-mono text-sm shadow-inner custom-scrollbar"
+                className="dark bg-background rounded-xl p-4 h-64 overflow-y-auto text-left font-mono text-sm shadow-inner custom-scrollbar"
             >
-                {logs.length === 0 && <span className="text-slate-500">Iniciando...</span>}
+                {logs.length === 0 && <span className="text-muted-foreground">Iniciando...</span>}
                 {logs.map((log, i) => (
                     <div key={i} className="mb-1">
                         {log.includes('❌') ? (
-                            <span className="text-red-400">{log}</span>
+                            <span className="text-destructive">{log}</span>
                         ) : log.includes('✅') ? (
-                            <span className="text-green-400">{log}</span>
+                            <span className="text-success">{log}</span>
                         ) : (
-                            <span className="text-slate-300">{log}</span>
+                            <span className="text-muted-foreground">{log}</span>
                         )}
                     </div>
                 ))}
-                <div className="flex items-center gap-2 text-slate-500 animate-pulse mt-2">
+                <div className="flex items-center gap-2 text-muted-foreground animate-pulse mt-2">
                     <Loader2 size={14} className="animate-spin" />
                     <span>Processando...</span>
                 </div>

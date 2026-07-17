@@ -60,7 +60,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode; roles?: UserRole[] }
     const { isAuthenticated, user, isLoading } = useAuth();
 
     if (isLoading) {
-        return <div className="flex h-screen items-center justify-center bg-slate-50"><p className="text-slate-500">Carregando...</p></div>;
+        return <div className="flex h-screen items-center justify-center bg-muted/50"><p className="text-muted-foreground">Carregando...</p></div>;
     }
 
     if (!isAuthenticated) {
@@ -82,7 +82,7 @@ const SuperAdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) 
     const { isAuthenticated, isSuperAdmin, isLoading } = useAuth();
 
     if (isLoading) {
-        return <div className="flex h-screen items-center justify-center bg-slate-50"><p className="text-slate-500">Carregando...</p></div>;
+        return <div className="flex h-screen items-center justify-center bg-muted/50"><p className="text-muted-foreground">Carregando...</p></div>;
     }
 
     if (!isAuthenticated) {
@@ -181,10 +181,10 @@ const CatchAllRoute: React.FC = () => {
 
     if (hash.includes('access_token') || hash.includes('type=recovery') || hash.includes('error=')) {
         return (
-            <div className="flex h-screen items-center justify-center bg-slate-50">
+            <div className="flex h-screen items-center justify-center bg-muted/50">
                 <div className="flex flex-col items-center gap-4">
                     <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-                    <p className="text-slate-500 font-medium">Processando autenticação...</p>
+                    <p className="text-muted-foreground font-medium">Processando autenticação...</p>
                 </div>
             </div>
         );

@@ -151,15 +151,15 @@ const RiskMonitoring: React.FC = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-slate-800">Células em Risco</h1>
-        <p className="text-slate-500">Ranking automático de células que precisam de atenção pastoral, com base em atraso de relatório, frequência e crescimento.</p>
+        <h1 className="text-2xl font-bold text-foreground">Células em Risco</h1>
+        <p className="text-muted-foreground">Ranking automático de células que precisam de atenção pastoral, com base em atraso de relatório, frequência e crescimento.</p>
       </div>
 
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-slate-500">Analisando células...</p>
+            <p className="text-muted-foreground">Analisando células...</p>
           </div>
         </div>
       ) : (
@@ -171,8 +171,8 @@ const RiskMonitoring: React.FC = () => {
                 <AlertTriangle size={24} />
               </div>
               <div>
-                <p className="text-sm font-medium text-slate-500">Risco Crítico</p>
-                <h3 className="text-2xl font-bold text-slate-800">{criticalCount}</h3>
+                <p className="text-sm font-medium text-muted-foreground">Risco Crítico</p>
+                <h3 className="text-2xl font-bold text-foreground">{criticalCount}</h3>
                 <p className="text-xs text-red-500 font-medium">Ação imediata necessária</p>
               </div>
             </div>
@@ -182,8 +182,8 @@ const RiskMonitoring: React.FC = () => {
                 <TrendingDown size={24} />
               </div>
               <div>
-                <p className="text-sm font-medium text-slate-500">Risco Alto</p>
-                <h3 className="text-2xl font-bold text-slate-800">{highRiskCount}</h3>
+                <p className="text-sm font-medium text-muted-foreground">Risco Alto</p>
+                <h3 className="text-2xl font-bold text-foreground">{highRiskCount}</h3>
                 <p className="text-xs text-orange-500 font-medium">Acompanhar de perto</p>
               </div>
             </div>
@@ -193,8 +193,8 @@ const RiskMonitoring: React.FC = () => {
                 <Eye size={24} />
               </div>
               <div>
-                <p className="text-sm font-medium text-slate-500">Atenção</p>
-                <h3 className="text-2xl font-bold text-slate-800">{attentionCount}</h3>
+                <p className="text-sm font-medium text-muted-foreground">Atenção</p>
+                <h3 className="text-2xl font-bold text-foreground">{attentionCount}</h3>
                 <p className="text-xs text-amber-500 font-medium">Vale um contato</p>
               </div>
             </div>
@@ -204,8 +204,8 @@ const RiskMonitoring: React.FC = () => {
                 <CheckCircle size={24} />
               </div>
               <div>
-                <p className="text-sm font-medium text-slate-500">Células Saudáveis</p>
-                <h3 className="text-2xl font-bold text-slate-800">{healthyCount}</h3>
+                <p className="text-sm font-medium text-muted-foreground">Células Saudáveis</p>
+                <h3 className="text-2xl font-bold text-foreground">{healthyCount}</h3>
                 <p className="text-xs text-green-500 font-medium">Dentro dos parâmetros</p>
               </div>
             </div>
@@ -214,36 +214,36 @@ const RiskMonitoring: React.FC = () => {
       )}
 
       {/* List */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-        <div className="p-6 border-b border-slate-100">
-          <h2 className="text-lg font-bold text-slate-800">Ranking de Risco</h2>
+      <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+        <div className="p-6 border-b border-border">
+          <h2 className="text-lg font-bold text-foreground">Ranking de Risco</h2>
         </div>
 
-        <div className="divide-y divide-slate-100">
+        <div className="divide-y divide-border">
           {riskData.filter(d => d.level !== 'healthy').length === 0 ? (
-            <div className="p-8 text-center text-slate-500">
+            <div className="p-8 text-center text-muted-foreground">
               <CheckCircle size={48} className="mx-auto text-green-200 mb-4" />
-              <p className="font-medium text-slate-600">Nenhuma célula em risco encontrada!</p>
+              <p className="font-medium text-muted-foreground">Nenhuma célula em risco encontrada!</p>
               <p className="text-sm">Todas as células ativas estão reportando regularmente.</p>
             </div>
           ) : (
             riskData.filter(d => d.level !== 'healthy').map((data) => (
-              <div key={data.cell.id} className="p-6 hover:bg-slate-50 transition-colors">
+              <div key={data.cell.id} className="p-6 hover:bg-muted/50 transition-colors">
                 <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-6">
 
                   {/* Left Column: Info */}
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-1 flex-wrap">
-                      <h3 className="text-lg font-bold text-slate-800">{data.cell.name}</h3>
+                      <h3 className="text-lg font-bold text-foreground">{data.cell.name}</h3>
                       <span className={`text-xs font-bold px-2 py-0.5 rounded uppercase ${LEVEL_CONFIG[data.level].badgeClass}`}>
                         {LEVEL_CONFIG[data.level].label}
                       </span>
-                      <span className="text-xs font-mono text-slate-400" title="Score de risco (0-100)">
+                      <span className="text-xs font-mono text-muted-foreground" title="Score de risco (0-100)">
                         {data.riskScore} pts
                       </span>
                     </div>
-                    <p className="text-sm text-slate-500 mb-3">
-                      Líder: <span className="font-medium text-slate-700">{data.cell.leaderName}</span>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Líder: <span className="font-medium text-foreground">{data.cell.leaderName}</span>
                     </p>
 
                     <div className="flex flex-wrap gap-2">
@@ -259,33 +259,33 @@ const RiskMonitoring: React.FC = () => {
                   {/* Right Column: Stats */}
                   <div className="flex items-center gap-8 text-sm">
                     <div className="text-center min-w-[80px]">
-                      <div className="flex items-center justify-center gap-1 text-slate-400 mb-1 text-xs uppercase tracking-wide">
+                      <div className="flex items-center justify-center gap-1 text-muted-foreground mb-1 text-xs uppercase tracking-wide">
                         <Clock size={12} /> Último Rel.
                       </div>
-                      <div className={`font-semibold ${data.daysSinceLastReport > 14 ? 'text-red-600' : 'text-slate-700'}`}>
+                      <div className={`font-semibold ${data.daysSinceLastReport > 14 ? 'text-red-600' : 'text-foreground'}`}>
                         {data.daysSinceLastReport > 300 ? 'Nunca' : `${data.daysSinceLastReport} dias`}
                       </div>
                     </div>
 
                     <div className="text-center min-w-[80px]">
-                      <div className="flex items-center justify-center gap-1 text-slate-400 mb-1 text-xs uppercase tracking-wide">
+                      <div className="flex items-center justify-center gap-1 text-muted-foreground mb-1 text-xs uppercase tracking-wide">
                         <Users size={12} /> Média Freq.
                       </div>
-                      <div className="font-semibold text-slate-700">
+                      <div className="font-semibold text-foreground">
                         {data.avgAttendance}
                       </div>
                     </div>
 
                     <div className="text-center min-w-[80px]">
-                      <div className="flex items-center justify-center gap-1 text-slate-400 mb-1 text-xs uppercase tracking-wide">
+                      <div className="flex items-center justify-center gap-1 text-muted-foreground mb-1 text-xs uppercase tracking-wide">
                         <UserPlus size={12} /> Visitantes (Mês)
                       </div>
-                      <div className="font-semibold text-slate-700">
+                      <div className="font-semibold text-foreground">
                         {data.visitorsLastMonth}
                       </div>
                     </div>
 
-                    <div className="pl-4 border-l border-slate-100">
+                    <div className="pl-4 border-l border-border">
                       <Link
                         to={`/edit-cell/${data.cell.id}`}
                         className="text-blue-600 hover:text-blue-800 font-medium text-sm whitespace-nowrap"
@@ -304,18 +304,18 @@ const RiskMonitoring: React.FC = () => {
 
       {/* Healthy List Collapsed/Less Visible */}
       <div className="mt-8">
-        <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Células Saudáveis</h3>
+        <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-4">Células Saudáveis</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {riskData.filter(d => d.level === 'healthy').map(data => (
-            <div key={data.cell.id} className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm opacity-80 hover:opacity-100 transition-opacity">
+            <div key={data.cell.id} className="bg-white p-4 rounded-lg border border-border shadow-sm opacity-80 hover:opacity-100 transition-opacity">
               <div className="flex justify-between items-start">
                 <div>
-                  <h4 className="font-bold text-slate-700">{data.cell.name}</h4>
-                  <p className="text-xs text-slate-500">{data.cell.leaderName}</p>
+                  <h4 className="font-bold text-foreground">{data.cell.name}</h4>
+                  <p className="text-xs text-muted-foreground">{data.cell.leaderName}</p>
                 </div>
                 <CheckCircle size={16} className="text-green-500" />
               </div>
-              <div className="mt-3 flex gap-3 text-xs text-slate-500">
+              <div className="mt-3 flex gap-3 text-xs text-muted-foreground">
                 <span>Último: {data.daysSinceLastReport === 0 ? 'Hoje' : `${data.daysSinceLastReport}d atrás`}</span>
                 <span>Freq: {data.avgAttendance}</span>
               </div>

@@ -46,9 +46,9 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-muted flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <Link to="/" className="inline-flex items-center text-slate-500 hover:text-slate-700 mb-6 transition-colors">
+        <Link to="/" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-6 transition-colors">
           <ArrowLeft size={18} className="mr-2" /> Voltar para o início
         </Link>
 
@@ -62,7 +62,7 @@ const Login: React.FC = () => {
           </div>
 
           <div className="p-8">
-            <h2 className="text-xl font-semibold text-slate-800 mb-6 text-center">Acesse sua conta</h2>
+            <h2 className="text-xl font-semibold text-foreground mb-6 text-center">Acesse sua conta</h2>
 
             {error && (
               <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm border border-red-100">
@@ -72,13 +72,13 @@ const Login: React.FC = () => {
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Email</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                  <Mail className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                   <input
                     type="email"
                     {...register('email')}
-                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.email ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.email ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
                     placeholder="seu@email.com"
                   />
                 </div>
@@ -86,13 +86,13 @@ const Login: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Senha</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Senha</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                  <Lock className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                   <input
                     type="password"
                     {...register('password')}
-                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.password ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.password ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
                     placeholder="••••••••"
                   />
                 </div>

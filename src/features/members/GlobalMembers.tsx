@@ -343,7 +343,7 @@ const GlobalMembers: React.FC = () => {
         if (person.source === 'member') {
             const m = person.originalData as Member;
             return (
-                <div className="flex items-center gap-1 text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-bold">
+                <div className="flex items-center gap-1 text-[10px] bg-muted text-muted-foreground px-1.5 py-0.5 rounded font-bold">
                     FREQ: {m.attendanceCount || 0}
                 </div>
             );
@@ -365,7 +365,7 @@ const GlobalMembers: React.FC = () => {
             <div className="flex h-[80vh] items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
                     <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-                    <p className="text-slate-500 font-medium animate-pulse">Carregando membros globais...</p>
+                    <p className="text-muted-foreground font-medium animate-pulse">Carregando membros globais...</p>
                 </div>
             </div>
         );
@@ -374,20 +374,20 @@ const GlobalMembers: React.FC = () => {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-2xl font-bold text-slate-800">Membros Gerais</h1>
-                <p className="text-slate-500">Visualização unificada de todos os membros, líderes e visitantes.</p>
+                <h1 className="text-2xl font-bold text-foreground">Membros Gerais</h1>
+                <p className="text-muted-foreground">Visualização unificada de todos os membros, líderes e visitantes.</p>
             </div>
 
-            <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-4">
+            <div className="bg-white p-4 rounded-xl border border-border shadow-sm space-y-4">
                 <div className="flex flex-col md:flex-row gap-4">
                     <div className="flex-1 relative">
-                        <Search className="absolute left-3 top-2.5 text-slate-400" size={20} />
+                        <Search className="absolute left-3 top-2.5 text-muted-foreground" size={20} />
                         <input
                             type="text"
                             placeholder="Buscar por nome..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full pl-10 pr-4 py-2 bg-muted/50 border border-input rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
 
@@ -395,7 +395,7 @@ const GlobalMembers: React.FC = () => {
                         <select
                             value={cellFilter}
                             onChange={(e) => setCellFilter(e.target.value)}
-                            className="bg-white border border-slate-300 text-slate-700 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 max-w-[150px] sm:max-w-none"
+                            className="bg-white border border-input text-foreground rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 max-w-[150px] sm:max-w-none"
                         >
                             <option value="all">Todas as Células</option>
                             {cells.map(c => (
@@ -407,7 +407,7 @@ const GlobalMembers: React.FC = () => {
                         <select
                             value={typeFilter}
                             onChange={(e) => setTypeFilter(e.target.value)}
-                            className="bg-white border border-slate-300 text-slate-700 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+                            className="bg-white border border-input text-foreground rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             <option value="all">Todos os Tipos</option>
                             <option value="Líder">Líderes</option>
@@ -420,14 +420,14 @@ const GlobalMembers: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredPeople.map((person, idx) => (
-                    <div key={`${person.id}-${idx}`} className={`bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow group relative ${person.type === 'Líder' ? 'border-l-4 border-l-purple-500' : ''}`}>
+                    <div key={`${person.id}-${idx}`} className={`bg-white p-4 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow group relative ${person.type === 'Líder' ? 'border-l-4 border-l-purple-500' : ''}`}>
                         <div className="flex items-start justify-between mb-3">
                             <div className="flex items-center gap-3">
                                 <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg ${getAvatarColor(person.type)}`}>
                                     {person.name.charAt(0).toUpperCase()}
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-slate-800 line-clamp-1">{person.name}</h3>
+                                    <h3 className="font-bold text-foreground line-clamp-1">{person.name}</h3>
                                     <div className="flex items-center gap-2 mt-0.5">
                                         {getTypeBadge(person.type)}
                                         {getAttendanceDisplay(person)}
@@ -467,21 +467,21 @@ const GlobalMembers: React.FC = () => {
                             )}
                         </div>
 
-                        <div className="pt-3 border-t border-slate-50 space-y-2">
-                            <div className="flex items-center gap-2 text-sm text-slate-600">
-                                <Users size={14} className={person.cellName !== '-' && person.cellName !== 'Sem Célula' ? 'text-blue-500' : 'text-slate-300'} />
-                                <span className={person.cellName === '-' || person.cellName.includes('Sem Célula') ? 'text-slate-400 italic' : 'font-medium'}>
+                        <div className="pt-3 border-t border-border space-y-2">
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                <Users size={14} className={person.cellName !== '-' && person.cellName !== 'Sem Célula' ? 'text-blue-500' : 'text-muted-foreground'} />
+                                <span className={person.cellName === '-' || person.cellName.includes('Sem Célula') ? 'text-muted-foreground italic' : 'font-medium'}>
                                     {person.cellName}
                                 </span>
                             </div>
                             {person.phone && (
-                                <div className="flex items-center gap-2 text-sm text-slate-600">
-                                    <Phone size={14} className="text-slate-400" />
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <Phone size={14} className="text-muted-foreground" />
                                     <span>{person.phone}</span>
                                 </div>
                             )}
                             {person.birthday && (
-                                <div className="flex items-center gap-2 text-sm text-slate-600">
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                     <Cake size={14} className="text-pink-400" />
                                     <span>{new Date(person.birthday).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}</span>
                                 </div>
@@ -490,7 +490,7 @@ const GlobalMembers: React.FC = () => {
                     </div>
                 ))}
                 {filteredPeople.length === 0 && (
-                    <div className="col-span-full p-8 text-center bg-white rounded-xl border border-slate-200 text-slate-500">
+                    <div className="col-span-full p-8 text-center bg-white rounded-xl border border-border text-muted-foreground">
                         Nenhuma pessoa encontrada com os filtros atuais.
                     </div>
                 )}
@@ -501,45 +501,45 @@ const GlobalMembers: React.FC = () => {
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
                     <div className="bg-white rounded-xl w-full max-w-md p-6 shadow-2xl animate-in fade-in zoom-in duration-200 max-h-[90vh] overflow-y-auto">
                         <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-xl font-bold text-slate-800">Editar Líder</h2>
-                            <button onClick={() => setShowLeaderModal(false)} className="text-slate-400 hover:text-slate-600">
+                            <h2 className="text-xl font-bold text-foreground">Editar Líder</h2>
+                            <button onClick={() => setShowLeaderModal(false)} className="text-muted-foreground hover:text-muted-foreground">
                                 <X size={20} />
                             </button>
                         </div>
 
                         <form onSubmit={handleSubmitLeader(onLeaderSubmit)} className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Nome Completo</label>
+                                <label className="block text-sm font-medium text-foreground mb-1">Nome Completo</label>
                                 <div className="relative">
-                                    <UserIcon className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                    <UserIcon className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                     <input
                                         type="text"
                                         {...registerLeader('name')}
-                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-slate-50 border border-slate-300 outline-none focus:border-blue-500 text-slate-800"
+                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
                                     />
                                     {errorsLeader.name && <span className="text-red-500 text-xs">{errorsLeader.name.message}</span>}
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Email (Não editável)</label>
+                                <label className="block text-sm font-medium text-foreground mb-1">Email (Não editável)</label>
                                 <div className="relative">
-                                    <Mail className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                    <Mail className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                     <input
                                         type="email"
                                         {...registerLeader('email')}
                                         disabled
-                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-slate-100 border border-slate-200 text-slate-500 cursor-not-allowed"
+                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-muted border border-border text-muted-foreground cursor-not-allowed"
                                     />
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Função</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Função</label>
                                     <select
                                         {...registerLeader('role')}
-                                        className="w-full px-4 py-2 rounded-lg bg-slate-50 border border-slate-300 outline-none focus:border-blue-500 text-slate-800"
+                                        className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
                                     >
                                         <option value={UserRole.LEADER}>Líder</option>
                                         <option value={UserRole.COLEADER}>Co-Líder</option>
@@ -548,10 +548,10 @@ const GlobalMembers: React.FC = () => {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Célula</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Célula</label>
                                     <select
                                         {...registerLeader('cellId')}
-                                        className="w-full px-4 py-2 rounded-lg bg-slate-50 border border-slate-300 outline-none focus:border-blue-500 text-slate-800"
+                                        className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
                                     >
                                         <option value="">Nenhuma</option>
                                         {cells.map(c => (
@@ -562,13 +562,13 @@ const GlobalMembers: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Data de Nascimento</label>
+                                <label className="block text-sm font-medium text-foreground mb-1">Data de Nascimento</label>
                                 <div className="relative">
-                                    <Cake className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                    <Cake className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                     <input
                                         type="date"
                                         {...registerLeader('birthday')}
-                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-slate-50 border border-slate-300 outline-none focus:border-blue-500 text-slate-800"
+                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
                                     />
                                 </div>
                             </div>
@@ -577,7 +577,7 @@ const GlobalMembers: React.FC = () => {
                                 <button
                                     type="button"
                                     onClick={() => setShowLeaderModal(false)}
-                                    className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                                    className="px-4 py-2 text-muted-foreground hover:bg-muted rounded-lg transition-colors"
                                 >
                                     Cancelar
                                 </button>
@@ -599,63 +599,63 @@ const GlobalMembers: React.FC = () => {
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
                     <div className="bg-white rounded-xl w-full max-w-md p-6 shadow-2xl animate-in fade-in zoom-in duration-200 max-h-[90vh] overflow-y-auto">
                         <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-xl font-bold text-slate-800">Editar Membro</h2>
-                            <button onClick={() => setShowMemberModal(false)} className="text-slate-400 hover:text-slate-600">
+                            <h2 className="text-xl font-bold text-foreground">Editar Membro</h2>
+                            <button onClick={() => setShowMemberModal(false)} className="text-muted-foreground hover:text-muted-foreground">
                                 <X size={20} />
                             </button>
                         </div>
 
                         <form onSubmit={handleSubmitMember(onMemberSubmit)} className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Nome Completo</label>
+                                <label className="block text-sm font-medium text-foreground mb-1">Nome Completo</label>
                                 <input
                                     type="text"
                                     {...registerMember('name')}
-                                    className="w-full px-4 py-2 rounded-lg bg-slate-50 border border-slate-300 outline-none focus:border-blue-500 text-slate-800"
+                                    className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
                                 />
                                 {errorsMember.name && <span className="text-red-500 text-xs">{errorsMember.name.message}</span>}
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Telefone</label>
+                                <label className="block text-sm font-medium text-foreground mb-1">Telefone</label>
                                 <input
                                     type="tel"
                                     {...registerMember('phone')}
                                     onChange={(e) => setValueMember('phone', maskPhone(e.target.value))}
-                                    className="w-full px-4 py-2 rounded-lg bg-slate-50 border border-slate-300 outline-none focus:border-blue-500 text-slate-800"
+                                    className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
                                     placeholder="(99) 99999-9999"
                                 />
                                 {errorsMember.phone && <span className="text-red-500 text-xs">{errorsMember.phone.message}</span>}
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Data de Nascimento</label>
+                                <label className="block text-sm font-medium text-foreground mb-1">Data de Nascimento</label>
                                 <div className="relative">
-                                    <Cake className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                    <Cake className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                     <input
                                         type="date"
                                         {...registerMember('birthday')}
-                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-slate-50 border border-slate-300 outline-none focus:border-blue-500 text-slate-800"
+                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
                                     />
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Tipo</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Tipo</label>
                                     <select
                                         {...registerMember('type')}
-                                        className="w-full px-4 py-2 rounded-lg bg-slate-50 border border-slate-300 outline-none focus:border-blue-500 text-slate-800"
+                                        className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
                                     >
                                         <option value={MemberType.MEMBER}>Membro</option>
                                         <option value={MemberType.VISITOR}>Visitante</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Célula</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Célula</label>
                                     <select
                                         {...registerMember('cellId')}
-                                        className="w-full px-4 py-2 rounded-lg bg-slate-50 border border-slate-300 outline-none focus:border-blue-500 text-slate-800"
+                                        className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
                                     >
                                         {cells.map(c => (
                                             <option key={c.id} value={c.id}>{c.name}</option>
@@ -668,7 +668,7 @@ const GlobalMembers: React.FC = () => {
                                 <button
                                     type="button"
                                     onClick={() => setShowMemberModal(false)}
-                                    className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                                    className="px-4 py-2 text-muted-foreground hover:bg-muted rounded-lg transition-colors"
                                 >
                                     Cancelar
                                 </button>
@@ -693,14 +693,14 @@ const GlobalMembers: React.FC = () => {
                             <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
                                 <AlertTriangle className="text-red-600" size={24} />
                             </div>
-                            <h3 className="text-lg font-bold text-slate-800 mb-2">Excluir Registro?</h3>
-                            <p className="text-slate-500 text-sm mb-6">
+                            <h3 className="text-lg font-bold text-foreground mb-2">Excluir Registro?</h3>
+                            <p className="text-muted-foreground text-sm mb-6">
                                 Tem certeza que deseja excluir <strong>{personToDelete?.name}</strong>? Esta ação não pode ser desfeita.
                             </p>
                             <div className="flex gap-3 w-full">
                                 <button
                                     onClick={() => setShowDeleteModal(false)}
-                                    className="flex-1 px-4 py-2 bg-slate-100 text-slate-700 font-medium rounded-lg hover:bg-slate-200 transition-colors"
+                                    className="flex-1 px-4 py-2 bg-muted text-foreground font-medium rounded-lg hover:bg-muted transition-colors"
                                 >
                                     Cancelar
                                 </button>

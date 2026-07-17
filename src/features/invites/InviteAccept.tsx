@@ -93,7 +93,7 @@ const InviteAccept: React.FC = () => {
     // ── Carregando ───────────────────────────────────────────────────────────
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-slate-100 flex items-center justify-center">
+            <div className="min-h-screen bg-muted flex items-center justify-center">
                 <Loader2 className="text-blue-600 animate-spin" size={32} />
             </div>
         );
@@ -102,11 +102,11 @@ const InviteAccept: React.FC = () => {
     // ── Convite inválido / expirado / revogado / esgotado ─────────────────────
     if (error || !invite) {
         return (
-            <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
+            <div className="min-h-screen bg-muted flex items-center justify-center p-4">
                 <div className="text-center max-w-sm">
-                    <Church className="text-slate-300 mx-auto mb-4" size={64} />
-                    <h1 className="text-2xl font-bold text-slate-700 mb-2">Convite indisponível</h1>
-                    <p className="text-slate-500 mb-6">
+                    <Church className="text-muted-foreground mx-auto mb-4" size={64} />
+                    <h1 className="text-2xl font-bold text-foreground mb-2">Convite indisponível</h1>
+                    <p className="text-muted-foreground mb-6">
                         {(error as Error)?.message || 'Este link de convite não é válido.'}
                     </p>
                     <Link to="/login" className="text-blue-600 hover:underline font-medium">
@@ -120,16 +120,16 @@ const InviteAccept: React.FC = () => {
     // ── Sucesso ──────────────────────────────────────────────────────────────
     if (step === 'success') {
         return (
-            <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
+            <div className="min-h-screen bg-muted flex items-center justify-center p-4">
                 <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8 text-center">
                     <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                         <CheckCircle className="text-white" size={48} strokeWidth={2.5} />
                     </div>
-                    <h1 className="text-2xl font-bold text-slate-800 mb-2">Tudo pronto! 🎉</h1>
-                    <p className="text-slate-600 mb-1">
+                    <h1 className="text-2xl font-bold text-foreground mb-2">Tudo pronto! 🎉</h1>
+                    <p className="text-muted-foreground mb-1">
                         Bem-vindo(a) ao <strong>Frutifica</strong>!
                     </p>
-                    <p className="text-slate-500 text-sm mb-8">
+                    <p className="text-muted-foreground text-sm mb-8">
                         Sua conta e a célula <strong className="text-blue-600">{createdCellName}</strong> foram
                         criadas em <strong>{invite.organizationName}</strong>.
                     </p>
@@ -146,16 +146,16 @@ const InviteAccept: React.FC = () => {
 
     // ── Formulário ───────────────────────────────────────────────────────────
     return (
-        <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-muted flex items-center justify-center p-4">
             <div className="w-full max-w-md">
 
                 {/* Branding */}
                 <div className="text-center mb-6">
                     <div className="inline-flex items-center gap-2 mb-1">
                         <Church className="text-blue-600" size={26} />
-                        <span className="text-xl font-bold text-slate-700">Frutifica</span>
+                        <span className="text-xl font-bold text-foreground">Frutifica</span>
                     </div>
-                    <p className="text-slate-500 text-sm">{invite.organizationName}</p>
+                    <p className="text-muted-foreground text-sm">{invite.organizationName}</p>
                     {invite.generationName && (
                         <span className="inline-flex items-center gap-1.5 mt-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-medium">
                             <Network size={12} /> {invite.generationName}
@@ -193,13 +193,13 @@ const InviteAccept: React.FC = () => {
                         {step === 1 && (
                             <form onSubmit={accountForm.handleSubmit(onAccountSubmit)} className="space-y-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Seu Nome</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Seu Nome</label>
                                     <div className="relative">
-                                        <UserIcon className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                        <UserIcon className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                         <input
                                             type="text"
                                             {...accountForm.register('name')}
-                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${accountForm.formState.errors.name ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
+                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${accountForm.formState.errors.name ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
                                             placeholder="Seu nome completo"
                                         />
                                     </div>
@@ -209,13 +209,13 @@ const InviteAccept: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Email</label>
                                     <div className="relative">
-                                        <Mail className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                        <Mail className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                         <input
                                             type="email"
                                             {...accountForm.register('email')}
-                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${accountForm.formState.errors.email ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
+                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${accountForm.formState.errors.email ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
                                             placeholder="seu@email.com"
                                         />
                                     </div>
@@ -225,19 +225,19 @@ const InviteAccept: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Senha</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Senha</label>
                                     <div className="relative">
-                                        <Lock className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                        <Lock className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                         <input
                                             type={showPassword ? 'text' : 'password'}
                                             {...accountForm.register('password')}
-                                            className={`w-full pl-10 pr-10 py-2 rounded-lg bg-white border ${accountForm.formState.errors.password ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
+                                            className={`w-full pl-10 pr-10 py-2 rounded-lg bg-white border ${accountForm.formState.errors.password ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
                                             placeholder="Mínimo 6 caracteres"
                                         />
                                         <button
                                             type="button"
                                             onClick={() => setShowPassword((v) => !v)}
-                                            className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600"
+                                            className="absolute right-3 top-2.5 text-muted-foreground hover:text-muted-foreground"
                                             tabIndex={-1}
                                         >
                                             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -249,19 +249,19 @@ const InviteAccept: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Confirmar Senha</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Confirmar Senha</label>
                                     <div className="relative">
-                                        <Lock className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                        <Lock className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                         <input
                                             type={showConfirmPassword ? 'text' : 'password'}
                                             {...accountForm.register('confirmPassword')}
-                                            className={`w-full pl-10 pr-10 py-2 rounded-lg bg-white border ${accountForm.formState.errors.confirmPassword ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
+                                            className={`w-full pl-10 pr-10 py-2 rounded-lg bg-white border ${accountForm.formState.errors.confirmPassword ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
                                             placeholder="Repita a senha"
                                         />
                                         <button
                                             type="button"
                                             onClick={() => setShowConfirmPassword((v) => !v)}
-                                            className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600"
+                                            className="absolute right-3 top-2.5 text-muted-foreground hover:text-muted-foreground"
                                             tabIndex={-1}
                                         >
                                             {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -285,13 +285,13 @@ const InviteAccept: React.FC = () => {
                         {step === 2 && (
                             <form onSubmit={cellForm.handleSubmit(onCellSubmit)} className="space-y-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Nome da Célula</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Nome da Célula</label>
                                     <div className="relative">
-                                        <Users className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                        <Users className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                         <input
                                             type="text"
                                             {...cellForm.register('cellName')}
-                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${cellForm.formState.errors.cellName ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
+                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${cellForm.formState.errors.cellName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
                                             placeholder="Ex: Águias de Cristo"
                                         />
                                     </div>
@@ -301,13 +301,13 @@ const InviteAccept: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Nome do Líder</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Nome do Líder</label>
                                     <div className="relative">
-                                        <UserIcon className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                        <UserIcon className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                         <input
                                             type="text"
                                             {...cellForm.register('leaderName')}
-                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${cellForm.formState.errors.leaderName ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
+                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${cellForm.formState.errors.leaderName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
                                             placeholder="Como aparece na liderança"
                                         />
                                     </div>
@@ -317,14 +317,14 @@ const InviteAccept: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">WhatsApp</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">WhatsApp</label>
                                     <div className="relative">
-                                        <Phone className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                        <Phone className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                         <input
                                             type="tel"
                                             {...cellForm.register('whatsapp')}
                                             onChange={(e) => cellForm.setValue('whatsapp', maskPhone(e.target.value))}
-                                            className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none"
+                                            className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none"
                                             placeholder="(11) 99999-9999"
                                         />
                                     </div>
@@ -332,12 +332,12 @@ const InviteAccept: React.FC = () => {
 
                                 <div className="grid grid-cols-2 gap-3">
                                     <div>
-                                        <label className="block text-sm font-medium text-slate-700 mb-1">Dia</label>
+                                        <label className="block text-sm font-medium text-foreground mb-1">Dia</label>
                                         <div className="relative">
-                                            <Calendar className="absolute left-3 top-2.5 text-slate-400 pointer-events-none" size={18} />
+                                            <Calendar className="absolute left-3 top-2.5 text-muted-foreground pointer-events-none" size={18} />
                                             <select
                                                 {...cellForm.register('dayOfWeek')}
-                                                className={`w-full pl-10 pr-2 py-2 rounded-lg bg-white border ${cellForm.formState.errors.dayOfWeek ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
+                                                className={`w-full pl-10 pr-2 py-2 rounded-lg bg-white border ${cellForm.formState.errors.dayOfWeek ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
                                             >
                                                 <option value="">Selecione</option>
                                                 {DAYS_OF_WEEK.map((day) => (
@@ -351,13 +351,13 @@ const InviteAccept: React.FC = () => {
                                     </div>
 
                                     <div className="min-w-0">
-                                        <label className="block text-sm font-medium text-slate-700 mb-1">Horário</label>
+                                        <label className="block text-sm font-medium text-foreground mb-1">Horário</label>
                                         <div className="relative">
-                                            <Clock className="absolute left-3 top-2.5 text-slate-400 pointer-events-none" size={18} />
+                                            <Clock className="absolute left-3 top-2.5 text-muted-foreground pointer-events-none" size={18} />
                                             <input
                                                 type="time"
                                                 {...cellForm.register('time')}
-                                                className={`w-full pl-10 pr-2 py-2 rounded-lg bg-white border ${cellForm.formState.errors.time ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none min-w-0`}
+                                                className={`w-full pl-10 pr-2 py-2 rounded-lg bg-white border ${cellForm.formState.errors.time ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none min-w-0`}
                                             />
                                         </div>
                                         {cellForm.formState.errors.time && (
@@ -367,12 +367,12 @@ const InviteAccept: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Público Alvo</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Público Alvo</label>
                                     <div className="relative">
-                                        <Users className="absolute left-3 top-2.5 text-slate-400 pointer-events-none" size={18} />
+                                        <Users className="absolute left-3 top-2.5 text-muted-foreground pointer-events-none" size={18} />
                                         <select
                                             {...cellForm.register('targetAudience')}
-                                            className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none"
+                                            className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none"
                                         >
                                             {Object.values(TargetAudience).map((audience) => (
                                                 <option key={audience} value={audience}>{audience}</option>
@@ -382,13 +382,13 @@ const InviteAccept: React.FC = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Endereço</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Endereço</label>
                                     <div className="relative">
-                                        <MapPin className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                        <MapPin className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                         <input
                                             type="text"
                                             {...cellForm.register('address')}
-                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${cellForm.formState.errors.address ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
+                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${cellForm.formState.errors.address ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
                                             placeholder="Rua, Número, Bairro"
                                         />
                                     </div>
@@ -402,7 +402,7 @@ const InviteAccept: React.FC = () => {
                                         type="button"
                                         onClick={() => setStep(1)}
                                         disabled={isSubmitting}
-                                        className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 font-medium transition-colors disabled:opacity-50"
+                                        className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-muted-foreground hover:bg-muted font-medium transition-colors disabled:opacity-50"
                                     >
                                         <ArrowLeft size={18} /> Voltar
                                     </button>
@@ -423,7 +423,7 @@ const InviteAccept: React.FC = () => {
                     </div>
                 </div>
 
-                <p className="text-center text-sm text-slate-500 mt-6">
+                <p className="text-center text-sm text-muted-foreground mt-6">
                     Já tem uma conta?{' '}
                     <Link to="/login" className="text-blue-600 hover:underline font-medium">
                         Fazer login

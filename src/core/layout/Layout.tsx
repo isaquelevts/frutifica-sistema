@@ -113,7 +113,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-muted/50 flex flex-col">
       {/* Banner de conta suspensa */}
       {isSuspended && (
         <div className="bg-red-600 text-white px-4 py-2.5 text-sm font-medium text-center flex items-center justify-center gap-2 flex-shrink-0 z-10">
@@ -134,13 +134,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         {/* Sidebar */}
         <aside
           className={`
-            fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 transform transition-transform duration-200 ease-in-out flex flex-col
+            fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white border-r border-border transform transition-transform duration-200 ease-in-out flex flex-col
             ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
           `}
         >
-          <div className="h-16 flex items-center px-6 border-b border-slate-100 flex-shrink-0">
+          <div className="h-16 flex items-center px-6 border-b border-border flex-shrink-0">
             <Church className="text-blue-600 mr-2 flex-shrink-0" size={24} />
-            <span className="text-xl font-bold text-slate-800">Frutifica</span>
+            <span className="text-xl font-bold text-foreground">Frutifica</span>
             {isSuperAdmin && (
               <span className="ml-auto text-[10px] font-bold uppercase bg-blue-600 text-white px-1.5 py-0.5 rounded">SA</span>
             )}
@@ -148,10 +148,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
           <nav className="p-4 flex-1 overflow-y-auto">
             {menuStructure.map((group, groupIndex) => (
-              <div key={groupIndex} className={`mb-4 ${group.isSuperSection ? 'pb-4 border-b border-slate-200' : ''}`}>
+              <div key={groupIndex} className={`mb-4 ${group.isSuperSection ? 'pb-4 border-b border-border' : ''}`}>
                 {group.title && (
                   <h3 className={`px-4 text-xs font-bold uppercase tracking-wider mb-2 ${
-                    group.isSuperSection ? 'text-blue-600' : 'text-slate-400'
+                    group.isSuperSection ? 'text-blue-600' : 'text-muted-foreground'
                   }`}>
                     {group.title}
                   </h3>
@@ -170,7 +170,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                             : 'bg-blue-50 text-blue-700'
                           : group.isSuperSection
                             ? 'text-blue-700 hover:bg-blue-50'
-                            : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'}
+                            : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'}
                       `}
                     >
                       {item.icon}
@@ -182,14 +182,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             ))}
           </nav>
 
-          <div className="p-4 border-t border-slate-100 flex-shrink-0">
+          <div className="p-4 border-t border-border flex-shrink-0">
             <div className="flex items-center gap-3 px-4 py-3 mb-2">
               <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xs uppercase flex-shrink-0">
                 {user?.name.substring(0, 2)}
               </div>
               <div className="overflow-hidden">
-                <p className="text-sm font-medium text-slate-700 truncate">{user?.name}</p>
-                <p className="text-xs text-slate-500 capitalize">{getRoleLabel(user?.roles)}</p>
+                <p className="text-sm font-medium text-foreground truncate">{user?.name}</p>
+                <p className="text-xs text-muted-foreground capitalize">{getRoleLabel(user?.roles)}</p>
               </div>
             </div>
             <button
@@ -204,10 +204,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col min-w-0">
-          <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 lg:px-8 flex-shrink-0">
+          <header className="h-16 bg-white border-b border-border flex items-center justify-between px-4 lg:px-8 flex-shrink-0">
             <button
               onClick={() => setIsSidebarOpen(true)}
-              className="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-md"
+              className="lg:hidden p-2 text-muted-foreground hover:bg-muted rounded-md"
             >
               <Menu size={24} />
             </button>
@@ -218,7 +218,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <AlertTriangle size={12} /> Conta Suspensa
                 </span>
               )}
-              <span className="text-sm font-medium text-slate-500 hidden sm:block">
+              <span className="text-sm font-medium text-muted-foreground hidden sm:block">
                 {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}
               </span>
             </div>

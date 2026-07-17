@@ -141,7 +141,7 @@ const ReportForm: React.FC = () => {
   // Já enviou o relatório dessa semana
   if (!isEditing && weekReport) return (
     <div className="max-w-lg mx-auto">
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
         <div className="bg-green-600 p-8 text-center text-white">
           <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <PartyPopper size={40} className="text-white" />
@@ -152,18 +152,18 @@ const ReportForm: React.FC = () => {
         </div>
         <div className="p-8 text-center space-y-4">
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
-              <p className="text-3xl font-bold text-slate-800">{weekReport.participants}</p>
-              <p className="text-xs uppercase font-bold text-slate-400 mt-1">Total de Pessoas</p>
+            <div className="bg-muted/50 rounded-xl p-4 border border-border">
+              <p className="text-3xl font-bold text-foreground">{weekReport.participants}</p>
+              <p className="text-xs uppercase font-bold text-muted-foreground mt-1">Total de Pessoas</p>
             </div>
-            <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+            <div className="bg-muted/50 rounded-xl p-4 border border-border">
               <p className="text-3xl font-bold text-orange-500">{weekReport.visitors}</p>
-              <p className="text-xs uppercase font-bold text-slate-400 mt-1">Visitantes</p>
+              <p className="text-xs uppercase font-bold text-muted-foreground mt-1">Visitantes</p>
             </div>
           </div>
           <button
             onClick={() => navigate(`/edit-report/${weekReport.id}`)}
-            className="w-full flex items-center justify-center gap-2 border border-slate-300 text-slate-600 hover:bg-slate-50 font-medium py-3 px-6 rounded-xl transition-colors mt-2"
+            className="w-full flex items-center justify-center gap-2 border border-input text-muted-foreground hover:bg-muted/50 font-medium py-3 px-6 rounded-xl transition-colors mt-2"
           >
             <FileEdit size={18} /> Editar relatório
           </button>
@@ -175,7 +175,7 @@ const ReportForm: React.FC = () => {
   return (
     <>
       <div className="max-w-lg mx-auto">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
           <div className="bg-blue-400 p-6 text-white">
             <h2 className="text-xl font-bold">{isEditing ? 'Editar Relatório' : 'Relatório Semanal'}</h2>
             <p className="opacity-90 mt-1 text-sm">{cell.name}</p>
@@ -184,7 +184,7 @@ const ReportForm: React.FC = () => {
 
           <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2 flex items-center gap-1.5">
+              <label className="block text-sm font-medium text-foreground mb-2 flex items-center gap-1.5">
                 <Users size={16} /> Membros presentes
               </label>
               <input
@@ -192,13 +192,13 @@ const ReportForm: React.FC = () => {
                 min="0"
                 {...register('members')}
                 onFocus={(e) => e.target.select()}
-                className={`w-full px-4 py-3 rounded-lg bg-white border ${errors.members ? 'border-red-500' : 'border-slate-300'} text-slate-800 text-2xl font-bold text-center focus:ring-2 focus:ring-blue-500 outline-none`}
+                className={`w-full px-4 py-3 rounded-lg bg-white border ${errors.members ? 'border-red-500' : 'border-input'} text-foreground text-2xl font-bold text-center focus:ring-2 focus:ring-blue-500 outline-none`}
               />
               {errors.members && <span className="text-red-500 text-xs mt-1 block">{errors.members.message}</span>}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2 flex items-center gap-1.5">
+              <label className="block text-sm font-medium text-foreground mb-2 flex items-center gap-1.5">
                 <UserPlus size={16} /> Visitantes
               </label>
               <input
@@ -206,7 +206,7 @@ const ReportForm: React.FC = () => {
                 min="0"
                 {...register('visitors')}
                 onFocus={(e) => e.target.select()}
-                className={`w-full px-4 py-3 rounded-lg bg-white border ${errors.visitors ? 'border-red-500' : 'border-slate-300'} text-slate-800 text-2xl font-bold text-center focus:ring-2 focus:ring-blue-500 outline-none`}
+                className={`w-full px-4 py-3 rounded-lg bg-white border ${errors.visitors ? 'border-red-500' : 'border-input'} text-foreground text-2xl font-bold text-center focus:ring-2 focus:ring-blue-500 outline-none`}
               />
               {errors.visitors && <span className="text-red-500 text-xs mt-1 block">{errors.visitors.message}</span>}
             </div>
@@ -215,7 +215,7 @@ const ReportForm: React.FC = () => {
               <button
                 type="button"
                 onClick={() => navigate('/reports')}
-                className="px-5 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 font-medium transition-colors"
+                className="px-5 py-2.5 rounded-lg text-muted-foreground hover:bg-muted font-medium transition-colors"
               >
                 Cancelar
               </button>
@@ -250,7 +250,7 @@ const ReportForm: React.FC = () => {
               </button>
               <button
                 onClick={() => setDuplicateReport(null)}
-                className="w-full py-2.5 text-slate-500 hover:bg-slate-50 rounded-xl transition-colors"
+                className="w-full py-2.5 text-muted-foreground hover:bg-muted/50 rounded-xl transition-colors"
               >
                 Voltar
               </button>
@@ -272,18 +272,18 @@ const ReportForm: React.FC = () => {
             </div>
             <div className="p-8">
               <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="text-center p-4 bg-slate-50 rounded-xl border border-slate-100">
-                  <p className="text-3xl font-bold text-slate-800">{submittedStats.total}</p>
-                  <p className="text-xs uppercase font-bold text-slate-400 mt-1">Total de Pessoas</p>
+                <div className="text-center p-4 bg-muted/50 rounded-xl border border-border">
+                  <p className="text-3xl font-bold text-foreground">{submittedStats.total}</p>
+                  <p className="text-xs uppercase font-bold text-muted-foreground mt-1">Total de Pessoas</p>
                 </div>
-                <div className="text-center p-4 bg-slate-50 rounded-xl border border-slate-100">
+                <div className="text-center p-4 bg-muted/50 rounded-xl border border-border">
                   <p className="text-3xl font-bold text-orange-600">{submittedStats.visitors}</p>
-                  <p className="text-xs uppercase font-bold text-slate-400 mt-1">Visitantes</p>
+                  <p className="text-xs uppercase font-bold text-muted-foreground mt-1">Visitantes</p>
                 </div>
               </div>
               <div className="bg-blue-50 border border-blue-100 rounded-xl p-5 mb-8">
                 <div className="text-blue-200 absolute text-4xl font-serif">"</div>
-                <p className="text-slate-700 italic text-center text-sm leading-relaxed px-2">
+                <p className="text-foreground italic text-center text-sm leading-relaxed px-2">
                   O que fizerem, façam-no de todo o coração como se estivessem a servir o Senhor.
                 </p>
                 <p className="text-center text-xs font-bold text-blue-600 mt-3 uppercase tracking-wider">Colossenses 3:23</p>

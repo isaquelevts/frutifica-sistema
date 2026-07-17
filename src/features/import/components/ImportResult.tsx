@@ -61,13 +61,13 @@ const ImportResultPage: React.FC<ImportResultProps> = ({ results, onRetry }) => 
             </div>
 
             {/* Tabela Detalhada */}
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                <div className="p-4 border-b border-slate-100 bg-slate-50">
-                    <h3 className="font-semibold text-slate-700">Detalhamento da Importação</h3>
+            <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+                <div className="p-4 border-b border-border bg-muted/50">
+                    <h3 className="font-semibold text-foreground">Detalhamento da Importação</h3>
                 </div>
                 <div className="overflow-x-auto max-h-[400px]">
                     <table className="w-full text-sm text-left">
-                        <thead className="bg-slate-50 text-slate-500 font-medium sticky top-0">
+                        <thead className="bg-muted/50 text-muted-foreground font-medium sticky top-0">
                             <tr>
                                 <th className="px-4 py-2">Nome</th>
                                 <th className="px-4 py-2">Email</th>
@@ -76,14 +76,14 @@ const ImportResultPage: React.FC<ImportResultProps> = ({ results, onRetry }) => 
                                 <th className="px-4 py-2">Mensagem</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
+                        <tbody className="divide-y divide-border">
                             {results.map((res, idx) => (
-                                <tr key={idx} className="hover:bg-slate-50">
+                                <tr key={idx} className="hover:bg-muted/50">
                                     <td className="px-4 py-2 font-medium">{res.name}</td>
-                                    <td className="px-4 py-2 text-slate-500">{res.email}</td>
-                                    <td className="px-4 py-2 font-mono text-slate-600">
+                                    <td className="px-4 py-2 text-muted-foreground">{res.email}</td>
+                                    <td className="px-4 py-2 font-mono text-muted-foreground">
                                         {res.password ? (
-                                            <span className="bg-slate-100 px-2 py-1 rounded select-all">{res.password}</span>
+                                            <span className="bg-muted px-2 py-1 rounded select-all">{res.password}</span>
                                         ) : '-'}
                                     </td>
                                     <td className="px-4 py-2">
@@ -97,7 +97,7 @@ const ImportResultPage: React.FC<ImportResultProps> = ({ results, onRetry }) => 
                                             </span>
                                         )}
                                     </td>
-                                    <td className="px-4 py-2 text-slate-500 max-w-xs truncate" title={res.errorMessage}>
+                                    <td className="px-4 py-2 text-muted-foreground max-w-xs truncate" title={res.errorMessage}>
                                         {res.errorMessage || '-'}
                                     </td>
                                 </tr>
@@ -110,7 +110,7 @@ const ImportResultPage: React.FC<ImportResultProps> = ({ results, onRetry }) => 
             <div className="flex justify-end pt-4">
                 <button
                     onClick={onRetry}
-                    className="flex items-center gap-2 text-slate-600 hover:text-slate-900 px-4 py-2 font-medium transition-colors"
+                    className="flex items-center gap-2 text-muted-foreground hover:text-foreground px-4 py-2 font-medium transition-colors"
                 >
                     <RefreshCw size={18} />
                     Nova Importação

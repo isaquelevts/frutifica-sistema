@@ -47,7 +47,7 @@ const VisitorsList: React.FC = () => {
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-slate-500 font-medium animate-pulse">Carregando visitantes...</p>
+          <p className="text-muted-foreground font-medium animate-pulse">Carregando visitantes...</p>
         </div>
       </div>
     );
@@ -58,8 +58,8 @@ const VisitorsList: React.FC = () => {
 
       {/* HEADER */}
       <div>
-        <h1 className="text-2xl font-bold text-slate-800">Todos os Visitantes</h1>
-        <p className="text-slate-500">Gerencie o banco de dados de pessoas.</p>
+        <h1 className="text-2xl font-bold text-foreground">Todos os Visitantes</h1>
+        <p className="text-muted-foreground">Gerencie o banco de dados de pessoas.</p>
       </div>
 
       {/* ACTION CARD - BELOW TEXT */}
@@ -82,51 +82,51 @@ const VisitorsList: React.FC = () => {
       </div>
 
       {/* SEARCH */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mt-8">
+      <div className="bg-white p-4 rounded-xl border border-border shadow-sm mt-8">
         <div className="relative">
-          <Search className="absolute left-3 top-2.5 text-slate-400" size={20} />
+          <Search className="absolute left-3 top-2.5 text-muted-foreground" size={20} />
           <input
             type="text"
             placeholder="Buscar por nome..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 text-slate-800 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-4 py-2 bg-white border border-border text-foreground rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
       </div>
 
       {/* TABLE */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-muted/50 border-b border-border">
               <tr>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Nome</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Célula</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Origem</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Status</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Telefone</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Endereço</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Ações</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Nome</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Célula</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Origem</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Status</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Telefone</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Endereço</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Ações</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-border">
               {filtered.map(v => (
-                <tr key={v.id} className="hover:bg-slate-50">
-                  <td className="px-6 py-4 text-sm font-medium text-slate-800">{v.nome}</td>
-                  <td className="px-6 py-4 text-sm text-slate-600">{getCellName(v.celulaDestinoId || v.celulaOrigemId)}</td>
+                <tr key={v.id} className="hover:bg-muted/50">
+                  <td className="px-6 py-4 text-sm font-medium text-foreground">{v.nome}</td>
+                  <td className="px-6 py-4 text-sm text-muted-foreground">{getCellName(v.celulaDestinoId || v.celulaOrigemId)}</td>
                   <td className="px-6 py-4">
                     {v.tipoOrigem === 'convertido' ? (
                       <span className="flex items-center gap-1 text-xs font-bold text-red-600"><Heart size={12} /> Conversão</span>
                     ) : v.tipoOrigem === 'reconciliacao' ? (
                       <span className="flex items-center gap-1 text-xs font-bold text-orange-600"><RefreshCw size={12} /> Reconciliação</span>
                     ) : (
-                      <span className="flex items-center gap-1 text-xs font-bold text-slate-500"><User size={12} /> Visitante</span>
+                      <span className="flex items-center gap-1 text-xs font-bold text-muted-foreground"><User size={12} /> Visitante</span>
                     )}
                   </td>
                   <td className="px-6 py-4">{getStatusBadge(v.statusKanban)}</td>
-                  <td className="px-6 py-4 text-sm text-slate-600">{v.telefone}</td>
-                  <td className="px-6 py-4 text-sm text-slate-600 truncate max-w-xs">{v.endereco || '-'}</td>
+                  <td className="px-6 py-4 text-sm text-muted-foreground">{v.telefone}</td>
+                  <td className="px-6 py-4 text-sm text-muted-foreground truncate max-w-xs">{v.endereco || '-'}</td>
                   <td className="px-6 py-4 text-sm">
                     <button
                       onClick={() => handleEdit(v.id)}
@@ -139,7 +139,7 @@ const VisitorsList: React.FC = () => {
                 </tr>
               ))}
               {filtered.length === 0 && (
-                <tr><td colSpan={7} className="p-8 text-center text-slate-500">Nenhum registro encontrado.</td></tr>
+                <tr><td colSpan={7} className="p-8 text-center text-muted-foreground">Nenhum registro encontrado.</td></tr>
               )}
             </tbody>
           </table>

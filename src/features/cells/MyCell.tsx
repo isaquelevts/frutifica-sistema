@@ -136,23 +136,23 @@ const MyCell: React.FC = () => {
 
   if (!user?.cellId) {
     return (
-      <div className="text-center py-12 bg-white rounded-xl border border-slate-200 shadow-sm">
-        <h2 className="text-xl font-bold text-slate-700 mb-2">Você não está vinculado a uma célula</h2>
-        <p className="text-slate-500">Entre em contato com o administrador para vincular seu usuário à sua célula.</p>
+      <div className="text-center py-12 bg-white rounded-xl border border-border shadow-sm">
+        <h2 className="text-xl font-bold text-foreground mb-2">Você não está vinculado a uma célula</h2>
+        <p className="text-muted-foreground">Entre em contato com o administrador para vincular seu usuário à sua célula.</p>
       </div>
     );
   }
 
   if (!cell) {
-    return <div className="p-8 text-center text-slate-500">Carregando informações da célula...</div>;
+    return <div className="p-8 text-center text-muted-foreground">Carregando informações da célula...</div>;
   }
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Minha Célula</h1>
-          <p className="text-slate-500">Informações e cadastro da sua célula.</p>
+          <h1 className="text-2xl font-bold text-foreground">Minha Célula</h1>
+          <p className="text-muted-foreground">Informações e cadastro da sua célula.</p>
         </div>
 
         <div className="flex gap-3 w-full md:w-auto">
@@ -160,7 +160,7 @@ const MyCell: React.FC = () => {
             <>
               <button
                 onClick={() => setIsEditing(true)}
-                className="flex flex-1 md:flex-none items-center justify-center gap-2 bg-white border border-slate-300 text-slate-700 px-4 py-3 rounded-lg hover:bg-slate-50 transition-colors shadow-sm font-medium"
+                className="flex flex-1 md:flex-none items-center justify-center gap-2 bg-white border border-input text-foreground px-4 py-3 rounded-lg hover:bg-muted/50 transition-colors shadow-sm font-medium"
               >
                 <Edit size={18} />
                 Editar Dados
@@ -178,7 +178,7 @@ const MyCell: React.FC = () => {
               <button
                 onClick={handleCancel}
                 disabled={isSubmitting}
-                className="flex flex-1 md:flex-none items-center justify-center gap-2 bg-white border border-slate-300 text-slate-700 px-4 py-3 rounded-lg hover:bg-slate-50 transition-colors shadow-sm font-medium disabled:opacity-50"
+                className="flex flex-1 md:flex-none items-center justify-center gap-2 bg-white border border-input text-foreground px-4 py-3 rounded-lg hover:bg-muted/50 transition-colors shadow-sm font-medium disabled:opacity-50"
               >
                 <X size={18} />
                 Cancelar
@@ -196,7 +196,7 @@ const MyCell: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
         {/* Header - Always Visible */}
         <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-8 text-white">
           <div className="flex items-start justify-between">
@@ -249,7 +249,7 @@ const MyCell: React.FC = () => {
         <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Details Column */}
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-slate-800 border-b pb-2">Detalhes</h3>
+            <h3 className="text-lg font-semibold text-foreground border-b pb-2">Detalhes</h3>
 
             <div className="space-y-4">
               {/* Day & Time */}
@@ -258,13 +258,13 @@ const MyCell: React.FC = () => {
                   <Calendar size={20} />
                 </div>
                 <div className="w-full">
-                  <p className="text-sm font-medium text-slate-500">Dia e Horário</p>
+                  <p className="text-sm font-medium text-muted-foreground">Dia e Horário</p>
                   {isEditing ? (
                     <div className="flex gap-2 mt-1">
                       <div className="w-1/2">
                         <select
                           {...register('dayOfWeek')}
-                          className="w-full bg-white border border-slate-300 rounded px-2 py-1 text-sm text-slate-800"
+                          className="w-full bg-white border border-input rounded px-2 py-1 text-sm text-foreground"
                         >
                           <option value="Segunda-feira">Segunda</option>
                           <option value="Terça-feira">Terça</option>
@@ -279,13 +279,13 @@ const MyCell: React.FC = () => {
                         <input
                           type="time"
                           {...register('time')}
-                          className="w-full bg-white border border-slate-300 rounded px-2 py-1 text-sm text-slate-800"
+                          className="w-full bg-white border border-input rounded px-2 py-1 text-sm text-foreground"
                         />
                         {errors.time && <span className="text-red-500 text-xs">{errors.time.message}</span>}
                       </div>
                     </div>
                   ) : (
-                    <p className="text-slate-800 font-medium">{cell.dayOfWeek} às {cell.time}</p>
+                    <p className="text-foreground font-medium">{cell.dayOfWeek} às {cell.time}</p>
                   )}
                 </div>
               </div>
@@ -296,17 +296,17 @@ const MyCell: React.FC = () => {
                   <MessageCircle size={20} />
                 </div>
                 <div className="w-full">
-                  <p className="text-sm font-medium text-slate-500">WhatsApp</p>
+                  <p className="text-sm font-medium text-muted-foreground">WhatsApp</p>
                   {isEditing ? (
                     <input
                       type="text"
                       {...register('whatsapp')}
                       onChange={(e) => setValue('whatsapp', maskPhone(e.target.value))}
-                      className="mt-1 w-full bg-white border border-slate-300 rounded px-2 py-1 text-sm text-slate-800"
+                      className="mt-1 w-full bg-white border border-input rounded px-2 py-1 text-sm text-foreground"
                       placeholder="(99) 99999-9999"
                     />
                   ) : (
-                    <p className="text-slate-800 font-medium">{cell.whatsapp}</p>
+                    <p className="text-foreground font-medium">{cell.whatsapp}</p>
                   )}
                 </div>
               </div>
@@ -317,42 +317,42 @@ const MyCell: React.FC = () => {
                   <Flag size={20} />
                 </div>
                 <div className="w-full">
-                  <p className="text-sm font-medium text-slate-500">Público Alvo</p>
+                  <p className="text-sm font-medium text-muted-foreground">Público Alvo</p>
                   {isEditing ? (
                     <select
                       {...register('targetAudience')}
-                      className="mt-1 w-full bg-white border border-slate-300 rounded px-2 py-1 text-sm text-slate-800"
+                      className="mt-1 w-full bg-white border border-input rounded px-2 py-1 text-sm text-foreground"
                     >
                       {Object.values(TargetAudience).map(audience => (
                         <option key={audience} value={audience}>{audience}</option>
                       ))}
                     </select>
                   ) : (
-                    <p className="text-slate-800 font-medium">{cell.targetAudience}</p>
+                    <p className="text-foreground font-medium">{cell.targetAudience}</p>
                   )}
                 </div>
               </div>
             </div>
 
             {/* Location */}
-            <h3 className="text-lg font-semibold text-slate-800 border-b pb-2 pt-4">Localização</h3>
+            <h3 className="text-lg font-semibold text-foreground border-b pb-2 pt-4">Localização</h3>
             <div className="flex items-start gap-3">
               <div className="p-2 bg-orange-50 text-orange-600 rounded-lg mt-0.5">
                 <MapPin size={20} />
               </div>
               <div className="w-full">
-                <p className="text-sm font-medium text-slate-500">Endereço</p>
+                <p className="text-sm font-medium text-muted-foreground">Endereço</p>
                 {isEditing ? (
                   <>
                     <input
                       type="text"
                       {...register('address')}
-                      className="mt-1 w-full bg-white border border-slate-300 rounded px-2 py-1 text-sm text-slate-800"
+                      className="mt-1 w-full bg-white border border-input rounded px-2 py-1 text-sm text-foreground"
                     />
                     {errors.address && <span className="text-red-500 text-xs">{errors.address.message}</span>}
                   </>
                 ) : (
-                  <p className="text-slate-800 font-medium text-lg">{cell.address}</p>
+                  <p className="text-foreground font-medium text-lg">{cell.address}</p>
                 )}
               </div>
             </div>
@@ -361,7 +361,7 @@ const MyCell: React.FC = () => {
           {/* Co-Leaders Column */}
           <div className="space-y-6">
             <div className="flex justify-between items-center border-b pb-2">
-              <h3 className="text-lg font-semibold text-slate-800">Co-Líderes</h3>
+              <h3 className="text-lg font-semibold text-foreground">Co-Líderes</h3>
               {isEditing && !showCoLeaderForm && (
                 <button
                   onClick={() => setShowCoLeaderForm(true)}
@@ -374,24 +374,24 @@ const MyCell: React.FC = () => {
 
             <div className="space-y-3">
               {coLeadersFields.length === 0 && !showCoLeaderForm && (
-                <p className="text-slate-400 italic text-sm">Nenhum co-líder cadastrado.</p>
+                <p className="text-muted-foreground italic text-sm">Nenhum co-líder cadastrado.</p>
               )}
 
               {coLeadersFields.map((leader, index) => (
-                <div key={leader.id} className="bg-slate-50 p-3 rounded-lg border border-slate-200 flex justify-between items-start group">
+                <div key={leader.id} className="bg-muted/50 p-3 rounded-lg border border-border flex justify-between items-start group">
                   <div className="overflow-hidden">
-                    <p className="font-bold text-slate-800 text-sm truncate">{leader.name}</p>
-                    <div className="flex items-center gap-1.5 text-xs text-slate-500 mt-1">
+                    <p className="font-bold text-foreground text-sm truncate">{leader.name}</p>
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-1">
                       <Mail size={12} /> <span className="truncate">{leader.email || '-'}</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-xs text-slate-500 mt-0.5">
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-0.5">
                       <Phone size={12} /> <span>{leader.phone || '-'}</span>
                     </div>
                   </div>
                   {isEditing && (
                     <button
                       onClick={() => removeCoLeader(index)}
-                      className="text-slate-400 hover:text-red-500 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="text-muted-foreground hover:text-red-500 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
                     >
                       <Trash2 size={16} />
                     </button>
@@ -410,7 +410,7 @@ const MyCell: React.FC = () => {
                       value={tempCoLeader.name}
                       onChange={handleTempCoLeaderChange}
                       placeholder="Nome Completo"
-                      className="w-full px-3 py-2 text-sm rounded-md bg-slate-50 border border-slate-300 focus:border-blue-500 outline-none text-slate-800"
+                      className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-blue-500 outline-none text-foreground"
                     />
                     <input
                       type="email"
@@ -418,7 +418,7 @@ const MyCell: React.FC = () => {
                       value={tempCoLeader.email}
                       onChange={handleTempCoLeaderChange}
                       placeholder="Email"
-                      className="w-full px-3 py-2 text-sm rounded-md bg-slate-50 border border-slate-300 focus:border-blue-500 outline-none text-slate-800"
+                      className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-blue-500 outline-none text-foreground"
                     />
                     <input
                       type="tel"
@@ -426,14 +426,14 @@ const MyCell: React.FC = () => {
                       value={tempCoLeader.phone}
                       onChange={(e) => setTempCoLeader(prev => ({ ...prev, phone: maskPhone(e.target.value) }))}
                       placeholder="Telefone"
-                      className="w-full px-3 py-2 text-sm rounded-md bg-slate-50 border border-slate-300 focus:border-blue-500 outline-none text-slate-800"
+                      className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-blue-500 outline-none text-foreground"
                     />
                   </div>
                   <div className="flex justify-end gap-2 mt-3">
                     <button
                       type="button"
                       onClick={() => setShowCoLeaderForm(false)}
-                      className="px-3 py-1.5 text-xs font-medium text-slate-500 hover:bg-slate-100 rounded-md"
+                      className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:bg-muted rounded-md"
                     >
                       Cancelar
                     </button>

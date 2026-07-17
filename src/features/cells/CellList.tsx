@@ -75,7 +75,7 @@ const CellList: React.FC = () => {
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-slate-500 font-medium animate-pulse">Carregando células...</p>
+          <p className="text-muted-foreground font-medium animate-pulse">Carregando células...</p>
         </div>
       </div>
     );
@@ -85,8 +85,8 @@ const CellList: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Células Cadastradas</h1>
-          <p className="text-slate-500">Gerencie as células e mantenha os dados atualizados.</p>
+          <h1 className="text-2xl font-bold text-foreground">Células Cadastradas</h1>
+          <p className="text-muted-foreground">Gerencie as células e mantenha os dados atualizados.</p>
         </div>
         <Link
           to="/register-cell"
@@ -98,23 +98,23 @@ const CellList: React.FC = () => {
       </div>
 
       {/* SEARCH AND FILTERS */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-4">
+      <div className="bg-white p-4 rounded-xl border border-border shadow-sm flex flex-col md:flex-row gap-4">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-2.5 text-slate-400" size={20} />
+          <Search className="absolute left-3 top-2.5 text-muted-foreground" size={20} />
           <input
             type="text"
             placeholder="Buscar por nome da célula ou líder..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 text-slate-800 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-4 py-2 bg-white border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-slate-500">Status:</span>
+          <span className="text-sm font-medium text-muted-foreground">Status:</span>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as any)}
-            className="bg-white border border-slate-300 text-slate-800 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+            className="bg-white border border-input text-foreground rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="all">Todas</option>
             <option value="active">Ativas</option>
@@ -124,21 +124,21 @@ const CellList: React.FC = () => {
       </div>
 
       {filteredCells.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-xl border border-slate-200">
-          <p className="text-slate-500 mb-4">Nenhuma célula encontrada.</p>
+        <div className="text-center py-12 bg-white rounded-xl border border-border">
+          <p className="text-muted-foreground mb-4">Nenhuma célula encontrada.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCells.map(cell => (
-            <div key={cell.id} className={`bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow ${cell.active === false ? 'opacity-75 bg-slate-50' : ''}`}>
+            <div key={cell.id} className={`bg-white rounded-xl shadow-sm border border-border p-6 hover:shadow-md transition-shadow ${cell.active === false ? 'opacity-75 bg-muted/50' : ''}`}>
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="text-lg font-bold text-slate-800">{cell.name}</h3>
+                  <h3 className="text-lg font-bold text-foreground">{cell.name}</h3>
                   <p className="text-sm text-blue-600 font-medium">{generations.find(g => g.id === cell.generationId)?.name || ''}</p>
                 </div>
                 <button
                   onClick={() => toggleCellStatus(cell)}
-                  className={`text-2xl transition-colors ${cell.active !== false ? 'text-green-500' : 'text-slate-400'}`}
+                  className={`text-2xl transition-colors ${cell.active !== false ? 'text-green-500' : 'text-muted-foreground'}`}
                   title={cell.active !== false ? 'Célula Ativa (Clique para desativar)' : 'Célula Inativa (Clique para ativar)'}
                 >
                   {cell.active !== false ? <ToggleRight size={32} /> : <ToggleLeft size={32} />}
@@ -147,7 +147,7 @@ const CellList: React.FC = () => {
 
               {/* Leadership Section */}
               <div className="mb-4">
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Liderança</p>
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Liderança</p>
                 <div className="space-y-2">
                   {/* Main Leader Card */}
                   <div className="flex items-center p-2 bg-blue-50 rounded-lg border border-blue-100">
@@ -155,29 +155,29 @@ const CellList: React.FC = () => {
                       L
                     </div>
                     <div className="overflow-hidden">
-                      <p className="text-sm font-semibold text-slate-800">{cell.leaderName}</p>
-                      <p className="text-xs text-slate-500 truncate">{cell.whatsapp}</p>
+                      <p className="text-sm font-semibold text-foreground">{cell.leaderName}</p>
+                      <p className="text-xs text-muted-foreground truncate">{cell.whatsapp}</p>
                     </div>
                   </div>
 
                   {/* Co-Leaders Cards */}
                   {cell.coLeaders && cell.coLeaders.map(co => (
-                    <div key={co.id} className="flex items-center p-2 bg-slate-50 rounded-lg border border-slate-100">
-                      <div className="w-8 h-8 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center mr-3 font-bold text-xs">
+                    <div key={co.id} className="flex items-center p-2 bg-muted/50 rounded-lg border border-border">
+                      <div className="w-8 h-8 rounded-full bg-muted text-muted-foreground flex items-center justify-center mr-3 font-bold text-xs">
                         CL
                       </div>
                       <div className="overflow-hidden">
-                        <p className="text-sm font-semibold text-slate-800">{co.name}</p>
-                        <p className="text-xs text-slate-500 truncate">{co.email || co.phone}</p>
+                        <p className="text-sm font-semibold text-foreground">{co.name}</p>
+                        <p className="text-xs text-muted-foreground truncate">{co.email || co.phone}</p>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="space-y-2 mb-6 pt-4 border-t border-slate-100">
-                <div className="flex items-center text-slate-600 text-sm">
-                  <Calendar size={16} className="mr-2 text-slate-400" />
+              <div className="space-y-2 mb-6 pt-4 border-t border-border">
+                <div className="flex items-center text-muted-foreground text-sm">
+                  <Calendar size={16} className="mr-2 text-muted-foreground" />
                   {cell.dayOfWeek} às {cell.time}
                 </div>
                 <a
@@ -199,7 +199,7 @@ const CellList: React.FC = () => {
               <div className="pt-2 flex gap-2">
                 <Link
                   to={`/edit-cell/${cell.id}`}
-                  className="flex items-center justify-center gap-2 flex-1 text-center bg-white hover:bg-slate-50 text-slate-700 hover:text-blue-700 font-medium py-2 rounded-lg transition-colors border border-slate-200 hover:border-blue-300 shadow-sm"
+                  className="flex items-center justify-center gap-2 flex-1 text-center bg-white hover:bg-muted/50 text-foreground hover:text-blue-700 font-medium py-2 rounded-lg transition-colors border border-border hover:border-blue-300 shadow-sm"
                 >
                   <Edit size={16} />
                   Editar
@@ -230,8 +230,8 @@ const CellList: React.FC = () => {
                 <AlertTriangle className="text-red-600" size={20} />
               </div>
               <div>
-                <h2 className="text-lg font-bold text-slate-800">Excluir Célula</h2>
-                <p className="text-sm text-slate-500">Esta ação não pode ser desfeita.</p>
+                <h2 className="text-lg font-bold text-foreground">Excluir Célula</h2>
+                <p className="text-sm text-muted-foreground">Esta ação não pode ser desfeita.</p>
               </div>
             </div>
 
@@ -242,7 +242,7 @@ const CellList: React.FC = () => {
               </p>
             </div>
 
-            <label className="flex items-start gap-3 cursor-pointer mb-4 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors">
+            <label className="flex items-start gap-3 cursor-pointer mb-4 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
               <input
                 type="checkbox"
                 checked={deleteRelated}
@@ -250,22 +250,22 @@ const CellList: React.FC = () => {
                 className="mt-0.5 accent-red-600"
               />
               <div>
-                <p className="text-sm font-medium text-slate-700">Excluir também membros e relatórios</p>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-sm font-medium text-foreground">Excluir também membros e relatórios</p>
+                <p className="text-xs text-muted-foreground mt-0.5">
                   Remove todos os membros cadastrados e relatórios enviados desta célula.
                 </p>
               </div>
             </label>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-slate-700 mb-1">
+              <label className="block text-sm font-medium text-foreground mb-1">
                 Digite <strong>{deleteTarget.name}</strong> para confirmar:
               </label>
               <input
                 type="text"
                 value={deleteConfirmName}
                 onChange={(e) => setDeleteConfirmName(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-slate-300 outline-none focus:border-red-400 focus:ring-1 focus:ring-red-400 text-slate-800"
+                className="w-full px-3 py-2 rounded-lg border border-input outline-none focus:border-red-400 focus:ring-1 focus:ring-red-400 text-foreground"
                 placeholder={deleteTarget.name}
               />
             </div>
@@ -278,7 +278,7 @@ const CellList: React.FC = () => {
               <button
                 onClick={() => { setDeleteTarget(null); setDeleteConfirmName(''); }}
                 disabled={isDeleting}
-                className="flex-1 px-4 py-2 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50 font-medium transition-colors disabled:opacity-50"
+                className="flex-1 px-4 py-2 rounded-lg border border-input text-muted-foreground hover:bg-muted/50 font-medium transition-colors disabled:opacity-50"
               >
                 Cancelar
               </button>

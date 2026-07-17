@@ -14,9 +14,9 @@ import {
 
 const STATUS_STYLES: Record<InviteStatus, { label: string; className: string }> = {
     active: { label: 'Ativo', className: 'bg-green-100 text-green-700' },
-    revoked: { label: 'Cancelado', className: 'bg-slate-100 text-slate-500' },
+    revoked: { label: 'Cancelado', className: 'bg-muted text-muted-foreground' },
     expired: { label: 'Expirado', className: 'bg-amber-100 text-amber-700' },
-    exhausted: { label: 'Esgotado', className: 'bg-slate-100 text-slate-500' },
+    exhausted: { label: 'Esgotado', className: 'bg-muted text-muted-foreground' },
 };
 
 const formatDate = (iso?: string | null) =>
@@ -89,10 +89,10 @@ const InviteManager: React.FC = () => {
             {/* Cabeçalho */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                    <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
                         <Ticket className="text-blue-600" size={26} /> Convites de Líderes
                     </h1>
-                    <p className="text-slate-500 text-sm mt-1">
+                    <p className="text-muted-foreground text-sm mt-1">
                         Gere um link, mande no grupo, e cada líder cadastra a própria célula.
                         Você não precisa criar nem distribuir senhas.
                     </p>
@@ -117,61 +117,61 @@ const InviteManager: React.FC = () => {
             {/* Formulário */}
             {showForm && (
                 <div className="bg-white rounded-xl shadow-sm border border-blue-200 p-6 mb-6">
-                    <h2 className="text-sm font-bold text-slate-700 mb-4">Novo Convite</h2>
+                    <h2 className="text-sm font-bold text-foreground mb-4">Novo Convite</h2>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">
-                                    Identificação <span className="text-slate-400 font-normal">(opcional)</span>
+                                <label className="block text-sm font-medium text-foreground mb-1">
+                                    Identificação <span className="text-muted-foreground font-normal">(opcional)</span>
                                 </label>
                                 <input
                                     type="text"
                                     {...register('label')}
-                                    className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none"
                                     placeholder="Ex: Líderes da Rede Judá"
                                 />
-                                <p className="text-xs text-slate-500 mt-1">Só para você identificar o link na lista.</p>
+                                <p className="text-xs text-muted-foreground mt-1">Só para você identificar o link na lista.</p>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">
-                                    Geração / Rede <span className="text-slate-400 font-normal">(opcional)</span>
+                                <label className="block text-sm font-medium text-foreground mb-1">
+                                    Geração / Rede <span className="text-muted-foreground font-normal">(opcional)</span>
                                 </label>
                                 <select
                                     {...register('generationId')}
-                                    className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none"
                                 >
                                     <option value="">Sem geração definida</option>
                                     {generations.map((gen) => (
                                         <option key={gen.id} value={gen.id}>{gen.name}</option>
                                     ))}
                                 </select>
-                                <p className="text-xs text-slate-500 mt-1">
+                                <p className="text-xs text-muted-foreground mt-1">
                                     As células criadas por este link já entram nesta rede.
                                 </p>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">
-                                    Limite de usos <span className="text-slate-400 font-normal">(opcional)</span>
+                                <label className="block text-sm font-medium text-foreground mb-1">
+                                    Limite de usos <span className="text-muted-foreground font-normal">(opcional)</span>
                                 </label>
                                 <input
                                     type="number"
                                     min={1}
                                     {...register('maxUses')}
-                                    className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.maxUses ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
+                                    className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.maxUses ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
                                     placeholder="Deixe vazio para ilimitado"
                                 />
                                 {errors.maxUses && <span className="text-red-500 text-xs mt-1">{errors.maxUses.message}</span>}
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Expira em (dias)</label>
+                                <label className="block text-sm font-medium text-foreground mb-1">Expira em (dias)</label>
                                 <input
                                     type="number"
                                     min={1}
                                     {...register('expiresInDays')}
-                                    className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.expiresInDays ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
+                                    className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.expiresInDays ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
                                     placeholder="Deixe vazio para não expirar"
                                 />
                                 {errors.expiresInDays && <span className="text-red-500 text-xs mt-1">{errors.expiresInDays.message}</span>}
@@ -182,7 +182,7 @@ const InviteManager: React.FC = () => {
                             <button
                                 type="button"
                                 onClick={() => { setShowForm(false); reset(); }}
-                                className="px-5 py-2 rounded-lg text-slate-600 hover:bg-slate-100 font-medium transition-colors"
+                                className="px-5 py-2 rounded-lg text-muted-foreground hover:bg-muted font-medium transition-colors"
                             >
                                 Cancelar
                             </button>
@@ -206,12 +206,12 @@ const InviteManager: React.FC = () => {
                     <Loader2 className="text-blue-600 animate-spin" size={28} />
                 </div>
             ) : invites.length === 0 ? (
-                <div className="bg-white rounded-xl border border-slate-200 p-12 text-center">
+                <div className="bg-white rounded-xl border border-border p-12 text-center">
                     <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                         <Ticket size={32} />
                     </div>
-                    <h3 className="text-lg font-bold text-slate-800 mb-2">Nenhum convite ainda</h3>
-                    <p className="text-slate-500 text-sm max-w-md mx-auto mb-6">
+                    <h3 className="text-lg font-bold text-foreground mb-2">Nenhum convite ainda</h3>
+                    <p className="text-muted-foreground text-sm max-w-md mx-auto mb-6">
                         Em vez de cadastrar cada célula na mão, gere um link e mande no grupo dos líderes.
                         Cada um preenche a própria célula e define a própria senha.
                     </p>
@@ -242,7 +242,7 @@ const InviteManager: React.FC = () => {
 
                     {inactiveInvites.length > 0 && (
                         <div>
-                            <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
+                            <h2 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3">
                                 Inativos
                             </h2>
                             <div className="space-y-3">
@@ -277,7 +277,7 @@ const InviteCard: React.FC<InviteCardProps> = ({ invite, copied, disabled, onCop
     const expiresAt = formatDate(invite.expiresAt);
 
     return (
-        <div className={`bg-white rounded-xl border p-5 transition-opacity ${isActive ? 'border-slate-200' : 'border-slate-200 opacity-60'}`}>
+        <div className={`bg-white rounded-xl border p-5 transition-opacity ${isActive ? 'border-border' : 'border-border opacity-60'}`}>
             <div className="flex flex-col lg:flex-row lg:items-center gap-4">
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap mb-2">
@@ -285,7 +285,7 @@ const InviteCard: React.FC<InviteCardProps> = ({ invite, copied, disabled, onCop
                             {status.label}
                         </span>
                         {invite.label && (
-                            <span className="font-bold text-slate-800 truncate">{invite.label}</span>
+                            <span className="font-bold text-foreground truncate">{invite.label}</span>
                         )}
                         {invite.generationName && (
                             <span className="inline-flex items-center gap-1 text-xs text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full">
@@ -294,11 +294,11 @@ const InviteCard: React.FC<InviteCardProps> = ({ invite, copied, disabled, onCop
                         )}
                     </div>
 
-                    <code className="block text-sm text-slate-600 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 truncate font-mono">
+                    <code className="block text-sm text-muted-foreground bg-muted/50 border border-border rounded-lg px-3 py-2 truncate font-mono">
                         {buildInviteUrl(invite.token)}
                     </code>
 
-                    <div className="flex items-center gap-4 mt-2.5 text-xs text-slate-500 flex-wrap">
+                    <div className="flex items-center gap-4 mt-2.5 text-xs text-muted-foreground flex-wrap">
                         <span className="inline-flex items-center gap-1">
                             <Users size={12} />
                             {invite.uses}{invite.maxUses != null ? ` de ${invite.maxUses}` : ''} cadastro{invite.uses === 1 ? '' : 's'}
@@ -319,7 +319,7 @@ const InviteCard: React.FC<InviteCardProps> = ({ invite, copied, disabled, onCop
                             className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg border transition-colors ${
                                 copied
                                     ? 'bg-green-50 border-green-200 text-green-700'
-                                    : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
+                                    : 'bg-white border-input text-foreground hover:bg-muted/50'
                             }`}
                         >
                             {copied ? <><Check size={15} /> Copiado</> : <><Copy size={15} /> Copiar</>}
@@ -327,7 +327,7 @@ const InviteCard: React.FC<InviteCardProps> = ({ invite, copied, disabled, onCop
                         <button
                             onClick={onRevoke}
                             title="Cancelar convite"
-                            className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                            className="p-2 text-muted-foreground hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                         >
                             <Trash2 size={16} />
                         </button>

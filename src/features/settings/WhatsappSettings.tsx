@@ -210,8 +210,8 @@ const WhatsappSettings: React.FC = () => {
           <MessageCircle className="text-green-600" size={24} />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Integração WhatsApp</h1>
-          <p className="text-slate-500 text-sm">
+          <h1 className="text-2xl font-bold text-foreground">Integração WhatsApp</h1>
+          <p className="text-muted-foreground text-sm">
             Envio automático de lembretes para líderes via WhatsApp
           </p>
         </div>
@@ -236,12 +236,12 @@ const WhatsappSettings: React.FC = () => {
 
       {/* Step: not_connected */}
       {step === 'not_connected' && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 text-center">
+        <div className="bg-white rounded-2xl border border-border shadow-sm p-8 text-center">
           <div className="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Smartphone className="text-green-600" size={32} />
           </div>
-          <h2 className="text-lg font-semibold text-slate-800 mb-2">Conecte seu WhatsApp</h2>
-          <p className="text-slate-500 text-sm mb-6 max-w-sm mx-auto">
+          <h2 className="text-lg font-semibold text-foreground mb-2">Conecte seu WhatsApp</h2>
+          <p className="text-muted-foreground text-sm mb-6 max-w-sm mx-auto">
             Escaneie o QR code com o celular que receberá os lembretes das células.
           </p>
           <button
@@ -257,26 +257,26 @@ const WhatsappSettings: React.FC = () => {
 
       {/* Step: connecting (loading QR) */}
       {step === 'connecting' && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 text-center">
+        <div className="bg-white rounded-2xl border border-border shadow-sm p-8 text-center">
           <Loader2 className="animate-spin text-green-600 mx-auto mb-4" size={40} />
-          <p className="text-slate-600 font-medium">Gerando QR code...</p>
+          <p className="text-muted-foreground font-medium">Gerando QR code...</p>
         </div>
       )}
 
       {/* Step: qr_shown */}
       {step === 'qr_shown' && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-          <div className="p-6 text-center border-b border-slate-100">
-            <h2 className="font-semibold text-slate-800 mb-1">Escaneie o QR code</h2>
-            <p className="text-slate-500 text-sm">
+        <div className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden">
+          <div className="p-6 text-center border-b border-border">
+            <h2 className="font-semibold text-foreground mb-1">Escaneie o QR code</h2>
+            <p className="text-muted-foreground text-sm">
               Abra o WhatsApp → Dispositivos vinculados → Vincular um dispositivo
             </p>
           </div>
 
           <div className="p-6 flex flex-col items-center gap-4">
             {qrExpired ? (
-              <div className="w-64 h-64 bg-slate-100 rounded-xl flex flex-col items-center justify-center gap-3 text-slate-500">
-                <AlertCircle size={32} className="text-slate-400" />
+              <div className="w-64 h-64 bg-muted rounded-xl flex flex-col items-center justify-center gap-3 text-muted-foreground">
+                <AlertCircle size={32} className="text-muted-foreground" />
                 <p className="text-sm font-medium">QR code expirado</p>
                 <p className="text-xs text-center px-4">Clique em "Gerar novo QR" para tentar novamente</p>
               </div>
@@ -285,13 +285,13 @@ const WhatsappSettings: React.FC = () => {
                 <img
                   src={qrCode}
                   alt="QR Code WhatsApp"
-                  className="w-64 h-64 rounded-xl border border-slate-200"
+                  className="w-64 h-64 rounded-xl border border-border"
                 />
               )
             )}
 
             {!qrExpired && (
-              <div className="flex items-center gap-2 text-sm text-slate-500">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Loader2 size={14} className="animate-spin" />
                 Aguardando conexão...
               </div>
@@ -300,7 +300,7 @@ const WhatsappSettings: React.FC = () => {
             <button
               type="button"
               onClick={handleConnect}
-              className="flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm rounded-lg transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-muted hover:bg-muted text-foreground font-medium text-sm rounded-lg transition-colors"
             >
               <RefreshCw size={14} />
               Gerar novo QR code
@@ -311,7 +311,7 @@ const WhatsappSettings: React.FC = () => {
 
       {/* Step: connected */}
       {step === 'connected' && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden">
           {/* Status badge */}
           <div className="p-4 bg-green-50 border-b border-green-100 flex items-center gap-2">
             <CheckCircle size={18} className="text-green-600" />
@@ -319,14 +319,14 @@ const WhatsappSettings: React.FC = () => {
           </div>
 
           {/* Grupo de destino */}
-          <div className="p-6 border-b border-slate-100">
-            <h2 className="font-semibold text-slate-700 mb-4">Grupo de Destino</h2>
+          <div className="p-6 border-b border-border">
+            <h2 className="font-semibold text-foreground mb-4">Grupo de Destino</h2>
             <div className="flex gap-2">
               <select
                 value={groupJid}
                 onChange={e => handleGroupSelect(e.target.value)}
                 disabled={groups.length === 0}
-                className="flex-1 px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent disabled:bg-slate-50 disabled:text-slate-400"
+                className="flex-1 px-4 py-2.5 rounded-lg border border-border text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent disabled:bg-muted/50 disabled:text-muted-foreground"
               >
                 <option value="">
                   {groups.length === 0
@@ -342,7 +342,7 @@ const WhatsappSettings: React.FC = () => {
                 type="button"
                 onClick={handleFetchGroups}
                 disabled={fetchingGroups}
-                className="flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-sm rounded-lg transition-colors disabled:opacity-60 shrink-0"
+                className="flex items-center gap-2 px-4 py-2.5 bg-muted hover:bg-muted text-foreground font-medium text-sm rounded-lg transition-colors disabled:opacity-60 shrink-0"
               >
                 {fetchingGroups
                   ? <Loader2 size={14} className="animate-spin" />
@@ -359,11 +359,11 @@ const WhatsappSettings: React.FC = () => {
           </div>
 
           {/* Ativação */}
-          <div className="p-6 border-b border-slate-100">
+          <div className="p-6 border-b border-border">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="font-semibold text-slate-700">Envio Automático Diário</h2>
-                <p className="text-sm text-slate-500 mt-0.5">
+                <h2 className="font-semibold text-foreground">Envio Automático Diário</h2>
+                <p className="text-sm text-muted-foreground mt-0.5">
                   Envia lembretes todo dia ao meio-dia (horário de Brasília) para células com relatório pendente
                 </p>
               </div>
@@ -371,7 +371,7 @@ const WhatsappSettings: React.FC = () => {
                 type="button"
                 onClick={() => setActive(a => !a)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors
-                  ${active ? 'bg-green-500' : 'bg-slate-300'}`}
+                  ${active ? 'bg-green-500' : 'bg-input'}`}
               >
                 <span
                   className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform
@@ -400,7 +400,7 @@ const WhatsappSettings: React.FC = () => {
               type="button"
               onClick={handleSendTest}
               disabled={sendingTest || !groupJid}
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl transition-colors disabled:opacity-60"
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-muted hover:bg-muted text-foreground font-semibold rounded-xl transition-colors disabled:opacity-60"
             >
               {sendingTest
                 ? <Loader2 size={18} className="animate-spin" />
@@ -415,7 +415,7 @@ const WhatsappSettings: React.FC = () => {
             <button
               type="button"
               onClick={handleConnect}
-              className="text-xs text-slate-400 hover:text-slate-600 underline transition-colors"
+              className="text-xs text-muted-foreground hover:text-muted-foreground underline transition-colors"
             >
               Reconectar WhatsApp
             </button>

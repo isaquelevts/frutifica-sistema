@@ -147,7 +147,7 @@ const Generations: React.FC = () => {
             <div className="flex h-[60vh] items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
                     <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-                    <p className="text-slate-500 font-medium animate-pulse">Carregando gerações...</p>
+                    <p className="text-muted-foreground font-medium animate-pulse">Carregando gerações...</p>
                 </div>
             </div>
         );
@@ -157,10 +157,10 @@ const Generations: React.FC = () => {
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 {generations.length === 0 ? (
-                    <div className="bg-white rounded-xl border border-slate-200 p-12 text-center">
-                        <Network size={48} className="mx-auto text-slate-300 mb-4" />
-                        <h3 className="text-lg font-bold text-slate-700 mb-2">Nenhuma geração cadastrada</h3>
-                        <p className="text-slate-500 mb-6">
+                    <div className="bg-white rounded-xl border border-border p-12 text-center">
+                        <Network size={48} className="mx-auto text-muted-foreground mb-4" />
+                        <h3 className="text-lg font-bold text-foreground mb-2">Nenhuma geração cadastrada</h3>
+                        <p className="text-muted-foreground mb-6">
                             Crie gerações para organizar suas células em grupos ministeriais.
                         </p>
                         <button
@@ -176,7 +176,7 @@ const Generations: React.FC = () => {
                         {generations.map((gen: any) => (
                             <div
                                 key={gen.id}
-                                className="bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden group"
+                                className="bg-white rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow overflow-hidden group"
                             >
                                 <div
                                     className="h-2"
@@ -185,9 +185,9 @@ const Generations: React.FC = () => {
                                 <div className="p-6">
                                     <div className="flex justify-between items-start mb-4">
                                         <div className="flex-1">
-                                            <h3 className="text-lg font-bold text-slate-800 mb-1">{gen.name}</h3>
+                                            <h3 className="text-lg font-bold text-foreground mb-1">{gen.name}</h3>
                                             {gen.description && (
-                                                <p className="text-sm text-slate-500 line-clamp-2">{gen.description}</p>
+                                                <p className="text-sm text-muted-foreground line-clamp-2">{gen.description}</p>
                                             )}
                                         </div>
                                         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -208,16 +208,16 @@ const Generations: React.FC = () => {
                                         </div>
                                     </div>
 
-                                    <div className="space-y-3 pt-4 border-t border-slate-100">
+                                    <div className="space-y-3 pt-4 border-t border-border">
                                         {gen.leaderName && (
-                                            <div className="flex items-center gap-2 text-sm text-slate-600">
-                                                <Users size={14} className="text-slate-400" />
+                                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                                <Users size={14} className="text-muted-foreground" />
                                                 <span className="font-medium">{gen.leaderName}</span>
                                             </div>
                                         )}
                                         <div className="flex items-center gap-2 text-sm">
-                                            <Network size={14} className="text-slate-400" />
-                                            <span className="text-slate-700 font-semibold">{gen.cellCount || 0} células</span>
+                                            <Network size={14} className="text-muted-foreground" />
+                                            <span className="text-foreground font-semibold">{gen.cellCount || 0} células</span>
                                         </div>
                                     </div>
                                 </div>
@@ -232,12 +232,12 @@ const Generations: React.FC = () => {
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
                     <div className="bg-white rounded-xl w-full max-w-lg p-6 shadow-2xl animate-in fade-in zoom-in duration-200">
                         <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-xl font-bold text-slate-800">
+                            <h2 className="text-xl font-bold text-foreground">
                                 {editingGeneration ? 'Editar Geração' : 'Nova Geração'}
                             </h2>
                             <button
                                 onClick={() => setShowModal(false)}
-                                className="text-slate-400 hover:text-slate-600"
+                                className="text-muted-foreground hover:text-muted-foreground"
                             >
                                 <X size={20} />
                             </button>
@@ -245,37 +245,37 @@ const Generations: React.FC = () => {
 
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">
+                                <label className="block text-sm font-medium text-foreground mb-1">
                                     Nome da Geração *
                                 </label>
                                 <input
                                     type="text"
                                     {...register('name')}
-                                    className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-slate-300'} text-slate-900 outline-none focus:border-blue-500`}
+                                    className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground outline-none focus:border-blue-500`}
                                     placeholder="Ex: Primeiro Amor, Geração de Samuel..."
                                 />
                                 {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>}
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">
+                                <label className="block text-sm font-medium text-foreground mb-1">
                                     Descrição
                                 </label>
                                 <textarea
                                     {...register('description')}
-                                    className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-900 outline-none focus:border-blue-500 resize-none"
+                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground outline-none focus:border-blue-500 resize-none"
                                     rows={3}
                                     placeholder="Descreva o propósito ou características desta geração..."
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">
+                                <label className="block text-sm font-medium text-foreground mb-1">
                                     Líder da Geração
                                 </label>
                                 <select
                                     {...register('leaderId')}
-                                    className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-900 outline-none focus:border-blue-500"
+                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground outline-none focus:border-blue-500"
                                 >
                                     <option value="">Sem líder definido</option>
                                     {leaders.map((leader) => (
@@ -287,7 +287,7 @@ const Generations: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-2">
+                                <label className="block text-sm font-medium text-foreground mb-2">
                                     Cor de Identificação
                                 </label>
                                 <div className="grid grid-cols-4 gap-2">
@@ -297,7 +297,7 @@ const Generations: React.FC = () => {
                                             type="button"
                                             onClick={() => setValue('color', color.value)}
                                             className={`h-12 rounded-lg ${color.class} ${currentColor === color.value
-                                                ? 'ring-4 ring-offset-2 ring-slate-400'
+                                                ? 'ring-4 ring-offset-2 ring-ring'
                                                 : 'opacity-70 hover:opacity-100'
                                                 } transition-all`}
                                             title={color.label}
@@ -306,11 +306,11 @@ const Generations: React.FC = () => {
                                 </div>
                             </div>
 
-                            <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-slate-100">
+                            <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-border">
                                 <button
                                     type="button"
                                     onClick={() => setShowModal(false)}
-                                    className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                                    className="px-4 py-2 text-muted-foreground hover:bg-muted rounded-lg transition-colors"
                                 >
                                     Cancelar
                                 </button>
@@ -335,15 +335,15 @@ const Generations: React.FC = () => {
                             <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
                                 <AlertTriangle className="text-red-600" size={24} />
                             </div>
-                            <h3 className="text-lg font-bold text-slate-800 mb-2">Excluir Geração?</h3>
-                            <p className="text-slate-500 text-sm mb-6">
+                            <h3 className="text-lg font-bold text-foreground mb-2">Excluir Geração?</h3>
+                            <p className="text-muted-foreground text-sm mb-6">
                                 Tem certeza que deseja excluir <strong>{generationToDelete?.name}</strong>?
                                 As células vinculadas não serão excluídas, mas perderão a vinculação.
                             </p>
                             <div className="flex gap-3 w-full">
                                 <button
                                     onClick={() => setShowDeleteModal(false)}
-                                    className="flex-1 px-4 py-2 bg-slate-100 text-slate-700 font-medium rounded-lg hover:bg-slate-200 transition-colors"
+                                    className="flex-1 px-4 py-2 bg-muted text-foreground font-medium rounded-lg hover:bg-muted transition-colors"
                                 >
                                     Cancelar
                                 </button>

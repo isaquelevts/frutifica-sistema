@@ -30,9 +30,9 @@ const ForgotPassword: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-muted flex items-center justify-center p-4">
             <div className="w-full max-w-md">
-                <Link to="/login" className="inline-flex items-center text-slate-500 hover:text-slate-700 mb-6 transition-colors">
+                <Link to="/login" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-6 transition-colors">
                     <ArrowLeft size={18} className="mr-2" /> Voltar para o login
                 </Link>
 
@@ -51,8 +51,8 @@ const ForgotPassword: React.FC = () => {
                                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-green-100 text-green-600 mb-4">
                                     <CheckCircle2 size={24} />
                                 </div>
-                                <h2 className="text-xl font-semibold text-slate-800 mb-2">Email enviado!</h2>
-                                <p className="text-slate-600 mb-6">
+                                <h2 className="text-xl font-semibold text-foreground mb-2">Email enviado!</h2>
+                                <p className="text-muted-foreground mb-6">
                                     Verifique sua caixa de entrada (e a pasta de spam) para as instruções de recuperação.
                                 </p>
                                 <Link
@@ -72,15 +72,15 @@ const ForgotPassword: React.FC = () => {
 
                                 <form onSubmit={handleSubmit} className="space-y-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                                        <label className="block text-sm font-medium text-foreground mb-1">Email</label>
                                         <div className="relative">
-                                            <Mail className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                            <Mail className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                             <input
                                                 type="email"
                                                 required
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
-                                                className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                                className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                                                 placeholder="seu@email.com"
                                             />
                                         </div>

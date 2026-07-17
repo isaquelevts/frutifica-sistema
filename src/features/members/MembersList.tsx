@@ -126,7 +126,7 @@ const MembersList: React.FC = () => {
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-slate-500 font-medium animate-pulse">Carregando membros...</p>
+          <p className="text-muted-foreground font-medium animate-pulse">Carregando membros...</p>
         </div>
       </div>
     );
@@ -136,8 +136,8 @@ const MembersList: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Membros da Célula</h1>
-          <p className="text-slate-500">Gerencie os participantes e visitantes.</p>
+          <h1 className="text-2xl font-bold text-foreground">Membros da Célula</h1>
+          <p className="text-muted-foreground">Gerencie os participantes e visitantes.</p>
         </div>
         <button
           onClick={() => {
@@ -151,29 +151,29 @@ const MembersList: React.FC = () => {
         </button>
       </div>
 
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+      <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
         <div className="relative">
-          <Search className="absolute left-3 top-2.5 text-slate-400" size={20} />
+          <Search className="absolute left-3 top-2.5 text-muted-foreground" size={20} />
           <input
             type="text"
             placeholder="Buscar por nome..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 text-slate-800 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-4 py-2 bg-muted/50 border border-border text-foreground rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredMembers.map(member => (
-          <div key={member.id} className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow relative group">
+          <div key={member.id} className="bg-white p-4 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow relative group">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg ${member.type === MemberType.MEMBER ? 'bg-blue-100 text-blue-600' : 'bg-orange-100 text-orange-600'}`}>
                   {member.name.charAt(0)}
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-800">{member.name}</h3>
+                  <h3 className="font-bold text-foreground">{member.name}</h3>
                   <div className="flex items-center gap-2 mt-0.5">
                     {member.type === MemberType.MEMBER ? (
                       <span className="flex items-center gap-1 text-[10px] uppercase font-bold bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded border border-blue-100">
@@ -184,7 +184,7 @@ const MembersList: React.FC = () => {
                         <Star size={10} /> Visitante
                       </span>
                     )}
-                    <span className="text-xs text-slate-400">
+                    <span className="text-xs text-muted-foreground">
                       Freq: {member.attendanceCount}
                     </span>
                   </div>
@@ -194,22 +194,22 @@ const MembersList: React.FC = () => {
               <div className="flex gap-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
                 <button
                   onClick={() => handleEdit(member)}
-                  className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded"
+                  className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 rounded"
                 >
                   <Edit2 size={18} />
                 </button>
                 <button
                   onClick={() => handleDelete(member.id)}
-                  className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded"
+                  className="p-1.5 text-muted-foreground hover:text-red-600 hover:bg-red-50 rounded"
                 >
                   <Trash2 size={18} />
                 </button>
               </div>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-slate-50 flex flex-col gap-2">
+            <div className="mt-4 pt-3 border-t border-border flex flex-col gap-2">
               {member.birthday && (
-                <div className="flex items-center text-sm text-slate-500 gap-2">
+                <div className="flex items-center text-sm text-muted-foreground gap-2">
                   <Cake size={14} />
                   {new Date(member.birthday).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long' })}
                 </div>
@@ -229,36 +229,36 @@ const MembersList: React.FC = () => {
       {showForm && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl w-full max-w-md p-6 shadow-2xl animate-in fade-in zoom-in duration-200">
-            <h2 className="text-xl font-bold text-slate-800 mb-4">
+            <h2 className="text-xl font-bold text-foreground mb-4">
               {editingMember ? 'Editar Membro' : 'Novo Membro'}
             </h2>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Nome Completo</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Nome Completo</label>
                 <input
                   type="text"
                   {...register('name')}
-                  className={`w-full px-4 py-2 rounded-lg bg-slate-50 border ${errors.name ? 'border-red-500' : 'border-slate-300'} outline-none focus:border-blue-500 text-slate-800`}
+                  className={`w-full px-4 py-2 rounded-lg bg-muted/50 border ${errors.name ? 'border-red-500' : 'border-input'} outline-none focus:border-blue-500 text-foreground`}
                 />
                 {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Data de Nascimento (Opcional)</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Data de Nascimento (Opcional)</label>
                 <input
                   type="date"
                   {...register('birthday')}
-                  className="w-full px-4 py-2 rounded-lg bg-slate-50 border border-slate-300 outline-none focus:border-blue-500 text-slate-800"
+                  className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Tipo</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">Tipo</label>
                   <select
                     {...register('type')}
-                    className="w-full px-4 py-2 rounded-lg bg-slate-50 border border-slate-300 outline-none focus:border-blue-500 text-slate-800"
+                    className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
                   >
                     <option value={MemberType.MEMBER}>Membro</option>
                     <option value={MemberType.VISITOR}>Visitante</option>
@@ -266,14 +266,14 @@ const MembersList: React.FC = () => {
                 </div>
                 {watcherType === MemberType.VISITOR && (
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Total Presenças</label>
+                    <label className="block text-sm font-medium text-foreground mb-1">Total Presenças</label>
                     <input
                       type="number"
                       min="0"
                       {...register('attendanceCount')}
-                      className="w-full px-4 py-2 rounded-lg bg-slate-50 border border-slate-300 outline-none focus:border-blue-500 text-slate-800"
+                      className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
                     />
-                    <p className="text-[10px] text-slate-400 mt-1">3 presenças vira membro.</p>
+                    <p className="text-[10px] text-muted-foreground mt-1">3 presenças vira membro.</p>
                   </div>
                 )}
               </div>
@@ -282,7 +282,7 @@ const MembersList: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
-                  className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                  className="px-4 py-2 text-muted-foreground hover:bg-muted rounded-lg transition-colors"
                 >
                   Cancelar
                 </button>

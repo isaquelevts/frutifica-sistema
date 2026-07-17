@@ -176,9 +176,9 @@ const Dashboard: React.FC = () => {
 
         marker.bindPopup(`
                 <div class="font-sans">
-                    <strong class="block text-sm text-slate-800">${cell.name}</strong>
-                    <span class="text-xs text-slate-500">${cell.leaderName}</span><br/>
-                    <span class="text-xs text-slate-500">${cell.dayOfWeek} às ${cell.time}</span>
+                    <strong class="block text-sm text-foreground">${cell.name}</strong>
+                    <span class="text-xs text-muted-foreground">${cell.leaderName}</span><br/>
+                    <span class="text-xs text-muted-foreground">${cell.dayOfWeek} às ${cell.time}</span>
                 </div>
             `);
 
@@ -386,7 +386,7 @@ const Dashboard: React.FC = () => {
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-slate-500 font-medium animate-pulse">Carregando painel de controle...</p>
+          <p className="text-muted-foreground font-medium animate-pulse">Carregando painel de controle...</p>
         </div>
       </div>
     );
@@ -419,10 +419,10 @@ const Dashboard: React.FC = () => {
       {/* HEADER */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">
+          <h1 className="text-2xl font-bold text-foreground">
             {isAdmin ? 'Visão Geral' : 'Meus Resultados'}
           </h1>
-          <p className="text-slate-500">
+          <p className="text-muted-foreground">
             Mostrando dados de {filteredReports.length} relatórios.
           </p>
         </div>
@@ -432,7 +432,7 @@ const Dashboard: React.FC = () => {
       <Card>
         <CardContent className="p-5 space-y-5">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-slate-700 font-semibold">
+            <div className="flex items-center gap-2 text-foreground font-semibold">
               <Filter size={20} />
               <h2>Filtros</h2>
               {activeFilterCount > 0 && (
@@ -442,7 +442,7 @@ const Dashboard: React.FC = () => {
               )}
             </div>
             {activeFilterCount > 0 && (
-              <Button variant="ghost" size="sm" onClick={clearFilters} className="text-slate-500 hover:text-red-500">
+              <Button variant="ghost" size="sm" onClick={clearFilters} className="text-muted-foreground hover:text-red-500">
                 <X size={16} /> Limpar filtros
               </Button>
             )}
@@ -450,7 +450,7 @@ const Dashboard: React.FC = () => {
 
           {/* Período */}
           <div>
-            <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+            <label className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
               <SlidersHorizontal size={12} /> Período
             </label>
 
@@ -470,7 +470,7 @@ const Dashboard: React.FC = () => {
             {timeFilter === 'custom' && (
               <div className="flex flex-col sm:flex-row gap-2 mt-3">
                 <div className="w-full sm:w-40">
-                  <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Início</label>
+                  <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Início</label>
                   <Input
                     type="date"
                     value={customStartDate}
@@ -478,7 +478,7 @@ const Dashboard: React.FC = () => {
                   />
                 </div>
                 <div className="w-full sm:w-40">
-                  <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Fim</label>
+                  <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Fim</label>
                   <Input
                     type="date"
                     value={customEndDate}
@@ -494,13 +494,13 @@ const Dashboard: React.FC = () => {
 
           {/* Escopo */}
           {isAdmin && (
-            <div className="pt-1 border-t border-slate-100">
-              <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 mt-4">
+            <div className="pt-1 border-t border-border">
+              <label className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 mt-4">
                 <Users size={12} /> Escopo
               </label>
               <div className="flex flex-col md:flex-row gap-4">
                 <div className="w-full md:w-1/2">
-                  <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Célula</label>
+                  <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Célula</label>
                   <Select value={selectedCellId} onValueChange={setSelectedCellId}>
                     <SelectTrigger>
                       <SelectValue />
@@ -515,7 +515,7 @@ const Dashboard: React.FC = () => {
                 </div>
 
                 <div className="w-full md:w-1/2">
-                  <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Público Alvo</label>
+                  <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Público Alvo</label>
                   <Select value={audienceFilter} onValueChange={setAudienceFilter}>
                     <SelectTrigger>
                       <SelectValue />
@@ -541,10 +541,10 @@ const Dashboard: React.FC = () => {
           <Card>
             <CardContent className="p-6 flex justify-between items-start">
               <div>
-                <p className="text-sm font-medium text-slate-500">
+                <p className="text-sm font-medium text-muted-foreground">
                   {selectedCellId === 'all' ? 'Células Ativas' : 'Célula Selecionada'}
                 </p>
-                <h3 className="text-2xl font-bold text-slate-800 mt-1">
+                <h3 className="text-2xl font-bold text-foreground mt-1">
                   {totalCellsCount}
                 </h3>
               </div>
@@ -558,8 +558,8 @@ const Dashboard: React.FC = () => {
         <Card>
           <CardContent className="p-6 flex justify-between items-start">
             <div>
-              <p className="text-sm font-medium text-slate-500">Participantes</p>
-              <h3 className="text-2xl font-bold text-slate-800 mt-1">{totalParticipants}</h3>
+              <p className="text-sm font-medium text-muted-foreground">Participantes</p>
+              <h3 className="text-2xl font-bold text-foreground mt-1">{totalParticipants}</h3>
             </div>
             <div className="p-2 bg-purple-50 text-purple-600 rounded-lg">
               <UserCheck size={20} />
@@ -570,8 +570,8 @@ const Dashboard: React.FC = () => {
         <Card>
           <CardContent className="p-6 flex justify-between items-start">
             <div>
-              <p className="text-sm font-medium text-slate-500">Visitantes</p>
-              <h3 className="text-2xl font-bold text-slate-800 mt-1">{totalVisitors}</h3>
+              <p className="text-sm font-medium text-muted-foreground">Visitantes</p>
+              <h3 className="text-2xl font-bold text-foreground mt-1">{totalVisitors}</h3>
             </div>
             <div className="p-2 bg-orange-50 text-orange-600 rounded-lg">
               <TrendingUp size={20} />
@@ -582,8 +582,8 @@ const Dashboard: React.FC = () => {
         <Card>
           <CardContent className="p-6 flex justify-between items-start">
             <div>
-              <p className="text-sm font-medium text-slate-500">Relatórios</p>
-              <h3 className="text-2xl font-bold text-slate-800 mt-1">{totalReports}</h3>
+              <p className="text-sm font-medium text-muted-foreground">Relatórios</p>
+              <h3 className="text-2xl font-bold text-foreground mt-1">{totalReports}</h3>
             </div>
             <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
               <FileText size={20} />
@@ -611,7 +611,7 @@ const Dashboard: React.FC = () => {
                 </BarChart>
               </ChartContainer>
             ) : (
-              <div className="h-64 flex flex-col items-center justify-center text-slate-400">
+              <div className="h-64 flex flex-col items-center justify-center text-muted-foreground">
                 <p>Sem dados neste período.</p>
               </div>
             )}
@@ -645,16 +645,16 @@ const Dashboard: React.FC = () => {
                   </PieChart>
                 </ChartContainer>
               ) : (
-                <div className="h-64 flex items-center justify-center text-slate-400">
+                <div className="h-64 flex items-center justify-center text-muted-foreground">
                   Sem dados neste período.
                 </div>
               )}
             </CardContent>
             <div className="flex items-center justify-center gap-4 pb-6 text-sm">
-              <span className="flex items-center gap-1.5 text-slate-600">
+              <span className="flex items-center gap-1.5 text-muted-foreground">
                 <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: '#22c55e' }} /> Realizada
               </span>
-              <span className="flex items-center gap-1.5 text-slate-600">
+              <span className="flex items-center gap-1.5 text-muted-foreground">
                 <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: '#ef4444' }} /> Não Realizada
               </span>
             </div>
@@ -669,22 +669,22 @@ const Dashboard: React.FC = () => {
             </CardHeader>
             <CardContent>
               {notRealizedReports.length > 0 ? (
-                <ul className="divide-y divide-slate-100">
+                <ul className="divide-y divide-border">
                   {notRealizedReports.map(item => (
                     <li key={item.id} className="py-3 flex items-start justify-between gap-3">
                       <div>
-                        <p className="font-medium text-slate-800">{item.cellName}</p>
-                        {item.leaderName && <p className="text-xs text-slate-500">{item.leaderName}</p>}
-                        {item.reason && <p className="text-xs text-slate-500 italic mt-0.5">"{item.reason}"</p>}
+                        <p className="font-medium text-foreground">{item.cellName}</p>
+                        {item.leaderName && <p className="text-xs text-muted-foreground">{item.leaderName}</p>}
+                        {item.reason && <p className="text-xs text-muted-foreground italic mt-0.5">"{item.reason}"</p>}
                       </div>
-                      <span className="text-xs text-slate-500 whitespace-nowrap">
+                      <span className="text-xs text-muted-foreground whitespace-nowrap">
                         {parseReportDate(item.date).toLocaleDateString('pt-BR')}
                       </span>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <div className="h-64 flex items-center justify-center text-slate-400 text-center px-4">
+                <div className="h-64 flex items-center justify-center text-muted-foreground text-center px-4">
                   Nenhuma célula não realizada nesse período. 🎉
                 </div>
               )}
@@ -698,7 +698,7 @@ const Dashboard: React.FC = () => {
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-4 px-2">
                 <MapPin className="text-blue-600" size={20} />
-                <h3 className="text-lg font-semibold text-slate-800">Mapa das Células</h3>
+                <h3 className="text-lg font-semibold text-foreground">Mapa das Células</h3>
               </div>
               <div ref={mapRef} className="w-full h-80 rounded-lg z-0 relative" />
             </CardContent>
@@ -728,7 +728,7 @@ const Dashboard: React.FC = () => {
                 </LineChart>
               </ChartContainer>
             ) : (
-              <div className="h-64 flex items-center justify-center text-slate-400">
+              <div className="h-64 flex items-center justify-center text-muted-foreground">
                 Sem dados neste período
               </div>
             )}
@@ -762,7 +762,7 @@ const Dashboard: React.FC = () => {
                 <ToggleGroupItem value="0">Esta semana</ToggleGroupItem>
                 <ToggleGroupItem value="-1">Semana passada</ToggleGroupItem>
               </ToggleGroup>
-              <span className="text-xs text-slate-500">{statusWeekLabel}</span>
+              <span className="text-xs text-muted-foreground">{statusWeekLabel}</span>
             </div>
           </CardHeader>
           <CardContent>
@@ -796,7 +796,7 @@ const Dashboard: React.FC = () => {
                           </Badge>
                         )}
                       </TableCell>
-                      <TableCell className="text-right text-slate-500">
+                      <TableCell className="text-right text-muted-foreground">
                         {lastDate ? parseReportDate(lastDate).toLocaleDateString('pt-BR') : '—'}
                       </TableCell>
                     </TableRow>
@@ -804,7 +804,7 @@ const Dashboard: React.FC = () => {
                 </TableBody>
               </Table>
             ) : (
-              <div className="h-32 flex items-center justify-center text-slate-400">
+              <div className="h-32 flex items-center justify-center text-muted-foreground">
                 Nenhuma célula neste filtro.
               </div>
             )}

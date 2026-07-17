@@ -40,47 +40,47 @@ const PlatformSettings: React.FC = () => {
   return (
     <div className="space-y-8 max-w-3xl">
       <div>
-        <h1 className="text-2xl font-bold text-slate-800">Configurações da Plataforma</h1>
-        <p className="text-slate-500 mt-1">Gerencie superadmins e configurações globais do Frutifica.</p>
+        <h1 className="text-2xl font-bold text-foreground">Configurações da Plataforma</h1>
+        <p className="text-muted-foreground mt-1">Gerencie superadmins e configurações globais do Frutifica.</p>
       </div>
 
       {/* Planos e Limites */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-100">
-          <h2 className="text-base font-bold text-slate-800">Planos e Limites</h2>
-          <p className="text-sm text-slate-500 mt-0.5">Tabela de referência dos planos disponíveis.</p>
+      <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-border">
+          <h2 className="text-base font-bold text-foreground">Planos e Limites</h2>
+          <p className="text-sm text-muted-foreground mt-0.5">Tabela de referência dos planos disponíveis.</p>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="border-b border-slate-100 bg-slate-50">
-              <tr className="text-xs text-slate-500 uppercase tracking-wider">
+            <thead className="border-b border-border bg-muted/50">
+              <tr className="text-xs text-muted-foreground uppercase tracking-wider">
                 <th className="px-6 py-3 text-left font-medium">Plano</th>
                 <th className="px-6 py-3 text-left font-medium">Máx. Células</th>
                 <th className="px-6 py-3 text-left font-medium">Preço</th>
                 <th className="px-6 py-3 text-left font-medium">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-50">
+            <tbody className="divide-y divide-border">
               <tr>
-                <td className="px-6 py-4 font-semibold text-slate-800">FREE</td>
-                <td className="px-6 py-4 text-slate-600">3</td>
-                <td className="px-6 py-4 text-slate-600">R$ 0</td>
+                <td className="px-6 py-4 font-semibold text-foreground">FREE</td>
+                <td className="px-6 py-4 text-muted-foreground">3</td>
+                <td className="px-6 py-4 text-muted-foreground">R$ 0</td>
                 <td className="px-6 py-4">
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">Ativo</span>
                 </td>
               </tr>
               <tr>
-                <td className="px-6 py-4 font-semibold text-slate-800">PRO</td>
-                <td className="px-6 py-4 text-slate-600">Ilimitado</td>
-                <td className="px-6 py-4 text-slate-600">R$ 29,90/mês</td>
+                <td className="px-6 py-4 font-semibold text-foreground">PRO</td>
+                <td className="px-6 py-4 text-muted-foreground">Ilimitado</td>
+                <td className="px-6 py-4 text-muted-foreground">R$ 29,90/mês</td>
                 <td className="px-6 py-4">
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">Ativo</span>
                 </td>
               </tr>
               <tr>
-                <td className="px-6 py-4 font-semibold text-slate-800">ENTERPRISE</td>
-                <td className="px-6 py-4 text-slate-600">Ilimitado</td>
-                <td className="px-6 py-4 text-slate-600">Sob consulta</td>
+                <td className="px-6 py-4 font-semibold text-foreground">ENTERPRISE</td>
+                <td className="px-6 py-4 text-muted-foreground">Ilimitado</td>
+                <td className="px-6 py-4 text-muted-foreground">Sob consulta</td>
                 <td className="px-6 py-4">
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">Ativo</span>
                 </td>
@@ -91,27 +91,27 @@ const PlatformSettings: React.FC = () => {
       </div>
 
       {/* Gerenciar Super Admins */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-100 flex items-center gap-3">
+      <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-border flex items-center gap-3">
           <Shield size={18} className="text-blue-600" />
           <div>
-            <h2 className="text-base font-bold text-slate-800">Super Admins</h2>
-            <p className="text-sm text-slate-500 mt-0.5">Usuários com acesso total à plataforma.</p>
+            <h2 className="text-base font-bold text-foreground">Super Admins</h2>
+            <p className="text-sm text-muted-foreground mt-0.5">Usuários com acesso total à plataforma.</p>
           </div>
         </div>
 
         {/* Adicionar novo superadmin */}
-        <div className="px-6 py-4 border-b border-slate-100 bg-slate-50">
+        <div className="px-6 py-4 border-b border-border bg-muted/50">
           <form onSubmit={handleAddSuperAdmin} className="flex gap-3">
             <div className="flex-1 relative">
-              <UserPlus size={15} className="absolute left-3 top-2.5 text-slate-400" />
+              <UserPlus size={15} className="absolute left-3 top-2.5 text-muted-foreground" />
               <input
                 type="email"
                 value={newEmail}
                 onChange={e => setNewEmail(e.target.value)}
                 placeholder="email@exemplo.com"
                 required
-                className="w-full pl-9 pr-4 py-2 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-9 pr-4 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <button
@@ -141,7 +141,7 @@ const PlatformSettings: React.FC = () => {
             <div className="w-6 h-6 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : (
-          <div className="divide-y divide-slate-50">
+          <div className="divide-y divide-border">
             {superAdmins.map((sa: any) => (
               <div key={sa.id} className="px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -149,8 +149,8 @@ const PlatformSettings: React.FC = () => {
                     {sa.name?.substring(0, 2) ?? '??'}
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-slate-800">{sa.name}</p>
-                    <p className="text-xs text-slate-500">{sa.email}</p>
+                    <p className="text-sm font-medium text-foreground">{sa.name}</p>
+                    <p className="text-xs text-muted-foreground">{sa.email}</p>
                   </div>
                   {sa.id === user?.id && (
                     <span className="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-medium">Você</span>
@@ -159,7 +159,7 @@ const PlatformSettings: React.FC = () => {
                 {sa.id !== user?.id && (
                   <button
                     onClick={() => setRemoveConfirmId(sa.id)}
-                    className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    className="p-1.5 text-muted-foreground hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                     title="Remover superadmin"
                   >
                     <Trash2 size={15} />
@@ -168,7 +168,7 @@ const PlatformSettings: React.FC = () => {
               </div>
             ))}
             {superAdmins.length === 0 && (
-              <div className="px-6 py-8 text-center text-slate-400 text-sm">Nenhum superadmin encontrado.</div>
+              <div className="px-6 py-8 text-center text-muted-foreground text-sm">Nenhum superadmin encontrado.</div>
             )}
           </div>
         )}
@@ -178,14 +178,14 @@ const PlatformSettings: React.FC = () => {
       {removeConfirmId && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl w-full max-w-sm p-6 shadow-2xl">
-            <h3 className="text-lg font-bold text-slate-800 mb-2">Remover SuperAdmin?</h3>
-            <p className="text-sm text-slate-600 mb-6">
+            <h3 className="text-lg font-bold text-foreground mb-2">Remover SuperAdmin?</h3>
+            <p className="text-sm text-muted-foreground mb-6">
               Este usuário perderá o acesso ao painel super admin. Você pode readicioná-lo a qualquer momento.
             </p>
             <div className="flex gap-3">
               <button
                 onClick={() => setRemoveConfirmId(null)}
-                className="flex-1 px-4 py-2 text-sm font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200"
+                className="flex-1 px-4 py-2 text-sm font-medium text-muted-foreground bg-muted rounded-lg hover:bg-muted"
               >
                 Cancelar
               </button>

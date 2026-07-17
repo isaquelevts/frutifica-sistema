@@ -19,21 +19,21 @@ const ImportPreview: React.FC<ImportPreviewProps> = ({ data, summary, onConfirm,
 
             {/* Summary Cards */}
             <div className="grid grid-cols-3 gap-4">
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                    <p className="text-sm text-slate-500">Gerações</p>
-                    <p className="text-2xl font-bold text-slate-800">{summary.totalGenerations}</p>
+                <div className="bg-white p-4 rounded-xl shadow-sm border border-border">
+                    <p className="text-sm text-muted-foreground">Gerações</p>
+                    <p className="text-2xl font-bold text-foreground">{summary.totalGenerations}</p>
                     <p className="text-xs text-green-600 mt-1">
                         {summary.newGenerations.length} novas, {summary.existingGenerations.length} existentes
                     </p>
                 </div>
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                    <p className="text-sm text-slate-500">Células</p>
-                    <p className="text-2xl font-bold text-slate-800">{summary.totalCells}</p>
+                <div className="bg-white p-4 rounded-xl shadow-sm border border-border">
+                    <p className="text-sm text-muted-foreground">Células</p>
+                    <p className="text-2xl font-bold text-foreground">{summary.totalCells}</p>
                 </div>
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                    <p className="text-sm text-slate-500">Líderes</p>
-                    <p className="text-2xl font-bold text-slate-800">{summary.totalLeaders}</p>
-                    <p className="text-xs text-slate-500 mt-1">
+                <div className="bg-white p-4 rounded-xl shadow-sm border border-border">
+                    <p className="text-sm text-muted-foreground">Líderes</p>
+                    <p className="text-2xl font-bold text-foreground">{summary.totalLeaders}</p>
+                    <p className="text-xs text-muted-foreground mt-1">
                         {summary.existingEmailsInDb.length > 0 ? `${summary.existingEmailsInDb.length} já existem (serão pulados)` : 'Todos novos'}
                     </p>
                 </div>
@@ -54,13 +54,13 @@ const ImportPreview: React.FC<ImportPreviewProps> = ({ data, summary, onConfirm,
             )}
 
             {/* Table Preview */}
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                <div className="p-4 border-b border-slate-100 bg-slate-50">
-                    <h3 className="font-semibold text-slate-700">Pré-visualização dos Dados</h3>
+            <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+                <div className="p-4 border-b border-border bg-muted/50">
+                    <h3 className="font-semibold text-foreground">Pré-visualização dos Dados</h3>
                 </div>
                 <div className="overflow-x-auto max-h-[400px]">
                     <table className="w-full text-sm text-left">
-                        <thead className="bg-slate-50 text-slate-500 font-medium sticky top-0">
+                        <thead className="bg-muted/50 text-muted-foreground font-medium sticky top-0">
                             <tr>
                                 <th className="px-4 py-2">Geração</th>
                                 <th className="px-4 py-2">Célula</th>
@@ -69,11 +69,11 @@ const ImportPreview: React.FC<ImportPreviewProps> = ({ data, summary, onConfirm,
                                 <th className="px-4 py-2">Status</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
+                        <tbody className="divide-y divide-border">
                             {data.map((row, idx) => {
                                 const exists = summary.existingEmailsInDb.includes(row.lider_email);
                                 return (
-                                    <tr key={idx} className={exists ? 'bg-slate-50 opacity-60' : 'hover:bg-slate-50'}>
+                                    <tr key={idx} className={exists ? 'bg-muted/50 opacity-60' : 'hover:bg-muted/50'}>
                                         <td className="px-4 py-2">
                                             <span className="inline-block w-2 h-2 rounded-full mr-2" style={{ backgroundColor: row.cor_geracao }}></span>
                                             {row.geracao}
@@ -100,7 +100,7 @@ const ImportPreview: React.FC<ImportPreviewProps> = ({ data, summary, onConfirm,
             <div className="flex justify-between pt-4">
                 <button
                     onClick={onBack}
-                    className="flex items-center gap-2 px-6 py-2.5 rounded-lg border border-slate-300 text-slate-700 font-medium hover:bg-slate-50 transition-colors"
+                    className="flex items-center gap-2 px-6 py-2.5 rounded-lg border border-input text-foreground font-medium hover:bg-muted/50 transition-colors"
                 >
                     <ArrowLeft size={18} />
                     Voltar

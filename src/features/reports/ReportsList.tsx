@@ -86,7 +86,7 @@ const ReportsList: React.FC = () => {
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-slate-500 font-medium animate-pulse">Carregando relatórios...</p>
+          <p className="text-muted-foreground font-medium animate-pulse">Carregando relatórios...</p>
         </div>
       </div>
     );
@@ -103,24 +103,24 @@ const ReportsList: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Histórico de Relatórios</h1>
-          <p className="text-slate-500">Visualize e gerencie os relatórios enviados.</p>
+          <h1 className="text-2xl font-bold text-foreground">Histórico de Relatórios</h1>
+          <p className="text-muted-foreground">Visualize e gerencie os relatórios enviados.</p>
         </div>
       </div>
 
       {/* FILTER BAR */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col lg:flex-row gap-4">
+      <div className="bg-white p-4 rounded-xl border border-border shadow-sm flex flex-col lg:flex-row gap-4">
 
         {/* Search (Admin mostly) */}
         {isAdmin && (
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-2.5 text-slate-400" size={20} />
+            <Search className="absolute left-3 top-2.5 text-muted-foreground" size={20} />
             <input
               type="text"
               placeholder="Pesquisar por nome da célula..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-300 text-slate-800 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-4 py-2 bg-muted/50 border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
         )}
@@ -132,17 +132,17 @@ const ReportsList: React.FC = () => {
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-300 text-slate-800 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              className="w-full px-3 py-2 bg-muted/50 border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-sm"
               placeholder="Data Inicial"
             />
           </div>
-          <div className="hidden sm:flex items-center text-slate-400">-</div>
+          <div className="hidden sm:flex items-center text-muted-foreground">-</div>
           <div className="flex-1">
             <input
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-300 text-slate-800 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              className="w-full px-3 py-2 bg-muted/50 border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-sm"
               placeholder="Data Final"
             />
           </div>
@@ -160,34 +160,34 @@ const ReportsList: React.FC = () => {
       </div>
 
       {/* DESKTOP TABLE VIEW */}
-      <div className="hidden md:block bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="hidden md:block bg-white rounded-xl shadow-sm border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Data</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Célula</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Status</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Participantes</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Visitantes</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Foto</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600 text-right">Ações</th>
+              <tr className="bg-muted/50 border-b border-border">
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Data</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Célula</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Status</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Participantes</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Visitantes</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Foto</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground text-right">Ações</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-border">
               {filteredReports.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-6 py-8 text-center text-slate-500">
+                  <td colSpan={7} className="px-6 py-8 text-center text-muted-foreground">
                     Nenhum relatório encontrado com os filtros selecionados.
                   </td>
                 </tr>
               ) : (
                 filteredReports.map((report) => (
-                  <tr key={report.id} className="hover:bg-slate-50 transition-colors">
+                  <tr key={report.id} className="hover:bg-muted/50 transition-colors">
                     {/* Data */}
-                    <td className="px-6 py-4 text-sm text-slate-700 whitespace-nowrap">
+                    <td className="px-6 py-4 text-sm text-foreground whitespace-nowrap">
                       <div className="flex items-center gap-2">
-                        <Calendar size={16} className="text-slate-400" />
+                        <Calendar size={16} className="text-muted-foreground" />
                         <span className="font-medium">
                           {new Date(report.date).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: '2-digit' })}
                         </span>
@@ -195,7 +195,7 @@ const ReportsList: React.FC = () => {
                     </td>
 
                     {/* Célula */}
-                    <td className="px-6 py-4 text-sm font-medium text-slate-800">
+                    <td className="px-6 py-4 text-sm font-medium text-foreground">
                       {report.cellName}
                     </td>
 
@@ -213,15 +213,15 @@ const ReportsList: React.FC = () => {
                     </td>
 
                     {/* Stats */}
-                    <td className="px-6 py-4 text-sm text-slate-600">
+                    <td className="px-6 py-4 text-sm text-muted-foreground">
                       {isReportRealized(report) ? (
                         <div className="flex items-center gap-1">
-                          <Users size={16} className="text-slate-400" />
+                          <Users size={16} className="text-muted-foreground" />
                           {report.participants}
                         </div>
                       ) : '-'}
                     </td>
-                    <td className="px-6 py-4 text-sm text-slate-600">
+                    <td className="px-6 py-4 text-sm text-muted-foreground">
                       {isReportRealized(report) ? report.visitors : '-'}
                     </td>
 
@@ -232,11 +232,11 @@ const ReportsList: React.FC = () => {
                           <img
                             src={photoUrl(report.photoUrl)!}
                             alt={`Foto da célula ${report.cellName}`}
-                            className="w-12 h-12 object-cover rounded-lg border border-slate-200 hover:opacity-80 transition-opacity"
+                            className="w-12 h-12 object-cover rounded-lg border border-border hover:opacity-80 transition-opacity"
                           />
                         </a>
                       ) : (
-                        <span className="text-slate-300">
+                        <span className="text-muted-foreground">
                           <ImageIcon size={20} />
                         </span>
                       )}
@@ -273,14 +273,14 @@ const ReportsList: React.FC = () => {
       {/* MOBILE CARD VIEW */}
       <div className="md:hidden space-y-4">
         {filteredReports.length === 0 ? (
-          <div className="bg-white p-8 text-center rounded-xl border border-slate-200 text-slate-500">
+          <div className="bg-white p-8 text-center rounded-xl border border-border text-muted-foreground">
             Nenhum relatório encontrado.
           </div>
         ) : (
           filteredReports.map((report) => (
-            <div key={report.id} className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm relative">
+            <div key={report.id} className="bg-white p-4 rounded-xl border border-border shadow-sm relative">
               <div className="flex justify-between items-start mb-3">
-                <div className="flex items-center gap-2 text-sm text-slate-500">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Calendar size={14} />
                   {new Date(report.date).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                 </div>
@@ -295,17 +295,17 @@ const ReportsList: React.FC = () => {
                 )}
               </div>
 
-              <h3 className="font-bold text-lg text-slate-800 mb-4">{report.cellName}</h3>
+              <h3 className="font-bold text-lg text-foreground mb-4">{report.cellName}</h3>
 
               {isReportRealized(report) && (
                 <div className="grid grid-cols-3 gap-2 mb-4">
-                  <div className="bg-slate-50 p-2 rounded-lg text-center border border-slate-100">
-                    <span className="block font-bold text-slate-700 text-lg">{report.participants}</span>
-                    <span className="text-[10px] text-slate-500 uppercase">Presentes</span>
+                  <div className="bg-muted/50 p-2 rounded-lg text-center border border-border">
+                    <span className="block font-bold text-foreground text-lg">{report.participants}</span>
+                    <span className="text-[10px] text-muted-foreground uppercase">Presentes</span>
                   </div>
-                  <div className="bg-slate-50 p-2 rounded-lg text-center border border-slate-100">
+                  <div className="bg-muted/50 p-2 rounded-lg text-center border border-border">
                     <span className="block font-bold text-orange-600 text-lg">{report.visitors}</span>
-                    <span className="text-[10px] text-slate-500 uppercase">Visitantes</span>
+                    <span className="text-[10px] text-muted-foreground uppercase">Visitantes</span>
                   </div>
                 </div>
               )}
@@ -321,12 +321,12 @@ const ReportsList: React.FC = () => {
                   <img
                     src={photoUrl(report.photoUrl)!}
                     alt={`Foto da célula ${report.cellName}`}
-                    className="w-full h-40 object-cover rounded-lg border border-slate-200"
+                    className="w-full h-40 object-cover rounded-lg border border-border"
                   />
                 </a>
               )}
 
-              <div className="pt-3 border-t border-slate-100 flex justify-end gap-4">
+              <div className="pt-3 border-t border-border flex justify-end gap-4">
                 <Link
                   to={`/edit-report/${report.id}`}
                   className="flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-800"

@@ -235,8 +235,8 @@ const ManageLeaders: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Gerenciar Líderes</h1>
-          <p className="text-slate-500">Controle de acesso e informações dos líderes.</p>
+          <h1 className="text-2xl font-bold text-foreground">Gerenciar Líderes</h1>
+          <p className="text-muted-foreground">Controle de acesso e informações dos líderes.</p>
         </div>
         <button
           onClick={handleOpenModal}
@@ -255,7 +255,7 @@ const ManageLeaders: React.FC = () => {
             <span className="font-semibold text-sm">Link de Cadastro para Líderes</span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs text-slate-500 truncate font-mono bg-white border border-slate-200 px-2 py-1 rounded">
+            <p className="text-xs text-muted-foreground truncate font-mono bg-white border border-border px-2 py-1 rounded">
               {registerLink}
             </p>
           </div>
@@ -272,52 +272,52 @@ const ManageLeaders: React.FC = () => {
         </div>
       )}
 
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+      <div className="bg-white p-4 rounded-xl border border-border shadow-sm">
         <div className="relative">
-          <Search className="absolute left-3 top-2.5 text-slate-400" size={20} />
+          <Search className="absolute left-3 top-2.5 text-muted-foreground" size={20} />
           <input
             type="text"
             placeholder="Buscar por nome ou email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 text-slate-900 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-4 py-2 bg-white border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Nome</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Célula</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Função</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600">Nascimento</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-600 text-right">Ações</th>
+              <tr className="bg-muted/50 border-b border-border">
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Nome</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Célula</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Função</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground">Nascimento</th>
+                <th className="px-6 py-4 text-sm font-semibold text-muted-foreground text-right">Ações</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-border">
               {filteredUsers.map((u) => (
-                <tr key={u.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={u.id} className="hover:bg-muted/50 transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-xs">
+                      <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground font-bold text-xs">
                         {u.name.substring(0, 2).toUpperCase()}
                       </div>
                       <div>
-                        <p className="font-medium text-slate-800">{u.name}</p>
-                        <p className="text-xs text-slate-500">{u.email}</p>
+                        <p className="font-medium text-foreground">{u.name}</p>
+                        <p className="text-xs text-muted-foreground">{u.email}</p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-sm text-slate-600">
+                  <td className="px-6 py-4 text-sm text-muted-foreground">
                     {getCellName(u.cellId)}
                   </td>
                   <td className="px-6 py-4">
                     {getRoleBadge(u.roles)}
                   </td>
-                  <td className="px-6 py-4 text-sm text-slate-600">
+                  <td className="px-6 py-4 text-sm text-muted-foreground">
                     {u.birthday ? new Date(u.birthday).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '-'}
                   </td>
                   <td className="px-6 py-4 text-right">
@@ -349,52 +349,52 @@ const ManageLeaders: React.FC = () => {
       {showModal && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl w-full max-w-lg p-6 shadow-2xl animate-in fade-in zoom-in duration-200 max-h-[90vh] overflow-y-auto">
-            <h2 className="text-xl font-bold text-slate-800 mb-6">
+            <h2 className="text-xl font-bold text-foreground mb-6">
               {editingUser ? 'Editar Usuário' : 'Cadastrar Usuário'}
             </h2>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2">
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Nome Completo</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">Nome Completo</label>
                   <div className="relative">
-                    <UserIcon className="absolute left-3 top-2.5 text-slate-500" size={18} />
+                    <UserIcon className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                     <input
                       type="text"
                       {...register('name')}
-                      className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-slate-300'} text-slate-900 font-medium outline-none focus:border-blue-500`}
+                      className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground font-medium outline-none focus:border-blue-500`}
                     />
                     {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>}
                   </div>
                 </div>
 
                 <div className="col-span-2">
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">Email</label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-2.5 text-slate-500" size={18} />
+                    <Mail className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                     <input
                       type="email"
                       {...register('email')}
                       disabled={!!editingUser}
-                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-900 font-medium outline-none focus:border-blue-500 disabled:bg-slate-100 disabled:cursor-not-allowed"
+                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-blue-500 disabled:bg-muted disabled:cursor-not-allowed"
                     />
                     {errors.email && <span className="text-red-500 text-xs mt-1">{errors.email.message}</span>}
                   </div>
                   {editingUser && (
-                    <p className="text-xs text-slate-500 mt-1">O email não pode ser alterado após a criação da conta.</p>
+                    <p className="text-xs text-muted-foreground mt-1">O email não pode ser alterado após a criação da conta.</p>
                   )}
                 </div>
 
                 {/* Password field - only for new users (though schema allows it, logic hides/shows it) */}
                 {!editingUser && (
                   <div className="col-span-2">
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Senha</label>
+                    <label className="block text-sm font-medium text-foreground mb-1">Senha</label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-2.5 text-slate-500" size={18} />
+                      <Lock className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                       <input
                         type="password"
                         {...register('password')}
-                        className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.password ? 'border-red-500' : 'border-slate-300'} text-slate-900 font-medium outline-none focus:border-blue-500`}
+                        className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.password ? 'border-red-500' : 'border-input'} text-foreground font-medium outline-none focus:border-blue-500`}
                         placeholder="Mínimo 6 caracteres"
                         minLength={6}
                       />
@@ -404,22 +404,22 @@ const ManageLeaders: React.FC = () => {
                 )}
 
                 <div className="col-span-1">
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Data de Nascimento</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">Data de Nascimento</label>
                   <div className="relative">
-                    <CakeSlice className="absolute left-3 top-2.5 text-slate-500" size={18} />
+                    <CakeSlice className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                     <input
                       type="date"
                       {...register('birthday')}
-                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-900 font-medium outline-none focus:border-blue-500"
+                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-blue-500"
                     />
                   </div>
                 </div>
 
                 <div className="col-span-1">
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Função</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">Função</label>
                   <select
                     {...register('role')}
-                    className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-900 font-medium outline-none focus:border-blue-500"
+                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-blue-500"
                   >
                     <option value={UserRole.LEADER}>Líder</option>
                     <option value={UserRole.COLEADER}>Co-Líder</option>
@@ -429,36 +429,36 @@ const ManageLeaders: React.FC = () => {
                 </div>
 
                 <div className="col-span-2">
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Célula Vinculada</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">Célula Vinculada</label>
                   <select
                     {...register('cellId')}
-                    className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-900 font-medium outline-none focus:border-blue-500"
+                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-blue-500"
                   >
                     <option value="">Sem Célula (Apenas Acesso)</option>
                     {cells.map(c => (
                       <option key={c.id} value={c.id}>{c.name} - {c.leaderName}</option>
                     ))}
                   </select>
-                  <p className="text-xs text-slate-500 mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     {/* Simplified for UI - hook form handles value */}
                     Co-líderes podem ser vinculados a células existentes sem criar uma nova.
                   </p>
                 </div>
 
                 <div className="col-span-2">
-                  <label className="block text-sm font-medium text-slate-700 mb-1">WhatsApp do Líder</label>
+                  <label className="block text-sm font-medium text-foreground mb-1">WhatsApp do Líder</label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-2.5 text-slate-500" size={18} />
+                    <Phone className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                     <input
                       type="tel"
                       value={leaderPhone}
                       onChange={(e) => setLeaderPhone(maskPhone(e.target.value))}
                       disabled={!watchedCellId}
                       placeholder="(11) 99999-9999"
-                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-900 font-medium outline-none focus:border-blue-500 disabled:bg-slate-100 disabled:cursor-not-allowed"
+                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-blue-500 disabled:bg-muted disabled:cursor-not-allowed"
                     />
                   </div>
-                  <p className="text-xs text-slate-500 mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     {watchedCellId
                       ? 'Usado nos lembretes semanais por WhatsApp.'
                       : 'Vincule a uma célula para adicionar o WhatsApp.'}
@@ -471,7 +471,7 @@ const ManageLeaders: React.FC = () => {
                   type="button"
                   onClick={() => setShowModal(false)}
                   disabled={loading}
-                  className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2 text-muted-foreground hover:bg-muted rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Cancelar
                 </button>
@@ -499,15 +499,15 @@ const ManageLeaders: React.FC = () => {
               </div>
 
               {/* Title */}
-              <h2 className="text-2xl font-bold text-slate-800 mb-2">
+              <h2 className="text-2xl font-bold text-foreground mb-2">
                 🎉 Líder Cadastrado!
               </h2>
 
               {/* Message */}
-              <p className="text-slate-600 mb-1">
+              <p className="text-muted-foreground mb-1">
                 <strong className="text-blue-600">{createdLeaderName}</strong> foi adicionado com sucesso!
               </p>
-              <p className="text-sm text-slate-500 mb-8">
+              <p className="text-sm text-muted-foreground mb-8">
                 O líder já pode acessar o sistema com as credenciais fornecidas.
               </p>
 
@@ -515,7 +515,7 @@ const ManageLeaders: React.FC = () => {
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   onClick={() => setShowSuccessModal(false)}
-                  className="flex-1 px-6 py-3 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 transition-colors"
+                  className="flex-1 px-6 py-3 bg-muted text-foreground font-semibold rounded-lg hover:bg-muted transition-colors"
                 >
                   ← Voltar
                 </button>

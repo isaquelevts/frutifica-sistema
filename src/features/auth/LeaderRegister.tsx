@@ -18,17 +18,17 @@ import { Church, Ticket } from 'lucide-react';
  */
 const LeaderRegister: React.FC = () => {
   return (
-    <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-muted flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8 text-center">
         <div className="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-6">
           <Ticket size={32} />
         </div>
 
-        <h1 className="text-2xl font-bold text-slate-800 mb-2">Este link mudou</h1>
-        <p className="text-slate-600 mb-2">
+        <h1 className="text-2xl font-bold text-foreground mb-2">Este link mudou</h1>
+        <p className="text-muted-foreground mb-2">
           O cadastro de líderes agora é feito por um link de convite pessoal da sua igreja.
         </p>
-        <p className="text-slate-500 text-sm mb-8">
+        <p className="text-muted-foreground text-sm mb-8">
           Peça ao responsável pela sua igreja um novo link de convite — ele gera em
           segundos no painel, em <strong>Convites de Líderes</strong>.
         </p>
@@ -40,7 +40,7 @@ const LeaderRegister: React.FC = () => {
           Já tenho conta — fazer login
         </Link>
 
-        <div className="flex items-center justify-center gap-2 text-slate-400 text-sm">
+        <div className="flex items-center justify-center gap-2 text-muted-foreground text-sm">
           <Church size={16} />
           <span>Frutifica</span>
         </div>

@@ -192,7 +192,7 @@ const VisitorForm: React.FC = () => {
             <div className="flex h-[80vh] items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
                     <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-                    <p className="text-slate-500 font-medium animate-pulse">Carregando ficha...</p>
+                    <p className="text-muted-foreground font-medium animate-pulse">Carregando ficha...</p>
                 </div>
             </div>
         );
@@ -203,21 +203,21 @@ const VisitorForm: React.FC = () => {
             <div className="mb-6">
                 <button
                     onClick={() => navigate(-1)}
-                    className="flex items-center text-slate-500 hover:text-slate-800 transition-colors mb-4"
+                    className="flex items-center text-muted-foreground hover:text-foreground transition-colors mb-4"
                 >
                     <ArrowLeft size={18} className="mr-1" /> Voltar
                 </button>
-                <h1 className="text-2xl font-bold text-slate-800">{isEditing ? 'Editar Ficha' : 'Nova Ficha de Visitante'}</h1>
-                <p className="text-slate-500">Preencha os dados abaixo para o acompanhamento.</p>
+                <h1 className="text-2xl font-bold text-foreground">{isEditing ? 'Editar Ficha' : 'Nova Ficha de Visitante'}</h1>
+                <p className="text-muted-foreground">Preencha os dados abaixo para o acompanhamento.</p>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
 
                 {/* SECTION 1: CELL ATTENDANCE */}
-                <div className="bg-white rounded-xl shadow-sm border border-slate-200">
-                    <div className="p-6 border-b border-slate-100 bg-slate-50 rounded-t-xl">
+                <div className="bg-white rounded-xl shadow-sm border border-border">
+                    <div className="p-6 border-b border-border bg-muted/50 rounded-t-xl">
                         <div className="flex items-center justify-between cursor-pointer" onClick={toggleAttendsCell}>
-                            <label className="text-lg font-semibold text-slate-800 cursor-pointer">Frequenta alguma célula?</label>
+                            <label className="text-lg font-semibold text-foreground cursor-pointer">Frequenta alguma célula?</label>
 
                             <div className="relative inline-block w-14 align-middle select-none transition duration-200 ease-in pointer-events-none">
                                 <input
@@ -230,7 +230,7 @@ const VisitorForm: React.FC = () => {
                                         borderColor: attendsCell ? '#2563EB' : '#cbd5e1'
                                     }}
                                 />
-                                <label className={`toggle-label block overflow-hidden h-7 rounded-full ${attendsCell ? 'bg-blue-600' : 'bg-slate-300'}`}></label>
+                                <label className={`toggle-label block overflow-hidden h-7 rounded-full ${attendsCell ? 'bg-blue-600' : 'bg-input'}`}></label>
                             </div>
                         </div>
                     </div>
@@ -239,30 +239,30 @@ const VisitorForm: React.FC = () => {
                         <div className="p-6 animate-in fade-in slide-in-from-top-2">
                             {!selectedCell ? (
                                 <div className="relative">
-                                    <label className="block text-sm font-medium text-slate-700 mb-2">Pesquisar Célula ou Líder</label>
+                                    <label className="block text-sm font-medium text-foreground mb-2">Pesquisar Célula ou Líder</label>
                                     <div className="relative">
-                                        <Search className="absolute left-3 top-3 text-slate-400" size={20} />
+                                        <Search className="absolute left-3 top-3 text-muted-foreground" size={20} />
                                         <input
                                             type="text"
                                             value={cellSearchTerm}
                                             onChange={(e) => setCellSearchTerm(e.target.value)}
                                             placeholder="Digite o nome da célula ou líder..."
-                                            className="w-full pl-10 pr-4 py-3 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none"
+                                            className="w-full pl-10 pr-4 py-3 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none"
                                             autoFocus
                                         />
                                     </div>
                                     {errors.selectedCellId && <span className="text-red-500 text-xs mt-1">{errors.selectedCellId.message}</span>}
 
                                     {filteredCells.length > 0 && (
-                                        <div className="absolute z-50 w-full mt-1 bg-white border border-slate-200 rounded-lg shadow-xl max-h-60 overflow-y-auto">
+                                        <div className="absolute z-50 w-full mt-1 bg-white border border-border rounded-lg shadow-xl max-h-60 overflow-y-auto">
                                             {filteredCells.map(cell => (
                                                 <div
                                                     key={cell.id}
                                                     onClick={() => handleSelectCell(cell)}
-                                                    className="p-3 hover:bg-blue-50 cursor-pointer border-b last:border-0 border-slate-100"
+                                                    className="p-3 hover:bg-blue-50 cursor-pointer border-b last:border-0 border-border"
                                                 >
-                                                    <p className="font-bold text-slate-800">{cell.name}</p>
-                                                    <p className="text-xs text-slate-500">Líder: {cell.leaderName}</p>
+                                                    <p className="font-bold text-foreground">{cell.name}</p>
+                                                    <p className="text-xs text-muted-foreground">Líder: {cell.leaderName}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -273,42 +273,42 @@ const VisitorForm: React.FC = () => {
                                     <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg flex justify-between items-center">
                                         <div>
                                             <p className="text-xs font-bold text-blue-600 uppercase mb-1">Célula Selecionada</p>
-                                            <p className="font-bold text-slate-800">{selectedCell.name}</p>
-                                            <p className="text-sm text-slate-600">{selectedCell.leaderName}</p>
+                                            <p className="font-bold text-foreground">{selectedCell.name}</p>
+                                            <p className="text-sm text-muted-foreground">{selectedCell.leaderName}</p>
                                         </div>
                                         <button
                                             type="button"
                                             onClick={() => { setSelectedCell(null); setValue('selectedCellId', undefined); }}
-                                            className="text-slate-400 hover:text-red-500"
+                                            className="text-muted-foreground hover:text-red-500"
                                         >
                                             <X size={20} />
                                         </button>
                                     </div>
 
                                     <div className="relative">
-                                        <label className="block text-sm font-medium text-slate-700 mb-1">Conferir dados (Opcional)</label>
+                                        <label className="block text-sm font-medium text-foreground mb-1">Conferir dados (Opcional)</label>
                                         <input
                                             type="text"
                                             value={personSearchTerm}
                                             onChange={(e) => setPersonSearchTerm(e.target.value)}
                                             placeholder="Pesquisar nome de quem já participa..."
-                                            className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none"
+                                            className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none"
                                         />
                                         {suggestedMembers.length > 0 && (
-                                            <div className="absolute z-50 w-full mt-1 bg-white border border-slate-200 rounded-lg shadow-xl">
+                                            <div className="absolute z-50 w-full mt-1 bg-white border border-border rounded-lg shadow-xl">
                                                 {suggestedMembers.map(m => (
                                                     <div
                                                         key={m.id}
                                                         onClick={() => handleSelectPerson(m)}
-                                                        className="p-3 hover:bg-slate-50 cursor-pointer border-b last:border-0 border-slate-100"
+                                                        className="p-3 hover:bg-muted/50 cursor-pointer border-b last:border-0 border-border"
                                                     >
-                                                        <p className="font-medium text-slate-800">{m.name}</p>
-                                                        <p className="text-xs text-slate-500">{m.phone}</p>
+                                                        <p className="font-medium text-foreground">{m.name}</p>
+                                                        <p className="text-xs text-muted-foreground">{m.phone}</p>
                                                     </div>
                                                 ))}
                                             </div>
                                         )}
-                                        <p className="text-xs text-slate-400 mt-1">Se a pessoa já for da célula, selecione para preencher os dados.</p>
+                                        <p className="text-xs text-muted-foreground mt-1">Se a pessoa já for da célula, selecione para preencher os dados.</p>
                                     </div>
                                 </div>
                             )}
@@ -317,18 +317,18 @@ const VisitorForm: React.FC = () => {
                 </div>
 
                 {/* SECTION 2: PERSONAL DATA */}
-                <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-                    <h3 className="text-lg font-bold text-slate-800 mb-4 border-b pb-2">Dados do Visitante</h3>
+                <div className="bg-white rounded-xl shadow-sm border border-border p-6">
+                    <h3 className="text-lg font-bold text-foreground mb-4 border-b pb-2">Dados do Visitante</h3>
 
                     <div className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Nome Completo</label>
+                            <label className="block text-sm font-medium text-foreground mb-1">Nome Completo</label>
                             <div className="relative">
-                                <User className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                <User className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                 <input
                                     type="text"
                                     {...register('nome')}
-                                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.nome ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
+                                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.nome ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
                                     placeholder="Nome do visitante"
                                 />
                                 {errors.nome && <span className="text-red-500 text-xs mt-1">{errors.nome.message}</span>}
@@ -337,14 +337,14 @@ const VisitorForm: React.FC = () => {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="w-full">
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Telefone / WhatsApp</label>
+                                <label className="block text-sm font-medium text-foreground mb-1">Telefone / WhatsApp</label>
                                 <div className="relative">
-                                    <Phone className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                    <Phone className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                     <input
                                         type="tel"
                                         {...register('telefone')}
                                         onChange={(e) => setValue('telefone', maskPhone(e.target.value))}
-                                        className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.telefone ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none`}
+                                        className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.telefone ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
                                         placeholder="(99) 99999-9999"
                                     />
                                     {errors.telefone && <span className="text-red-500 text-xs mt-1">{errors.telefone.message}</span>}
@@ -352,26 +352,26 @@ const VisitorForm: React.FC = () => {
                             </div>
 
                             <div className="w-full min-w-0">
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Data de Nascimento</label>
+                                <label className="block text-sm font-medium text-foreground mb-1">Data de Nascimento</label>
                                 <div className="relative">
-                                    <CakeSlice className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                    <CakeSlice className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                     <input
                                         type="date"
                                         {...register('birthday')}
-                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none min-w-0"
+                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none min-w-0"
                                     />
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Endereço</label>
+                            <label className="block text-sm font-medium text-foreground mb-1">Endereço</label>
                             <div className="relative">
-                                <MapPin className="absolute left-3 top-2.5 text-slate-400" size={18} />
+                                <MapPin className="absolute left-3 top-2.5 text-muted-foreground" size={18} />
                                 <input
                                     type="text"
                                     {...register('endereco')}
-                                    className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none"
+                                    className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none"
                                     placeholder="Rua, Número, Bairro"
                                 />
                             </div>
@@ -380,13 +380,13 @@ const VisitorForm: React.FC = () => {
                 </div>
 
                 {/* SECTION 3: CLASSIFICATION */}
-                <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-                    <h3 className="text-lg font-bold text-slate-800 mb-4">Classificação</h3>
+                <div className="bg-white rounded-xl shadow-sm border border-border p-6">
+                    <h3 className="text-lg font-bold text-foreground mb-4">Classificação</h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <label className={`
                     cursor-pointer p-4 rounded-xl border-2 flex flex-col items-center gap-2 transition-all
-                    ${tipoOrigem === 'visitante' ? 'border-blue-500 bg-blue-50' : 'border-slate-100 hover:border-slate-200'}
+                    ${tipoOrigem === 'visitante' ? 'border-blue-500 bg-blue-50' : 'border-border hover:border-border'}
                 `}>
                             <input
                                 type="radio"
@@ -394,13 +394,13 @@ const VisitorForm: React.FC = () => {
                                 value="visitante"
                                 className="hidden"
                             />
-                            <UserPlus size={24} className={tipoOrigem === 'visitante' ? 'text-blue-600' : 'text-slate-400'} />
-                            <span className={`font-bold ${tipoOrigem === 'visitante' ? 'text-blue-700' : 'text-slate-500'}`}>Visitante</span>
+                            <UserPlus size={24} className={tipoOrigem === 'visitante' ? 'text-blue-600' : 'text-muted-foreground'} />
+                            <span className={`font-bold ${tipoOrigem === 'visitante' ? 'text-blue-700' : 'text-muted-foreground'}`}>Visitante</span>
                         </label>
 
                         <label className={`
                     cursor-pointer p-4 rounded-xl border-2 flex flex-col items-center gap-2 transition-all
-                    ${tipoOrigem === 'convertido' ? 'border-red-500 bg-red-50' : 'border-slate-100 hover:border-slate-200'}
+                    ${tipoOrigem === 'convertido' ? 'border-red-500 bg-red-50' : 'border-border hover:border-border'}
                 `}>
                             <input
                                 type="radio"
@@ -408,13 +408,13 @@ const VisitorForm: React.FC = () => {
                                 value="convertido"
                                 className="hidden"
                             />
-                            <Heart size={24} className={tipoOrigem === 'convertido' ? 'text-red-600' : 'text-slate-400'} />
-                            <span className={`font-bold ${tipoOrigem === 'convertido' ? 'text-red-700' : 'text-slate-500'}`}>Novo Convertido</span>
+                            <Heart size={24} className={tipoOrigem === 'convertido' ? 'text-red-600' : 'text-muted-foreground'} />
+                            <span className={`font-bold ${tipoOrigem === 'convertido' ? 'text-red-700' : 'text-muted-foreground'}`}>Novo Convertido</span>
                         </label>
 
                         <label className={`
                     cursor-pointer p-4 rounded-xl border-2 flex flex-col items-center gap-2 transition-all
-                    ${tipoOrigem === 'reconciliacao' ? 'border-orange-500 bg-orange-50' : 'border-slate-100 hover:border-slate-200'}
+                    ${tipoOrigem === 'reconciliacao' ? 'border-orange-500 bg-orange-50' : 'border-border hover:border-border'}
                 `}>
                             <input
                                 type="radio"
@@ -422,8 +422,8 @@ const VisitorForm: React.FC = () => {
                                 value="reconciliacao"
                                 className="hidden"
                             />
-                            <RefreshCw size={24} className={tipoOrigem === 'reconciliacao' ? 'text-orange-600' : 'text-slate-400'} />
-                            <span className={`font-bold ${tipoOrigem === 'reconciliacao' ? 'text-orange-700' : 'text-slate-500'}`}>Reconciliação</span>
+                            <RefreshCw size={24} className={tipoOrigem === 'reconciliacao' ? 'text-orange-600' : 'text-muted-foreground'} />
+                            <span className={`font-bold ${tipoOrigem === 'reconciliacao' ? 'text-orange-700' : 'text-muted-foreground'}`}>Reconciliação</span>
                         </label>
                     </div>
                 </div>

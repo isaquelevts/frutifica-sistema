@@ -70,20 +70,20 @@ const SuperAdminDashboard: React.FC = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-slate-800">Dashboard da Plataforma</h1>
-        <p className="text-slate-500 mt-1">Visão geral de todas as igrejas cadastradas no Frutifica.</p>
+        <h1 className="text-2xl font-bold text-foreground">Dashboard da Plataforma</h1>
+        <p className="text-muted-foreground mt-1">Visão geral de todas as igrejas cadastradas no Frutifica.</p>
       </div>
 
       {/* Cards de métricas */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {metricCards.map(card => (
-          <div key={card.label} className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm flex items-center gap-4">
+          <div key={card.label} className="bg-white rounded-xl border border-border p-5 shadow-sm flex items-center gap-4">
             <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${card.color}`}>
               {card.icon}
             </div>
             <div>
-              <p className="text-2xl font-bold text-slate-800">{card.value.toLocaleString('pt-BR')}</p>
-              <p className="text-xs text-slate-500 mt-0.5">{card.label}</p>
+              <p className="text-2xl font-bold text-foreground">{card.value.toLocaleString('pt-BR')}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">{card.label}</p>
             </div>
           </div>
         ))}
@@ -92,8 +92,8 @@ const SuperAdminDashboard: React.FC = () => {
       {/* Gráficos */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Igrejas cadastradas por mês */}
-        <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
-          <h2 className="text-sm font-bold text-slate-700 mb-4">Igrejas Cadastradas por Mês</h2>
+        <div className="bg-white rounded-xl border border-border p-6 shadow-sm">
+          <h2 className="text-sm font-bold text-foreground mb-4">Igrejas Cadastradas por Mês</h2>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={monthlyData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
@@ -106,8 +106,8 @@ const SuperAdminDashboard: React.FC = () => {
         </div>
 
         {/* Top 10 igrejas por células */}
-        <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
-          <h2 className="text-sm font-bold text-slate-700 mb-4">Top 10 Igrejas por Células</h2>
+        <div className="bg-white rounded-xl border border-border p-6 shadow-sm">
+          <h2 className="text-sm font-bold text-foreground mb-4">Top 10 Igrejas por Células</h2>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={topOrgs} layout="vertical">
               <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
@@ -122,8 +122,8 @@ const SuperAdminDashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Distribuição por plano */}
-        <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
-          <h2 className="text-sm font-bold text-slate-700 mb-4">Distribuição por Plano</h2>
+        <div className="bg-white rounded-xl border border-border p-6 shadow-sm">
+          <h2 className="text-sm font-bold text-foreground mb-4">Distribuição por Plano</h2>
           {planData.length > 0 ? (
             <>
               <ResponsiveContainer width="100%" height={160}>
@@ -138,7 +138,7 @@ const SuperAdminDashboard: React.FC = () => {
               </ResponsiveContainer>
               <div className="flex gap-3 justify-center mt-2">
                 {planData.map(e => (
-                  <div key={e.name} className="flex items-center gap-1.5 text-xs text-slate-600">
+                  <div key={e.name} className="flex items-center gap-1.5 text-xs text-muted-foreground">
                     <span className="w-2.5 h-2.5 rounded-full" style={{ background: PIE_COLORS[e.name as keyof typeof PIE_COLORS] ?? '#94a3b8' }} />
                     {e.name.toUpperCase()} ({e.value})
                   </div>
@@ -146,20 +146,20 @@ const SuperAdminDashboard: React.FC = () => {
               </div>
             </>
           ) : (
-            <p className="text-slate-400 text-sm text-center py-8">Sem dados</p>
+            <p className="text-muted-foreground text-sm text-center py-8">Sem dados</p>
           )}
         </div>
 
         {/* Últimas 5 igrejas */}
-        <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-          <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-            <h2 className="text-sm font-bold text-slate-700">Últimas Igrejas Cadastradas</h2>
+        <div className="lg:col-span-2 bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+          <div className="px-6 py-4 border-b border-border flex items-center justify-between">
+            <h2 className="text-sm font-bold text-foreground">Últimas Igrejas Cadastradas</h2>
             <Link to="/super/organizations" className="text-xs text-blue-600 hover:underline">Ver todas</Link>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-100 text-xs text-slate-500 uppercase tracking-wider">
+                <tr className="border-b border-border text-xs text-muted-foreground uppercase tracking-wider">
                   <th className="px-6 py-3 text-left font-medium">Igreja</th>
                   <th className="px-6 py-3 text-left font-medium">Plano</th>
                   <th className="px-6 py-3 text-left font-medium">Status</th>
@@ -167,24 +167,24 @@ const SuperAdminDashboard: React.FC = () => {
                   <th className="px-6 py-3 text-left font-medium">Cadastro</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-50">
+              <tbody className="divide-y divide-border">
                 {recentOrgs.map(org => (
-                  <tr key={org.id} className="hover:bg-slate-50">
-                    <td className="px-6 py-3 font-medium text-slate-800">
+                  <tr key={org.id} className="hover:bg-muted/50">
+                    <td className="px-6 py-3 font-medium text-foreground">
                       <Link to={`/super/organizations/${org.id}`} className="hover:text-blue-600 transition-colors">
                         {org.name}
                       </Link>
                     </td>
-                    <td className="px-6 py-3 text-slate-600 uppercase text-xs font-medium">{org.plan}</td>
+                    <td className="px-6 py-3 text-muted-foreground uppercase text-xs font-medium">{org.plan}</td>
                     <td className="px-6 py-3"><OrgStatusBadge status={org.subscriptionStatus} /></td>
-                    <td className="px-6 py-3 text-slate-600">{(org as any).cellCount}</td>
-                    <td className="px-6 py-3 text-slate-500">
+                    <td className="px-6 py-3 text-muted-foreground">{(org as any).cellCount}</td>
+                    <td className="px-6 py-3 text-muted-foreground">
                       {new Date(org.createdAt).toLocaleDateString('pt-BR')}
                     </td>
                   </tr>
                 ))}
                 {recentOrgs.length === 0 && (
-                  <tr><td colSpan={5} className="px-6 py-8 text-center text-slate-400">Nenhuma igreja cadastrada</td></tr>
+                  <tr><td colSpan={5} className="px-6 py-8 text-center text-muted-foreground">Nenhuma igreja cadastrada</td></tr>
                 )}
               </tbody>
             </table>

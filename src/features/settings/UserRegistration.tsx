@@ -62,60 +62,60 @@ const UserRegistration: React.FC = () => {
     <div className="max-w-2xl mx-auto">
       <button
         onClick={() => navigate(-1)}
-        className="flex items-center text-slate-500 hover:text-slate-800 mb-6 transition-colors"
+        className="flex items-center text-muted-foreground hover:text-foreground mb-6 transition-colors"
       >
         <ArrowLeft size={18} className="mr-1" /> Voltar
       </button>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-        <div className="p-6 border-b border-slate-100 flex items-center gap-3">
+      <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+        <div className="p-6 border-b border-border flex items-center gap-3">
           <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
             <UserPlus size={24} />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-slate-800">Cadastrar Novo Líder</h2>
-            <p className="text-sm text-slate-500">Crie uma conta de acesso para sua igreja.</p>
+            <h2 className="text-xl font-bold text-foreground">Cadastrar Novo Líder</h2>
+            <p className="text-sm text-muted-foreground">Crie uma conta de acesso para sua igreja.</p>
           </div>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-slate-700 mb-1">Nome Completo</label>
+              <label className="block text-sm font-medium text-foreground mb-1">Nome Completo</label>
               <input
                 type="text"
                 {...register('name')}
-                className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
               />
               {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Email de Acesso</label>
+              <label className="block text-sm font-medium text-foreground mb-1">Email de Acesso</label>
               <input
                 type="email"
                 {...register('email')}
-                className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.email ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.email ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
               />
               {errors.email && <span className="text-red-500 text-xs mt-1">{errors.email.message}</span>}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Senha Inicial</label>
+              <label className="block text-sm font-medium text-foreground mb-1">Senha Inicial</label>
               <input
                 type="text"
                 {...register('password')}
-                className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.password ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.password ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
                 placeholder="Ex: mudar123"
               />
               {errors.password && <span className="text-red-500 text-xs mt-1">{errors.password.message}</span>}
             </div>
 
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-slate-700 mb-1">Vincular à Célula</label>
+              <label className="block text-sm font-medium text-foreground mb-1">Vincular à Célula</label>
               <select
                 {...register('cellId')}
-                className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               >
                 <option value="">Nenhuma (Apenas cadastro)</option>
                 {cells.map(cell => (
@@ -125,10 +125,10 @@ const UserRegistration: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Tipo de Acesso</label>
+              <label className="block text-sm font-medium text-foreground mb-1">Tipo de Acesso</label>
               <select
                 {...register('role')}
-                className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               >
                 <option value={UserRole.LEADER}>Líder</option>
                 <option value={UserRole.ADMIN}>Administrador</option>

@@ -45,7 +45,7 @@ const CsvUploader: React.FC<CsvUploaderProps> = ({ onFileSelected }) => {
             <div
                 className={`
           border-2 border-dashed rounded-xl p-10 text-center transition-colors cursor-pointer
-          ${isDragOver ? 'border-blue-500 bg-blue-50' : 'border-slate-300 hover:border-slate-400'}
+          ${isDragOver ? 'border-blue-500 bg-blue-50' : 'border-input hover:border-input'}
         `}
                 onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
                 onDragLeave={() => setIsDragOver(false)}
@@ -65,8 +65,8 @@ const CsvUploader: React.FC<CsvUploaderProps> = ({ onFileSelected }) => {
                         <Upload size={32} />
                     </div>
                     <div>
-                        <h3 className="text-lg font-semibold text-slate-700">Clique para selecionar ou arraste um arquivo CSV</h3>
-                        <p className="text-sm text-slate-500 mt-1">O arquivo deve seguir o modelo padrão</p>
+                        <h3 className="text-lg font-semibold text-foreground">Clique para selecionar ou arraste um arquivo CSV</h3>
+                        <p className="text-sm text-muted-foreground mt-1">O arquivo deve seguir o modelo padrão</p>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@ const CsvUploader: React.FC<CsvUploaderProps> = ({ onFileSelected }) => {
             <div className="mt-8 flex justify-center">
                 <button
                     onClick={downloadTemplate}
-                    className="flex items-center gap-2 text-slate-600 hover:text-slate-900 text-sm font-medium transition-colors"
+                    className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
                 >
                     <FileText size={18} />
                     Baixar modelo CSV

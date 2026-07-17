@@ -4,20 +4,20 @@ import { Church, Sparkles, BarChart3, Users, CheckCircle, ArrowRight, ShieldChec
 
 const Landing: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900">
+    <div className="min-h-screen bg-white font-sans text-foreground">
       {/* Header */}
-      <header className="fixed w-full bg-white/80 backdrop-blur-md border-b border-slate-100 z-50">
+      <header className="fixed w-full bg-white/80 backdrop-blur-md border-b border-border z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="bg-blue-600 p-1.5 rounded-lg text-white">
               <Church size={24} />
             </div>
-            <span className="text-xl font-bold text-slate-800">Frutifica</span>
+            <span className="text-xl font-bold text-foreground">Frutifica</span>
           </div>
           <div className="flex items-center gap-4">
             <Link
               to="/login"
-              className="text-slate-600 hover:text-blue-600 font-medium text-sm transition-colors"
+              className="text-muted-foreground hover:text-blue-600 font-medium text-sm transition-colors"
             >
               Entrar
             </Link>
@@ -38,22 +38,22 @@ const Landing: React.FC = () => {
             <Sparkles size={14} />
             <span>Potencializado por Inteligência Artificial</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-6 tracking-tight">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-foreground leading-tight mb-6 tracking-tight">
             Gestão de Células <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Simples e Inteligente</span>
           </h1>
-          <p className="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
             Elimine planilhas complicadas. Acompanhe o crescimento da sua igreja, gerencie líderes e receba insights estratégicos com o Frutifica.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/login"
-              className="w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-xl font-bold text-lg transition-colors"
+              className="w-full sm:w-auto px-8 py-4 bg-white hover:bg-muted/50 text-foreground border border-border rounded-xl font-bold text-lg transition-colors"
             >
               Acessar Sistema
             </Link>
           </div>
-          <div className="mt-12 flex items-center justify-center gap-8 text-slate-400 grayscale opacity-70">
+          <div className="mt-12 flex items-center justify-center gap-8 text-muted-foreground grayscale opacity-70">
             <div className="flex items-center gap-2"><CheckCircle size={16} /> Relatórios Semanais</div>
             <div className="flex items-center gap-2"><CheckCircle size={16} /> Ranking de Células</div>
             <div className="flex items-center gap-2"><CheckCircle size={16} /> Gestão de Membros</div>
@@ -62,46 +62,46 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-slate-50">
+      <section className="py-20 bg-muted/50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-slate-900">Tudo o que sua liderança precisa</h2>
-            <p className="text-slate-500 mt-4 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-foreground">Tudo o que sua liderança precisa</h2>
+            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
               Ferramentas desenvolvidas pensadas na rotina de pastores e líderes de célula.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Feature 1 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow">
               <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6">
                 <BarChart3 size={24} />
               </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-3">Relatórios em Segundos</h3>
-              <p className="text-slate-600 leading-relaxed">
+              <h3 className="text-xl font-bold text-foreground mb-3">Relatórios em Segundos</h3>
+              <p className="text-muted-foreground leading-relaxed">
                 Líderes enviam relatórios semanais direto pelo celular. O sistema compila tudo em gráficos fáceis de entender.
               </p>
             </div>
 
             {/* Feature 2 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow relative overflow-hidden">
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow relative overflow-hidden">
               <div className="absolute top-0 right-0 bg-gradient-to-l from-indigo-50 to-transparent w-24 h-24 rounded-bl-full -mr-4 -mt-4"></div>
               <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-6 relative z-10">
                 <Sparkles size={24} />
               </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-3">Insights com IA</h3>
-              <p className="text-slate-600 leading-relaxed">
+              <h3 className="text-xl font-bold text-foreground mb-3">Insights com IA</h3>
+              <p className="text-muted-foreground leading-relaxed">
                 Nossa inteligência artificial analisa os dados da sua igreja e sugere ações para melhorar a retenção e o crescimento.
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow">
               <div className="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-6">
                 <Users size={24} />
               </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-3">Engajamento Total</h3>
-              <p className="text-slate-600 leading-relaxed">
+              <h3 className="text-xl font-bold text-foreground mb-3">Engajamento Total</h3>
+              <p className="text-muted-foreground leading-relaxed">
                 Ranking de células e acompanhamento de visitantes para motivar sua liderança a alcançar mais vidas.
               </p>
             </div>
@@ -110,17 +110,18 @@ const Landing: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 py-12">
+      {/* `dark` inverte os tokens dentro do rodapé: superfície escura sem cor crua. */}
+      <footer className="dark bg-background text-muted-foreground py-12">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2">
-            <Church size={24} className="text-slate-200" />
-            <span className="text-xl font-bold text-slate-200">Frutifica</span>
+            <Church size={24} className="text-foreground" />
+            <span className="text-xl font-bold text-foreground">Frutifica</span>
           </div>
           <div className="text-sm">
             &copy; {new Date().getFullYear()} Frutifica. Todos os direitos reservados.
           </div>
           <div className="flex items-center gap-6 text-sm font-medium">
-            <Link to="/login" className="hover:text-white transition-colors">Login</Link>
+            <Link to="/login" className="hover:text-foreground transition-colors">Login</Link>
 
           </div>
         </div>

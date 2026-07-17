@@ -34,7 +34,7 @@ const ConsolidationDashboard: React.FC = () => {
          <div className="flex h-[60vh] items-center justify-center">
             <div className="flex flex-col items-center gap-4">
                <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-               <p className="text-slate-500 font-medium animate-pulse">Carregando painel de consolidação...</p>
+               <p className="text-muted-foreground font-medium animate-pulse">Carregando painel de consolidação...</p>
             </div>
          </div>
       );
@@ -64,51 +64,51 @@ const ConsolidationDashboard: React.FC = () => {
 
          <div className="flex justify-between items-center mt-8">
             <div>
-               <h1 className="text-2xl font-bold text-slate-800">Consolidação</h1>
-               <p className="text-slate-500">Visão geral do funil de integração.</p>
+               <h1 className="text-2xl font-bold text-foreground">Consolidação</h1>
+               <p className="text-muted-foreground">Visão geral do funil de integração.</p>
             </div>
          </div>
 
          {/* KPI Cards */}
          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+            <div className="bg-white p-5 rounded-xl border border-border shadow-sm">
                <div className="flex items-center gap-3 mb-2">
                   <div className="p-2 bg-orange-100 text-orange-600 rounded-lg"><UserPlus size={20} /></div>
-                  <p className="text-sm font-medium text-slate-500">Total Visitantes</p>
+                  <p className="text-sm font-medium text-muted-foreground">Total Visitantes</p>
                </div>
-               <h3 className="text-2xl font-bold text-slate-800">{totalVisitantes}</h3>
+               <h3 className="text-2xl font-bold text-foreground">{totalVisitantes}</h3>
             </div>
 
-            <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+            <div className="bg-white p-5 rounded-xl border border-border shadow-sm">
                <div className="flex items-center gap-3 mb-2">
                   <div className="p-2 bg-red-100 text-red-600 rounded-lg"><Heart size={20} /></div>
-                  <p className="text-sm font-medium text-slate-500">Total Decisões</p>
+                  <p className="text-sm font-medium text-muted-foreground">Total Decisões</p>
                </div>
-               <h3 className="text-2xl font-bold text-slate-800">{totalConverts}</h3>
+               <h3 className="text-2xl font-bold text-foreground">{totalConverts}</h3>
             </div>
 
-            <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+            <div className="bg-white p-5 rounded-xl border border-border shadow-sm">
                <div className="flex items-center gap-3 mb-2">
                   <div className="p-2 bg-green-100 text-green-600 rounded-lg"><ArrowRight size={20} /></div>
-                  <p className="text-sm font-medium text-slate-500">Taxa Integração</p>
+                  <p className="text-sm font-medium text-muted-foreground">Taxa Integração</p>
                </div>
-               <h3 className="text-2xl font-bold text-slate-800">{integrationRate}%</h3>
+               <h3 className="text-2xl font-bold text-foreground">{integrationRate}%</h3>
             </div>
          </div>
 
          {/* Funnel / Status */}
          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-               <h3 className="text-lg font-bold text-slate-800 mb-6">Funil de Consolidação</h3>
+            <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-border shadow-sm">
+               <h3 className="text-lg font-bold text-foreground mb-6">Funil de Consolidação</h3>
 
                <div className="space-y-4">
                   {/* Stage: NOVO */}
                   <div className="relative">
                      <div className="flex justify-between items-end mb-1">
-                        <span className="font-semibold text-slate-700">Novos (Aguardando Contato)</span>
-                        <span className="font-bold text-slate-800">{inNovo}</span>
+                        <span className="font-semibold text-foreground">Novos (Aguardando Contato)</span>
+                        <span className="font-bold text-foreground">{inNovo}</span>
                      </div>
-                     <div className="h-3 bg-slate-100 rounded-full overflow-hidden">
+                     <div className="h-3 bg-muted rounded-full overflow-hidden">
                         <div className="h-full bg-blue-500 rounded-full" style={{ width: `${totalPeople ? (inNovo / totalPeople) * 100 : 0}%` }}></div>
                      </div>
                   </div>
@@ -116,10 +116,10 @@ const ConsolidationDashboard: React.FC = () => {
                   {/* Stage: CONTATO */}
                   <div className="relative">
                      <div className="flex justify-between items-end mb-1">
-                        <span className="font-semibold text-slate-700">Em Contato / Visita</span>
-                        <span className="font-bold text-slate-800">{inContato}</span>
+                        <span className="font-semibold text-foreground">Em Contato / Visita</span>
+                        <span className="font-bold text-foreground">{inContato}</span>
                      </div>
-                     <div className="h-3 bg-slate-100 rounded-full overflow-hidden">
+                     <div className="h-3 bg-muted rounded-full overflow-hidden">
                         <div className="h-full bg-orange-500 rounded-full" style={{ width: `${totalPeople ? (inContato / totalPeople) * 100 : 0}%` }}></div>
                      </div>
                   </div>
@@ -127,16 +127,16 @@ const ConsolidationDashboard: React.FC = () => {
                   {/* Stage: INTEGRADO */}
                   <div className="relative">
                      <div className="flex justify-between items-end mb-1">
-                        <span className="font-semibold text-slate-700">Integrados na Célula</span>
-                        <span className="font-bold text-slate-800">{inIntegrado}</span>
+                        <span className="font-semibold text-foreground">Integrados na Célula</span>
+                        <span className="font-bold text-foreground">{inIntegrado}</span>
                      </div>
-                     <div className="h-3 bg-slate-100 rounded-full overflow-hidden">
+                     <div className="h-3 bg-muted rounded-full overflow-hidden">
                         <div className="h-full bg-green-500 rounded-full" style={{ width: `${totalPeople ? (inIntegrado / totalPeople) * 100 : 0}%` }}></div>
                      </div>
                   </div>
                </div>
 
-               <div className="mt-6 pt-6 border-t border-slate-100">
+               <div className="mt-6 pt-6 border-t border-border">
                   <Link to="/kanban" className="text-blue-600 font-medium hover:underline flex items-center gap-1 justify-center">
                      Gerenciar no Kanban <ArrowRight size={16} />
                   </Link>
@@ -144,26 +144,26 @@ const ConsolidationDashboard: React.FC = () => {
             </div>
 
             {/* Recent Cults */}
-            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-               <h3 className="text-lg font-bold text-slate-800 mb-4">Últimos Cultos</h3>
+            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+               <h3 className="text-lg font-bold text-foreground mb-4">Últimos Cultos</h3>
                <div className="space-y-3">
                   {cultos.slice(-3).reverse().map(c => {
                      // Calculate count locally since we removed totalPresentes
                      const linked = visitantes.filter(v => v.cultoId === c.id);
                      return (
-                        <div key={c.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-100">
+                        <div key={c.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg border border-border">
                            <div>
-                              <p className="font-bold text-slate-700 text-sm">{new Date(c.data).toLocaleDateString('pt-BR')}</p>
-                              <p className="text-xs text-slate-500 capitalize">{c.tipo}</p>
+                              <p className="font-bold text-foreground text-sm">{new Date(c.data).toLocaleDateString('pt-BR')}</p>
+                              <p className="text-xs text-muted-foreground capitalize">{c.tipo}</p>
                            </div>
                            <div className="text-right">
-                              <span className="block font-bold text-slate-800">+{linked.length}</span>
-                              <span className="text-[10px] uppercase text-slate-400">Novos</span>
+                              <span className="block font-bold text-foreground">+{linked.length}</span>
+                              <span className="text-[10px] uppercase text-muted-foreground">Novos</span>
                            </div>
                         </div>
                      );
                   })}
-                  {cultos.length === 0 && <p className="text-slate-400 text-sm">Nenhum culto registrado.</p>}
+                  {cultos.length === 0 && <p className="text-muted-foreground text-sm">Nenhum culto registrado.</p>}
                </div>
                <Link to="/cult-reports" className="block text-center text-sm text-blue-600 mt-4 hover:underline">Ver todos</Link>
             </div>

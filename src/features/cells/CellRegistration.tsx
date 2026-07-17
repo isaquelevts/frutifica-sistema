@@ -290,24 +290,24 @@ const CellRegistration: React.FC = () => {
         <div className="max-w-4xl mx-auto">
             <button
                 onClick={() => navigate('/cells')}
-                className="flex items-center text-slate-500 hover:text-slate-800 mb-6 transition-colors"
+                className="flex items-center text-muted-foreground hover:text-foreground mb-6 transition-colors"
             >
                 <ArrowLeft size={18} className="mr-1" /> Voltar para lista
             </button>
 
             {/* Tabs (Only if not editing) */}
             {!isEditing && (
-                <div className="flex gap-4 mb-6 border-b border-slate-200">
+                <div className="flex gap-4 mb-6 border-b border-border">
                     <button
                         onClick={() => setActiveTab('form')}
-                        className={`pb-3 px-2 text-sm font-medium transition-colors relative ${activeTab === 'form' ? 'text-blue-600' : 'text-slate-500 hover:text-slate-700'}`}
+                        className={`pb-3 px-2 text-sm font-medium transition-colors relative ${activeTab === 'form' ? 'text-blue-600' : 'text-muted-foreground hover:text-foreground'}`}
                     >
                         <span className="flex items-center gap-2"><FileText size={16} /> Cadastro Manual</span>
                         {activeTab === 'form' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 rounded-t-full"></div>}
                     </button>
                     <button
                         onClick={() => setActiveTab('csv')}
-                        className={`pb-3 px-2 text-sm font-medium transition-colors relative ${activeTab === 'csv' ? 'text-blue-600' : 'text-slate-500 hover:text-slate-700'}`}
+                        className={`pb-3 px-2 text-sm font-medium transition-colors relative ${activeTab === 'csv' ? 'text-blue-600' : 'text-muted-foreground hover:text-foreground'}`}
                     >
                         <span className="flex items-center gap-2"><FileUp size={16} /> Importar CSV</span>
                         {activeTab === 'csv' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 rounded-t-full"></div>}
@@ -316,12 +316,12 @@ const CellRegistration: React.FC = () => {
             )}
 
             {activeTab === 'form' ? (
-                <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                    <div className="p-6 border-b border-slate-100 bg-slate-50">
-                        <h2 className="text-xl font-bold text-slate-800">
+                <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+                    <div className="p-6 border-b border-border bg-muted/50">
+                        <h2 className="text-xl font-bold text-foreground">
                             {isEditing ? 'Editar Célula' : 'Cadastrar Nova Célula'}
                         </h2>
-                        <p className="text-sm text-slate-500 mt-1">
+                        <p className="text-sm text-muted-foreground mt-1">
                             Gestão completa da célula e estrutura de liderança.
                         </p>
                     </div>
@@ -336,40 +336,40 @@ const CellRegistration: React.FC = () => {
 
                         {/* Section: Basic Info */}
                         <div>
-                            <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Informações da Célula</h3>
+                            <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2">Informações da Célula</h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="col-span-2">
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Nome da Célula</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Nome da Célula</label>
                                     <input
                                         type="text"
                                         {...register('name')}
-                                        className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all`}
+                                        className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all`}
                                         placeholder="Ex: Águias de Cristo"
                                     />
                                     {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>}
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Geração / Rede</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Geração / Rede</label>
                                     <select
                                         {...register('generationId')}
-                                        className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                                     >
                                         <option value="">Sem geração definida</option>
                                         {generations.map(gen => (
                                             <option key={gen.id} value={gen.id}>{gen.name}</option>
                                         ))}
                                     </select>
-                                    <p className="text-xs text-slate-500 mt-1">
+                                    <p className="text-xs text-muted-foreground mt-1">
                                         Vincule esta célula a uma geração/rede ministerial. <a href="/#/generations" className="text-blue-600 hover:underline">Gerenciar gerações</a>
                                     </p>
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Público Alvo</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Público Alvo</label>
                                     <select
                                         {...register('targetAudience')}
-                                        className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                                     >
                                         {Object.values(TargetAudience).map(audience => (
                                             <option key={audience} value={audience}>{audience}</option>
@@ -381,26 +381,26 @@ const CellRegistration: React.FC = () => {
 
                         {/* Section: Leadership */}
                         <div>
-                            <div className="flex items-center gap-2 mb-4 border-b border-slate-100 pb-2">
+                            <div className="flex items-center gap-2 mb-4 border-b border-border pb-2">
                                 <Users size={16} className="text-blue-600" />
-                                <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider">Liderança</h3>
+                                <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Liderança</h3>
                             </div>
 
                             <div className="space-y-6">
                                 {/* Main Leader */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
-                                        <label className="block text-sm font-medium text-slate-700 mb-1">Líder Principal</label>
+                                        <label className="block text-sm font-medium text-foreground mb-1">Líder Principal</label>
                                         <input
                                             type="text"
                                             {...register('leaderName')}
-                                            className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.leaderName ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all`}
+                                            className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.leaderName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all`}
                                             placeholder="Ex: Pr. João"
                                         />
                                         {errors.leaderName && <span className="text-red-500 text-xs mt-1">{errors.leaderName.message}</span>}
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-slate-700 mb-1">WhatsApp do Líder</label>
+                                        <label className="block text-sm font-medium text-foreground mb-1">WhatsApp do Líder</label>
                                         <input
                                             type="tel"
                                             {...register('whatsapp')}
@@ -408,7 +408,7 @@ const CellRegistration: React.FC = () => {
                                                 const masked = maskPhone(e.target.value);
                                                 setValue('whatsapp', masked);
                                             }}
-                                            className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                                            className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                                             placeholder="(11) 99999-9999"
                                         />
                                         {isEditing && isAdmin && (
@@ -426,7 +426,7 @@ const CellRegistration: React.FC = () => {
                                                     )}
                                                     Testar mensagem no WhatsApp
                                                 </button>
-                                                <p className="text-xs text-slate-400 mt-1">
+                                                <p className="text-xs text-muted-foreground mt-1">
                                                     Envia agora, pro número já salvo, a pergunta que o líder recebe toda semana. Salve a célula antes de testar se acabou de alterar o número.
                                                 </p>
                                                 {testSendState.status === 'success' && (
@@ -452,39 +452,39 @@ const CellRegistration: React.FC = () => {
                                         </p>
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                             <div>
-                                                <label className="block text-xs font-medium text-slate-700 mb-1">Email de Acesso *</label>
+                                                <label className="block text-xs font-medium text-foreground mb-1">Email de Acesso *</label>
                                                 <div className="relative">
-                                                    <Mail className="absolute left-3 top-2.5 text-slate-400" size={16} />
+                                                    <Mail className="absolute left-3 top-2.5 text-muted-foreground" size={16} />
                                                     <input
                                                         type="email"
                                                         {...register('leaderEmail')}
-                                                        className={`w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-white border ${errors.leaderEmail ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                                                        className={`w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-white border ${errors.leaderEmail ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
                                                         placeholder="lider@email.com"
                                                     />
                                                 </div>
                                                 {errors.leaderEmail && <span className="text-red-500 text-xs mt-1">{errors.leaderEmail.message}</span>}
                                             </div>
                                             <div>
-                                                <label className="block text-xs font-medium text-slate-700 mb-1">Senha *</label>
+                                                <label className="block text-xs font-medium text-foreground mb-1">Senha *</label>
                                                 <div className="relative">
-                                                    <Lock className="absolute left-3 top-2.5 text-slate-400" size={16} />
+                                                    <Lock className="absolute left-3 top-2.5 text-muted-foreground" size={16} />
                                                     <input
                                                         type="password"
                                                         {...register('leaderPassword')}
-                                                        className={`w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-white border ${errors.leaderPassword ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                                                        className={`w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-white border ${errors.leaderPassword ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
                                                         placeholder="Mínimo 6 caracteres"
                                                     />
                                                 </div>
                                                 {errors.leaderPassword && <span className="text-red-500 text-xs mt-1">{errors.leaderPassword.message}</span>}
                                             </div>
                                             <div>
-                                                <label className="block text-xs font-medium text-slate-700 mb-1">Data de Nascimento</label>
+                                                <label className="block text-xs font-medium text-foreground mb-1">Data de Nascimento</label>
                                                 <div className="relative">
-                                                    <UserIcon className="absolute left-3 top-2.5 text-slate-400" size={16} />
+                                                    <UserIcon className="absolute left-3 top-2.5 text-muted-foreground" size={16} />
                                                     <input
                                                         type="date"
                                                         {...register('leaderBirthday')}
-                                                        className="w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                                        className="w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                                                     />
                                                 </div>
                                             </div>
@@ -493,14 +493,14 @@ const CellRegistration: React.FC = () => {
                                 )}
 
                                 {/* Co-Leaders List */}
-                                <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                                <div className="bg-muted/50 rounded-xl p-4 border border-border">
                                     <div className="flex justify-between items-center mb-3">
-                                        <h4 className="text-sm font-bold text-slate-700">Co-Líderes e Acessos</h4>
+                                        <h4 className="text-sm font-bold text-foreground">Co-Líderes e Acessos</h4>
                                         {!showCoLeaderForm && (
                                             <button
                                                 type="button"
                                                 onClick={() => setShowCoLeaderForm(true)}
-                                                className="text-xs flex items-center gap-1 bg-white border border-slate-300 text-slate-600 px-3 py-1.5 rounded-lg hover:bg-slate-100"
+                                                className="text-xs flex items-center gap-1 bg-white border border-input text-muted-foreground px-3 py-1.5 rounded-lg hover:bg-muted"
                                             >
                                                 <Plus size={14} /> Adicionar Co-Líder
                                             </button>
@@ -510,20 +510,20 @@ const CellRegistration: React.FC = () => {
                                     {coLeadersFields.length > 0 ? (
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                                             {coLeadersFields.map((leader, index) => (
-                                                <div key={leader.id} className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm flex justify-between items-start group">
+                                                <div key={leader.id} className="bg-white p-3 rounded-lg border border-border shadow-sm flex justify-between items-start group">
                                                     <div className="overflow-hidden">
-                                                        <p className="font-bold text-slate-800 text-sm truncate">{leader.name}</p>
-                                                        <div className="flex items-center gap-1.5 text-xs text-slate-500 mt-1">
+                                                        <p className="font-bold text-foreground text-sm truncate">{leader.name}</p>
+                                                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-1">
                                                             <Mail size={12} /> <span className="truncate">{leader.email || '-'}</span>
                                                         </div>
-                                                        <div className="flex items-center gap-1.5 text-xs text-slate-500 mt-0.5">
+                                                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-0.5">
                                                             <Phone size={12} /> <span>{leader.phone || '-'}</span>
                                                         </div>
                                                     </div>
                                                     <button
                                                         type="button"
                                                         onClick={() => removeCoLeader(index)}
-                                                        className="text-slate-400 hover:text-red-500 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                                                        className="text-muted-foreground hover:text-red-500 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
                                                     >
                                                         <Trash2 size={16} />
                                                     </button>
@@ -531,7 +531,7 @@ const CellRegistration: React.FC = () => {
                                             ))}
                                         </div>
                                     ) : (
-                                        !showCoLeaderForm && <p className="text-sm text-slate-400 italic mb-4">Nenhum co-líder cadastrado.</p>
+                                        !showCoLeaderForm && <p className="text-sm text-muted-foreground italic mb-4">Nenhum co-líder cadastrado.</p>
                                     )}
 
                                     {/* Add Co-Leader Sub-Form */}
@@ -546,7 +546,7 @@ const CellRegistration: React.FC = () => {
                                                         value={tempCoLeader.name}
                                                         onChange={handleTempCoLeaderChange}
                                                         placeholder="Nome Completo"
-                                                        className="w-full px-3 py-2 text-sm rounded-md bg-slate-50 border border-slate-300 focus:border-blue-500 outline-none text-slate-800"
+                                                        className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-blue-500 outline-none text-foreground"
                                                     />
                                                 </div>
                                                 <div>
@@ -556,7 +556,7 @@ const CellRegistration: React.FC = () => {
                                                         value={tempCoLeader.email}
                                                         onChange={handleTempCoLeaderChange}
                                                         placeholder="Email (para acesso)"
-                                                        className="w-full px-3 py-2 text-sm rounded-md bg-slate-50 border border-slate-300 focus:border-blue-500 outline-none text-slate-800"
+                                                        className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-blue-500 outline-none text-foreground"
                                                     />
                                                 </div>
                                                 <div>
@@ -566,7 +566,7 @@ const CellRegistration: React.FC = () => {
                                                         value={tempCoLeader.phone}
                                                         onChange={(e) => setTempCoLeader(prev => ({ ...prev, phone: maskPhone(e.target.value) }))}
                                                         placeholder="Telefone"
-                                                        className="w-full px-3 py-2 text-sm rounded-md bg-slate-50 border border-slate-300 focus:border-blue-500 outline-none text-slate-800"
+                                                        className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-blue-500 outline-none text-foreground"
                                                     />
                                                 </div>
                                             </div>
@@ -574,7 +574,7 @@ const CellRegistration: React.FC = () => {
                                                 <button
                                                     type="button"
                                                     onClick={() => setShowCoLeaderForm(false)}
-                                                    className="px-3 py-1.5 text-xs font-medium text-slate-500 hover:bg-slate-100 rounded-md"
+                                                    className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:bg-muted rounded-md"
                                                 >
                                                     Cancelar
                                                 </button>
@@ -594,13 +594,13 @@ const CellRegistration: React.FC = () => {
 
                         {/* Section: Time & Location */}
                         <div>
-                            <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">Logística</h3>
+                            <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-4 border-b border-border pb-2">Logística</h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Dia da Célula</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Dia da Célula</label>
                                     <select
                                         {...register('dayOfWeek')}
-                                        className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                                     >
                                         <option value="Segunda-feira">Segunda-feira</option>
                                         <option value="Terça-feira">Terça-feira</option>
@@ -613,20 +613,20 @@ const CellRegistration: React.FC = () => {
                                 </div>
 
                                 <div className="min-w-0 w-full">
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Horário</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Horário</label>
                                     <input
                                         type="time"
                                         {...register('time')}
-                                        className="w-full px-4 py-2 rounded-lg bg-white border border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all min-w-0"
+                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all min-w-0"
                                     />
                                 </div>
 
                                 <div className="col-span-1 md:col-span-2">
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Endereço</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Endereço</label>
                                     <input
                                         type="text"
                                         {...register('address')}
-                                        className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.address ? 'border-red-500' : 'border-slate-300'} text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all`}
+                                        className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.address ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all`}
                                         placeholder="Rua, Número, Bairro"
                                     />
                                     {errors.address && <span className="text-red-500 text-xs mt-1">{errors.address.message}</span>}
@@ -639,7 +639,7 @@ const CellRegistration: React.FC = () => {
                                 type="button"
                                 onClick={() => navigate('/cells')}
                                 disabled={loading}
-                                className="px-6 py-2 rounded-lg text-slate-600 hover:bg-slate-100 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="px-6 py-2 rounded-lg text-muted-foreground hover:bg-muted font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 Cancelar
                             </button>
@@ -656,17 +656,17 @@ const CellRegistration: React.FC = () => {
                 </div>
             ) : (
                 // CSV IMPORT TAB (copied from previous logic)
-                <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden p-6 md:p-10">
+                <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden p-6 md:p-10">
                     <div className="text-center max-w-lg mx-auto">
                         <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                             <FileUp size={32} />
                         </div>
-                        <h2 className="text-2xl font-bold text-slate-800 mb-2">Importar Células via CSV</h2>
-                        <p className="text-slate-500 mb-8">
+                        <h2 className="text-2xl font-bold text-foreground mb-2">Importar Células via CSV</h2>
+                        <p className="text-muted-foreground mb-8">
                             Carregue um arquivo .csv com a lista de suas células para cadastrá-las em massa.
                         </p>
 
-                        <div className="bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl p-8 hover:bg-slate-100 transition-colors cursor-pointer" onClick={() => fileInputRef.current?.click()}>
+                        <div className="bg-muted/50 border-2 border-dashed border-input rounded-xl p-8 hover:bg-muted transition-colors cursor-pointer" onClick={() => fileInputRef.current?.click()}>
                             <input
                                 type="file"
                                 ref={fileInputRef}
@@ -681,9 +681,9 @@ const CellRegistration: React.FC = () => {
                                     <p className="text-sm">{(csvFile.size / 1024).toFixed(1)} KB</p>
                                 </div>
                             ) : (
-                                <div className="flex flex-col items-center text-slate-400">
+                                <div className="flex flex-col items-center text-muted-foreground">
                                     <Upload size={40} className="mb-2" />
-                                    <p className="font-medium text-slate-600">Clique para selecionar o arquivo</p>
+                                    <p className="font-medium text-muted-foreground">Clique para selecionar o arquivo</p>
                                     <p className="text-xs mt-1">Formatos aceitos: .csv</p>
                                 </div>
                             )}
@@ -705,7 +705,7 @@ const CellRegistration: React.FC = () => {
                         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
                             <button
                                 onClick={downloadTemplate}
-                                className="flex items-center justify-center gap-2 px-6 py-3 bg-white border border-slate-300 text-slate-700 font-medium rounded-lg hover:bg-slate-50 transition-colors"
+                                className="flex items-center justify-center gap-2 px-6 py-3 bg-white border border-input text-foreground font-medium rounded-lg hover:bg-muted/50 transition-colors"
                             >
                                 <Download size={18} /> Baixar Modelo
                             </button>
@@ -732,15 +732,15 @@ const CellRegistration: React.FC = () => {
                             </div>
 
                             {/* Title */}
-                            <h2 className="text-2xl font-bold text-slate-800 mb-2">
+                            <h2 className="text-2xl font-bold text-foreground mb-2">
                                 🎉 Parabéns!
                             </h2>
 
                             {/* Message */}
-                            <p className="text-slate-600 mb-1">
+                            <p className="text-muted-foreground mb-1">
                                 A célula <strong className="text-blue-600">{createdCellName}</strong> foi criada com sucesso!
                             </p>
-                            <p className="text-sm text-slate-500 mb-8">
+                            <p className="text-sm text-muted-foreground mb-8">
                                 O líder já pode acessar o sistema com as credenciais fornecidas.
                             </p>
 
@@ -748,7 +748,7 @@ const CellRegistration: React.FC = () => {
                             <div className="flex flex-col sm:flex-row gap-3">
                                 <button
                                     onClick={() => navigate('/cells')}
-                                    className="flex-1 px-6 py-3 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 transition-colors"
+                                    className="flex-1 px-6 py-3 bg-muted text-foreground font-semibold rounded-lg hover:bg-muted transition-colors"
                                 >
                                     ← Voltar para Lista
                                 </button>

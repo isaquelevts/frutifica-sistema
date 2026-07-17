@@ -26,13 +26,13 @@ const BulkImport: React.FC = () => {
     return (
         <div className="space-y-8">
             <div>
-                <h1 className="text-2xl font-bold text-slate-800">Importação em Massa</h1>
-                <p className="text-slate-500">Importe gerações, células e líderes de uma vez via CSV.</p>
+                <h1 className="text-2xl font-bold text-foreground">Importação em Massa</h1>
+                <p className="text-muted-foreground">Importe gerações, células e líderes de uma vez via CSV.</p>
             </div>
 
             {/* Stepper */}
             <div className="flex items-center justify-between max-w-3xl mx-auto relative mb-12">
-                <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-100 -z-10" />
+                <div className="absolute top-1/2 left-0 w-full h-1 bg-muted -z-10" />
 
                 <StepIndicator
                     current={step}
@@ -64,7 +64,7 @@ const BulkImport: React.FC = () => {
                 />
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 min-h-[400px]">
+            <div className="bg-white rounded-xl shadow-sm border border-border p-6 min-h-[400px]">
                 {step === 'upload' && (
                     <CsvUploader onFileSelected={handleFileUpload} />
                 )}
@@ -109,11 +109,11 @@ const StepIndicator = ({ current, id, label, icon, order }: any) => {
             <div className={`
         w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300
         ${status === 'completed' ? 'bg-green-100 text-green-600' :
-                    status === 'active' ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'bg-slate-100 text-slate-400'}
+                    status === 'active' ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'bg-muted text-muted-foreground'}
       `}>
                 {status === 'completed' ? <CheckCircle size={20} /> : icon}
             </div>
-            <span className={`text-xs font-medium ${status === 'active' ? 'text-blue-700' : 'text-slate-500'}`}>
+            <span className={`text-xs font-medium ${status === 'active' ? 'text-blue-700' : 'text-muted-foreground'}`}>
                 {label}
             </span>
         </div>
