@@ -35,7 +35,7 @@ const LeaderRegister: React.FC = () => {
 
         <Link
           to="/login"
-          className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors shadow-sm mb-4"
+          className="block w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 rounded-lg transition-colors shadow-sm mb-4"
         >
           Já tenho conta — fazer login
         </Link>

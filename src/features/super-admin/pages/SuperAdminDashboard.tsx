@@ -14,7 +14,7 @@ const SuperAdminDashboard: React.FC = () => {
   if (loadingStats || loadingOrgs) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -59,7 +59,7 @@ const SuperAdminDashboard: React.FC = () => {
     .slice(0, 5);
 
   const metricCards = [
-    { label: 'Total de Igrejas', value: stats?.totalOrganizations ?? 0, icon: <Building2 size={20} />, color: 'text-blue-600 bg-blue-50' },
+    { label: 'Total de Igrejas', value: stats?.totalOrganizations ?? 0, icon: <Building2 size={20} />, color: 'text-primary bg-primary/10' },
     { label: 'Igrejas Ativas', value: stats?.activeOrganizations ?? 0, icon: <TrendingUp size={20} />, color: 'text-green-600 bg-green-50' },
     { label: 'Total de Usuários', value: stats?.totalProfiles ?? 0, icon: <Users size={20} />, color: 'text-violet-600 bg-violet-50' },
     { label: 'Total de Células', value: stats?.totalCells ?? 0, icon: <Layout size={20} />, color: 'text-orange-600 bg-orange-50' },
@@ -154,7 +154,7 @@ const SuperAdminDashboard: React.FC = () => {
         <div className="lg:col-span-2 bg-white rounded-xl border border-border shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-border flex items-center justify-between">
             <h2 className="text-sm font-bold text-foreground">Últimas Igrejas Cadastradas</h2>
-            <Link to="/super/organizations" className="text-xs text-blue-600 hover:underline">Ver todas</Link>
+            <Link to="/super/organizations" className="text-xs text-primary hover:underline">Ver todas</Link>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -171,7 +171,7 @@ const SuperAdminDashboard: React.FC = () => {
                 {recentOrgs.map(org => (
                   <tr key={org.id} className="hover:bg-muted/50">
                     <td className="px-6 py-3 font-medium text-foreground">
-                      <Link to={`/super/organizations/${org.id}`} className="hover:text-blue-600 transition-colors">
+                      <Link to={`/super/organizations/${org.id}`} className="hover:text-primary transition-colors">
                         {org.name}
                       </Link>
                     </td>

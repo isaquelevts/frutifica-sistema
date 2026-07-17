@@ -125,7 +125,7 @@ const MembersList: React.FC = () => {
     return (
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
           <p className="text-muted-foreground font-medium animate-pulse">Carregando membros...</p>
         </div>
       </div>
@@ -144,7 +144,7 @@ const MembersList: React.FC = () => {
             setEditingMember(null);
             setShowForm(true);
           }}
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+          className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
         >
           <Plus size={18} />
           Novo Membro
@@ -159,7 +159,7 @@ const MembersList: React.FC = () => {
             placeholder="Buscar por nome..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-muted/50 border border-border text-foreground rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-4 py-2 bg-muted/50 border border-border text-foreground rounded-lg outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
       </div>
@@ -169,14 +169,14 @@ const MembersList: React.FC = () => {
           <div key={member.id} className="bg-white p-4 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow relative group">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg ${member.type === MemberType.MEMBER ? 'bg-blue-100 text-blue-600' : 'bg-orange-100 text-orange-600'}`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg ${member.type === MemberType.MEMBER ? 'bg-primary/15 text-primary' : 'bg-orange-100 text-orange-600'}`}>
                   {member.name.charAt(0)}
                 </div>
                 <div>
                   <h3 className="font-bold text-foreground">{member.name}</h3>
                   <div className="flex items-center gap-2 mt-0.5">
                     {member.type === MemberType.MEMBER ? (
-                      <span className="flex items-center gap-1 text-[10px] uppercase font-bold bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded border border-blue-100">
+                      <span className="flex items-center gap-1 text-[10px] uppercase font-bold bg-primary/10 text-primary px-1.5 py-0.5 rounded border border-primary/15">
                         <ShieldCheck size={10} /> Membro
                       </span>
                     ) : (
@@ -194,7 +194,7 @@ const MembersList: React.FC = () => {
               <div className="flex gap-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
                 <button
                   onClick={() => handleEdit(member)}
-                  className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 rounded"
+                  className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded"
                 >
                   <Edit2 size={18} />
                 </button>
@@ -239,7 +239,7 @@ const MembersList: React.FC = () => {
                 <input
                   type="text"
                   {...register('name')}
-                  className={`w-full px-4 py-2 rounded-lg bg-muted/50 border ${errors.name ? 'border-red-500' : 'border-input'} outline-none focus:border-blue-500 text-foreground`}
+                  className={`w-full px-4 py-2 rounded-lg bg-muted/50 border ${errors.name ? 'border-red-500' : 'border-input'} outline-none focus:border-ring text-foreground`}
                 />
                 {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>}
               </div>
@@ -249,7 +249,7 @@ const MembersList: React.FC = () => {
                 <input
                   type="date"
                   {...register('birthday')}
-                  className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
+                  className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-ring text-foreground"
                 />
               </div>
 
@@ -258,7 +258,7 @@ const MembersList: React.FC = () => {
                   <label className="block text-sm font-medium text-foreground mb-1">Tipo</label>
                   <select
                     {...register('type')}
-                    className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
+                    className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-ring text-foreground"
                   >
                     <option value={MemberType.MEMBER}>Membro</option>
                     <option value={MemberType.VISITOR}>Visitante</option>
@@ -271,7 +271,7 @@ const MembersList: React.FC = () => {
                       type="number"
                       min="0"
                       {...register('attendanceCount')}
-                      className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
+                      className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-ring text-foreground"
                     />
                     <p className="text-[10px] text-muted-foreground mt-1">3 presenças vira membro.</p>
                   </div>
@@ -288,7 +288,7 @@ const MembersList: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-medium shadow-sm"
+                  className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 font-medium shadow-sm"
                 >
                   Salvar
                 </button>

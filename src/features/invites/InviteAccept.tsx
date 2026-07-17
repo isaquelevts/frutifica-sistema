@@ -94,7 +94,7 @@ const InviteAccept: React.FC = () => {
     if (isLoading) {
         return (
             <div className="min-h-screen bg-muted flex items-center justify-center">
-                <Loader2 className="text-blue-600 animate-spin" size={32} />
+                <Loader2 className="text-primary animate-spin" size={32} />
             </div>
         );
     }
@@ -109,7 +109,7 @@ const InviteAccept: React.FC = () => {
                     <p className="text-muted-foreground mb-6">
                         {(error as Error)?.message || 'Este link de convite não é válido.'}
                     </p>
-                    <Link to="/login" className="text-blue-600 hover:underline font-medium">
+                    <Link to="/login" className="text-primary hover:underline font-medium">
                         Ir para o login
                     </Link>
                 </div>
@@ -130,12 +130,12 @@ const InviteAccept: React.FC = () => {
                         Bem-vindo(a) ao <strong>Frutifica</strong>!
                     </p>
                     <p className="text-muted-foreground text-sm mb-8">
-                        Sua conta e a célula <strong className="text-blue-600">{createdCellName}</strong> foram
+                        Sua conta e a célula <strong className="text-primary">{createdCellName}</strong> foram
                         criadas em <strong>{invite.organizationName}</strong>.
                     </p>
                     <button
                         onClick={() => navigate('/dashboard')}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors shadow-sm"
+                        className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 rounded-lg transition-colors shadow-sm"
                     >
                         Acessar o Sistema
                     </button>
@@ -152,12 +152,12 @@ const InviteAccept: React.FC = () => {
                 {/* Branding */}
                 <div className="text-center mb-6">
                     <div className="inline-flex items-center gap-2 mb-1">
-                        <Church className="text-blue-600" size={26} />
+                        <Church className="text-primary" size={26} />
                         <span className="text-xl font-bold text-foreground">Frutifica</span>
                     </div>
                     <p className="text-muted-foreground text-sm">{invite.organizationName}</p>
                     {invite.generationName && (
-                        <span className="inline-flex items-center gap-1.5 mt-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-medium">
+                        <span className="inline-flex items-center gap-1.5 mt-2 px-3 py-1 rounded-full bg-primary/15 text-primary text-xs font-medium">
                             <Network size={12} /> {invite.generationName}
                         </span>
                     )}
@@ -165,16 +165,16 @@ const InviteAccept: React.FC = () => {
 
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                     {/* Cabeçalho do passo */}
-                    <div className="bg-blue-600 p-6 text-center">
+                    <div className="bg-primary p-6 text-center">
                         <h1 className="text-xl font-bold text-white">
                             {step === 1 ? 'Criar Conta' : 'Dados da Célula'}
                         </h1>
-                        <p className="text-blue-100 text-sm mt-1">
+                        <p className="text-primary-foreground/80 text-sm mt-1">
                             {step === 1
                                 ? 'Passo 1 de 2 — Informações de acesso'
                                 : 'Passo 2 de 2 — Informações da sua célula'}
                         </p>
-                        <div className="mt-4 h-1.5 bg-blue-500/50 rounded-full">
+                        <div className="mt-4 h-1.5 bg-primary/50 rounded-full">
                             <div
                                 className="h-1.5 bg-white rounded-full transition-all duration-500"
                                 style={{ width: step === 1 ? '50%' : '100%' }}
@@ -199,7 +199,7 @@ const InviteAccept: React.FC = () => {
                                         <input
                                             type="text"
                                             {...accountForm.register('name')}
-                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${accountForm.formState.errors.name ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
+                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${accountForm.formState.errors.name ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             placeholder="Seu nome completo"
                                         />
                                     </div>
@@ -215,7 +215,7 @@ const InviteAccept: React.FC = () => {
                                         <input
                                             type="email"
                                             {...accountForm.register('email')}
-                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${accountForm.formState.errors.email ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
+                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${accountForm.formState.errors.email ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             placeholder="seu@email.com"
                                         />
                                     </div>
@@ -231,7 +231,7 @@ const InviteAccept: React.FC = () => {
                                         <input
                                             type={showPassword ? 'text' : 'password'}
                                             {...accountForm.register('password')}
-                                            className={`w-full pl-10 pr-10 py-2 rounded-lg bg-white border ${accountForm.formState.errors.password ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
+                                            className={`w-full pl-10 pr-10 py-2 rounded-lg bg-white border ${accountForm.formState.errors.password ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             placeholder="Mínimo 6 caracteres"
                                         />
                                         <button
@@ -255,7 +255,7 @@ const InviteAccept: React.FC = () => {
                                         <input
                                             type={showConfirmPassword ? 'text' : 'password'}
                                             {...accountForm.register('confirmPassword')}
-                                            className={`w-full pl-10 pr-10 py-2 rounded-lg bg-white border ${accountForm.formState.errors.confirmPassword ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
+                                            className={`w-full pl-10 pr-10 py-2 rounded-lg bg-white border ${accountForm.formState.errors.confirmPassword ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             placeholder="Repita a senha"
                                         />
                                         <button
@@ -274,7 +274,7 @@ const InviteAccept: React.FC = () => {
 
                                 <button
                                     type="submit"
-                                    className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition-colors shadow-sm mt-2"
+                                    className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-medium py-2.5 rounded-lg transition-colors shadow-sm mt-2"
                                 >
                                     Continuar <ArrowRight size={18} />
                                 </button>
@@ -291,7 +291,7 @@ const InviteAccept: React.FC = () => {
                                         <input
                                             type="text"
                                             {...cellForm.register('cellName')}
-                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${cellForm.formState.errors.cellName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
+                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${cellForm.formState.errors.cellName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             placeholder="Ex: Águias de Cristo"
                                         />
                                     </div>
@@ -307,7 +307,7 @@ const InviteAccept: React.FC = () => {
                                         <input
                                             type="text"
                                             {...cellForm.register('leaderName')}
-                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${cellForm.formState.errors.leaderName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
+                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${cellForm.formState.errors.leaderName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             placeholder="Como aparece na liderança"
                                         />
                                     </div>
@@ -324,7 +324,7 @@ const InviteAccept: React.FC = () => {
                                             type="tel"
                                             {...cellForm.register('whatsapp')}
                                             onChange={(e) => cellForm.setValue('whatsapp', maskPhone(e.target.value))}
-                                            className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none"
+                                            className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                             placeholder="(11) 99999-9999"
                                         />
                                     </div>
@@ -337,7 +337,7 @@ const InviteAccept: React.FC = () => {
                                             <Calendar className="absolute left-3 top-2.5 text-muted-foreground pointer-events-none" size={18} />
                                             <select
                                                 {...cellForm.register('dayOfWeek')}
-                                                className={`w-full pl-10 pr-2 py-2 rounded-lg bg-white border ${cellForm.formState.errors.dayOfWeek ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
+                                                className={`w-full pl-10 pr-2 py-2 rounded-lg bg-white border ${cellForm.formState.errors.dayOfWeek ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             >
                                                 <option value="">Selecione</option>
                                                 {DAYS_OF_WEEK.map((day) => (
@@ -357,7 +357,7 @@ const InviteAccept: React.FC = () => {
                                             <input
                                                 type="time"
                                                 {...cellForm.register('time')}
-                                                className={`w-full pl-10 pr-2 py-2 rounded-lg bg-white border ${cellForm.formState.errors.time ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none min-w-0`}
+                                                className={`w-full pl-10 pr-2 py-2 rounded-lg bg-white border ${cellForm.formState.errors.time ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none min-w-0`}
                                             />
                                         </div>
                                         {cellForm.formState.errors.time && (
@@ -372,7 +372,7 @@ const InviteAccept: React.FC = () => {
                                         <Users className="absolute left-3 top-2.5 text-muted-foreground pointer-events-none" size={18} />
                                         <select
                                             {...cellForm.register('targetAudience')}
-                                            className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none"
+                                            className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                         >
                                             {Object.values(TargetAudience).map((audience) => (
                                                 <option key={audience} value={audience}>{audience}</option>
@@ -388,7 +388,7 @@ const InviteAccept: React.FC = () => {
                                         <input
                                             type="text"
                                             {...cellForm.register('address')}
-                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${cellForm.formState.errors.address ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
+                                            className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${cellForm.formState.errors.address ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                             placeholder="Rua, Número, Bairro"
                                         />
                                     </div>
@@ -409,7 +409,7 @@ const InviteAccept: React.FC = () => {
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition-colors shadow-sm disabled:opacity-70"
+                                        className="flex-1 flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-medium py-2.5 rounded-lg transition-colors shadow-sm disabled:opacity-70"
                                     >
                                         {isSubmitting ? (
                                             <><Loader2 size={18} className="animate-spin" /> Criando...</>
@@ -425,7 +425,7 @@ const InviteAccept: React.FC = () => {
 
                 <p className="text-center text-sm text-muted-foreground mt-6">
                     Já tem uma conta?{' '}
-                    <Link to="/login" className="text-blue-600 hover:underline font-medium">
+                    <Link to="/login" className="text-primary hover:underline font-medium">
                         Fazer login
                     </Link>
                 </p>

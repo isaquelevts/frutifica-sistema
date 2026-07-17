@@ -139,10 +139,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           `}
         >
           <div className="h-16 flex items-center px-6 border-b border-border flex-shrink-0">
-            <Church className="text-blue-600 mr-2 flex-shrink-0" size={24} />
+            <Church className="text-primary mr-2 flex-shrink-0" size={24} />
             <span className="text-xl font-bold text-foreground">Frutifica</span>
             {isSuperAdmin && (
-              <span className="ml-auto text-[10px] font-bold uppercase bg-blue-600 text-white px-1.5 py-0.5 rounded">SA</span>
+              <span className="ml-auto text-[10px] font-bold uppercase bg-primary text-white px-1.5 py-0.5 rounded">SA</span>
             )}
           </div>
 
@@ -151,7 +151,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <div key={groupIndex} className={`mb-4 ${group.isSuperSection ? 'pb-4 border-b border-border' : ''}`}>
                 {group.title && (
                   <h3 className={`px-4 text-xs font-bold uppercase tracking-wider mb-2 ${
-                    group.isSuperSection ? 'text-blue-600' : 'text-muted-foreground'
+                    group.isSuperSection ? 'text-primary' : 'text-muted-foreground'
                   }`}>
                     {group.title}
                   </h3>
@@ -166,10 +166,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors
                         ${isActive(item.path)
                           ? group.isSuperSection
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-blue-50 text-blue-700'
+                            ? 'bg-primary text-white'
+                            : 'bg-primary/10 text-primary'
                           : group.isSuperSection
-                            ? 'text-blue-700 hover:bg-blue-50'
+                            ? 'text-primary hover:bg-primary/10'
                             : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'}
                       `}
                     >
@@ -184,7 +184,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
           <div className="p-4 border-t border-border flex-shrink-0">
             <div className="flex items-center gap-3 px-4 py-3 mb-2">
-              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xs uppercase flex-shrink-0">
+              <div className="w-8 h-8 rounded-full bg-primary/15 flex items-center justify-center text-primary font-bold text-xs uppercase flex-shrink-0">
                 {user?.name.substring(0, 2)}
               </div>
               <div className="overflow-hidden">

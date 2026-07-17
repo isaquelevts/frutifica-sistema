@@ -89,7 +89,7 @@ const Ranking: React.FC = () => {
     return (
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
           <p className="text-muted-foreground font-medium animate-pulse">Carregando reconhecimento...</p>
         </div>
       </div>
@@ -107,19 +107,19 @@ const Ranking: React.FC = () => {
         <div className="flex bg-muted p-1 rounded-lg self-start md:self-auto">
           <button
             onClick={() => setTimeRange('week')}
-            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeRange === 'week' ? 'bg-white text-blue-600 shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeRange === 'week' ? 'bg-white text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
           >
             Semanal
           </button>
           <button
             onClick={() => setTimeRange('month')}
-            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeRange === 'month' ? 'bg-white text-blue-600 shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeRange === 'month' ? 'bg-white text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
           >
             Mensal
           </button>
           <button
             onClick={() => setTimeRange('year')}
-            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeRange === 'year' ? 'bg-white text-blue-600 shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${timeRange === 'year' ? 'bg-white text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
           >
             Anual
           </button>

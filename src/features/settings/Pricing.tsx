@@ -85,9 +85,9 @@ const Pricing: React.FC = () => {
           </div>
 
           {/* PRO PLAN */}
-          <div className="relative p-8 bg-white border-2 border-blue-600 rounded-2xl shadow-xl flex flex-col transform scale-105 z-10">
+          <div className="relative p-8 bg-white border-2 border-primary rounded-2xl shadow-xl flex flex-col transform scale-105 z-10">
             <div className="absolute top-0 right-0 -mt-5 mr-5">
-              <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-sm">
+              <span className="bg-primary text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-sm">
                 Mais Popular
               </span>
             </div>
@@ -102,7 +102,7 @@ const Pricing: React.FC = () => {
               <ul className="mt-6 space-y-4">
                 {PLANS.PRO.features.map((feature) => (
                   <li key={feature} className="flex">
-                    <CheckCircle className="flex-shrink-0 w-6 h-6 text-blue-600" />
+                    <CheckCircle className="flex-shrink-0 w-6 h-6 text-primary" />
                     <span className="ml-3 text-foreground font-medium">{feature}</span>
                   </li>
                 ))}
@@ -114,8 +114,8 @@ const Pricing: React.FC = () => {
               disabled={currentPlan === 'pro' || loading === 'pro'}
               className={`mt-8 block w-full py-3 px-6 border border-transparent rounded-xl text-center font-bold text-lg transition-all shadow-lg hover:shadow-xl
                 ${currentPlan === 'pro'
-                  ? 'bg-blue-50 text-blue-600 cursor-default'
-                  : 'bg-blue-600 text-white hover:bg-blue-700'}
+                  ? 'bg-primary/10 text-primary cursor-default'
+                  : 'bg-primary text-white hover:bg-primary/90'}
               `}
             >
               {loading === 'pro' ? (

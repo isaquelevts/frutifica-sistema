@@ -53,12 +53,12 @@ const Login: React.FC = () => {
         </Link>
 
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-          <div className="bg-blue-600 p-8 text-center">
+          <div className="bg-primary p-8 text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/20 text-white mb-4">
               <Church size={32} />
             </div>
             <h1 className="text-2xl font-bold text-white">Frutifica</h1>
-            <p className="text-blue-100 mt-2">Gestão inteligente para sua igreja</p>
+            <p className="text-primary-foreground/80 mt-2">Gestão inteligente para sua igreja</p>
           </div>
 
           <div className="p-8">
@@ -78,7 +78,7 @@ const Login: React.FC = () => {
                   <input
                     type="email"
                     {...register('email')}
-                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.email ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.email ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
                     placeholder="seu@email.com"
                   />
                 </div>
@@ -92,7 +92,7 @@ const Login: React.FC = () => {
                   <input
                     type="password"
                     {...register('password')}
-                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.password ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.password ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
                     placeholder="••••••••"
                   />
                 </div>
@@ -102,14 +102,14 @@ const Login: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition-colors shadow-sm disabled:opacity-70 mt-2"
+                className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2.5 rounded-lg transition-colors shadow-sm disabled:opacity-70 mt-2"
               >
                 {isSubmitting ? 'Entrando...' : 'Entrar'}
               </button>
             </form>
 
             <div className="mt-4 text-center">
-              <Link to="/forgot-password" university-id="forgot-password-link" className="text-sm text-blue-600 hover:underline">
+              <Link to="/forgot-password" university-id="forgot-password-link" className="text-sm text-primary hover:underline">
                 Esqueceu sua senha?
               </Link>
             </div>

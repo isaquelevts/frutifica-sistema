@@ -33,7 +33,7 @@ const ConsolidationDashboard: React.FC = () => {
       return (
          <div className="flex h-[60vh] items-center justify-center">
             <div className="flex flex-col items-center gap-4">
-               <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+               <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
                <p className="text-muted-foreground font-medium animate-pulse">Carregando painel de consolidação...</p>
             </div>
          </div>
@@ -44,19 +44,19 @@ const ConsolidationDashboard: React.FC = () => {
       <div className="space-y-6">
 
          {/* HEADER ACTION CARD */}
-         <div className="bg-gradient-to-r from-blue-700 to-indigo-600 rounded-xl p-6 md:p-8 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 transform hover:scale-[1.01] transition-transform duration-300 border-2 border-white/20">
+         <div className="bg-gradient-to-r from-primary to-indigo-600 rounded-xl p-6 md:p-8 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 transform hover:scale-[1.01] transition-transform duration-300 border-2 border-white/20">
             <div className="flex items-center gap-4 md:gap-6 w-full md:w-auto">
                <div className="bg-white/20 p-3 md:p-4 rounded-full backdrop-blur-sm shadow-inner shrink-0">
                   <UserPlus className="w-8 h-8 md:w-12 md:h-12 text-white" />
                </div>
                <div>
                   <h2 className="text-xl md:text-3xl font-bold mb-1 leading-tight">Cadastrar Novo Visitante</h2>
-                  <p className="text-blue-100 text-sm md:text-lg opacity-90 leading-snug">Registre novos contatos para acompanhamento.</p>
+                  <p className="text-primary-foreground/80 text-sm md:text-lg opacity-90 leading-snug">Registre novos contatos para acompanhamento.</p>
                </div>
             </div>
             <button
                onClick={() => navigate('/add-visitor')}
-               className="flex items-center gap-2 md:gap-3 bg-white text-blue-700 px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-lg md:text-xl shadow-lg hover:bg-blue-50 transition-all w-full md:w-auto justify-center group"
+               className="flex items-center gap-2 md:gap-3 bg-white text-primary px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-lg md:text-xl shadow-lg hover:bg-primary/10 transition-all w-full md:w-auto justify-center group"
             >
                Adicionar Agora <ArrowRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
             </button>
@@ -109,7 +109,7 @@ const ConsolidationDashboard: React.FC = () => {
                         <span className="font-bold text-foreground">{inNovo}</span>
                      </div>
                      <div className="h-3 bg-muted rounded-full overflow-hidden">
-                        <div className="h-full bg-blue-500 rounded-full" style={{ width: `${totalPeople ? (inNovo / totalPeople) * 100 : 0}%` }}></div>
+                        <div className="h-full bg-primary rounded-full" style={{ width: `${totalPeople ? (inNovo / totalPeople) * 100 : 0}%` }}></div>
                      </div>
                   </div>
 
@@ -137,7 +137,7 @@ const ConsolidationDashboard: React.FC = () => {
                </div>
 
                <div className="mt-6 pt-6 border-t border-border">
-                  <Link to="/kanban" className="text-blue-600 font-medium hover:underline flex items-center gap-1 justify-center">
+                  <Link to="/kanban" className="text-primary font-medium hover:underline flex items-center gap-1 justify-center">
                      Gerenciar no Kanban <ArrowRight size={16} />
                   </Link>
                </div>
@@ -165,7 +165,7 @@ const ConsolidationDashboard: React.FC = () => {
                   })}
                   {cultos.length === 0 && <p className="text-muted-foreground text-sm">Nenhum culto registrado.</p>}
                </div>
-               <Link to="/cult-reports" className="block text-center text-sm text-blue-600 mt-4 hover:underline">Ver todos</Link>
+               <Link to="/cult-reports" className="block text-center text-sm text-primary mt-4 hover:underline">Ver todos</Link>
             </div>
          </div>
       </div>

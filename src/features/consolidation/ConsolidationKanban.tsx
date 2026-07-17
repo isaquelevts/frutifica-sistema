@@ -64,7 +64,7 @@ const ConsolidationKanban: React.FC = () => {
         if (days > 14 && visitor.statusKanban === StatusKanban.NOVO) return 'border-l-red-400';
         if (days > 7 && visitor.statusKanban === StatusKanban.NOVO) return 'border-l-yellow-400';
 
-        return 'border-l-blue-500';
+        return 'border-l-primary';
     };
 
     const formatPhoneNumber = (phone: string) => phone.replace(/\D/g, '');
@@ -296,7 +296,7 @@ const ConsolidationKanban: React.FC = () => {
                 flex items-start gap-2 p-2 rounded-lg text-xs font-medium mb-3
                 ${actionStatus === 'overdue' ? 'bg-red-50 text-red-700 border border-red-100' :
                             actionStatus === 'today' ? 'bg-orange-50 text-orange-700 border border-orange-100' :
-                                'bg-blue-50 text-blue-700 border border-blue-100'}
+                                'bg-primary/10 text-primary border border-primary/15'}
             `}>
                         <Clock size={12} className="mt-0.5 flex-shrink-0" />
                         <span className="line-clamp-2">{v.proximaAcao}</span>
@@ -330,7 +330,7 @@ const ConsolidationKanban: React.FC = () => {
             <div
                 className={`
             flex-1 min-w-[300px] flex flex-col h-full rounded-2xl border transition-colors duration-200
-            ${isActive ? 'bg-muted border-blue-300' : 'bg-muted/30 border-border'}
+            ${isActive ? 'bg-muted border-primary/30' : 'bg-muted/30 border-border'}
         `}
                 onDragOver={(e) => handleDragOver(e, status)}
                 onDragLeave={handleDragLeave}
@@ -368,7 +368,7 @@ const ConsolidationKanban: React.FC = () => {
         return (
             <div className="flex h-[80vh] items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
                     <p className="text-muted-foreground font-medium animate-pulse">Carregando quadro Kanban...</p>
                 </div>
             </div>
@@ -397,7 +397,7 @@ const ConsolidationKanban: React.FC = () => {
                             placeholder="Buscar visitante..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="pl-9 pr-4 py-2 text-sm border border-input rounded-lg w-full sm:w-64 focus:ring-2 focus:ring-blue-500 outline-none bg-white text-foreground"
+                            className="pl-9 pr-4 py-2 text-sm border border-input rounded-lg w-full sm:w-64 focus:ring-2 focus:ring-ring outline-none bg-white text-foreground"
                         />
                     </div>
 
@@ -405,7 +405,7 @@ const ConsolidationKanban: React.FC = () => {
                         onClick={() => setOnlyMyVisitors(!onlyMyVisitors)}
                         className={`
                     flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border transition-colors
-                    ${onlyMyVisitors ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-white border-input text-muted-foreground hover:bg-muted/50'}
+                    ${onlyMyVisitors ? 'bg-primary/10 border-primary/20 text-primary' : 'bg-white border-input text-muted-foreground hover:bg-muted/50'}
                 `}
                     >
                         <Filter size={16} />
@@ -416,7 +416,7 @@ const ConsolidationKanban: React.FC = () => {
 
             {/* KANBAN BOARD */}
             <div className="flex-1 flex gap-4 overflow-x-auto pb-4">
-                {renderColumn(StatusKanban.NOVO, 'Novos', <UserIcon size={16} />, 'bg-blue-500')}
+                {renderColumn(StatusKanban.NOVO, 'Novos', <UserIcon size={16} />, 'bg-primary')}
                 {renderColumn(StatusKanban.CONTATO, 'Em Contato', <MessageCircle size={16} />, 'bg-orange-500')}
                 {renderColumn(StatusKanban.INTEGRADO, 'Integrados', <CheckCircle size={16} />, 'bg-green-500')}
             </div>
@@ -457,7 +457,7 @@ const ConsolidationKanban: React.FC = () => {
                                             className={`
                                         h-2 w-8 rounded-full transition-colors
                                         ${Object.values(StatusKanban).indexOf(selectedVisitor.statusKanban) >= idx
-                                                    ? (status === StatusKanban.INTEGRADO ? 'bg-green-500' : 'bg-blue-500')
+                                                    ? (status === StatusKanban.INTEGRADO ? 'bg-green-500' : 'bg-primary')
                                                     : 'bg-muted'}
                                     `}
                                         />
@@ -527,13 +527,13 @@ const ConsolidationKanban: React.FC = () => {
                                 {/* TAGS SECTION */}
                                 <div>
                                     <h3 className="text-sm font-bold text-foreground flex items-center gap-2 mb-3">
-                                        <Tag size={16} className="text-blue-600" /> Tags
+                                        <Tag size={16} className="text-primary" /> Tags
                                     </h3>
                                     <div className="flex flex-wrap gap-2 mb-3 min-h-[30px]">
                                         {selectedVisitor.tags?.map(tag => (
-                                            <span key={tag} className="inline-flex items-center gap-1 bg-blue-50 text-blue-700 px-2 py-1 rounded-md text-xs font-medium border border-blue-100 group">
+                                            <span key={tag} className="inline-flex items-center gap-1 bg-primary/10 text-primary px-2 py-1 rounded-md text-xs font-medium border border-primary/15 group">
                                                 {tag}
-                                                <button onClick={() => removeTag(tag)} className="text-blue-400 hover:text-red-500"><X size={10} /></button>
+                                                <button onClick={() => removeTag(tag)} className="text-primary hover:text-red-500"><X size={10} /></button>
                                             </span>
                                         ))}
                                         {(!selectedVisitor.tags || selectedVisitor.tags.length === 0) && (
@@ -547,7 +547,7 @@ const ConsolidationKanban: React.FC = () => {
                                             onChange={(e) => setNewTag(e.target.value)}
                                             onKeyDown={(e) => e.key === 'Enter' && addTag()}
                                             placeholder="Nova tag..."
-                                            className="flex-1 px-3 py-1.5 border border-input rounded-lg text-sm outline-none focus:border-blue-500 bg-white text-foreground"
+                                            className="flex-1 px-3 py-1.5 border border-input rounded-lg text-sm outline-none focus:border-ring bg-white text-foreground"
                                         />
                                         <button onClick={addTag} className="bg-muted text-muted-foreground px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-muted">
                                             <Plus size={14} />
@@ -586,7 +586,7 @@ const ConsolidationKanban: React.FC = () => {
                                 {!selectedVisitor.celulaDestinoId ? (
                                     <div className="space-y-2">
                                         {getRecommendedCells(selectedVisitor).map(({ cell, score, reasons }) => (
-                                            <div key={cell.id} className="group flex justify-between items-center p-3 rounded-xl border border-border hover:border-blue-300 hover:shadow-sm transition-all bg-white cursor-pointer" onClick={() => assignCell(cell.id)}>
+                                            <div key={cell.id} className="group flex justify-between items-center p-3 rounded-xl border border-border hover:border-primary/40 hover:shadow-sm transition-all bg-white cursor-pointer" onClick={() => assignCell(cell.id)}>
                                                 <div>
                                                     <div className="flex items-center gap-2">
                                                         <h4 className="font-bold text-foreground text-sm">{cell.name}</h4>
@@ -597,7 +597,7 @@ const ConsolidationKanban: React.FC = () => {
                                                         {reasons.map((r, i) => <span key={i} className="text-[9px] bg-muted text-muted-foreground px-1 rounded">{r}</span>)}
                                                     </div>
                                                 </div>
-                                                <ArrowRight size={16} className="text-muted-foreground group-hover:text-blue-500" />
+                                                <ArrowRight size={16} className="text-muted-foreground group-hover:text-primary" />
                                             </div>
                                         ))}
                                         {getRecommendedCells(selectedVisitor).length === 0 && (

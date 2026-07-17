@@ -90,7 +90,7 @@ const InviteManager: React.FC = () => {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                 <div>
                     <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
-                        <Ticket className="text-blue-600" size={26} /> Convites de Líderes
+                        <Ticket className="text-primary" size={26} /> Convites de Líderes
                     </h1>
                     <p className="text-muted-foreground text-sm mt-1">
                         Gere um link, mande no grupo, e cada líder cadastra a própria célula.
@@ -101,7 +101,7 @@ const InviteManager: React.FC = () => {
                     <button
                         onClick={() => setShowForm(true)}
                         disabled={isSuspended}
-                        className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-5 rounded-lg transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
+                        className="flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-medium py-2.5 px-5 rounded-lg transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
                     >
                         <Plus size={18} /> Gerar Convite
                     </button>
@@ -116,7 +116,7 @@ const InviteManager: React.FC = () => {
 
             {/* Formulário */}
             {showForm && (
-                <div className="bg-white rounded-xl shadow-sm border border-blue-200 p-6 mb-6">
+                <div className="bg-white rounded-xl shadow-sm border border-primary/20 p-6 mb-6">
                     <h2 className="text-sm font-bold text-foreground mb-4">Novo Convite</h2>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -127,7 +127,7 @@ const InviteManager: React.FC = () => {
                                 <input
                                     type="text"
                                     {...register('label')}
-                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                     placeholder="Ex: Líderes da Rede Judá"
                                 />
                                 <p className="text-xs text-muted-foreground mt-1">Só para você identificar o link na lista.</p>
@@ -139,7 +139,7 @@ const InviteManager: React.FC = () => {
                                 </label>
                                 <select
                                     {...register('generationId')}
-                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                 >
                                     <option value="">Sem geração definida</option>
                                     {generations.map((gen) => (
@@ -159,7 +159,7 @@ const InviteManager: React.FC = () => {
                                     type="number"
                                     min={1}
                                     {...register('maxUses')}
-                                    className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.maxUses ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
+                                    className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.maxUses ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                     placeholder="Deixe vazio para ilimitado"
                                 />
                                 {errors.maxUses && <span className="text-red-500 text-xs mt-1">{errors.maxUses.message}</span>}
@@ -171,7 +171,7 @@ const InviteManager: React.FC = () => {
                                     type="number"
                                     min={1}
                                     {...register('expiresInDays')}
-                                    className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.expiresInDays ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
+                                    className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.expiresInDays ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                     placeholder="Deixe vazio para não expirar"
                                 />
                                 {errors.expiresInDays && <span className="text-red-500 text-xs mt-1">{errors.expiresInDays.message}</span>}
@@ -189,7 +189,7 @@ const InviteManager: React.FC = () => {
                             <button
                                 type="submit"
                                 disabled={createMutation.isPending}
-                                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-5 rounded-lg transition-colors shadow-sm disabled:opacity-50"
+                                className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-medium py-2 px-5 rounded-lg transition-colors shadow-sm disabled:opacity-50"
                             >
                                 {createMutation.isPending
                                     ? <><Loader2 size={16} className="animate-spin" /> Gerando...</>
@@ -203,11 +203,11 @@ const InviteManager: React.FC = () => {
             {/* Lista */}
             {isLoading ? (
                 <div className="flex justify-center py-16">
-                    <Loader2 className="text-blue-600 animate-spin" size={28} />
+                    <Loader2 className="text-primary animate-spin" size={28} />
                 </div>
             ) : invites.length === 0 ? (
                 <div className="bg-white rounded-xl border border-border p-12 text-center">
-                    <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 bg-primary/15 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
                         <Ticket size={32} />
                     </div>
                     <h3 className="text-lg font-bold text-foreground mb-2">Nenhum convite ainda</h3>
@@ -218,7 +218,7 @@ const InviteManager: React.FC = () => {
                     <button
                         onClick={() => setShowForm(true)}
                         disabled={isSuspended}
-                        className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-5 rounded-lg transition-colors shadow-sm disabled:opacity-50"
+                        className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-medium py-2.5 px-5 rounded-lg transition-colors shadow-sm disabled:opacity-50"
                     >
                         <Plus size={18} /> Gerar meu primeiro convite
                     </button>
@@ -288,7 +288,7 @@ const InviteCard: React.FC<InviteCardProps> = ({ invite, copied, disabled, onCop
                             <span className="font-bold text-foreground truncate">{invite.label}</span>
                         )}
                         {invite.generationName && (
-                            <span className="inline-flex items-center gap-1 text-xs text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full">
+                            <span className="inline-flex items-center gap-1 text-xs text-primary bg-primary/10 px-2 py-0.5 rounded-full">
                                 <Network size={11} /> {invite.generationName}
                             </span>
                         )}

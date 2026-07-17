@@ -225,7 +225,7 @@ const ManageLeaders: React.FC = () => {
       );
     }
     return (
-      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/15 text-primary">
         <UserIcon size={12} /> Líder
       </span>
     );
@@ -240,7 +240,7 @@ const ManageLeaders: React.FC = () => {
         </div>
         <button
           onClick={handleOpenModal}
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+          className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
         >
           <UserPlus size={18} />
           Novo Usuário
@@ -249,8 +249,8 @@ const ManageLeaders: React.FC = () => {
 
       {/* Card de link de auto-cadastro */}
       {registerLink && (
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
-          <div className="flex items-center gap-2 text-blue-700 flex-shrink-0">
+        <div className="bg-primary/10 border border-primary/20 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          <div className="flex items-center gap-2 text-primary flex-shrink-0">
             <Link2 size={20} />
             <span className="font-semibold text-sm">Link de Cadastro para Líderes</span>
           </div>
@@ -264,7 +264,7 @@ const ManageLeaders: React.FC = () => {
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex-shrink-0 ${
               linkCopied
                 ? 'bg-green-600 text-white'
-                : 'bg-blue-600 hover:bg-blue-700 text-white'
+                : 'bg-primary hover:bg-primary/90 text-white'
             }`}
           >
             {linkCopied ? <><Check size={16} /> Copiado!</> : <><Copy size={16} /> Copiar Link</>}
@@ -280,7 +280,7 @@ const ManageLeaders: React.FC = () => {
             placeholder="Buscar por nome ou email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-4 py-2 bg-white border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
       </div>
@@ -324,7 +324,7 @@ const ManageLeaders: React.FC = () => {
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => handleEdit(u)}
-                        className="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                        className="p-1.5 text-primary hover:bg-primary/10 rounded transition-colors"
                         title="Editar"
                       >
                         <Edit2 size={18} />
@@ -362,7 +362,7 @@ const ManageLeaders: React.FC = () => {
                     <input
                       type="text"
                       {...register('name')}
-                      className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground font-medium outline-none focus:border-blue-500`}
+                      className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground font-medium outline-none focus:border-ring`}
                     />
                     {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>}
                   </div>
@@ -376,7 +376,7 @@ const ManageLeaders: React.FC = () => {
                       type="email"
                       {...register('email')}
                       disabled={!!editingUser}
-                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-blue-500 disabled:bg-muted disabled:cursor-not-allowed"
+                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-ring disabled:bg-muted disabled:cursor-not-allowed"
                     />
                     {errors.email && <span className="text-red-500 text-xs mt-1">{errors.email.message}</span>}
                   </div>
@@ -394,7 +394,7 @@ const ManageLeaders: React.FC = () => {
                       <input
                         type="password"
                         {...register('password')}
-                        className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.password ? 'border-red-500' : 'border-input'} text-foreground font-medium outline-none focus:border-blue-500`}
+                        className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.password ? 'border-red-500' : 'border-input'} text-foreground font-medium outline-none focus:border-ring`}
                         placeholder="Mínimo 6 caracteres"
                         minLength={6}
                       />
@@ -410,7 +410,7 @@ const ManageLeaders: React.FC = () => {
                     <input
                       type="date"
                       {...register('birthday')}
-                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-blue-500"
+                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-ring"
                     />
                   </div>
                 </div>
@@ -419,7 +419,7 @@ const ManageLeaders: React.FC = () => {
                   <label className="block text-sm font-medium text-foreground mb-1">Função</label>
                   <select
                     {...register('role')}
-                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-blue-500"
+                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-ring"
                   >
                     <option value={UserRole.LEADER}>Líder</option>
                     <option value={UserRole.COLEADER}>Co-Líder</option>
@@ -432,7 +432,7 @@ const ManageLeaders: React.FC = () => {
                   <label className="block text-sm font-medium text-foreground mb-1">Célula Vinculada</label>
                   <select
                     {...register('cellId')}
-                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-blue-500"
+                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-ring"
                   >
                     <option value="">Sem Célula (Apenas Acesso)</option>
                     {cells.map(c => (
@@ -455,7 +455,7 @@ const ManageLeaders: React.FC = () => {
                       onChange={(e) => setLeaderPhone(maskPhone(e.target.value))}
                       disabled={!watchedCellId}
                       placeholder="(11) 99999-9999"
-                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-blue-500 disabled:bg-muted disabled:cursor-not-allowed"
+                      className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground font-medium outline-none focus:border-ring disabled:bg-muted disabled:cursor-not-allowed"
                     />
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
@@ -478,7 +478,7 @@ const ManageLeaders: React.FC = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-medium shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 font-medium shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Salvando...' : 'Salvar Dados'}
                 </button>
@@ -505,7 +505,7 @@ const ManageLeaders: React.FC = () => {
 
               {/* Message */}
               <p className="text-muted-foreground mb-1">
-                <strong className="text-blue-600">{createdLeaderName}</strong> foi adicionado com sucesso!
+                <strong className="text-primary">{createdLeaderName}</strong> foi adicionado com sucesso!
               </p>
               <p className="text-sm text-muted-foreground mb-8">
                 O líder já pode acessar o sistema com as credenciais fornecidas.
@@ -521,7 +521,7 @@ const ManageLeaders: React.FC = () => {
                 </button>
                 <button
                   onClick={handleAddAnother}
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg shadow-blue-500/30"
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-primary to-primary/80 text-white font-semibold rounded-lg hover:from-primary hover:to-primary/70 transition-all shadow-lg shadow-primary/30"
                 >
                   + Adicionar Outro
                 </button>

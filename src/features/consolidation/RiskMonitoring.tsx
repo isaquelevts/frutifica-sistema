@@ -158,7 +158,7 @@ const RiskMonitoring: React.FC = () => {
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
             <p className="text-muted-foreground">Analisando células...</p>
           </div>
         </div>
@@ -288,7 +288,7 @@ const RiskMonitoring: React.FC = () => {
                     <div className="pl-4 border-l border-border">
                       <Link
                         to={`/edit-cell/${data.cell.id}`}
-                        className="text-blue-600 hover:text-blue-800 font-medium text-sm whitespace-nowrap"
+                        className="text-primary hover:text-primary font-medium text-sm whitespace-nowrap"
                       >
                         Ver Detalhes
                       </Link>

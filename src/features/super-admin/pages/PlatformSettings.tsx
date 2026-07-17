@@ -93,7 +93,7 @@ const PlatformSettings: React.FC = () => {
       {/* Gerenciar Super Admins */}
       <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
         <div className="px-6 py-4 border-b border-border flex items-center gap-3">
-          <Shield size={18} className="text-blue-600" />
+          <Shield size={18} className="text-primary" />
           <div>
             <h2 className="text-base font-bold text-foreground">Super Admins</h2>
             <p className="text-sm text-muted-foreground mt-0.5">Usuários com acesso total à plataforma.</p>
@@ -111,13 +111,13 @@ const PlatformSettings: React.FC = () => {
                 onChange={e => setNewEmail(e.target.value)}
                 placeholder="email@exemplo.com"
                 required
-                className="w-full pl-9 pr-4 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-9 pr-4 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
             <button
               type="submit"
               disabled={addSuperAdminMutation.isPending}
-              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 whitespace-nowrap"
+              className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary/90 disabled:opacity-50 whitespace-nowrap"
             >
               {addSuperAdminMutation.isPending ? 'Adicionando...' : 'Adicionar SuperAdmin'}
             </button>
@@ -138,14 +138,14 @@ const PlatformSettings: React.FC = () => {
         {/* Lista de superadmins */}
         {isLoading ? (
           <div className="flex items-center justify-center h-24">
-            <div className="w-6 h-6 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+            <div className="w-6 h-6 border-4 border-primary border-t-transparent rounded-full animate-spin" />
           </div>
         ) : (
           <div className="divide-y divide-border">
             {superAdmins.map((sa: any) => (
               <div key={sa.id} className="px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-sm uppercase">
+                  <div className="w-9 h-9 rounded-full bg-primary/15 flex items-center justify-center text-primary font-bold text-sm uppercase">
                     {sa.name?.substring(0, 2) ?? '??'}
                   </div>
                   <div>
@@ -153,7 +153,7 @@ const PlatformSettings: React.FC = () => {
                     <p className="text-xs text-muted-foreground">{sa.email}</p>
                   </div>
                   {sa.id === user?.id && (
-                    <span className="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-medium">Você</span>
+                    <span className="text-xs bg-primary/15 text-primary px-2 py-0.5 rounded-full font-medium">Você</span>
                   )}
                 </div>
                 {sa.id !== user?.id && (

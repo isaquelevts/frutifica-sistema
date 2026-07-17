@@ -167,7 +167,7 @@ const MyCell: React.FC = () => {
               </button>
               <Link
                 to={`/report/${cell.id}`}
-                className="flex flex-1 md:flex-none items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-md font-medium"
+                className="flex flex-1 md:flex-none items-center justify-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors shadow-md font-medium"
               >
                 <FileText size={20} />
                 Relatório
@@ -198,13 +198,13 @@ const MyCell: React.FC = () => {
 
       <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
         {/* Header - Always Visible */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-8 text-white">
+        <div className="bg-gradient-to-r from-primary to-indigo-700 p-8 text-white">
           <div className="flex items-start justify-between">
             <div className="w-full">
               {isEditing ? (
                 <div className="space-y-4 max-w-md">
                   <div>
-                    <label className="text-blue-100 text-xs uppercase font-bold">Nome da Célula</label>
+                    <label className="text-primary-foreground/80 text-xs uppercase font-bold">Nome da Célula</label>
                     <input
                       type="text"
                       {...register('name')}
@@ -213,7 +213,7 @@ const MyCell: React.FC = () => {
                     {errors.name && <span className="text-red-200 text-xs">{errors.name.message}</span>}
                   </div>
                   <div>
-                    <label className="text-blue-100 text-xs uppercase font-bold">Líder (Nome de Exibição)</label>
+                    <label className="text-primary-foreground/80 text-xs uppercase font-bold">Líder (Nome de Exibição)</label>
                     <input
                       type="text"
                       {...register('leaderName')}
@@ -228,7 +228,7 @@ const MyCell: React.FC = () => {
                     {generations.find(g => g.id === cell.generationId)?.name || ''}
                   </div>
                   <h2 className="text-3xl font-bold mb-1">{cell.name}</h2>
-                  <p className="text-blue-100 flex items-center gap-2">
+                  <p className="text-primary-foreground/80 flex items-center gap-2">
                     <User size={16} /> Líder: {cell.leaderName}
                   </p>
                 </>
@@ -254,7 +254,7 @@ const MyCell: React.FC = () => {
             <div className="space-y-4">
               {/* Day & Time */}
               <div className="flex items-start gap-3">
-                <div className="p-2 bg-blue-50 text-blue-600 rounded-lg mt-0.5">
+                <div className="p-2 bg-primary/10 text-primary rounded-lg mt-0.5">
                   <Calendar size={20} />
                 </div>
                 <div className="w-full">
@@ -365,7 +365,7 @@ const MyCell: React.FC = () => {
               {isEditing && !showCoLeaderForm && (
                 <button
                   onClick={() => setShowCoLeaderForm(true)}
-                  className="text-xs flex items-center gap-1 bg-blue-50 text-blue-700 px-2 py-1 rounded hover:bg-blue-100 transition-colors"
+                  className="text-xs flex items-center gap-1 bg-primary/10 text-primary px-2 py-1 rounded hover:bg-primary/15 transition-colors"
                 >
                   <Plus size={14} /> Adicionar
                 </button>
@@ -401,8 +401,8 @@ const MyCell: React.FC = () => {
 
               {/* Add Co-Leader Form */}
               {isEditing && showCoLeaderForm && (
-                <div className="bg-white p-4 rounded-lg border border-blue-200 shadow-sm animate-in fade-in slide-in-from-top-2">
-                  <h5 className="text-sm font-semibold text-blue-800 mb-3">Novo Co-Líder</h5>
+                <div className="bg-white p-4 rounded-lg border border-primary/20 shadow-sm animate-in fade-in slide-in-from-top-2">
+                  <h5 className="text-sm font-semibold text-primary mb-3">Novo Co-Líder</h5>
                   <div className="space-y-3">
                     <input
                       type="text"
@@ -410,7 +410,7 @@ const MyCell: React.FC = () => {
                       value={tempCoLeader.name}
                       onChange={handleTempCoLeaderChange}
                       placeholder="Nome Completo"
-                      className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-blue-500 outline-none text-foreground"
+                      className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-ring outline-none text-foreground"
                     />
                     <input
                       type="email"
@@ -418,7 +418,7 @@ const MyCell: React.FC = () => {
                       value={tempCoLeader.email}
                       onChange={handleTempCoLeaderChange}
                       placeholder="Email"
-                      className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-blue-500 outline-none text-foreground"
+                      className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-ring outline-none text-foreground"
                     />
                     <input
                       type="tel"
@@ -426,7 +426,7 @@ const MyCell: React.FC = () => {
                       value={tempCoLeader.phone}
                       onChange={(e) => setTempCoLeader(prev => ({ ...prev, phone: maskPhone(e.target.value) }))}
                       placeholder="Telefone"
-                      className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-blue-500 outline-none text-foreground"
+                      className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-ring outline-none text-foreground"
                     />
                   </div>
                   <div className="flex justify-end gap-2 mt-3">
@@ -440,7 +440,7 @@ const MyCell: React.FC = () => {
                     <button
                       type="button"
                       onClick={addCoLeaderToFieldArray}
-                      className="px-3 py-1.5 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                      className="px-3 py-1.5 text-xs font-medium bg-primary text-white rounded-md hover:bg-primary/90"
                     >
                       Adicionar
                     </button>

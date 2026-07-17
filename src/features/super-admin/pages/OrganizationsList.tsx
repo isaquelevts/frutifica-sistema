@@ -113,13 +113,13 @@ const OrganizationsList: React.FC = () => {
               placeholder="Buscar por nome..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-9 pr-4 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
           <select
             value={filterStatus}
             onChange={e => setFilterStatus(e.target.value as FilterStatus)}
-            className="px-3 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-3 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring"
           >
             <option value="all">Todos os status</option>
             <option value="active">Ativa</option>
@@ -131,7 +131,7 @@ const OrganizationsList: React.FC = () => {
           <select
             value={filterPlan}
             onChange={e => setFilterPlan(e.target.value as FilterPlan)}
-            className="px-3 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-3 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring"
           >
             <option value="all">Todos os planos</option>
             <option value="free">Free</option>
@@ -141,7 +141,7 @@ const OrganizationsList: React.FC = () => {
           <select
             value={sortBy}
             onChange={e => setSortBy(e.target.value as SortField)}
-            className="px-3 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-3 py-2 text-sm rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-ring"
           >
             <option value="createdAt">Mais recentes</option>
             <option value="name">Nome</option>
@@ -154,7 +154,7 @@ const OrganizationsList: React.FC = () => {
       <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
         {isLoading ? (
           <div className="flex items-center justify-center h-40">
-            <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -174,10 +174,10 @@ const OrganizationsList: React.FC = () => {
                   <tr key={org.id} className="hover:bg-muted/50 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Building2 size={14} className="text-blue-600" />
+                        <div className="w-8 h-8 bg-primary/15 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Building2 size={14} className="text-primary" />
                         </div>
-                        <Link to={`/super/organizations/${org.id}`} className="font-medium text-foreground hover:text-blue-600 transition-colors">
+                        <Link to={`/super/organizations/${org.id}`} className="font-medium text-foreground hover:text-primary transition-colors">
                           {org.name}
                         </Link>
                       </div>
@@ -192,7 +192,7 @@ const OrganizationsList: React.FC = () => {
                       <div className="flex items-center justify-end gap-1">
                         <button
                           onClick={() => navigate(`/super/organizations/${org.id}`)}
-                          className="p-1.5 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
                           title="Ver detalhes"
                         >
                           <Eye size={15} />
@@ -258,7 +258,7 @@ const OrganizationsList: React.FC = () => {
                   type="text"
                   value={editNameValue}
                   onChange={e => setEditNameValue(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-border text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 rounded-lg border border-border text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                   placeholder="Nome da Igreja"
                 />
               </div>
@@ -268,7 +268,7 @@ const OrganizationsList: React.FC = () => {
                 <select
                   value={editPlanValue}
                   onChange={e => setEditPlanValue(e.target.value as PlanType)}
-                  className="w-full px-3 py-2 rounded-lg border border-border text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 rounded-lg border border-border text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   <option value="free">Free (3 células)</option>
                   <option value="pro">Pro (ilimitado)</option>
@@ -284,7 +284,7 @@ const OrganizationsList: React.FC = () => {
               <button
                 onClick={handleSaveOrg}
                 disabled={!editNameValue.trim() || updatePlanMutation.isPending || updateNameMutation.isPending}
-                className="flex-1 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                className="flex-1 px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary/90 disabled:opacity-50"
               >
                 {(updatePlanMutation.isPending || updateNameMutation.isPending) ? 'Salvando...' : 'Salvar'}
               </button>

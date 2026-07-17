@@ -300,17 +300,17 @@ const CellRegistration: React.FC = () => {
                 <div className="flex gap-4 mb-6 border-b border-border">
                     <button
                         onClick={() => setActiveTab('form')}
-                        className={`pb-3 px-2 text-sm font-medium transition-colors relative ${activeTab === 'form' ? 'text-blue-600' : 'text-muted-foreground hover:text-foreground'}`}
+                        className={`pb-3 px-2 text-sm font-medium transition-colors relative ${activeTab === 'form' ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}
                     >
                         <span className="flex items-center gap-2"><FileText size={16} /> Cadastro Manual</span>
-                        {activeTab === 'form' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 rounded-t-full"></div>}
+                        {activeTab === 'form' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-primary rounded-t-full"></div>}
                     </button>
                     <button
                         onClick={() => setActiveTab('csv')}
-                        className={`pb-3 px-2 text-sm font-medium transition-colors relative ${activeTab === 'csv' ? 'text-blue-600' : 'text-muted-foreground hover:text-foreground'}`}
+                        className={`pb-3 px-2 text-sm font-medium transition-colors relative ${activeTab === 'csv' ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}
                     >
                         <span className="flex items-center gap-2"><FileUp size={16} /> Importar CSV</span>
-                        {activeTab === 'csv' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 rounded-t-full"></div>}
+                        {activeTab === 'csv' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-primary rounded-t-full"></div>}
                     </button>
                 </div>
             )}
@@ -343,7 +343,7 @@ const CellRegistration: React.FC = () => {
                                     <input
                                         type="text"
                                         {...register('name')}
-                                        className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all`}
+                                        className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all`}
                                         placeholder="Ex: Águias de Cristo"
                                     />
                                     {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>}
@@ -353,7 +353,7 @@ const CellRegistration: React.FC = () => {
                                     <label className="block text-sm font-medium text-foreground mb-1">Geração / Rede</label>
                                     <select
                                         {...register('generationId')}
-                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all"
                                     >
                                         <option value="">Sem geração definida</option>
                                         {generations.map(gen => (
@@ -361,7 +361,7 @@ const CellRegistration: React.FC = () => {
                                         ))}
                                     </select>
                                     <p className="text-xs text-muted-foreground mt-1">
-                                        Vincule esta célula a uma geração/rede ministerial. <a href="/#/generations" className="text-blue-600 hover:underline">Gerenciar gerações</a>
+                                        Vincule esta célula a uma geração/rede ministerial. <a href="/#/generations" className="text-primary hover:underline">Gerenciar gerações</a>
                                     </p>
                                 </div>
 
@@ -369,7 +369,7 @@ const CellRegistration: React.FC = () => {
                                     <label className="block text-sm font-medium text-foreground mb-1">Público Alvo</label>
                                     <select
                                         {...register('targetAudience')}
-                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all"
                                     >
                                         {Object.values(TargetAudience).map(audience => (
                                             <option key={audience} value={audience}>{audience}</option>
@@ -382,7 +382,7 @@ const CellRegistration: React.FC = () => {
                         {/* Section: Leadership */}
                         <div>
                             <div className="flex items-center gap-2 mb-4 border-b border-border pb-2">
-                                <Users size={16} className="text-blue-600" />
+                                <Users size={16} className="text-primary" />
                                 <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Liderança</h3>
                             </div>
 
@@ -394,7 +394,7 @@ const CellRegistration: React.FC = () => {
                                         <input
                                             type="text"
                                             {...register('leaderName')}
-                                            className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.leaderName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all`}
+                                            className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.leaderName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all`}
                                             placeholder="Ex: Pr. João"
                                         />
                                         {errors.leaderName && <span className="text-red-500 text-xs mt-1">{errors.leaderName.message}</span>}
@@ -408,7 +408,7 @@ const CellRegistration: React.FC = () => {
                                                 const masked = maskPhone(e.target.value);
                                                 setValue('whatsapp', masked);
                                             }}
-                                            className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                                            className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all"
                                             placeholder="(11) 99999-9999"
                                         />
                                         {isEditing && isAdmin && (
@@ -442,12 +442,12 @@ const CellRegistration: React.FC = () => {
 
                                 {/* Leader Account Section - Only for new cells */}
                                 {!isEditing && (
-                                    <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                                    <div className="bg-primary/10 border border-primary/20 rounded-xl p-4">
                                         <div className="flex items-center gap-2 mb-3">
-                                            <Lock size={16} className="text-blue-600" />
-                                            <h4 className="text-sm font-bold text-blue-900">Conta de Acesso do Líder</h4>
+                                            <Lock size={16} className="text-primary" />
+                                            <h4 className="text-sm font-bold text-primary">Conta de Acesso do Líder</h4>
                                         </div>
-                                        <p className="text-xs text-blue-700 mb-4">
+                                        <p className="text-xs text-primary mb-4">
                                             Crie uma conta para que o líder possa acessar o sistema e gerenciar sua célula.
                                         </p>
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -458,7 +458,7 @@ const CellRegistration: React.FC = () => {
                                                     <input
                                                         type="email"
                                                         {...register('leaderEmail')}
-                                                        className={`w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-white border ${errors.leaderEmail ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                                                        className={`w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-white border ${errors.leaderEmail ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
                                                         placeholder="lider@email.com"
                                                     />
                                                 </div>
@@ -471,7 +471,7 @@ const CellRegistration: React.FC = () => {
                                                     <input
                                                         type="password"
                                                         {...register('leaderPassword')}
-                                                        className={`w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-white border ${errors.leaderPassword ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                                                        className={`w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-white border ${errors.leaderPassword ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
                                                         placeholder="Mínimo 6 caracteres"
                                                     />
                                                 </div>
@@ -484,7 +484,7 @@ const CellRegistration: React.FC = () => {
                                                     <input
                                                         type="date"
                                                         {...register('leaderBirthday')}
-                                                        className="w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                                        className="w-full pl-9 pr-3 py-2 text-sm rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none"
                                                     />
                                                 </div>
                                             </div>
@@ -536,8 +536,8 @@ const CellRegistration: React.FC = () => {
 
                                     {/* Add Co-Leader Sub-Form */}
                                     {showCoLeaderForm && (
-                                        <div className="bg-white p-4 rounded-lg border border-blue-200 shadow-sm animate-in fade-in slide-in-from-top-2">
-                                            <h5 className="text-sm font-semibold text-blue-800 mb-3">Novo Co-Líder</h5>
+                                        <div className="bg-white p-4 rounded-lg border border-primary/20 shadow-sm animate-in fade-in slide-in-from-top-2">
+                                            <h5 className="text-sm font-semibold text-primary mb-3">Novo Co-Líder</h5>
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                                                 <div>
                                                     <input
@@ -546,7 +546,7 @@ const CellRegistration: React.FC = () => {
                                                         value={tempCoLeader.name}
                                                         onChange={handleTempCoLeaderChange}
                                                         placeholder="Nome Completo"
-                                                        className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-blue-500 outline-none text-foreground"
+                                                        className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-ring outline-none text-foreground"
                                                     />
                                                 </div>
                                                 <div>
@@ -556,7 +556,7 @@ const CellRegistration: React.FC = () => {
                                                         value={tempCoLeader.email}
                                                         onChange={handleTempCoLeaderChange}
                                                         placeholder="Email (para acesso)"
-                                                        className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-blue-500 outline-none text-foreground"
+                                                        className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-ring outline-none text-foreground"
                                                     />
                                                 </div>
                                                 <div>
@@ -566,7 +566,7 @@ const CellRegistration: React.FC = () => {
                                                         value={tempCoLeader.phone}
                                                         onChange={(e) => setTempCoLeader(prev => ({ ...prev, phone: maskPhone(e.target.value) }))}
                                                         placeholder="Telefone"
-                                                        className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-blue-500 outline-none text-foreground"
+                                                        className="w-full px-3 py-2 text-sm rounded-md bg-muted/50 border border-input focus:border-ring outline-none text-foreground"
                                                     />
                                                 </div>
                                             </div>
@@ -581,7 +581,7 @@ const CellRegistration: React.FC = () => {
                                                 <button
                                                     type="button"
                                                     onClick={addCoLeaderToFieldArray}
-                                                    className="px-3 py-1.5 text-xs font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                                                    className="px-3 py-1.5 text-xs font-medium bg-primary text-white rounded-md hover:bg-primary/90"
                                                 >
                                                     Adicionar à Lista
                                                 </button>
@@ -600,7 +600,7 @@ const CellRegistration: React.FC = () => {
                                     <label className="block text-sm font-medium text-foreground mb-1">Dia da Célula</label>
                                     <select
                                         {...register('dayOfWeek')}
-                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all"
                                     >
                                         <option value="Segunda-feira">Segunda-feira</option>
                                         <option value="Terça-feira">Terça-feira</option>
@@ -617,7 +617,7 @@ const CellRegistration: React.FC = () => {
                                     <input
                                         type="time"
                                         {...register('time')}
-                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all min-w-0"
+                                        className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all min-w-0"
                                     />
                                 </div>
 
@@ -626,7 +626,7 @@ const CellRegistration: React.FC = () => {
                                     <input
                                         type="text"
                                         {...register('address')}
-                                        className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.address ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all`}
+                                        className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.address ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none transition-all`}
                                         placeholder="Rua, Número, Bairro"
                                     />
                                     {errors.address && <span className="text-red-500 text-xs mt-1">{errors.address.message}</span>}
@@ -646,7 +646,7 @@ const CellRegistration: React.FC = () => {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-lg transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 <Save size={18} />
                                 {loading ? 'Salvando...' : (isEditing ? 'Atualizar Dados' : 'Salvar Célula e Líder')}
@@ -658,7 +658,7 @@ const CellRegistration: React.FC = () => {
                 // CSV IMPORT TAB (copied from previous logic)
                 <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden p-6 md:p-10">
                     <div className="text-center max-w-lg mx-auto">
-                        <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <div className="w-16 h-16 bg-primary/15 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
                             <FileUp size={32} />
                         </div>
                         <h2 className="text-2xl font-bold text-foreground mb-2">Importar Células via CSV</h2>
@@ -712,7 +712,7 @@ const CellRegistration: React.FC = () => {
                             <button
                                 onClick={processCSV}
                                 disabled={!csvFile}
-                                className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 Processar Importação
                             </button>
@@ -738,7 +738,7 @@ const CellRegistration: React.FC = () => {
 
                             {/* Message */}
                             <p className="text-muted-foreground mb-1">
-                                A célula <strong className="text-blue-600">{createdCellName}</strong> foi criada com sucesso!
+                                A célula <strong className="text-primary">{createdCellName}</strong> foi criada com sucesso!
                             </p>
                             <p className="text-sm text-muted-foreground mb-8">
                                 O líder já pode acessar o sistema com as credenciais fornecidas.
@@ -754,7 +754,7 @@ const CellRegistration: React.FC = () => {
                                 </button>
                                 <button
                                     onClick={handleAddAnother}
-                                    className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg shadow-blue-500/30"
+                                    className="flex-1 px-6 py-3 bg-gradient-to-r from-primary to-primary/80 text-white font-semibold rounded-lg hover:from-primary hover:to-primary/70 transition-all shadow-lg shadow-primary/30"
                                 >
                                     + Adicionar Outra
                                 </button>

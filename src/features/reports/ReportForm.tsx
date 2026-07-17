@@ -126,7 +126,7 @@ const ReportForm: React.FC = () => {
 
   if ((loadingReport || loadingCell) && !cell) return (
     <div className="flex h-[60vh] items-center justify-center">
-      <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+      <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
     </div>
   );
   if (!cell) return null;
@@ -176,7 +176,7 @@ const ReportForm: React.FC = () => {
     <>
       <div className="max-w-lg mx-auto">
         <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
-          <div className="bg-blue-400 p-6 text-white">
+          <div className="bg-primary p-6 text-white">
             <h2 className="text-xl font-bold">{isEditing ? 'Editar Relatório' : 'Relatório Semanal'}</h2>
             <p className="opacity-90 mt-1 text-sm">{cell.name}</p>
             <p className="opacity-75 mt-0.5 text-sm capitalize">{formatDate(cellDate)}</p>
@@ -192,7 +192,7 @@ const ReportForm: React.FC = () => {
                 min="0"
                 {...register('members')}
                 onFocus={(e) => e.target.select()}
-                className={`w-full px-4 py-3 rounded-lg bg-white border ${errors.members ? 'border-red-500' : 'border-input'} text-foreground text-2xl font-bold text-center focus:ring-2 focus:ring-blue-500 outline-none`}
+                className={`w-full px-4 py-3 rounded-lg bg-white border ${errors.members ? 'border-red-500' : 'border-input'} text-foreground text-2xl font-bold text-center focus:ring-2 focus:ring-ring outline-none`}
               />
               {errors.members && <span className="text-red-500 text-xs mt-1 block">{errors.members.message}</span>}
             </div>
@@ -206,7 +206,7 @@ const ReportForm: React.FC = () => {
                 min="0"
                 {...register('visitors')}
                 onFocus={(e) => e.target.select()}
-                className={`w-full px-4 py-3 rounded-lg bg-white border ${errors.visitors ? 'border-red-500' : 'border-input'} text-foreground text-2xl font-bold text-center focus:ring-2 focus:ring-blue-500 outline-none`}
+                className={`w-full px-4 py-3 rounded-lg bg-white border ${errors.visitors ? 'border-red-500' : 'border-input'} text-foreground text-2xl font-bold text-center focus:ring-2 focus:ring-ring outline-none`}
               />
               {errors.visitors && <span className="text-red-500 text-xs mt-1 block">{errors.visitors.message}</span>}
             </div>
@@ -222,7 +222,7 @@ const ReportForm: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="animate-btn-pulse flex items-center gap-2 bg-blue-600 text-white font-medium py-2.5 px-8 rounded-lg shadow-sm disabled:opacity-70"
+                className="animate-btn-pulse flex items-center gap-2 bg-primary text-white font-medium py-2.5 px-8 rounded-lg shadow-sm disabled:opacity-70"
               >
                 <Save size={18} />
                 {isSubmitting ? 'Enviando...' : isEditing ? 'Atualizar' : 'Enviar Relatório'}
@@ -244,7 +244,7 @@ const ReportForm: React.FC = () => {
             <div className="p-6 flex flex-col gap-3">
               <button
                 onClick={() => navigate(`/edit-report/${duplicateReport.id}`)}
-                className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors"
+                className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold py-3 rounded-xl transition-colors"
               >
                 <FileEdit size={18} /> Editar relatório existente
               </button>
@@ -281,12 +281,12 @@ const ReportForm: React.FC = () => {
                   <p className="text-xs uppercase font-bold text-muted-foreground mt-1">Visitantes</p>
                 </div>
               </div>
-              <div className="bg-blue-50 border border-blue-100 rounded-xl p-5 mb-8">
-                <div className="text-blue-200 absolute text-4xl font-serif">"</div>
+              <div className="bg-primary/10 border border-primary/15 rounded-xl p-5 mb-8">
+                <div className="text-primary/40 absolute text-4xl font-serif">"</div>
                 <p className="text-foreground italic text-center text-sm leading-relaxed px-2">
                   O que fizerem, façam-no de todo o coração como se estivessem a servir o Senhor.
                 </p>
-                <p className="text-center text-xs font-bold text-blue-600 mt-3 uppercase tracking-wider">Colossenses 3:23</p>
+                <p className="text-center text-xs font-bold text-primary mt-3 uppercase tracking-wider">Colossenses 3:23</p>
               </div>
               <button
                 onClick={() => navigate('/ranking')}

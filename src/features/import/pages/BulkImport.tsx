@@ -109,11 +109,11 @@ const StepIndicator = ({ current, id, label, icon, order }: any) => {
             <div className={`
         w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300
         ${status === 'completed' ? 'bg-green-100 text-green-600' :
-                    status === 'active' ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'bg-muted text-muted-foreground'}
+                    status === 'active' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-muted text-muted-foreground'}
       `}>
                 {status === 'completed' ? <CheckCircle size={20} /> : icon}
             </div>
-            <span className={`text-xs font-medium ${status === 'active' ? 'text-blue-700' : 'text-muted-foreground'}`}>
+            <span className={`text-xs font-medium ${status === 'active' ? 'text-primary' : 'text-muted-foreground'}`}>
                 {label}
             </span>
         </div>

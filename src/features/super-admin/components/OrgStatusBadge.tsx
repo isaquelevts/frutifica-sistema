@@ -4,7 +4,7 @@ type Status = 'active' | 'past_due' | 'canceled' | 'trialing' | 'suspended' | st
 
 const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
   active: { label: 'Ativa', className: 'bg-green-100 text-green-700 border border-green-200' },
-  trialing: { label: 'Trial', className: 'bg-blue-100 text-blue-700 border border-blue-200' },
+  trialing: { label: 'Trial', className: 'bg-primary/15 text-primary border border-primary/20' },
   past_due: { label: 'Inadimplente', className: 'bg-yellow-100 text-yellow-700 border border-yellow-200' },
   canceled: { label: 'Cancelada', className: 'bg-muted text-muted-foreground border border-border' },
   suspended: { label: 'Suspensa', className: 'bg-red-100 text-red-700 border border-red-200' },

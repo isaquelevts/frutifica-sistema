@@ -191,7 +191,7 @@ const VisitorForm: React.FC = () => {
         return (
             <div className="flex h-[80vh] items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
                     <p className="text-muted-foreground font-medium animate-pulse">Carregando ficha...</p>
                 </div>
             </div>
@@ -230,7 +230,7 @@ const VisitorForm: React.FC = () => {
                                         borderColor: attendsCell ? '#2563EB' : '#cbd5e1'
                                     }}
                                 />
-                                <label className={`toggle-label block overflow-hidden h-7 rounded-full ${attendsCell ? 'bg-blue-600' : 'bg-input'}`}></label>
+                                <label className={`toggle-label block overflow-hidden h-7 rounded-full ${attendsCell ? 'bg-primary' : 'bg-input'}`}></label>
                             </div>
                         </div>
                     </div>
@@ -247,7 +247,7 @@ const VisitorForm: React.FC = () => {
                                             value={cellSearchTerm}
                                             onChange={(e) => setCellSearchTerm(e.target.value)}
                                             placeholder="Digite o nome da célula ou líder..."
-                                            className="w-full pl-10 pr-4 py-3 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none"
+                                            className="w-full pl-10 pr-4 py-3 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                             autoFocus
                                         />
                                     </div>
@@ -259,7 +259,7 @@ const VisitorForm: React.FC = () => {
                                                 <div
                                                     key={cell.id}
                                                     onClick={() => handleSelectCell(cell)}
-                                                    className="p-3 hover:bg-blue-50 cursor-pointer border-b last:border-0 border-border"
+                                                    className="p-3 hover:bg-primary/10 cursor-pointer border-b last:border-0 border-border"
                                                 >
                                                     <p className="font-bold text-foreground">{cell.name}</p>
                                                     <p className="text-xs text-muted-foreground">Líder: {cell.leaderName}</p>
@@ -270,9 +270,9 @@ const VisitorForm: React.FC = () => {
                                 </div>
                             ) : (
                                 <div className="space-y-4">
-                                    <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg flex justify-between items-center">
+                                    <div className="bg-primary/10 border border-primary/20 p-4 rounded-lg flex justify-between items-center">
                                         <div>
-                                            <p className="text-xs font-bold text-blue-600 uppercase mb-1">Célula Selecionada</p>
+                                            <p className="text-xs font-bold text-primary uppercase mb-1">Célula Selecionada</p>
                                             <p className="font-bold text-foreground">{selectedCell.name}</p>
                                             <p className="text-sm text-muted-foreground">{selectedCell.leaderName}</p>
                                         </div>
@@ -292,7 +292,7 @@ const VisitorForm: React.FC = () => {
                                             value={personSearchTerm}
                                             onChange={(e) => setPersonSearchTerm(e.target.value)}
                                             placeholder="Pesquisar nome de quem já participa..."
-                                            className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none"
+                                            className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                         />
                                         {suggestedMembers.length > 0 && (
                                             <div className="absolute z-50 w-full mt-1 bg-white border border-border rounded-lg shadow-xl">
@@ -328,7 +328,7 @@ const VisitorForm: React.FC = () => {
                                 <input
                                     type="text"
                                     {...register('nome')}
-                                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.nome ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
+                                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.nome ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                     placeholder="Nome do visitante"
                                 />
                                 {errors.nome && <span className="text-red-500 text-xs mt-1">{errors.nome.message}</span>}
@@ -344,7 +344,7 @@ const VisitorForm: React.FC = () => {
                                         type="tel"
                                         {...register('telefone')}
                                         onChange={(e) => setValue('telefone', maskPhone(e.target.value))}
-                                        className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.telefone ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 outline-none`}
+                                        className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.telefone ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring outline-none`}
                                         placeholder="(99) 99999-9999"
                                     />
                                     {errors.telefone && <span className="text-red-500 text-xs mt-1">{errors.telefone.message}</span>}
@@ -358,7 +358,7 @@ const VisitorForm: React.FC = () => {
                                     <input
                                         type="date"
                                         {...register('birthday')}
-                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none min-w-0"
+                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none min-w-0"
                                     />
                                 </div>
                             </div>
@@ -371,7 +371,7 @@ const VisitorForm: React.FC = () => {
                                 <input
                                     type="text"
                                     {...register('endereco')}
-                                    className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 outline-none"
+                                    className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring outline-none"
                                     placeholder="Rua, Número, Bairro"
                                 />
                             </div>
@@ -386,7 +386,7 @@ const VisitorForm: React.FC = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <label className={`
                     cursor-pointer p-4 rounded-xl border-2 flex flex-col items-center gap-2 transition-all
-                    ${tipoOrigem === 'visitante' ? 'border-blue-500 bg-blue-50' : 'border-border hover:border-border'}
+                    ${tipoOrigem === 'visitante' ? 'border-primary bg-primary/10' : 'border-border hover:border-border'}
                 `}>
                             <input
                                 type="radio"
@@ -394,8 +394,8 @@ const VisitorForm: React.FC = () => {
                                 value="visitante"
                                 className="hidden"
                             />
-                            <UserPlus size={24} className={tipoOrigem === 'visitante' ? 'text-blue-600' : 'text-muted-foreground'} />
-                            <span className={`font-bold ${tipoOrigem === 'visitante' ? 'text-blue-700' : 'text-muted-foreground'}`}>Visitante</span>
+                            <UserPlus size={24} className={tipoOrigem === 'visitante' ? 'text-primary' : 'text-muted-foreground'} />
+                            <span className={`font-bold ${tipoOrigem === 'visitante' ? 'text-primary' : 'text-muted-foreground'}`}>Visitante</span>
                         </label>
 
                         <label className={`
@@ -431,7 +431,7 @@ const VisitorForm: React.FC = () => {
                 <div className="flex justify-end pt-4">
                     <button
                         type="submit"
-                        className="flex items-center gap-2 bg-blue-600 text-white px-8 py-3 rounded-xl hover:bg-blue-700 font-bold shadow-lg transition-transform hover:-translate-y-0.5"
+                        className="flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-xl hover:bg-primary/90 font-bold shadow-lg transition-transform hover:-translate-y-0.5"
                     >
                         <Save size={20} />
                         {isEditing ? 'Atualizar Ficha' : 'Salvar Visitante'}

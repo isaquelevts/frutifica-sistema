@@ -85,7 +85,7 @@ const ReportsList: React.FC = () => {
     return (
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
           <p className="text-muted-foreground font-medium animate-pulse">Carregando relatórios...</p>
         </div>
       </div>
@@ -120,7 +120,7 @@ const ReportsList: React.FC = () => {
               placeholder="Pesquisar por nome da célula..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-muted/50 border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-4 py-2 bg-muted/50 border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
         )}
@@ -132,7 +132,7 @@ const ReportsList: React.FC = () => {
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full px-3 py-2 bg-muted/50 border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              className="w-full px-3 py-2 bg-muted/50 border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-ring text-sm"
               placeholder="Data Inicial"
             />
           </div>
@@ -142,7 +142,7 @@ const ReportsList: React.FC = () => {
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="w-full px-3 py-2 bg-muted/50 border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              className="w-full px-3 py-2 bg-muted/50 border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-ring text-sm"
               placeholder="Data Final"
             />
           </div>
@@ -247,7 +247,7 @@ const ReportsList: React.FC = () => {
                       <div className="flex justify-end gap-3">
                         <Link
                           to={`/edit-report/${report.id}`}
-                          className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium"
+                          className="inline-flex items-center gap-1 text-primary hover:text-primary font-medium"
                         >
                           <Edit2 size={16} />
                           <span>Editar</span>
@@ -329,7 +329,7 @@ const ReportsList: React.FC = () => {
               <div className="pt-3 border-t border-border flex justify-end gap-4">
                 <Link
                   to={`/edit-report/${report.id}`}
-                  className="flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-800"
+                  className="flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary"
                 >
                   <Edit2 size={16} /> Editar
                 </Link>

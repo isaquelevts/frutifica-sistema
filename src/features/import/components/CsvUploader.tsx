@@ -45,7 +45,7 @@ const CsvUploader: React.FC<CsvUploaderProps> = ({ onFileSelected }) => {
             <div
                 className={`
           border-2 border-dashed rounded-xl p-10 text-center transition-colors cursor-pointer
-          ${isDragOver ? 'border-blue-500 bg-blue-50' : 'border-input hover:border-input'}
+          ${isDragOver ? 'border-primary bg-primary/10' : 'border-input hover:border-input'}
         `}
                 onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
                 onDragLeave={() => setIsDragOver(false)}
@@ -61,7 +61,7 @@ const CsvUploader: React.FC<CsvUploaderProps> = ({ onFileSelected }) => {
                 />
 
                 <div className="flex flex-col items-center gap-4">
-                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                    <div className="w-16 h-16 bg-primary/15 rounded-full flex items-center justify-center text-primary">
                         <Upload size={32} />
                     </div>
                     <div>

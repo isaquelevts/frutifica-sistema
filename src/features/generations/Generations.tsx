@@ -59,7 +59,7 @@ const Generations: React.FC = () => {
     }, [usersData]);
 
     const colorOptions = [
-        { value: '#3B82F6', label: 'Azul', class: 'bg-blue-500' },
+        { value: '#3B82F6', label: 'Azul', class: 'bg-primary' },
         { value: '#10B981', label: 'Verde', class: 'bg-green-500' },
         { value: '#F59E0B', label: 'Laranja', class: 'bg-amber-500' },
         { value: '#EF4444', label: 'Vermelho', class: 'bg-red-500' },
@@ -146,7 +146,7 @@ const Generations: React.FC = () => {
         return (
             <div className="flex h-[60vh] items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
                     <p className="text-muted-foreground font-medium animate-pulse">Carregando gerações...</p>
                 </div>
             </div>
@@ -165,7 +165,7 @@ const Generations: React.FC = () => {
                         </p>
                         <button
                             onClick={() => handleOpenModal()}
-                            className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                            className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors"
                         >
                             <Plus size={20} />
                             Criar Primeira Geração
@@ -193,7 +193,7 @@ const Generations: React.FC = () => {
                                         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <button
                                                 onClick={() => handleOpenModal(gen)}
-                                                className="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                                                className="p-1.5 text-primary hover:bg-primary/10 rounded transition-colors"
                                                 title="Editar"
                                             >
                                                 <Edit2 size={16} />
@@ -251,7 +251,7 @@ const Generations: React.FC = () => {
                                 <input
                                     type="text"
                                     {...register('name')}
-                                    className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground outline-none focus:border-blue-500`}
+                                    className={`w-full px-4 py-2 rounded-lg bg-white border ${errors.name ? 'border-red-500' : 'border-input'} text-foreground outline-none focus:border-ring`}
                                     placeholder="Ex: Primeiro Amor, Geração de Samuel..."
                                 />
                                 {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>}
@@ -263,7 +263,7 @@ const Generations: React.FC = () => {
                                 </label>
                                 <textarea
                                     {...register('description')}
-                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground outline-none focus:border-blue-500 resize-none"
+                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground outline-none focus:border-ring resize-none"
                                     rows={3}
                                     placeholder="Descreva o propósito ou características desta geração..."
                                 />
@@ -275,7 +275,7 @@ const Generations: React.FC = () => {
                                 </label>
                                 <select
                                     {...register('leaderId')}
-                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground outline-none focus:border-blue-500"
+                                    className="w-full px-4 py-2 rounded-lg bg-white border border-input text-foreground outline-none focus:border-ring"
                                 >
                                     <option value="">Sem líder definido</option>
                                     {leaders.map((leader) => (
@@ -316,7 +316,7 @@ const Generations: React.FC = () => {
                                 </button>
                                 <button
                                     type="submit"
-                                    className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-medium shadow-sm"
+                                    className="flex items-center gap-2 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 font-medium shadow-sm"
                                 >
                                     <Save size={18} />
                                     Salvar Geração

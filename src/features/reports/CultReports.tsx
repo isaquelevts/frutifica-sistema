@@ -41,7 +41,7 @@ const CultReports: React.FC = () => {
     return (
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
           <p className="text-muted-foreground font-medium animate-pulse">Carregando relatórios de culto...</p>
         </div>
       </div>
@@ -115,7 +115,7 @@ const CultReports: React.FC = () => {
                   <td className="px-6 py-4 text-sm text-right">
                     <button
                       onClick={() => setSelectedCulto(c)}
-                      className="text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded-lg transition-colors inline-flex items-center gap-1 font-medium"
+                      className="text-primary hover:bg-primary/10 px-3 py-1.5 rounded-lg transition-colors inline-flex items-center gap-1 font-medium"
                     >
                       <Eye size={16} /> <span className="hidden sm:inline">Ver Completo</span>
                     </button>
@@ -139,7 +139,7 @@ const CultReports: React.FC = () => {
             <div className="bg-muted/50 px-6 py-4 border-b border-border flex justify-between items-center">
               <div>
                 <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                  <Calendar className="text-blue-600" size={20} />
+                  <Calendar className="text-primary" size={20} />
                   Relatório do Culto
                 </h2>
                 <p className="text-sm text-muted-foreground mt-1 capitalize">
@@ -161,12 +161,12 @@ const CultReports: React.FC = () => {
                   const stats = getCultoStats(selectedCulto.id);
                   return (
                     <>
-                      <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl text-center">
-                        <div className="inline-flex p-2 bg-blue-100 text-blue-600 rounded-full mb-2">
+                      <div className="bg-primary/10 border border-primary/15 p-4 rounded-xl text-center">
+                        <div className="inline-flex p-2 bg-primary/15 text-primary rounded-full mb-2">
                           <UserPlus size={20} />
                         </div>
-                        <h3 className="text-2xl font-bold text-blue-900">{stats.visitantes}</h3>
-                        <p className="text-xs uppercase font-bold text-blue-400">Visitantes</p>
+                        <h3 className="text-2xl font-bold text-primary">{stats.visitantes}</h3>
+                        <p className="text-xs uppercase font-bold text-primary">Visitantes</p>
                       </div>
                       <div className="bg-red-50 border border-red-100 p-4 rounded-xl text-center">
                         <div className="inline-flex p-2 bg-red-100 text-red-600 rounded-full mb-2">
@@ -198,7 +198,7 @@ const CultReports: React.FC = () => {
                           <div className="flex items-center gap-3">
                             <div className={`p-2 rounded-full ${person.tipoOrigem === 'convertido' ? 'bg-red-100 text-red-600' :
                               person.tipoOrigem === 'reconciliacao' ? 'bg-orange-100 text-orange-600' :
-                                'bg-blue-100 text-blue-600'
+                                'bg-primary/15 text-primary'
                               }`}>
                               {person.tipoOrigem === 'convertido' ? <Heart size={16} /> :
                                 person.tipoOrigem === 'reconciliacao' ? <RefreshCw size={16} /> :

@@ -23,13 +23,13 @@ const PaymentSuccess: React.FC = () => {
 
         <h1 className="text-2xl font-bold text-foreground mb-2">Assinatura Confirmada!</h1>
         <p className="text-muted-foreground mb-8">
-          Parabéns! Sua igreja agora está no plano <span className="font-bold text-blue-600 uppercase">{plan || 'PRO'}</span>.
+          Parabéns! Sua igreja agora está no plano <span className="font-bold text-primary uppercase">{plan || 'PRO'}</span>.
           Todos os recursos já foram desbloqueados.
         </p>
 
         <button
           onClick={() => navigate('/dashboard')}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+          className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
         >
           Ir para o Dashboard <ArrowRight size={20} />
         </button>

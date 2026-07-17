@@ -9,7 +9,7 @@ const Landing: React.FC = () => {
       <header className="fixed w-full bg-white/80 backdrop-blur-md border-b border-border z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="bg-blue-600 p-1.5 rounded-lg text-white">
+            <div className="bg-primary p-1.5 rounded-lg text-white">
               <Church size={24} />
             </div>
             <span className="text-xl font-bold text-foreground">Frutifica</span>
@@ -17,7 +17,7 @@ const Landing: React.FC = () => {
           <div className="flex items-center gap-4">
             <Link
               to="/login"
-              className="text-muted-foreground hover:text-blue-600 font-medium text-sm transition-colors"
+              className="text-muted-foreground hover:text-primary font-medium text-sm transition-colors"
             >
               Entrar
             </Link>
@@ -28,19 +28,19 @@ const Landing: React.FC = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 overflow-hidden relative">
         <div className="absolute top-0 right-0 -z-10 opacity-10 transform translate-x-1/3 -translate-y-1/4">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-[800px] h-[800px] text-blue-600 fill-current">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-[800px] h-[800px] text-primary fill-current">
             <path d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-4.9C93.5,9.3,82.2,22.9,71.2,35.2C60.2,47.5,49.5,58.5,37.1,66.1C24.7,73.7,10.6,77.9,-2.4,82.1C-15.4,86.3,-27.3,90.4,-38.6,85.2C-49.9,80,-60.6,65.4,-69.5,50.6C-78.4,35.8,-85.5,20.8,-85.1,6.1C-84.7,-8.6,-76.8,-23,-66.8,-35.1C-56.8,-47.2,-44.7,-57,-32.1,-65.1C-19.5,-73.2,-6.4,-79.6,5.3,-88.7L17,-97.8L44.7,-76.4Z" transform="translate(100 100)" />
           </svg>
         </div>
 
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-sm font-semibold mb-6 animate-fade-in-up">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/15 text-primary text-sm font-semibold mb-6 animate-fade-in-up">
             <Sparkles size={14} />
             <span>Potencializado por Inteligência Artificial</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold text-foreground leading-tight mb-6 tracking-tight">
             Gestão de Células <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Simples e Inteligente</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-600">Simples e Inteligente</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
             Elimine planilhas complicadas. Acompanhe o crescimento da sua igreja, gerencie líderes e receba insights estratégicos com o Frutifica.
@@ -74,7 +74,7 @@ const Landing: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Feature 1 */}
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6">
+              <div className="w-12 h-12 bg-primary/15 text-primary rounded-xl flex items-center justify-center mb-6">
                 <BarChart3 size={24} />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">Relatórios em Segundos</h3>

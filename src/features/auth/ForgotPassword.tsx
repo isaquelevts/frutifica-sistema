@@ -37,12 +37,12 @@ const ForgotPassword: React.FC = () => {
                 </Link>
 
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                    <div className="bg-blue-600 p-8 text-center">
+                    <div className="bg-primary p-8 text-center">
                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/20 text-white mb-4">
                             <Church size={32} />
                         </div>
                         <h1 className="text-2xl font-bold text-white">Recuperar Senha</h1>
-                        <p className="text-blue-100 mt-2">Enviaremos um link de recuperação para o seu email</p>
+                        <p className="text-primary-foreground/80 mt-2">Enviaremos um link de recuperação para o seu email</p>
                     </div>
 
                     <div className="p-8">
@@ -57,7 +57,7 @@ const ForgotPassword: React.FC = () => {
                                 </p>
                                 <Link
                                     to="/login"
-                                    className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition-colors text-center"
+                                    className="block w-full bg-primary hover:bg-primary/90 text-white font-medium py-2.5 rounded-lg transition-colors text-center"
                                 >
                                     Voltar para o Login
                                 </Link>
@@ -80,7 +80,7 @@ const ForgotPassword: React.FC = () => {
                                                 required
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
-                                                className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                                                className="w-full pl-10 pr-4 py-2 rounded-lg bg-white border border-input text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none"
                                                 placeholder="seu@email.com"
                                             />
                                         </div>
@@ -89,7 +89,7 @@ const ForgotPassword: React.FC = () => {
                                     <button
                                         type="submit"
                                         disabled={loading}
-                                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition-colors shadow-sm disabled:opacity-70 mt-2 flex items-center justify-center gap-2"
+                                        className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2.5 rounded-lg transition-colors shadow-sm disabled:opacity-70 mt-2 flex items-center justify-center gap-2"
                                     >
                                         {loading ? 'Enviando...' : (
                                             <>

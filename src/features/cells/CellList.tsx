@@ -74,7 +74,7 @@ const CellList: React.FC = () => {
     return (
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
           <p className="text-muted-foreground font-medium animate-pulse">Carregando células...</p>
         </div>
       </div>
@@ -90,7 +90,7 @@ const CellList: React.FC = () => {
         </div>
         <Link
           to="/register-cell"
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+          className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
         >
           <PlusCircle size={18} />
           Nova Célula
@@ -106,7 +106,7 @@ const CellList: React.FC = () => {
             placeholder="Buscar por nome da célula ou líder..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-4 py-2 bg-white border border-input text-foreground rounded-lg outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
         <div className="flex items-center gap-2">
@@ -114,7 +114,7 @@ const CellList: React.FC = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as any)}
-            className="bg-white border border-input text-foreground rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+            className="bg-white border border-input text-foreground rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-ring"
           >
             <option value="all">Todas</option>
             <option value="active">Ativas</option>
@@ -134,7 +134,7 @@ const CellList: React.FC = () => {
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h3 className="text-lg font-bold text-foreground">{cell.name}</h3>
-                  <p className="text-sm text-blue-600 font-medium">{generations.find(g => g.id === cell.generationId)?.name || ''}</p>
+                  <p className="text-sm text-primary font-medium">{generations.find(g => g.id === cell.generationId)?.name || ''}</p>
                 </div>
                 <button
                   onClick={() => toggleCellStatus(cell)}
@@ -150,8 +150,8 @@ const CellList: React.FC = () => {
                 <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Liderança</p>
                 <div className="space-y-2">
                   {/* Main Leader Card */}
-                  <div className="flex items-center p-2 bg-blue-50 rounded-lg border border-blue-100">
-                    <div className="w-8 h-8 rounded-full bg-blue-200 text-blue-700 flex items-center justify-center mr-3 font-bold text-xs">
+                  <div className="flex items-center p-2 bg-primary/10 rounded-lg border border-primary/15">
+                    <div className="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center mr-3 font-bold text-xs">
                       L
                     </div>
                     <div className="overflow-hidden">
@@ -184,10 +184,10 @@ const CellList: React.FC = () => {
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cell.address)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center text-blue-600 hover:text-blue-800 text-sm hover:underline cursor-pointer"
+                  className="flex items-center text-primary hover:text-primary text-sm hover:underline cursor-pointer"
                   title="Abrir no Google Maps"
                 >
-                  <MapPin size={16} className="mr-2 text-blue-500" />
+                  <MapPin size={16} className="mr-2 text-primary" />
                   <span className="truncate flex-1">{cell.address}</span>
                   <ExternalLink size={12} className="ml-1 opacity-50" />
                 </a>
@@ -199,7 +199,7 @@ const CellList: React.FC = () => {
               <div className="pt-2 flex gap-2">
                 <Link
                   to={`/edit-cell/${cell.id}`}
-                  className="flex items-center justify-center gap-2 flex-1 text-center bg-white hover:bg-muted/50 text-foreground hover:text-blue-700 font-medium py-2 rounded-lg transition-colors border border-border hover:border-blue-300 shadow-sm"
+                  className="flex items-center justify-center gap-2 flex-1 text-center bg-white hover:bg-muted/50 text-foreground hover:text-primary font-medium py-2 rounded-lg transition-colors border border-border hover:border-primary/40 shadow-sm"
                 >
                   <Edit size={16} />
                   Editar

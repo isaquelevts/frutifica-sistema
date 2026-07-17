@@ -42,7 +42,7 @@ const PlatformSettings = lazy(() => import('../features/super-admin/pages/Platfo
 
 const LazyFallback = () => (
   <div className="flex items-center justify-center h-64">
-    <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+    <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
   </div>
 );
 
@@ -183,7 +183,7 @@ const CatchAllRoute: React.FC = () => {
         return (
             <div className="flex h-screen items-center justify-center bg-muted/50">
                 <div className="flex flex-col items-center gap-4">
-                    <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
                     <p className="text-muted-foreground font-medium">Processando autenticação...</p>
                 </div>
             </div>

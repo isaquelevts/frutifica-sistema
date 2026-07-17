@@ -324,7 +324,7 @@ const GlobalMembers: React.FC = () => {
                 );
             case 'Membro':
                 return (
-                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] uppercase font-bold bg-blue-50 text-blue-700 border border-blue-100">
+                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] uppercase font-bold bg-primary/10 text-primary border border-primary/15">
                         <UserIcon size={10} /> Membro
                     </span>
                 );
@@ -355,7 +355,7 @@ const GlobalMembers: React.FC = () => {
     const getAvatarColor = (type: string) => {
         switch (type) {
             case 'Líder': return 'bg-purple-100 text-purple-600';
-            case 'Membro': return 'bg-blue-100 text-blue-600';
+            case 'Membro': return 'bg-primary/15 text-primary';
             default: return 'bg-orange-100 text-orange-600';
         }
     };
@@ -364,7 +364,7 @@ const GlobalMembers: React.FC = () => {
         return (
             <div className="flex h-[80vh] items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
                     <p className="text-muted-foreground font-medium animate-pulse">Carregando membros globais...</p>
                 </div>
             </div>
@@ -387,7 +387,7 @@ const GlobalMembers: React.FC = () => {
                             placeholder="Buscar por nome..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 bg-muted/50 border border-input rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full pl-10 pr-4 py-2 bg-muted/50 border border-input rounded-lg outline-none focus:ring-2 focus:ring-ring"
                         />
                     </div>
 
@@ -395,7 +395,7 @@ const GlobalMembers: React.FC = () => {
                         <select
                             value={cellFilter}
                             onChange={(e) => setCellFilter(e.target.value)}
-                            className="bg-white border border-input text-foreground rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 max-w-[150px] sm:max-w-none"
+                            className="bg-white border border-input text-foreground rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-ring max-w-[150px] sm:max-w-none"
                         >
                             <option value="all">Todas as Células</option>
                             {cells.map(c => (
@@ -407,7 +407,7 @@ const GlobalMembers: React.FC = () => {
                         <select
                             value={typeFilter}
                             onChange={(e) => setTypeFilter(e.target.value)}
-                            className="bg-white border border-input text-foreground rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+                            className="bg-white border border-input text-foreground rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-ring"
                         >
                             <option value="all">Todos os Tipos</option>
                             <option value="Líder">Líderes</option>
@@ -451,7 +451,7 @@ const GlobalMembers: React.FC = () => {
                                     )}
                                     <button
                                         onClick={() => handleEdit(person)}
-                                        className="p-1.5 text-blue-600 hover:bg-blue-50 rounded"
+                                        className="p-1.5 text-primary hover:bg-primary/10 rounded"
                                         title="Editar"
                                     >
                                         <Edit2 size={16} />
@@ -469,7 +469,7 @@ const GlobalMembers: React.FC = () => {
 
                         <div className="pt-3 border-t border-border space-y-2">
                             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                <Users size={14} className={person.cellName !== '-' && person.cellName !== 'Sem Célula' ? 'text-blue-500' : 'text-muted-foreground'} />
+                                <Users size={14} className={person.cellName !== '-' && person.cellName !== 'Sem Célula' ? 'text-primary' : 'text-muted-foreground'} />
                                 <span className={person.cellName === '-' || person.cellName.includes('Sem Célula') ? 'text-muted-foreground italic' : 'font-medium'}>
                                     {person.cellName}
                                 </span>
@@ -515,7 +515,7 @@ const GlobalMembers: React.FC = () => {
                                     <input
                                         type="text"
                                         {...registerLeader('name')}
-                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
+                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-ring text-foreground"
                                     />
                                     {errorsLeader.name && <span className="text-red-500 text-xs">{errorsLeader.name.message}</span>}
                                 </div>
@@ -539,7 +539,7 @@ const GlobalMembers: React.FC = () => {
                                     <label className="block text-sm font-medium text-foreground mb-1">Função</label>
                                     <select
                                         {...registerLeader('role')}
-                                        className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
+                                        className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-ring text-foreground"
                                     >
                                         <option value={UserRole.LEADER}>Líder</option>
                                         <option value={UserRole.COLEADER}>Co-Líder</option>
@@ -551,7 +551,7 @@ const GlobalMembers: React.FC = () => {
                                     <label className="block text-sm font-medium text-foreground mb-1">Célula</label>
                                     <select
                                         {...registerLeader('cellId')}
-                                        className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
+                                        className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-ring text-foreground"
                                     >
                                         <option value="">Nenhuma</option>
                                         {cells.map(c => (
@@ -568,7 +568,7 @@ const GlobalMembers: React.FC = () => {
                                     <input
                                         type="date"
                                         {...registerLeader('birthday')}
-                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
+                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-ring text-foreground"
                                     />
                                 </div>
                             </div>
@@ -611,7 +611,7 @@ const GlobalMembers: React.FC = () => {
                                 <input
                                     type="text"
                                     {...registerMember('name')}
-                                    className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
+                                    className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-ring text-foreground"
                                 />
                                 {errorsMember.name && <span className="text-red-500 text-xs">{errorsMember.name.message}</span>}
                             </div>
@@ -622,7 +622,7 @@ const GlobalMembers: React.FC = () => {
                                     type="tel"
                                     {...registerMember('phone')}
                                     onChange={(e) => setValueMember('phone', maskPhone(e.target.value))}
-                                    className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
+                                    className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-ring text-foreground"
                                     placeholder="(99) 99999-9999"
                                 />
                                 {errorsMember.phone && <span className="text-red-500 text-xs">{errorsMember.phone.message}</span>}
@@ -635,7 +635,7 @@ const GlobalMembers: React.FC = () => {
                                     <input
                                         type="date"
                                         {...registerMember('birthday')}
-                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
+                                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-ring text-foreground"
                                     />
                                 </div>
                             </div>
@@ -645,7 +645,7 @@ const GlobalMembers: React.FC = () => {
                                     <label className="block text-sm font-medium text-foreground mb-1">Tipo</label>
                                     <select
                                         {...registerMember('type')}
-                                        className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
+                                        className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-ring text-foreground"
                                     >
                                         <option value={MemberType.MEMBER}>Membro</option>
                                         <option value={MemberType.VISITOR}>Visitante</option>
@@ -655,7 +655,7 @@ const GlobalMembers: React.FC = () => {
                                     <label className="block text-sm font-medium text-foreground mb-1">Célula</label>
                                     <select
                                         {...registerMember('cellId')}
-                                        className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-blue-500 text-foreground"
+                                        className="w-full px-4 py-2 rounded-lg bg-muted/50 border border-input outline-none focus:border-ring text-foreground"
                                     >
                                         {cells.map(c => (
                                             <option key={c.id} value={c.id}>{c.name}</option>
@@ -674,7 +674,7 @@ const GlobalMembers: React.FC = () => {
                                 </button>
                                 <button
                                     type="submit"
-                                    className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-medium shadow-sm"
+                                    className="flex items-center gap-2 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 font-medium shadow-sm"
                                     disabled={sendingMember}
                                 >
                                     <Save size={18} /> {sendingMember ? 'Salvando...' : 'Salvar'}

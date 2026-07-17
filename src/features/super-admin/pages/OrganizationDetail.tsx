@@ -19,7 +19,7 @@ const OrganizationDetail: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -28,7 +28,7 @@ const OrganizationDetail: React.FC = () => {
     return (
       <div className="text-center py-16 text-muted-foreground">
         Igreja não encontrada.
-        <Link to="/super/organizations" className="block text-blue-600 mt-2 hover:underline">← Voltar</Link>
+        <Link to="/super/organizations" className="block text-primary mt-2 hover:underline">← Voltar</Link>
       </div>
     );
   }
@@ -70,8 +70,8 @@ const OrganizationDetail: React.FC = () => {
         </Link>
         <div className="bg-white rounded-xl border border-border p-6 shadow-sm">
           <div className="flex flex-wrap items-start gap-4">
-            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-              <Building2 size={24} className="text-blue-600" />
+            <div className="w-12 h-12 bg-primary/15 rounded-xl flex items-center justify-center flex-shrink-0">
+              <Building2 size={24} className="text-primary" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-3 mb-1">
@@ -92,7 +92,7 @@ const OrganizationDetail: React.FC = () => {
       {/* Cards de métricas */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
-          { label: 'Células', value: cellCount, icon: <Layout size={18} />, color: 'text-blue-600 bg-blue-50' },
+          { label: 'Células', value: cellCount, icon: <Layout size={18} />, color: 'text-primary bg-primary/10' },
           { label: 'Membros', value: memberCount, icon: <UserCheck size={18} />, color: 'text-green-600 bg-green-50' },
           { label: 'Usuários', value: userCount, icon: <Users size={18} />, color: 'text-violet-600 bg-violet-50' },
           { label: 'Relatórios', value: reportCount, icon: <FileText size={18} />, color: 'text-orange-600 bg-orange-50' },
@@ -119,7 +119,7 @@ const OrganizationDetail: React.FC = () => {
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors border-b-2 -mb-px ${
                 activeTab === tab.id
-                  ? 'border-blue-600 text-blue-600'
+                  ? 'border-primary text-primary'
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -152,7 +152,7 @@ const OrganizationDetail: React.FC = () => {
               <div className="flex items-center gap-3">
                 <div className="flex-1 bg-muted rounded-full h-3 overflow-hidden">
                   <div
-                    className="h-3 bg-blue-500 rounded-full transition-all"
+                    className="h-3 bg-primary rounded-full transition-all"
                     style={{ width: `${Math.min(100, (reportCount / Math.max(cellCount, 1)) * 100)}%` }}
                   />
                 </div>
@@ -170,7 +170,7 @@ const OrganizationDetail: React.FC = () => {
         <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
           {loadingCells ? (
             <div className="flex items-center justify-center h-32">
-              <div className="w-6 h-6 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+              <div className="w-6 h-6 border-4 border-primary border-t-transparent rounded-full animate-spin" />
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -229,7 +229,7 @@ const OrganizationDetail: React.FC = () => {
                     <td className="px-6 py-3">
                       <div className="flex flex-wrap gap-1">
                         {(profile.roles ?? []).map((role: string) => (
-                          <span key={role} className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 text-xs font-medium">
+                          <span key={role} className="px-2 py-0.5 rounded-full bg-primary/15 text-primary text-xs font-medium">
                             {role}
                           </span>
                         ))}
@@ -254,7 +254,7 @@ const OrganizationDetail: React.FC = () => {
         <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
           {loadingGenerations ? (
             <div className="flex items-center justify-center h-32">
-              <div className="w-6 h-6 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+              <div className="w-6 h-6 border-4 border-primary border-t-transparent rounded-full animate-spin" />
             </div>
           ) : (
             <div className="overflow-x-auto">

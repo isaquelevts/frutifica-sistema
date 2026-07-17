@@ -42,12 +42,12 @@ const Register: React.FC = () => {
         </Link>
 
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-          <div className="bg-blue-600 p-8 text-center">
+          <div className="bg-primary p-8 text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/20 text-white mb-4">
               <Church size={32} />
             </div>
             <h1 className="text-2xl font-bold text-white">Cadastre sua Igreja</h1>
-            <p className="text-blue-100 mt-2">Comece a usar o Frutifica hoje mesmo</p>
+            <p className="text-primary-foreground/80 mt-2">Comece a usar o Frutifica hoje mesmo</p>
           </div>
 
           <div className="p-8">
@@ -66,7 +66,7 @@ const Register: React.FC = () => {
                   <input
                     type="text"
                     {...register('orgName')}
-                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.orgName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.orgName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
                     placeholder="Ex: Igreja Batista Central"
                   />
                 </div>
@@ -80,7 +80,7 @@ const Register: React.FC = () => {
                   <input
                     type="text"
                     {...register('adminName')}
-                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.adminName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.adminName ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
                     placeholder="Seu nome"
                   />
                 </div>
@@ -94,7 +94,7 @@ const Register: React.FC = () => {
                   <input
                     type="email"
                     {...register('email')}
-                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.email ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.email ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
                     placeholder="admin@igreja.com"
                   />
                 </div>
@@ -108,7 +108,7 @@ const Register: React.FC = () => {
                   <input
                     type="password"
                     {...register('password')}
-                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.password ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none`}
+                    className={`w-full pl-10 pr-4 py-2 rounded-lg bg-white border ${errors.password ? 'border-red-500' : 'border-input'} text-foreground focus:ring-2 focus:ring-ring focus:border-ring outline-none`}
                     placeholder="Criar senha"
                   />
                 </div>
@@ -118,7 +118,7 @@ const Register: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition-colors shadow-sm disabled:opacity-70 mt-2"
+                className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2.5 rounded-lg transition-colors shadow-sm disabled:opacity-70 mt-2"
               >
                 {isSubmitting ? 'Criando conta...' : 'Cadastrar Igreja'}
               </button>
@@ -126,7 +126,7 @@ const Register: React.FC = () => {
 
             <div className="mt-6 text-center text-sm text-muted-foreground">
               Já tem uma conta?{' '}
-              <Link to="/login" className="text-blue-600 hover:underline font-medium">
+              <Link to="/login" className="text-primary hover:underline font-medium">
                 Fazer login
               </Link>
             </div>

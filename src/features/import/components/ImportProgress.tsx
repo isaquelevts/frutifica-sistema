@@ -31,11 +31,11 @@ const ImportProgress: React.FC<ImportProgressProps> = ({ logs, progress }) => {
             {/* Progress Bar */}
             <div className="w-full bg-muted rounded-full h-4 overflow-hidden relative">
                 <div
-                    className="bg-blue-600 h-full transition-all duration-500 ease-out"
+                    className="bg-primary h-full transition-all duration-500 ease-out"
                     style={{ width: `${progress}%` }}
                 />
             </div>
-            <p className="text-sm font-medium text-blue-600">{progress}% Concluído</p>
+            <p className="text-sm font-medium text-primary">{progress}% Concluído</p>
 
             {/* Logs */}
             {/* `dark` inverte os tokens dentro do console, mantendo-o escuro nos dois temas. */}

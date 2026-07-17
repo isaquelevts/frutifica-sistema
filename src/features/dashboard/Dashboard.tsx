@@ -385,7 +385,7 @@ const Dashboard: React.FC = () => {
     return (
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
           <p className="text-muted-foreground font-medium animate-pulse">Carregando painel de controle...</p>
         </div>
       </div>
@@ -397,19 +397,19 @@ const Dashboard: React.FC = () => {
 
       {/* LEADER QUICK ACTION */}
       {!isAdmin && user?.cellId && (
-        <div className="bg-gradient-to-r from-blue-700 to-indigo-600 rounded-xl p-6 md:p-8 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 transform hover:scale-[1.01] transition-transform duration-300 border-2 border-white/20">
+        <div className="bg-gradient-to-r from-primary to-indigo-600 rounded-xl p-6 md:p-8 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 transform hover:scale-[1.01] transition-transform duration-300 border-2 border-white/20">
           <div className="flex items-center gap-4 md:gap-6 w-full md:w-auto">
             <div className="bg-white/20 p-3 md:p-4 rounded-full backdrop-blur-sm shadow-inner shrink-0">
               <FileText className="w-8 h-8 md:w-12 md:h-12 text-white" />
             </div>
             <div>
               <h2 className="text-xl md:text-3xl font-bold mb-1 leading-tight">Enviar Relatório</h2>
-              <p className="text-blue-100 text-sm md:text-lg opacity-90 leading-snug">Registre sua reunião semanal.</p>
+              <p className="text-primary-foreground/80 text-sm md:text-lg opacity-90 leading-snug">Registre sua reunião semanal.</p>
             </div>
           </div>
           <Link
             to={`/report/${user.cellId}`}
-            className="animate-btn-pulse flex items-center gap-2 md:gap-3 bg-white text-blue-700 px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-lg md:text-xl shadow-lg w-full md:w-auto justify-center group"
+            className="animate-btn-pulse flex items-center gap-2 md:gap-3 bg-white text-primary px-6 py-3 md:px-8 md:py-4 rounded-xl font-bold text-lg md:text-xl shadow-lg w-full md:w-auto justify-center group"
           >
             Adicionar Agora <ArrowRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
           </Link>
@@ -548,7 +548,7 @@ const Dashboard: React.FC = () => {
                   {totalCellsCount}
                 </h3>
               </div>
-              <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
+              <div className="p-2 bg-primary/10 text-primary rounded-lg">
                 <Users size={20} />
               </div>
             </CardContent>
@@ -585,7 +585,7 @@ const Dashboard: React.FC = () => {
               <p className="text-sm font-medium text-muted-foreground">Relatórios</p>
               <h3 className="text-2xl font-bold text-foreground mt-1">{totalReports}</h3>
             </div>
-            <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
+            <div className="p-2 bg-primary/10 text-primary rounded-lg">
               <FileText size={20} />
             </div>
           </CardContent>
@@ -697,7 +697,7 @@ const Dashboard: React.FC = () => {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-4 px-2">
-                <MapPin className="text-blue-600" size={20} />
+                <MapPin className="text-primary" size={20} />
                 <h3 className="text-lg font-semibold text-foreground">Mapa das Células</h3>
               </div>
               <div ref={mapRef} className="w-full h-80 rounded-lg z-0 relative" />
@@ -740,7 +740,7 @@ const Dashboard: React.FC = () => {
           <CardHeader className="space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <CardTitle className="flex items-center gap-2">
-                <FileText size={20} className="text-blue-600" /> Status de Preenchimento
+                <FileText size={20} className="text-primary" /> Status de Preenchimento
               </CardTitle>
               <div className="flex items-center gap-2 flex-wrap">
                 <Badge variant="success">{filledCount} preenchidas</Badge>

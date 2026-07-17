@@ -15,9 +15,9 @@ import {
 } from './whatsappService';
 
 const CronInfo: React.FC = () => (
-  <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl text-sm text-blue-900 p-4">
+  <div className="mt-6 bg-primary/10 border border-primary/20 rounded-xl text-sm text-primary p-4">
     <div className="flex items-start gap-3">
-      <CheckCircle size={18} className="shrink-0 mt-0.5 text-blue-600" />
+      <CheckCircle size={18} className="shrink-0 mt-0.5 text-primary" />
       <p>
         <strong>Envio automático ativado.</strong> Todo dia às 15h (horário de Brasília), o
         sistema envia automaticamente o lembrete das células pendentes para o grupo
