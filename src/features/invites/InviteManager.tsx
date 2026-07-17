@@ -9,7 +9,7 @@ import { buildInviteUrl, type Invite, type InviteStatus } from './inviteService'
 import { createInviteSchema, type CreateInviteFormData } from './schemas/inviteSchema';
 import {
     Link2, Plus, Copy, Check, Trash2, Users, Network, Clock,
-    MessageCircle, Loader2, Ticket, AlertCircle,
+    Loader2, Ticket, AlertCircle,
 } from 'lucide-react';
 
 const STATUS_STYLES: Record<InviteStatus, { label: string; className: string }> = {
@@ -70,14 +70,6 @@ const InviteManager: React.FC = () => {
         }
         setCopiedId(invite.id);
         setTimeout(() => setCopiedId((id) => (id === invite.id ? null : id)), 2000);
-    };
-
-    const handleShareWhatsapp = (invite: Invite) => {
-        const url = buildInviteUrl(invite.token);
-        const text =
-            `Paz! 🙏 Cadastre sua célula no Frutifica por este link:\n\n${url}\n\n` +
-            `É rápido — você cria seu acesso e já registra os dados da célula.`;
-        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
     };
 
     const handleRevoke = async (invite: Invite) => {
@@ -241,7 +233,6 @@ const InviteManager: React.FC = () => {
                                     invite={invite}
                                     copied={copiedId === invite.id}
                                     onCopy={() => handleCopy(invite)}
-                                    onShare={() => handleShareWhatsapp(invite)}
                                     onRevoke={() => handleRevoke(invite)}
                                     disabled={isSuspended}
                                 />
@@ -277,11 +268,10 @@ interface InviteCardProps {
     copied: boolean;
     disabled?: boolean;
     onCopy?: () => void;
-    onShare?: () => void;
     onRevoke?: () => void;
 }
 
-const InviteCard: React.FC<InviteCardProps> = ({ invite, copied, disabled, onCopy, onShare, onRevoke }) => {
+const InviteCard: React.FC<InviteCardProps> = ({ invite, copied, disabled, onCopy, onRevoke }) => {
     const status = STATUS_STYLES[invite.status];
     const isActive = invite.status === 'active';
     const expiresAt = formatDate(invite.expiresAt);
@@ -333,12 +323,6 @@ const InviteCard: React.FC<InviteCardProps> = ({ invite, copied, disabled, onCop
                             }`}
                         >
                             {copied ? <><Check size={15} /> Copiado</> : <><Copy size={15} /> Copiar</>}
-                        </button>
-                        <button
-                            onClick={onShare}
-                            className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors"
-                        >
-                            <MessageCircle size={15} /> WhatsApp
                         </button>
                         <button
                             onClick={onRevoke}
