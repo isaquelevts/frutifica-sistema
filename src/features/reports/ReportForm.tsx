@@ -290,7 +290,7 @@ const ReportForm: React.FC = () => {
               </div>
               <button
                 onClick={() => navigate('/ranking')}
-                className="w-full flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-6 rounded-xl transition-all"
+                className="w-full flex items-center justify-center gap-2 bg-foreground hover:bg-foreground/90 text-background font-bold py-3 px-6 rounded-xl transition-all"
               >
                 Ver Reconhecimento <ArrowRight size={18} />
               </button>

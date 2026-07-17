@@ -77,7 +77,7 @@ const Pricing: React.FC = () => {
               className={`mt-8 block w-full py-3 px-6 border border-transparent rounded-xl text-center font-bold text-lg transition-colors
                 ${currentPlan === 'free'
                   ? 'bg-muted text-muted-foreground cursor-default'
-                  : 'bg-slate-800 text-white hover:bg-slate-900'}
+                  : 'bg-foreground text-background hover:bg-foreground/90'}
               `}
             >
               {currentPlan === 'free' ? 'Plano Atual' : 'Mudar para Grátis'}
