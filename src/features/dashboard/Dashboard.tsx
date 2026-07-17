@@ -12,10 +12,12 @@ import { isReportRealized } from '../../shared/utils/reportStatus';
 import { getWeekRange, hasCellDayPassed } from '../../shared/utils/cellSchedule';
 import L from 'leaflet';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -30,19 +32,43 @@ function parseReportDate(dateStr: string): Date {
 }
 
 const frequencyChartConfig = {
-  membros: { label: 'Membros', color: '#2563eb' },
-  visitantes: { label: 'Visitantes', color: '#93c5fd' },
+  membros: { label: 'Membros', color: 'var(--chart-1)' },
+  visitantes: { label: 'Visitantes', color: 'var(--chart-2)' },
 } satisfies ChartConfig;
 
 const growthChartConfig = {
-  media: { label: 'Média de Participantes', color: 'var(--color-chart-3)' },
+  media: { label: 'Média de Participantes', color: 'var(--chart-3)' },
 } satisfies ChartConfig;
 
 const realizedChartConfig = {
   value: { label: 'Relatórios' },
-  realizada: { label: 'Realizada', color: '#22c55e' },
-  naoRealizada: { label: 'Não Realizada', color: '#ef4444' },
+  realizada: { label: 'Realizada', color: 'var(--success)' },
+  naoRealizada: { label: 'Não Realizada', color: 'var(--destructive)' },
 } satisfies ChartConfig;
+
+const StatCard: React.FC<{ label: string; value: React.ReactNode; icon: React.ReactNode }> = ({ label, value, icon }) => (
+  <Card>
+    <CardHeader className="flex flex-row items-center justify-between gap-2">
+      <div className="flex flex-col gap-1">
+        <CardDescription>{label}</CardDescription>
+        <CardTitle className="text-2xl tabular-nums">{value}</CardTitle>
+      </div>
+      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+        {icon}
+      </div>
+    </CardHeader>
+  </Card>
+);
+
+const EmptyState: React.FC<{ icon: React.ReactNode; title: string; description?: string; className?: string }> = ({ icon, title, description, className }) => (
+  <Empty className={className}>
+    <EmptyHeader>
+      <EmptyMedia variant="icon">{icon}</EmptyMedia>
+      <EmptyTitle>{title}</EmptyTitle>
+      {description && <EmptyDescription>{description}</EmptyDescription>}
+    </EmptyHeader>
+  </Empty>
+);
 
 const Dashboard: React.FC = () => {
   const { user, isAdmin } = useAuth();
@@ -383,10 +409,21 @@ const Dashboard: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="flex h-[60vh] items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-muted-foreground font-medium animate-pulse">Carregando painel de controle...</p>
+      <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-2">
+          <Skeleton className="h-8 w-48" />
+          <Skeleton className="h-4 w-64" />
+        </div>
+        <Skeleton className="h-32 w-full rounded-xl" />
+        <div className={`grid grid-cols-1 ${isAdmin ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-4`}>
+          {Array.from({ length: isAdmin ? 4 : 3 }).map((_, i) => (
+            <Skeleton key={i} className="h-28 w-full rounded-xl" />
+          ))}
+        </div>
+        <Skeleton className="h-72 w-full rounded-xl" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Skeleton className="h-72 w-full rounded-xl" />
+          <Skeleton className="h-72 w-full rounded-xl" />
         </div>
       </div>
     );
@@ -397,7 +434,7 @@ const Dashboard: React.FC = () => {
 
       {/* LEADER QUICK ACTION */}
       {!isAdmin && user?.cellId && (
-        <div className="bg-gradient-to-r from-primary to-indigo-600 rounded-xl p-6 md:p-8 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 transform hover:scale-[1.01] transition-transform duration-300 border-2 border-white/20">
+        <div className="bg-gradient-to-r from-primary to-primary/70 rounded-xl p-6 md:p-8 text-primary-foreground shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 transform hover:scale-[1.01] transition-transform duration-300 border-2 border-white/20">
           <div className="flex items-center gap-4 md:gap-6 w-full md:w-auto">
             <div className="bg-white/20 p-3 md:p-4 rounded-full backdrop-blur-sm shadow-inner shrink-0">
               <FileText className="w-8 h-8 md:w-12 md:h-12 text-white" />
@@ -442,7 +479,7 @@ const Dashboard: React.FC = () => {
               )}
             </div>
             {activeFilterCount > 0 && (
-              <Button variant="ghost" size="sm" onClick={clearFilters} className="text-muted-foreground hover:text-red-500">
+              <Button variant="ghost" size="sm" onClick={clearFilters} className="text-muted-foreground hover:text-destructive">
                 <X size={16} /> Limpar filtros
               </Button>
             )}
@@ -486,7 +523,7 @@ const Dashboard: React.FC = () => {
                   />
                 </div>
                 {(!customStartDate || !customEndDate) && (
-                  <p className="text-xs text-amber-600 self-end pb-2">Escolha as duas datas para ver os relatórios do período.</p>
+                  <p className="text-xs text-warning self-end pb-2">Escolha as duas datas para ver os relatórios do período.</p>
                 )}
               </div>
             )}
@@ -536,60 +573,16 @@ const Dashboard: React.FC = () => {
 
       {/* Stats Cards */}
       <div className={`grid grid-cols-1 ${isAdmin ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-4`}>
-
         {isAdmin && (
-          <Card>
-            <CardContent className="p-6 flex justify-between items-start">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">
-                  {selectedCellId === 'all' ? 'Células Ativas' : 'Célula Selecionada'}
-                </p>
-                <h3 className="text-2xl font-bold text-foreground mt-1">
-                  {totalCellsCount}
-                </h3>
-              </div>
-              <div className="p-2 bg-primary/10 text-primary rounded-lg">
-                <Users size={20} />
-              </div>
-            </CardContent>
-          </Card>
+          <StatCard
+            label={selectedCellId === 'all' ? 'Células Ativas' : 'Célula Selecionada'}
+            value={totalCellsCount}
+            icon={<Users size={20} />}
+          />
         )}
-
-        <Card>
-          <CardContent className="p-6 flex justify-between items-start">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">Participantes</p>
-              <h3 className="text-2xl font-bold text-foreground mt-1">{totalParticipants}</h3>
-            </div>
-            <div className="p-2 bg-purple-50 text-purple-600 rounded-lg">
-              <UserCheck size={20} />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6 flex justify-between items-start">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">Visitantes</p>
-              <h3 className="text-2xl font-bold text-foreground mt-1">{totalVisitors}</h3>
-            </div>
-            <div className="p-2 bg-orange-50 text-orange-600 rounded-lg">
-              <TrendingUp size={20} />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6 flex justify-between items-start">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">Relatórios</p>
-              <h3 className="text-2xl font-bold text-foreground mt-1">{totalReports}</h3>
-            </div>
-            <div className="p-2 bg-primary/10 text-primary rounded-lg">
-              <FileText size={20} />
-            </div>
-          </CardContent>
-        </Card>
+        <StatCard label="Participantes" value={totalParticipants} icon={<UserCheck size={20} />} />
+        <StatCard label="Visitantes" value={totalVisitors} icon={<TrendingUp size={20} />} />
+        <StatCard label="Relatórios" value={totalReports} icon={<FileText size={20} />} />
       </div>
 
       <div className="space-y-6">
@@ -602,18 +595,16 @@ const Dashboard: React.FC = () => {
             {frequencyData.length > 0 ? (
               <ChartContainer config={frequencyChartConfig} className="h-64 w-full">
                 <BarChart data={frequencyData}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                  <XAxis dataKey="name" stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                  <XAxis dataKey="name" stroke="var(--muted-foreground)" fontSize={12} tickLine={false} axisLine={false} />
+                  <YAxis stroke="var(--muted-foreground)" fontSize={12} tickLine={false} axisLine={false} />
                   <ChartTooltip content={<ChartTooltipContent />} />
                   <Bar dataKey="membros" name="Membros" fill="var(--color-membros)" radius={[4, 4, 0, 0]} />
                   <Bar dataKey="visitantes" name="Visitantes" fill="var(--color-visitantes)" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ChartContainer>
             ) : (
-              <div className="h-64 flex flex-col items-center justify-center text-muted-foreground">
-                <p>Sem dados neste período.</p>
-              </div>
+              <EmptyState className="h-64" icon={<TrendingUp />} title="Sem dados neste período" />
             )}
           </CardContent>
         </Card>
@@ -645,17 +636,15 @@ const Dashboard: React.FC = () => {
                   </PieChart>
                 </ChartContainer>
               ) : (
-                <div className="h-64 flex items-center justify-center text-muted-foreground">
-                  Sem dados neste período.
-                </div>
+                <EmptyState className="h-64" icon={<XCircle />} title="Sem dados neste período" />
               )}
             </CardContent>
             <div className="flex items-center justify-center gap-4 pb-6 text-sm">
               <span className="flex items-center gap-1.5 text-muted-foreground">
-                <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: '#22c55e' }} /> Realizada
+                <span className="size-2.5 rounded-full bg-success" /> Realizada
               </span>
               <span className="flex items-center gap-1.5 text-muted-foreground">
-                <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: '#ef4444' }} /> Não Realizada
+                <span className="size-2.5 rounded-full bg-destructive" /> Não Realizada
               </span>
             </div>
           </Card>
@@ -663,7 +652,7 @@ const Dashboard: React.FC = () => {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0">
               <CardTitle className="flex items-center gap-2">
-                <XCircle size={20} className="text-red-600" /> Células Não Realizadas
+                <XCircle size={20} className="text-destructive" /> Células Não Realizadas
               </CardTitle>
               <Badge variant="destructive">{notRealizedReports.length}</Badge>
             </CardHeader>
@@ -684,9 +673,12 @@ const Dashboard: React.FC = () => {
                   ))}
                 </ul>
               ) : (
-                <div className="h-64 flex items-center justify-center text-muted-foreground text-center px-4">
-                  Nenhuma célula não realizada nesse período. 🎉
-                </div>
+                <EmptyState
+                  className="h-64"
+                  icon={<CheckCircle2 />}
+                  title="Tudo em dia! 🎉"
+                  description="Nenhuma célula não realizada neste período."
+                />
               )}
             </CardContent>
           </Card>
@@ -720,17 +712,15 @@ const Dashboard: React.FC = () => {
             {growthData.length > 0 ? (
               <ChartContainer config={growthChartConfig} className="h-64 w-full">
                 <LineChart data={growthData}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                  <XAxis dataKey="name" stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                  <XAxis dataKey="name" stroke="var(--muted-foreground)" fontSize={12} tickLine={false} axisLine={false} />
+                  <YAxis stroke="var(--muted-foreground)" fontSize={12} tickLine={false} axisLine={false} />
                   <ChartTooltip content={<ChartTooltipContent />} />
                   <Line type="monotone" dataKey="media" name="Média de Participantes" stroke="var(--color-media)" strokeWidth={3} dot={{ strokeWidth: 2 }} />
                 </LineChart>
               </ChartContainer>
             ) : (
-              <div className="h-64 flex items-center justify-center text-muted-foreground">
-                Sem dados neste período
-              </div>
+              <EmptyState className="h-64" icon={<TrendingUp />} title="Sem dados neste período" />
             )}
           </CardContent>
         </Card>
@@ -804,9 +794,7 @@ const Dashboard: React.FC = () => {
                 </TableBody>
               </Table>
             ) : (
-              <div className="h-32 flex items-center justify-center text-muted-foreground">
-                Nenhuma célula neste filtro.
-              </div>
+              <EmptyState className="h-32" icon={<Users />} title="Nenhuma célula neste filtro" />
             )}
           </CardContent>
         </Card>
