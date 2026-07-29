@@ -19,8 +19,34 @@ const ABANDON_SESSION_HOURS = 48;
 // ─────────────────────────────────────────────────────────────
 // Envio de mensagens
 // ─────────────────────────────────────────────────────────────
-function toJid(phone: string): string {
-  return phone.includes('@') ? phone : `${phone}@s.whatsapp.net`;
+// Resolve o destino real do envio. Celulares brasileiros podem estar
+// registrados no WhatsApp COM ou SEM o nono dígito, e a Evolution só faz essa
+// correção quando recebe os dígitos crus e consulta o servidor. Mandar um JID
+// já montado (…@s.whatsapp.net) pula a resolução — era por isso que números
+// salvos com o nono dígito (ex: 5594988024142) não entregavam a mensagem.
+//
+// Estratégia: pergunta à Evolution qual das variantes (com/sem o 9) existe e
+// usa o JID retornado. Se a consulta falhar, cai para os dígitos crus e deixa
+// a própria Evolution resolver — ainda melhor do que forçar um JID fixo.
+async function resolveJid(instanceName: string, phone: string): Promise<string> {
+  if (phone.includes('@')) return phone; // já é um JID (grupo, por exemplo)
+  const digits = phone.replace(/\D/g, '');
+  const variants = brPhoneVariants(digits);
+  try {
+    const resp = await fetch(`${EVOLUTION_URL()}/chat/whatsappNumbers/${instanceName}`, {
+      method: 'POST',
+      headers: { apikey: EVOLUTION_KEY(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ numbers: variants }),
+    });
+    if (resp.ok) {
+      const data: any = await resp.json();
+      const hit = Array.isArray(data) ? data.find((d: any) => d?.exists && d?.jid) : null;
+      if (hit?.jid) return hit.jid as string;
+    }
+  } catch (e: any) {
+    console.error(`[whatsapp-leader] Erro ao resolver JID de ${phone}: ${e.message}`);
+  }
+  return digits;
 }
 
 // Números de celular brasileiros podem estar registrados no WhatsApp com ou
@@ -42,10 +68,11 @@ function brPhoneVariants(digits: string): string[] {
 
 async function sendText(instanceName: string, phone: string, text: string): Promise<boolean> {
   try {
+    const number = await resolveJid(instanceName, phone);
     const resp = await fetch(`${EVOLUTION_URL()}/message/sendText/${instanceName}`, {
       method: 'POST',
       headers: { apikey: EVOLUTION_KEY(), 'Content-Type': 'application/json' },
-      body: JSON.stringify({ number: toJid(phone), text }),
+      body: JSON.stringify({ number, text }),
     });
     return resp.ok;
   } catch (e: any) {
