@@ -4,8 +4,10 @@ import {
   LayoutDashboard, Users, FileText, PlusCircle, Church,
   Trophy, LogOut, UserCog, AlertTriangle, UserCheck,
   ClipboardList,
-  Network, Building2, Settings, Shield, MessageCircle, Ticket
+  Network, Building2, Settings, Shield, MessageCircle, Ticket,
+  HeartHandshake, UserPlus, Contact
 } from 'lucide-react';
+import { consolidationAccess } from '../../features/consolidacao/consolidacaoService';
 import { useAuth } from '../auth/AuthContext';
 import { UserRole } from '../../shared/types/types';
 import {
@@ -48,6 +50,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     if (roles.includes(UserRole.ADMIN)) return 'Administrador';
     if (roles.includes(UserRole.LEADER)) return 'Líder';
     if (roles.includes(UserRole.COLEADER)) return 'Co-Líder';
+    if (roles.includes(UserRole.CONSOLIDACAO_GESTOR)) return 'Gestor da Consolidação';
+    if (roles.includes(UserRole.CONSOLIDADOR)) return 'Consolidador';
     if (roles.includes(UserRole.INTRODUTOR)) return 'Introdutor';
     return 'Membro';
   };
@@ -55,6 +59,20 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const isSuspended = organization?.subscriptionStatus === 'suspended';
 
   let menuStructure: MenuGroup[] = [];
+  const consAccess = consolidationAccess(user?.roles);
+
+  const consolidationGroup: MenuGroup | null = consAccess ? {
+    title: 'CONSOLIDAÇÃO',
+    items: consAccess === 'gestor' ? [
+      { path: '/consolidacao', label: 'Painel da Consolidação', icon: <HeartHandshake size={20} /> },
+      { path: '/consolidacao/pessoas', label: 'Pessoas', icon: <Contact size={20} /> },
+      { path: '/consolidacao/nova', label: 'Cadastrar Pessoa', icon: <UserPlus size={20} /> },
+      { path: '/consolidacao/equipe', label: 'Equipe e Acessos', icon: <UserCog size={20} /> },
+    ] : [
+      { path: '/consolidacao/pessoas', label: 'Minha Fila', icon: <Contact size={20} /> },
+      { path: '/consolidacao/nova', label: 'Cadastrar Pessoa', icon: <UserPlus size={20} /> },
+    ],
+  } : null;
 
   // ─── SEÇÃO SUPER ADMIN (somente para superadmin) ────────────────────────
   if (isSuperAdmin) {
@@ -90,6 +108,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       ]
     });
 
+    if (consolidationGroup) menuStructure.push(consolidationGroup);
+
     menuStructure.push({
       title: 'CONFIGURAÇÕES',
       items: [
@@ -99,14 +119,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   } else {
     // ─── MENU LÍDER ─────────────────────────────────────────────────────────
-    const reportPath = user?.cellId ? `/report/${user.cellId}` : '/reports';
-    menuStructure.push({
-      items: [
-        { path: reportPath, label: 'Relatório', icon: <FileText size={20} /> },
-        { path: '/ranking', label: 'Reconhecimento', icon: <Trophy size={20} /> },
-        { path: '/reports', label: 'Meus Relatórios', icon: <ClipboardList size={20} /> },
-      ]
-    });
+    // Quem só tem acesso à consolidação não vê o menu de célula.
+    const isCellUser = user?.roles?.some(r => r === UserRole.LEADER || r === UserRole.COLEADER) || !!user?.cellId;
+    if (isCellUser || !consolidationGroup) {
+      const reportPath = user?.cellId ? `/report/${user.cellId}` : '/reports';
+      menuStructure.push({
+        items: [
+          { path: reportPath, label: 'Relatório', icon: <FileText size={20} /> },
+          { path: '/ranking', label: 'Reconhecimento', icon: <Trophy size={20} /> },
+          { path: '/reports', label: 'Meus Relatórios', icon: <ClipboardList size={20} /> },
+        ]
+      });
+    }
+    if (consolidationGroup) menuStructure.push(consolidationGroup);
   }
 
   const isActive = (path: string) => {
@@ -115,6 +140,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     if (path === '/dashboard') return location.pathname === '/dashboard';
     if (path.startsWith('/report/')) return location.pathname.startsWith('/report/') || location.pathname.startsWith('/edit-report/');
     if (path === '/reports') return location.pathname === '/reports';
+    if (path === '/consolidacao') return location.pathname === '/consolidacao';
+    if (path === '/consolidacao/pessoas') return location.pathname.startsWith('/consolidacao/pessoas');
     return location.pathname.startsWith(path);
   };
 

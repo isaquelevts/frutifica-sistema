@@ -26,7 +26,9 @@ export enum UserRole {
   ADMIN = 'admin',
   LEADER = 'leader',
   COLEADER = 'coleader',
-  INTRODUTOR = 'introdutor'
+  INTRODUTOR = 'introdutor',
+  CONSOLIDADOR = 'consolidador',
+  CONSOLIDACAO_GESTOR = 'consolidacao_gestor'
 }
 
 export enum TipoCulto {

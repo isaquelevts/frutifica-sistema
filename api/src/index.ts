@@ -14,6 +14,7 @@ import organizationRoutes from './routes/organizations';
 import inviteRoutes from './routes/invites';
 import superadminRoutes from './routes/superadmin';
 import migrateRoutes from './routes/migrate';
+import consolidationRoutes from './routes/consolidation';
 import whatsappRoutes, { runReminder } from './routes/whatsapp';
 import whatsappLeaderFlowRoutes, { runLeaderReminderTick } from './routes/whatsappLeaderFlow';
 
@@ -36,6 +37,7 @@ app.use('/api/organizations', organizationRoutes);
 app.use('/api/invites', inviteRoutes);
 app.use('/api/superadmin', superadminRoutes);
 app.use('/api/migrate', migrateRoutes);
+app.use('/api/consolidacao', consolidationRoutes);
 app.use('/api/whatsapp', whatsappRoutes);
 app.use('/api/whatsapp/leader', whatsappLeaderFlowRoutes);
 
